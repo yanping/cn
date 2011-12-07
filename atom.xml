@@ -4,7 +4,7 @@
   <title><![CDATA[雁起平沙的网络日志]]></title>
   <link href="http://yanping.github.com/cn/atom.xml" rel="self"/>
   <link href="http://yanping.github.com/cn/"/>
-  <updated>2011-12-07T17:13:39+08:00</updated>
+  <updated>2011-12-07T17:16:28+08:00</updated>
   <id>http://yanping.github.com/cn/</id>
   <author>
     <name><![CDATA[ypchen]]></name>
@@ -57,6 +57,10 @@ github pages的<a target="_blank" href="http://pages.github.com/">官方主页</
 <a target="_blank" href="http://blog.lyhdev.com/2011/10/octopress-github-markdown.html">使用 Octopress + GitHub 免費架設部落格，以 Markdown 語法快速發表文章</a><br/>
 <a target="_blank" href="http://yavaeye.com/p/show/hello-octopress">Hello octopress</a><br/>
 <a target="_blank" href="http://lucifr.com/2011/11/23/bye-bye-wordpress-hello-octopress/">Bye-bye WordPress. Hello Octopress!</a></p>
+
+<p>脚注：
+<a id="1">1</a>: 请看他的博文<a href="http://yihui.name/cn/2011/10/back-into-the-dust/">魂归大地</a>
+<a id="2">2</a>: 还有别的类似系统，请看<a href="http://iwantmyname.com/blog/2011/02/list-static-website-generators.html">这里</a></p>
 ]]></content>
   </entry>
   
