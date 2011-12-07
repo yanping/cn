@@ -90,7 +90,7 @@
   </header>
 
 
-<div class="entry-content"><p>前段时间看到COS上的各位都有博客，也想开个博，给COS的各位管理员发邮件，向他请教如何开个像怡轩和太云那样的博客，思喆兄说要向益辉申请空间和cos的二级域名。无奈老大太忙，迟迟没有给我分配空间和域名，只是某次提到有个叫<a target="_blank" href="http://github.com">github</a>的东西，可以在上面建网页，还可以写博客，写博客还可以不用网络哦亲，只要在本地写好，哪天有网络了就一个push过去哦亲，<a href="%E8%AF%B7%E7%9C%8B%E4%BB%96%E7%9A%84%E5%8D%9A%E6%96%87">so fashion！</a>于是我又给他写了很多邮件，向他请教如何使用该系统，结果，他还是不回复。得，自己研究吧。</p>
+<div class="entry-content"><p>前段时间看到COS上的各位都有博客，也想开个博，给COS的各位管理员发邮件，向他请教如何开个像怡轩和太云那样的博客，思喆兄说要向益辉申请空间和cos的二级域名。无奈老大太忙，迟迟没有给我分配空间和域名，只是某次提到有个叫<a target="_blank" href="http://github.com">github</a>的东西，可以在上面建网页，还可以写博客，写博客还可以不用网络哦亲，只要在本地写好，哪天有网络了就一个push过去哦亲，<a href="#1">so fashion！</a>于是我又给他写了很多邮件，向他请教如何使用该系统，结果，他还是不回复。得，自己研究吧。</p>
 
 <p>关于如何在github上创建页面本文就不讲了，文章末尾会列出参考文献，本文着重介绍github页面的域名绑定问题。
 github pages的<a target="_blank" href="http://pages.github.com/">官方主页</a>这样说：</p>
@@ -105,7 +105,7 @@ github pages的<a target="_blank" href="http://pages.github.com/">官方主页</
 
 <p>现在问题就来自上面的最后一条，当我建立了个用户页面 http://username.github.com并把它的域名绑定为顶级域名example.com之后，我账户下所有代码库页面都变成了example.com下面的二级目录。我想这可能是因为代码库页面原来的网址为http://username.github.com/repo，DNS把http://username.github.com解析成了http://example.com。请看 <a target="_blank" href="https://github.com/lmorchard">https://github.com/lmorchard</a>，他在github上有两个博客， <a target="_blank" href="http://decafbad.com/skein">http://decafbad.com/skein</a> 和 <a target="_blank" href="http://decafbad.com/blog/">http://decafbad.com/blog/ </a></p>
 
-<p>-然而当我把用户页面的域名绑定为二级域名http://sub.example.com之后，所有代码库的页面都404了。所以我还是建议把顶级域名绑定到用户页面，这样代码库页面也能够正常访问。- 今天又试了一下，我把用户页面的域名绑定为二级域名，项目页面还是可以显示的，依然是二级目录的形式。明天我再试试换过来会怎么样。</p>
+<p><del>然而当我把用户页面的域名绑定为二级域名http://sub.example.com之后，所有代码库的页面都404了。所以我还是建议把顶级域名绑定到用户页面，这样代码库页面也能够正常访问。</del> 今天又试了一下，我把用户页面的域名绑定为二级域名，项目页面还是可以显示的，依然是二级目录的形式。明天我再试试换过来会怎么样。</p>
 
 <p>如果我不给用户页面绑定域名，或者干脆不创建用户页面，是不是可以给代码库页面绑定域名呢？答案是否定的，因为A指向需要提供个IP地址，CNAM需要指向个域名，而不能是http://username.github.com/repo的形式。</p>
 
@@ -115,7 +115,7 @@ github pages的<a target="_blank" href="http://pages.github.com/">官方主页</
 
 <h3>快速应用</h3>
 
-<p>jekyll对初学者太难掌握，有人推荐使用<a target="_blank" href="http://www.octopress.org">octopress</a>、<a target="_blank" href="https://github.com/cloudhead/toto">toto</a>或者<a target="_blank" href="http://alexyoung.org/2011/07/24/pop/">pop</a>等基于 Jekyll 的静态博客站点生成<a href="%E8%BF%98%E6%9C%89%E5%88%AB%E7%9A%84%E7%B1%BB%E4%BC%BC%E7%B3%BB%E7%BB%9F%EF%BC%8C%E8%AF%B7%E7%9C%8B[%E8%BF%99%E9%87%8C](http://iwantmyname.com/blog/2011/02/list-static-website-generators.html)">系统</a>，它很大程度上简化了用 Jekyll 搭建博客的过程。可惜这些系统在windows下都不能顺畅使用，我也没试成功。使用Linux的同学可以试一试。</p>
+<p>jekyll对初学者太难掌握，有人推荐使用<a target="_blank" href="http://www.octopress.org">octopress</a>、<a target="_blank" href="https://github.com/cloudhead/toto">toto</a>或者<a target="_blank" href="http://alexyoung.org/2011/07/24/pop/">pop</a>等基于 Jekyll 的静态博客站点生成<a href="#2">系统</a>，它很大程度上简化了用 Jekyll 搭建博客的过程。可惜这些系统在windows下都不能顺畅使用，我也没试成功。使用Linux的同学可以试一试。</p>
 
 <h3>参考文章：</h3>
 
