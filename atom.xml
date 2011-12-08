@@ -4,7 +4,7 @@
   <title><![CDATA[雁起平沙的网络日志]]></title>
   <link href="http://chen.yanping.me/cn/atom.xml" rel="self"/>
   <link href="http://chen.yanping.me/cn/"/>
-  <updated>2011-12-08T12:19:51+08:00</updated>
+  <updated>2011-12-08T13:08:31+08:00</updated>
   <id>http://chen.yanping.me/cn/</id>
   <author>
     <name><![CDATA[ypchen]]></name>
@@ -60,8 +60,8 @@ github pages的<a target="_blank" href="http://pages.github.com/">官方主页</
 
 <h4>脚注：</h4>
 
-<p><a id="1">1</a>: 请看他的博文<a href="http://yihui.name/cn/2011/10/back-into-the-dust/">魂归大地</a> [<a href="#back1">↩</a>] <br />
-<a id="2">2</a>: 还有别的类似系统，请看<a href="http://iwantmyname.com/blog/2011/02/list-static-website-generators.html">这里</a> [ <a href="#back2">↩</a> ]</p>
+<p>1 : 请看他的博文<a href="http://yihui.name/cn/2011/10/back-into-the-dust/">魂归大地</a> [<a id="1" href="#back1">↩</a>]
+2 : 还有别的类似系统，请看<a href="http://iwantmyname.com/blog/2011/02/list-static-website-generators.html">这里</a> [ <a id="2" href="#back2">↩</a> ]</p>
 ]]></content>
   </entry>
   
