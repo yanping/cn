@@ -1,6 +1,14 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <urlset xmlns='http://www.sitemaps.org/schemas/sitemap/0.9'>
     <url>
+        <loc>http://chen.yanping.me/cn/blog/2011/11/12/study-plan/</loc>
+        <lastmod>2011-12-08T15:49:18+08:00</lastmod>
+    </url>
+    <url>
+        <loc>http://chen.yanping.me/cn/blog/2011/11/12/use-jekyll-template/</loc>
+        <lastmod>2011-12-08T15:54:55+08:00</lastmod>
+    </url>
+    <url>
         <loc>http://chen.yanping.me/cn/blog/2011/12/03/hello-octopress/</loc>
         <lastmod>2011-12-07T15:45:34+08:00</lastmod>
     </url>
@@ -10,10 +18,10 @@
     </url>
     <url>
         <loc>http://chen.yanping.me/cn/blog/archives/</loc>
-        <lastmod>2011-12-08T13:13:20+08:00</lastmod>
+        <lastmod>2011-12-08T15:54:55+08:00</lastmod>
     </url>
     <url>
         <loc>http://chen.yanping.me/cn/</loc>
-        <lastmod>2011-12-08T13:13:20+08:00</lastmod>
+        <lastmod>2011-12-08T15:54:55+08:00</lastmod>
     </url>
 </urlset>
