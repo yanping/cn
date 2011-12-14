@@ -9,7 +9,7 @@
   <meta name="author" content="ypchen">
 
   
-  <meta name="description" content="前段时间看到COS上的各位都有博客，也想开个博，给COS的各位管理员发邮件，向他请教如何开个像怡轩和太云那样的博客，思喆兄说要向益辉申请空间和cos的二级域名。无奈老大太忙，迟迟没有给我分配空间和域名，只是某次提到有个叫github的东西，可以在上面建网页，还可以写博客，写博客还可以不用网络哦亲， &hellip;">
+  <meta name="description" content="前段时间看到COS上的各位都有博客，也想开个博，给COS的各位管理员发邮件，向他们请教如何开个像怡轩和太云那样的博客，思喆兄说要向益辉申请空间和cos的二级域名。无奈老大太忙，迟迟没有给我分配空间和域名，只是某次提到有个叫github的东西，可以在上面建网页，还可以写博客，写博客还可以不用网络哦亲 &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -45,7 +45,7 @@
   <nav role="navigation"><ul class="subscription" data-subscription="rss email">
   <li><a href="/cn/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
   
-    <li><a href="yanping.chen@cos.name" rel="subscribe-email" title="subscribe via email">Email</a></li>
+    <li><a href="chen@yanping.me" rel="subscribe-email" title="subscribe via email">Email</a></li>
   
 </ul>
 <form action="http://google.com/search" method="get">
@@ -93,7 +93,7 @@
   </header>
 
 
-  <div class="entry-content"><p>前段时间看到COS上的各位都有博客，也想开个博，给COS的各位管理员发邮件，向他请教如何开个像怡轩和太云那样的博客，思喆兄说要向益辉申请空间和cos的二级域名。无奈老大太忙，迟迟没有给我分配空间和域名，只是某次提到有个叫<a target="_blank" href="http://github.com">github</a>的东西，可以在上面建网页，还可以写博客，写博客还可以不用网络哦亲，只要在本地写好，哪天有网络了就一个push过去哦亲，so fashion！<sup>[<a id="back1" href="#1">1</a>]</sup>于是我又给他写了很多邮件，向他请教如何使用该系统，结果，他还是不回复。得，自己研究吧。</p>
+  <div class="entry-content"><p>前段时间看到COS上的各位都有博客，也想开个博，给COS的各位管理员发邮件，向他们请教如何开个像怡轩和太云那样的博客，思喆兄说要向益辉申请空间和cos的二级域名。无奈老大太忙，迟迟没有给我分配空间和域名，只是某次提到有个叫<a target="_blank" href="http://github.com">github</a>的东西，可以在上面建网页，还可以写博客，写博客还可以不用网络哦亲，只要在本地写好，哪天有网络了就一个push过去哦亲，so fashion！<sup>[<a id="back1" href="#1">1</a>]</sup>于是我又给他写了很多邮件，向他请教如何使用该系统，结果，他还是不回复。得，自己研究吧。</p>
 
 <p>关于如何在github上创建页面本文就不讲了，文章末尾会列出参考文献，本文着重介绍github页面的域名绑定问题。
 github pages的<a target="_blank" href="http://pages.github.com/">官方主页</a>这样说：</p>
@@ -106,42 +106,12 @@ github pages的<a target="_blank" href="http://pages.github.com/">官方主页</
 </ul>
 
 
-<p>现在问题就来自上面的最后一条，当我建立了个用户页面 http://username.github.com并把它的域名绑定为顶级域名example.com之后，我账户下所有代码库页面都变成了example.com下面的二级目录。我想这可能是因为代码库页面原来的网址为http://username.github.com/repo，DNS把http://username.github.com解析成了http://example.com。请看 <a target="_blank" href="https://github.com/lmorchard">https://github.com/lmorchard</a>，他在github上有两个博客， <a target="_blank" href="http://decafbad.com/skein">http://decafbad.com/skein</a> 和 <a target="_blank" href="http://decafbad.com/blog/">http://decafbad.com/blog/ </a></p>
-
-<p><del>然而当我把用户页面的域名绑定为二级域名http://sub.example.com之后，所有代码库的页面都404了。所以我还是建议把顶级域名绑定到用户页面，这样代码库页面也能够正常访问。</del> 今天又试了一下，我把用户页面的域名绑定为二级域名，项目页面还是可以显示的，依然是二级目录的形式。明天我再试试换过来会怎么样。</p>
-
-<p>如果我不给用户页面绑定域名，或者干脆不创建用户页面，是不是可以给代码库页面绑定域名呢？答案是否定的，因为A指向需要提供个IP地址，CNAM需要指向个域名，而不能是http://username.github.com/repo的形式。</p>
-
-<p>如果想充分利用你的域名和子域名，我暂时能想到的就是多开几个github账户吧，关于一台电脑上多个github账户的操作，网上有现成的教程，我会在以后整理出来。</p>
-
-<p>我也注意到github也有例外，请看<a target="_blank" href="http://gitready.com/">http://gitready.com/</a>这个网站，它在github上的代码地址是<a target="_blank" href="http://github.com/gitready/gitready/">http://github.com/gitready/gitready/</a> , 可以看到它还有别的语言版本，域名分别是<a target="_blank" href="http://de.gitready.com/">http://de.gitready.com/</a>、<a target="_blank" href="http://fr.gitready.com">http://fr.gitready.com</a> 。。。 这是怎么做到的呢？ 我注意到，它这个目录下没有master分支，是跟这个有关吗？ 目前还没有得到作者的回复，也从知晓。感兴趣的同学们来研究一下吧。</p>
-
-<h3>快速应用</h3>
-
-<p><code>jekyll</code>对初学者太难掌握，有人推荐使用<a target="_blank" href="http://www.octopress.org">octopress</a>、<a target="_blank" href="https://github.com/cloudhead/toto">toto</a>或者<a target="_blank" href="http://alexyoung.org/2011/07/24/pop/">pop</a>等基于Jekyll的静态博客站点生成系统<sup>[<a id="back2" href="#2">2</a>]</sup>，它很大程度上简化了用Jekyll搭建博客的过程。可惜这些系统在windows下都不能顺畅使用，我也没试成功。使用Linux的同学可以试一试。</p>
-
-<h3>参考文章：</h3>
-
-<p><a target="_blank" href="https://github.com/blog/272-github-pages">Github Pages </a><br/>
-<a target="_blank" href="http://ravenw.com/blog/2011/08/27/blog-with-jekyll/">基于Jekyll搭建自己的博客 </a><br/>
-<a target="_blank" href="http://blog.leezhong.com/tech/2010/08/25/make-github-as-blog-engine.html">像黑客一样写博客</a><br/>
-<a target="_blank" href="http://blog.leezhong.com/tech/2010/08/25/make-github-as-blog-engine.html">使用github作为博客引擎</a><br/>
-<a target="_blank" href="http://www.alexrothenberg.com/2011/01/27/moved-blog-to-jekyll-and-github-pages.html">Alex Rothenberg - Moved Blog to Jekyll and GitHub Pages</a><br/>
-<a target="_blank" href="http://gotgit.github.com/gotgithub">github教程《GoGitHub》</a><br/>
-<a target="_blank" href="http://www.shaoshing.com/2010/04/03/blog-engine-jekyll-vs-toto/">轻量级博客工具: Jekyll vs ToTo</a><br/>
-<a target="_blank" href="http://blog.lyhdev.com/2011/10/octopress-github-markdown.html">使用 Octopress + GitHub 免費架設部落格，以 Markdown 語法快速發表文章</a><br/>
-<a target="_blank" href="http://yavaeye.com/p/show/hello-octopress">Hello octopress</a><br/>
-<a target="_blank" href="http://lucifr.com/2011/11/23/bye-bye-wordpress-hello-octopress/">Bye-bye WordPress. Hello Octopress!</a></p>
-
-<h4>脚注：</h4>
-
-<ol>
-<li>请看他的博文<a href="http://yihui.name/cn/2011/10/back-into-the-dust/">魂归大地</a> [<a id="1" href="#back1">↩</a>]</li>
-<li>还有别的类似系统，请看<a href="http://iwantmyname.com/blog/2011/02/list-static-website-generators.html">这里</a> [ <a id="2" href="#back2">↩</a> ]</li>
-</ol>
-
 </div>
   
+  
+    <footer>
+      <a rel="full-article" href="/cn/blog/2011/12/04/github-pages-domain/">Read on &rarr;</a>
+    </footer>
   
 
 
@@ -321,7 +291,11 @@ github pages的<a target="_blank" href="http://pages.github.com/">官方主页</
 <aside class="sidebar">
   
     <section>
-  <h1>Recent Posts</h1>
+  <h1>关于本人</h1>
+  <p>非主流统计学家，不靠谱的经济分析师</p>
+</section>
+<section>
+  <h1>近期文章</h1>
   <ul id="recent_posts">
     
       <li class="post">
@@ -341,6 +315,43 @@ github pages的<a target="_blank" href="http://pages.github.com/">官方主页</
       </li>
     
   </ul>
+</section>
+
+<section>
+  <h1>Github代码库</h1>
+  <ul id="gh_repos">
+    <li class="loading">更新状态&#8230;</li>
+  </ul>
+  
+  <a href="https://github.com/yanping">@yanping</a> on Github
+  
+  <script type="text/javascript">
+    $.domReady(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'yanping',
+            count: 0,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/cn/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+<section>
+<h1>新浪微博</h1>
+<iframe width="100%" height="90" class="share_self"  frameborder="0" scrolling="no" 
+	src="http://widget.weibo.com/weiboshow/index.php?	language=&width=0&height=90&fansRow=2&ptype=1&speed=0&skin=1&isTitle=0&noborder=0&isWeibo=0&isFans=0&uid=1780626537&verifier=d1d5f291&dpc=1">
+</iframe>
 </section>
 
 

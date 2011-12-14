@@ -13,7 +13,7 @@
 Dec 04 2011 你好！octopress
 Dec 03 2011 使用现有的jekyll模板
 Nov 12 2011 学习计划
-Nov 12 2011 Recent Posts 浅谈github页面域名绑定 你好！ &hellip;">
+Nov 12 2011 近期文章 浅谈github页面域名绑定 你好！octopress &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -49,7 +49,7 @@ Nov 12 2011 Recent Posts 浅谈github页面域名绑定 你好！ &hellip;">
   <nav role="navigation"><ul class="subscription" data-subscription="rss email">
   <li><a href="/cn/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
   
-    <li><a href="yanping.chen@cos.name" rel="subscribe-email" title="subscribe via email">Email</a></li>
+    <li><a href="chen@yanping.me" rel="subscribe-email" title="subscribe via email">Email</a></li>
   
 </ul>
 <form action="http://google.com/search" method="get">
@@ -129,7 +129,7 @@ Nov 12 2011 Recent Posts 浅谈github页面域名绑定 你好！ &hellip;">
 <aside class="sidebar">
   
     <section>
-  <h1>Recent Posts</h1>
+  <h1>近期文章</h1>
   <ul id="recent_posts">
     
       <li class="post">
@@ -149,6 +149,43 @@ Nov 12 2011 Recent Posts 浅谈github页面域名绑定 你好！ &hellip;">
       </li>
     
   </ul>
+</section>
+
+<section>
+  <h1>Github代码库</h1>
+  <ul id="gh_repos">
+    <li class="loading">更新状态...</li>
+  </ul>
+  
+  <a href="https://github.com/yanping">@yanping</a> on Github
+  
+  <script type="text/javascript">
+    $.domReady(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'yanping',
+            count: 0,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/cn/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+<section>
+<h1>新浪微博</h1>
+<iframe width="100%" height="90" class="share_self"  frameborder="0" scrolling="no" 
+	src="http://widget.weibo.com/weiboshow/index.php?	language=&width=0&height=90&fansRow=2&ptype=1&speed=0&skin=1&isTitle=0&noborder=0&isWeibo=0&isFans=0&uid=1780626537&verifier=d1d5f291&dpc=1">
+</iframe>
 </section>
 
 
