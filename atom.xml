@@ -4,7 +4,7 @@
   <title><![CDATA[雁起平沙的网络日志]]></title>
   <link href="http://chen.yanping.me/cn/atom.xml" rel="self"/>
   <link href="http://chen.yanping.me/cn/"/>
-  <updated>2011-12-15T18:27:48+08:00</updated>
+  <updated>2011-12-15T18:32:03+08:00</updated>
   <id>http://chen.yanping.me/cn/</id>
   <author>
     <name><![CDATA[ypchen]]></name>
@@ -129,7 +129,7 @@
 
 <p>下面是要注意的：</p>
 
-<p>首先，Jekyll默认的是用<a href="https://github.com/shopify/liquid/wiki/liquid-for-designers">Liquid模板系统</a>。这意味着，你用Liquid能做的事，在Jekyll模板里也能做。例如，在<title>标签，我们可以用两种Liquid标记语言：<em>输出标记</em>（output markup）和<em>标签标记</em>(tag markup)。输出标记会输出文本（如果被引用的变量存在），而标签标记不会。输出标记是用双花括号分隔，而标签标记是用花括号-百分号对分隔。</p>
+<p>首先，Jekyll默认的是用<a href="https://github.com/shopify/liquid/wiki/liquid-for-designers">Liquid模板系统</a>。这意味着，你用Liquid能做的事，在Jekyll模板里也能做。例如，在<code>&lt;title&gt;</code>标签，我们可以用两种Liquid标记语言：<em>输出标记</em>（output markup）和<em>标签标记</em>(tag markup)。输出标记会输出文本（如果被引用的变量存在），而标签标记不会。输出标记是用双花括号分隔，而标签标记是用花括号-百分号对分隔。</p>
 
 <p>其次，Liquid标签中诸如<code>page.title</code>和<code>content</code>等都是Jekyll提供的变量；你可以查看文档中的<a href="https://github.com/mojombo/jekyll/wiki/Template-Data">可用的模板数据</a>。我们也可以创建自定义的模板数据。</p>
 
