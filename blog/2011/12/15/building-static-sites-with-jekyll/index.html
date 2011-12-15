@@ -94,10 +94,10 @@
 
 <h2>Step 0: 遭遇Jekyll</h2>
 
-<blockquote><p>Jekyll is a simple, blog aware, static site generator.</p></blockquote>
-
-
-<p>Jekyll是一种简单的、适用于博客（blog aware）的、静态网站生成引擎。Jekyll网站的宣传语这么说。但，这究竟是什么意思呢？静态网站生成引擎是利用一整套文件生成网站的程序。正如你看到的，我们可以利用一套模板，单独生成内容文件，然后用Jekyll生成网站。“blog aware”意思是我们可以用它来创建博客，或者其他有系列文章（例如合集，英文称portfolio）发布的网站。让我们来尝试一下吧！</p>
+<p>{% blockquote %}
+Jekyll is a simple, blog aware, static site generator.
+{% endblockquote %}
+Jekyll是一种简单的、适用于博客（blog aware）的、静态网站生成引擎。Jekyll网站的宣传语这么说。但，这究竟是什么意思呢？静态网站生成引擎是利用一整套文件生成网站的程序。正如你看到的，我们可以利用一套模板，单独生成内容文件，然后用Jekyll生成网站。“blog aware”意思是我们可以用它来创建博客，或者其他有系列文章（例如合集，英文称portfolio）发布的网站。让我们来尝试一下吧！</p>
 
 <!--more-->
 
@@ -130,74 +130,42 @@
 
 <p>我们来创建一个layout文件。我们以包含所有元素的全局layout文件开始。在_layouts目录下创建名为default.html的新文件（叫什么名字无所谓），加入下面的代码：</p>
 
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-<span class='line-number'>21</span>
-<span class='line-number'>22</span>
-<span class='line-number'>23</span>
-<span class='line-number'>24</span>
-<span class='line-number'>25</span>
-<span class='line-number'>26</span>
-<span class='line-number'>27</span>
-<span class='line-number'>28</span>
-<span class='line-number'>29</span>
-<span class='line-number'>30</span>
-<span class='line-number'>31</span>
-<span class='line-number'>32</span>
-<span class='line-number'>33</span>
-</pre></td><td class='code'><pre><code class='html'><span class='line'><span class="cp">&lt;!DOCTYPE html&gt;</span>
-</span><span class='line'><span class="nt">&lt;html&gt;</span>
-</span><span class='line'><span class="nt">&lt;head&gt;</span>
-</span><span class='line'>  <span class="nt">&lt;meta</span> <span class="na">charset=</span><span class="s">utf-8</span> <span class="nt">/&gt;</span>
-</span><span class='line'>  <span class="nt">&lt;title&gt;</span>  用Jekyll构建静态网站 |  John Doe, Photographer <span class="nt">&lt;/title&gt;</span>
-</span><span class='line'>  <span class="nt">&lt;link</span> <span class="na">rel=</span><span class="s">&quot;stylesheet&quot;</span> <span class="na">href=</span><span class="s">&quot;/css/styles.css&quot;</span> <span class="nt">/&gt;</span>
-</span><span class='line'><span class="nt">&lt;/head&gt;</span>
-</span><span class='line'><span class="nt">&lt;body&gt;</span>
-</span><span class='line'>
-</span><span class='line'>  <span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">&quot;main&quot;</span><span class="nt">&gt;</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="nt">&lt;header&gt;</span>
-</span><span class='line'>      <span class="nt">&lt;h1&gt;</span> John Doe Photograghy <span class="nt">&lt;/h1&gt;</span>
-</span><span class='line'>    <span class="nt">&lt;header&gt;</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="nt">&lt;nav</span> <span class="na">role=</span><span class="s">&quot;navigation&quot;</span><span class="nt">&gt;</span>
-</span><span class='line'>      <span class="nt">&lt;ul&gt;</span>
-</span><span class='line'>        <span class="nt">&lt;li&gt;&lt;a</span> <span class="na">href=</span><span class="s">&quot;/&quot;</span><span class="nt">&gt;</span>Home<span class="nt">&lt;/a&gt;&lt;/li&gt;</span>
-</span><span class='line'>        <span class="nt">&lt;li&gt;&lt;a</span> <span class="na">href=</span><span class="s">&quot;/portfolio/&quot;</span><span class="nt">&gt;</span>Portfolio<span class="nt">&lt;/a&gt;&lt;/li&gt;</span>
-</span><span class='line'>        <span class="nt">&lt;li&gt;&lt;a</span> <span class="na">href=</span><span class="s">&quot;/about&quot;</span><span class="nt">&gt;</span>About<span class="nt">&lt;/a&gt;&lt;/li&gt;</span>
-</span><span class='line'>        <span class="nt">&lt;li&gt;&lt;a</span> <span class="na">href=</span><span class="s">&quot;/contact&quot;</span><span class="nt">&gt;</span>Contact<span class="nt">&lt;/a&gt;&lt;/li&gt;</span>
-</span><span class='line'>      <span class="nt">&lt;/ul&gt;</span>
-</span><span class='line'>    <span class="nt">&lt;/nav&gt;</span>
-</span><span class='line'>
-</span><span class='line'>    
-</span><span class='line'>
-</span><span class='line'>    <span class="nt">&lt;footer&gt;</span>
-</span><span class='line'>      <span class="nt">&lt;p&gt;</span>@copy; John Doe Photography 2011 | All Rights Reserved. <span class="nt">&lt;/p&gt;</span>
-</span><span class='line'>    <span class="nt">&lt;/footer&gt;</span>
-</span><span class='line'>
-</span><span class='line'>  <span class="nt">&lt;/div&gt;</span>
-</span><span class='line'><span class="nt">&lt;/body&gt;</span>
-</span><span class='line'><span class="nt">&lt;/html&gt;</span>
-</span></code></pre></td></tr></table></div></figure>
+<p>{%codeblock lang:html%}
+&lt;!DOCTYPE html>
+<html>
+<head>
+  <meta charset=utf-8 />
+  <title> {% if page.title %} {{ page.title }} | {% endif %} John Doe, Photographer </title>
+  <link rel="stylesheet" href="/cn/css/styles.css" />
+</head>
+<body></p>
 
+<p>  <div id="main"></p>
+
+<pre><code>&lt;header&gt;
+  &lt;h1&gt; John Doe Photograghy &lt;/h1&gt;
+&lt;header&gt;
+
+&lt;nav role="navigation"&gt;
+  &lt;ul&gt;
+    &lt;li&gt;&lt;a href="/cn/"&gt;Home&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href="/cn/portfolio/"&gt;Portfolio&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href="/cn/about"&gt;About&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href="/cn/contact"&gt;Contact&lt;/a&gt;&lt;/li&gt;
+  &lt;/ul&gt;
+&lt;/nav&gt;
+
+{{ content }}
+
+&lt;footer&gt;
+  &lt;p&gt;@copy; John Doe Photography 2011 | All Rights Reserved. &lt;/p&gt;
+&lt;/footer&gt;
+</code></pre>
+
+<p>  </div>
+</body>
+</html>
+{%endcodeblock%}</p>
 
 <p>下面是要注意的：</p>
 
@@ -207,208 +175,123 @@
 
 <p>最后，注意到我们链接的CSS文件：在你的项目根目录下创建一个<code>CSS</code>目录，然后把下面的代码写进style.css文件：</p>
 
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-<span class='line-number'>21</span>
-<span class='line-number'>22</span>
-<span class='line-number'>23</span>
-<span class='line-number'>24</span>
-<span class='line-number'>25</span>
-<span class='line-number'>26</span>
-<span class='line-number'>27</span>
-<span class='line-number'>28</span>
-<span class='line-number'>29</span>
-<span class='line-number'>30</span>
-<span class='line-number'>31</span>
-<span class='line-number'>32</span>
-<span class='line-number'>33</span>
-<span class='line-number'>34</span>
-<span class='line-number'>35</span>
-<span class='line-number'>36</span>
-<span class='line-number'>37</span>
-<span class='line-number'>38</span>
-<span class='line-number'>39</span>
-<span class='line-number'>40</span>
-<span class='line-number'>41</span>
-<span class='line-number'>42</span>
-<span class='line-number'>43</span>
-<span class='line-number'>44</span>
-<span class='line-number'>45</span>
-<span class='line-number'>46</span>
-<span class='line-number'>47</span>
-<span class='line-number'>48</span>
-<span class='line-number'>49</span>
-<span class='line-number'>50</span>
-<span class='line-number'>51</span>
-<span class='line-number'>52</span>
-<span class='line-number'>53</span>
-<span class='line-number'>54</span>
-<span class='line-number'>55</span>
-<span class='line-number'>56</span>
-<span class='line-number'>57</span>
-<span class='line-number'>58</span>
-<span class='line-number'>59</span>
-<span class='line-number'>60</span>
-<span class='line-number'>61</span>
-<span class='line-number'>62</span>
-<span class='line-number'>63</span>
-<span class='line-number'>64</span>
-<span class='line-number'>65</span>
-<span class='line-number'>66</span>
-<span class='line-number'>67</span>
-<span class='line-number'>68</span>
-<span class='line-number'>69</span>
-<span class='line-number'>70</span>
-<span class='line-number'>71</span>
-<span class='line-number'>72</span>
-<span class='line-number'>73</span>
-<span class='line-number'>74</span>
-</pre></td><td class='code'><pre><code class='html'><span class='line'>body {
-</span><span class='line'>  font: 16px/1.5 verdana, helvetica-neue, helvetica, arial, san-serif;
-</span><span class='line'>  background: black;
-</span><span class='line'>  color: #ececec;
-</span><span class='line'>  padding: 0;
-</span><span class='line'>  margin: 0;
-</span><span class='line'>}
-</span><span class='line'>ul {
-</span><span class='line'>  margin: 0;
-</span><span class='line'>  padding: 0;
-</span><span class='line'>}
-</span><span class='line'>a {
-</span><span class='line'>  color: #ccc;
-</span><span class='line'>  text-decoration: none;
-</span><span class='line'>}
-</span><span class='line'>
-</span><span class='line'>a:hover {
-</span><span class='line'>  color: #ececec;
-</span><span class='line'>  text-decoration: underline;
-</span><span class='line'>}
-</span><span class='line'>
-</span><span class='line'>#main {
-</span><span class='line'>  width: 960px;
-</span><span class='line'>  margin: 0 auto;
-</span><span class='line'>  background: rgba(255, 255, 255, 0.4);
-</span><span class='line'>}
-</span><span class='line'>header {
-</span><span class='line'>  padding: 0 10px;
-</span><span class='line'>  overflow: hidden;
-</span><span class='line'>}
-</span><span class='line'>h1 {
-</span><span class='line'>  margin: 0;
-</span><span class='line'>}
-</span><span class='line'>
-</span><span class='line'>nav ul, ul.entries {
-</span><span class='line'>  list-style-type: none;
-</span><span class='line'>}
-</span><span class='line'>nav li a {
-</span><span class='line'>  float: left;
-</span><span class='line'>  margin: 5px;
-</span><span class='line'>}
-</span><span class='line'>.content {
-</span><span class='line'>  padding: 10px;
-</span><span class='line'>}
-</span><span class='line'>
-</span><span class='line'>ul.entries li {
-</span><span class='line'>  position: relative;
-</span><span class='line'>  margin: 20px auto;
-</span><span class='line'>  padding: 20px;
-</span><span class='line'>  background: #ececec;
-</span><span class='line'>  width: 600px;
-</span><span class='line'>}
-</span><span class='line'>
-</span><span class='line'>ul.entries img {
-</span><span class='line'>  width: 600px;
-</span><span class='line'>}
-</span><span class='line'>
-</span><span class='line'>ul.entries li h3 {
-</span><span class='line'>  position: absolute;
-</span><span class='line'>  bottom: -18px;
-</span><span class='line'>  left: 17px;
-</span><span class='line'>  font-size: 2em;
-</span><span class='line'>}
-</span><span class='line'>ul.entries a {
-</span><span class='line'>  color: #ececec;
-</span><span class='line'>}
-</span><span class='line'>ul.entries a:hover {
-</span><span class='line'>  color: #fff;
-</span><span class='line'>}
-</span><span class='line'>
-</span><span class='line'>footer {
-</span><span class='line'>  font-size: 0.65em;
-</span><span class='line'>  text-align: center;
-</span><span class='line'>}
-</span></code></pre></td></tr></table></div></figure>
+<p>{% codeblock lang:CSS %}
+body {
+  font: 16px/1.5 verdana, helvetica-neue, helvetica, arial, san-serif;
+  background: black;
+  color: #ececec;
+  padding: 0;
+  margin: 0;
+}
+ul {
+  margin: 0;
+  padding: 0;
+}
+a {
+  color: #ccc;
+  text-decoration: none;
+}</p>
 
+<p>a:hover {
+  color: #ececec;
+  text-decoration: underline;
+}</p>
+
+<h1>main {</h1>
+
+<p>  width: 960px;
+  margin: 0 auto;
+  background: rgba(255, 255, 255, 0.4);
+}
+header {
+  padding: 0 10px;
+  overflow: hidden;
+}
+h1 {
+  margin: 0;
+}</p>
+
+<p>nav ul, ul.entries {
+  list-style-type: none;
+}
+nav li a {
+  float: left;
+  margin: 5px;
+}
+.content {
+  padding: 10px;
+}</p>
+
+<p>ul.entries li {
+  position: relative;
+  margin: 20px auto;
+  padding: 20px;
+  background: #ececec;
+  width: 600px;
+}</p>
+
+<p>ul.entries img {
+  width: 600px;
+}</p>
+
+<p>ul.entries li h3 {
+  position: absolute;
+  bottom: -18px;
+  left: 17px;
+  font-size: 2em;
+}
+ul.entries a {
+  color: #ececec;
+}
+ul.entries a:hover {
+  color: #fff;
+}</p>
+
+<p>footer {
+  font-size: 0.65em;
+  text-align: center;
+}
+{% endcodeblock %}</p>
 
 <p>接着，创建一个img目录，并把图片加进去，比如banner.jpg，我们一会儿要用到它。任何图片都行，只要把它的大小调整为 960px X 300px。</p>
 
 <p>你可能会觉得奇怪，在上面为什么我们用if语句？如果page.title变量存在的话它也不会显示啊！如果它存在，我想让它后面跟着竖线(｜)，另一种写法是这样：</p>
 
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='html'><span class='line'>用Jekyll构建静态网站 | 
-</span></code></pre></td></tr></table></div></figure>
-
+<p>{% codeblock %}
+{{ page.title }}{% if page.title %} | {% endif %}
+{% endcodeblock %}</p>
 
 <p>然后，我们怎样使用模板？我们需要用模板创建页面。在项目的根目录，创建名为index.html的文件。内容如下：</p>
 
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-</pre></td><td class='code'><pre><code class='html'><span class='line'>---
-</span><span class='line'>layout: default
-</span><span class='line'>---
-</span><span class='line'><span class="nt">&lt;section</span> <span class="na">role=</span><span class="s">&quot;banner&quot;</span><span class="nt">&gt;</span>
-</span><span class='line'>  <span class="nt">&lt;img</span> <span class="na">src=</span><span class="s">&quot;/img/banner.jpg&quot;</span> <span class="nt">/&gt;</span>
-</span><span class='line'><span class="nt">&lt;/section&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="nt">&lt;section</span> <span class="na">class=</span><span class="s">&quot;content&quot;</span><span class="nt">&gt;</span>
-</span><span class='line'>  <span class="nt">&lt;p&gt;</span>
-</span><span class='line'>  Welcome to John Doe Photography! Please, check out my <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">&quot;/portfolio/&quot;</span><span class="nt">&gt;</span>Portfolio<span class="nt">&lt;/a&gt;</span> to see my work.
-</span><span class='line'>  <span class="nt">&lt;/p&gt;</span>
-</span><span class='line'><span class="nt">&lt;/section&gt;</span>
-</span></code></pre></td></tr></table></div></figure>
+<h2>{% codeblock html %}</h2>
 
+<h2>layout: default</h2>
+
+<p><section role="banner">
+  <img src="/cn/img/banner.jpg" />
+</section></p>
+
+<p><section class="content">
+  <p>
+  Welcome to John Doe Photography! Please, check out my <a href="/cn/portfolio/">Portfolio</a> to see my work.
+  </p>
+</section>
+{% codeblock html %}</p>
 
 <p>这是index.html的内容。注意到文件的顶部，Jekyll称之为YAML front matter。有YAML front matter的任何文件（不以下划线开头的）将会先被Jekyll处理然后才被放进<em>site目录中，如果不以YFM开头，将会被直接放进</em>site目录。在上面这个例子中，YAML front matter告诉Jekyll要用什么模板。</p>
 
 <p>然后打开终端命令行，cd进项目目录，运行jekyll。你会看到类似下面的提示：</p>
 
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
-</pre></td><td class='code'><pre><code class='html'><span class='line'>WARNING: Could not read configuration. Using defaults (and options).
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>WARNING: Could not read configuration. Using defaults (and options).
 </span><span class='line'>   No such file or directory - /Users/andrew/Desktop/example-app/_config.yml
 </span><span class='line'>Building site: /Users/andrew/Desktop/example-app -&gt; /Users/andrew/Desktop/example-app/_site
 </span><span class='line'>Successfully generated site: /Users/andrew/Desktop/example-app -&gt; /Users/andrew/Desktop/example-app/_site
-</span></code></pre></td></tr></table></div></figure>
+</span><span class='line'></span></code></pre></td></tr></table></div></figure>
 
 
 <p>忽略警告，我们一会儿处理。你可以看出网站在新建的_site目录中被构建出来。如果你用浏览器打开 <code>_site/index.html</code>文件，你可以看到网页有错误。这是因为我们的路径（url和样式表）是以斜杠<code>/</code>开头的。这意味着我们只能以文件的形式查看。当然，你可以开启W/MAMP，但是为什么要那么麻烦呢？jekyll内置有服务器。只要运行<code>jekyll --server</code>，然后浏览 <a href="http://localhost:4000" target="_blank">localhost:4000</a>就可以看到下面的图片：</p>
@@ -427,98 +310,64 @@
 
 <p>我们来创建几个posts：这些实际上是我们portfolio的entries。</p>
 
-<p>_posts/2010-03-04-bikes.md</p>
+<h2>{% codeblock _posts/2010-03-04-bikes.md lang:html %}</h2>
 
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-</pre></td><td class='code'><pre><code class='html'><span class='line'>---
-</span><span class='line'>layout: portfolio_entry
-</span><span class='line'>image: /img/bikes.jpg
-</span><span class='line'>title: Bikes, Black and White
-</span><span class='line'>---
-</span><span class='line'>Bikes are used by almost everyone in downtown Amsterdam. These ones are chained to a bike rack.
-</span></code></pre></td></tr></table></div></figure>
+<p>layout: portfolio_entry
+image: /img/bikes.jpg</p>
 
+<h2>title: Bikes, Black and White</h2>
 
-<p>_posts/2010-10-01-wing.md</p>
+<p>Bikes are used by almost everyone in downtown Amsterdam. These ones are chained to a bike rack.</p>
 
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-</pre></td><td class='code'><pre><code class='html'><span class='line'>---
-</span><span class='line'>layout: portfolio_entry
-</span><span class='line'>title: Wing and a Prayer
-</span><span class='line'>image: /img/wing.jpg
-</span><span class='line'>---
-</span><span class='line'>The wing of the AirBus I rode to England.
-</span></code></pre></td></tr></table></div></figure>
+<p>{% endcodeblock %}</p>
 
+<h2>{% codeblock _posts/2010-10-01-wing.md lang:html %}</h2>
 
-<p>_posts/2011-06-05-bridge.md</p>
+<p>layout: portfolio_entry
+title: Wing and a Prayer</p>
 
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-</pre></td><td class='code'><pre><code class='html'><span class='line'>---
-</span><span class='line'>layout: portfolio_entry
-</span><span class='line'>title: Stone Bridge
-</span><span class='line'>image: /img/bridge.jpg
-</span><span class='line'>---
-</span><span class='line'>An old stone bridge in London.
-</span></code></pre></td></tr></table></div></figure>
+<h2>image: /img/wing.jpg</h2>
 
+<p>The wing of the AirBus I rode to England.</p>
 
-<p>_posts/2011-07-09-road.md</p>
+<p>{% endcodeblock %}</p>
 
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-</pre></td><td class='code'><pre><code class='html'><span class='line'>---
-</span><span class='line'>layout: portfolio_entry
-</span><span class='line'>title: Road and Curb
-</span><span class='line'>image: /img/road.jpg
-</span><span class='line'>---
-</span><span class='line'>Bike lanes here are terribly thin.
-</span></code></pre></td></tr></table></div></figure>
+<h2>{% codeblock _posts/2011-06-05-bridge.md lang:html %}</h2>
 
+<p>layout: portfolio_entry
+title: Stone Bridge</p>
+
+<h2>image: /img/bridge.jpg</h2>
+
+<p>An old stone bridge in London.
+{% endcodeblock%
+}</p>
+
+<h2>{% codeblock _posts/2011-07-09-road.md lang:html %}</h2>
+
+<p>layout: portfolio_entry
+title: Road and Curb</p>
+
+<h2>image: /img/road.jpg</h2>
+
+<p>Bike lanes here are terribly thin.</p>
+
+<p>{% endcodeblock %}</p>
 
 <p>相当简单，是吧？注意到，我们创建了一个自定义的YAML front matter域：image。这是该entry的图片地址。这样我们就可以在这个文件里构建整个entry的HTML。但是如果我们想修改怎么办？那我们必须返回到每个entry里进行修改。我们可以不用这样做，而使用portfolio_entry模板来表示它们。这个模板长得什么样呢？也是相当简单：</p>
 
-<p>_layouts/portfolio_entry.html</p>
+<h2>{% codeblock _layouts/portfolio_entry.html lang:html%}</h2>
 
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-</pre></td><td class='code'><pre><code class='html'><span class='line'>---
-</span><span class='line'>layout: default
-</span><span class='line'>---
-</span><span class='line'>
-</span><span class='line'><span class="nt">&lt;h2</span> <span class="na">class=</span><span class="s">&quot;content&quot;</span><span class="nt">&gt;</span>用Jekyll构建静态网站<span class="nt">&lt;/h2&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="nt">&lt;img</span> <span class="na">src=</span><span class="s">&quot;&quot;</span> <span class="nt">/&gt;</span>
-</span><span class='line'>
-</span><span class='line'>
-</span></code></pre></td></tr></table></div></figure>
+<h2>layout: default</h2>
 
+<h2 class="content">{{page.title}}</h2>
+
+
+<p><img src="{{ page.image }}" /></p>
+
+<p>{{ content }}</p>
+
+<p>{% endcodeblock %}</p>
 
 <p>如果你看<a href="https://github.com/mojombo/jekyll/wiki/Template-Data">template data page</a>，你就会发现我们添加的任何自定义front matter在page里都是可用的；在这里，我们可以access <code>page.image</code>。我们也可以用<code>page.title</code>和<code>content</code>（后一个三短线之后的所有东西）。</p>
 
@@ -526,90 +375,33 @@
 
 <p>entry （post）pages是建立起来了，但是portfolio主页怎么办呢？当我写我们的默认layout里的导航栏时，我注意到我们要的是 <code>/portfolio/</code>。那么我们在根目录创建名为<code>portfolio</code>的目录，打开里面的index.html文件。</p>
 
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-<span class='line-number'>21</span>
-<span class='line-number'>22</span>
-<span class='line-number'>23</span>
-</pre></td><td class='code'><pre><code class='html'><span class='line'>---
-</span><span class='line'>layout: default
-</span><span class='line'>title: Portfolio
-</span><span class='line'>---
-</span><span class='line'>
-</span><span class='line'><span class="nt">&lt;section</span> <span class="na">class=</span><span class="s">&quot;content&quot;</span><span class="nt">&gt;</span>
-</span><span class='line'>  <span class="nt">&lt;h2&gt;</span>Portfolio<span class="nt">&lt;/h2&gt;</span>
-</span><span class='line'>
-</span><span class='line'>  <span class="nt">&lt;p&gt;</span>Check out my images below!<span class="nt">&lt;/p&gt;</span>
-</span><span class='line'><span class="nt">&lt;/section&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="nt">&lt;ul</span> <span class="na">class=</span><span class="s">&quot;entries&quot;</span><span class="nt">&gt;</span>
-</span><span class='line'>  
-</span><span class='line'>
-</span><span class='line'>  <span class="nt">&lt;li&gt;</span>
-</span><span class='line'>    <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">&quot;/blog/2011/12/15/building-static-sites-with-jekyll/&quot;</span><span class="nt">&gt;</span>
-</span><span class='line'>      <span class="nt">&lt;img</span> <span class="na">src=</span><span class="s">&quot;&quot;</span> <span class="nt">/&gt;</span>
-</span><span class='line'>      <span class="nt">&lt;h3&gt;</span>用Jekyll构建静态网站<span class="nt">&lt;/h3&gt;</span>
-</span><span class='line'>    <span class="nt">&lt;/a&gt;</span>
-</span><span class='line'>  <span class="nt">&lt;/li&gt;</span>
-</span><span class='line'>
-</span><span class='line'>  
-</span><span class='line'>
-</span><span class='line'>  <span class="nt">&lt;li&gt;</span>
-</span><span class='line'>    <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">&quot;/blog/2011/12/04/github-pages-domain/&quot;</span><span class="nt">&gt;</span>
-</span><span class='line'>      <span class="nt">&lt;img</span> <span class="na">src=</span><span class="s">&quot;&quot;</span> <span class="nt">/&gt;</span>
-</span><span class='line'>      <span class="nt">&lt;h3&gt;</span>浅谈github页面域名绑定<span class="nt">&lt;/h3&gt;</span>
-</span><span class='line'>    <span class="nt">&lt;/a&gt;</span>
-</span><span class='line'>  <span class="nt">&lt;/li&gt;</span>
-</span><span class='line'>
-</span><span class='line'>  
-</span><span class='line'>
-</span><span class='line'>  <span class="nt">&lt;li&gt;</span>
-</span><span class='line'>    <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">&quot;/blog/2011/12/03/hello-octopress/&quot;</span><span class="nt">&gt;</span>
-</span><span class='line'>      <span class="nt">&lt;img</span> <span class="na">src=</span><span class="s">&quot;&quot;</span> <span class="nt">/&gt;</span>
-</span><span class='line'>      <span class="nt">&lt;h3&gt;</span>你好！octopress<span class="nt">&lt;/h3&gt;</span>
-</span><span class='line'>    <span class="nt">&lt;/a&gt;</span>
-</span><span class='line'>  <span class="nt">&lt;/li&gt;</span>
-</span><span class='line'>
-</span><span class='line'>  
-</span><span class='line'>
-</span><span class='line'>  <span class="nt">&lt;li&gt;</span>
-</span><span class='line'>    <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">&quot;/blog/2011/11/12/use-jekyll-template/&quot;</span><span class="nt">&gt;</span>
-</span><span class='line'>      <span class="nt">&lt;img</span> <span class="na">src=</span><span class="s">&quot;&quot;</span> <span class="nt">/&gt;</span>
-</span><span class='line'>      <span class="nt">&lt;h3&gt;</span>使用现有的jekyll模板<span class="nt">&lt;/h3&gt;</span>
-</span><span class='line'>    <span class="nt">&lt;/a&gt;</span>
-</span><span class='line'>  <span class="nt">&lt;/li&gt;</span>
-</span><span class='line'>
-</span><span class='line'>  
-</span><span class='line'>
-</span><span class='line'>  <span class="nt">&lt;li&gt;</span>
-</span><span class='line'>    <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">&quot;/blog/2011/11/12/study-plan/&quot;</span><span class="nt">&gt;</span>
-</span><span class='line'>      <span class="nt">&lt;img</span> <span class="na">src=</span><span class="s">&quot;&quot;</span> <span class="nt">/&gt;</span>
-</span><span class='line'>      <span class="nt">&lt;h3&gt;</span>学习计划<span class="nt">&lt;/h3&gt;</span>
-</span><span class='line'>    <span class="nt">&lt;/a&gt;</span>
-</span><span class='line'>  <span class="nt">&lt;/li&gt;</span>
-</span><span class='line'>
-</span><span class='line'>  
-</span><span class='line'><span class="nt">&lt;/ul&gt;</span>
-</span></code></pre></td></tr></table></div></figure>
+<h2>{% codeblock lang:html%}</h2>
 
+<p>layout: default</p>
+
+<h2>title: Portfolio</h2>
+
+<p><section class="content">
+  <h2>Portfolio</h2></p>
+
+<p>  <p>Check out my images below!</p>
+</section></p>
+
+<ul class="entries">
+  {% for post in site.posts %}
+ 
+  <li>
+    <a href="{{ post.url }}">
+      <img src="{{ post.image }}" />
+      <h3>{{ post.title }}</h3>
+    </a>
+  </li>
+ 
+  {% endfor %}
+</ul>
+
+
+<p>{% endcodeblock %}</p>
 
 <p>这是我们最复杂的一块了。记住，这不是模板：这是一个“正常的”文件，但是同样可以包含Liquid标签。我们把layout设置成default，把title设定成“Portfolio”。</p>
 
@@ -619,8 +411,9 @@
 
 <p><img src="http://d2o0t5hpnwv4c1.cloudfront.net/1064_jekyll/portfolio.png" alt="pic2" /></p>
 
-<p>下面是entry page：
-<img src="http://d2o0t5hpnwv4c1.cloudfront.net/1064_jekyll/entry.png" alt="pic3" /></p>
+<p>下面是entry page：</p>
+
+<p><img src="http://d2o0t5hpnwv4c1.cloudfront.net/1064_jekyll/entry.png" alt="pic3" /></p>
 
 <p>现在你创建了合集，你也能看出它怎么用来创建博客。 我们来看看如何设置Jekyll的配置选项.</p>
 
