@@ -131,73 +131,40 @@
 
 <p>我们来创建一个layout文件。我们以包含所有元素的全局layout文件开始。在<code>_layouts</code>目录下创建名为default.html的新文件（叫什么名字无所谓），加入下面的代码：</p>
 
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-<span class='line-number'>21</span>
-<span class='line-number'>22</span>
-<span class='line-number'>23</span>
-<span class='line-number'>24</span>
-<span class='line-number'>25</span>
-<span class='line-number'>26</span>
-<span class='line-number'>27</span>
-<span class='line-number'>28</span>
-<span class='line-number'>29</span>
-<span class='line-number'>30</span>
-<span class='line-number'>31</span>
-<span class='line-number'>32</span>
-<span class='line-number'>33</span>
-</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="o">&lt;!</span><span class="no">DOCTYPE</span> <span class="n">html</span><span class="o">&gt;</span>
-</span><span class='line'><span class="o">&lt;</span><span class="n">html</span><span class="o">&gt;</span>
-</span><span class='line'><span class="o">&lt;</span><span class="n">head</span><span class="o">&gt;</span>
-</span><span class='line'>  <span class="o">&lt;</span><span class="n">meta</span> <span class="n">charset</span><span class="o">=</span><span class="n">utf</span><span class="o">-</span><span class="mi">8</span> <span class="o">/&gt;</span>
-</span><span class='line'>  <span class="o">&lt;</span><span class="n">title</span><span class="o">&gt;</span>  <span class="err">用</span><span class="no">Jekyll</span><span class="err">构建静态网站</span> <span class="o">|</span>  <span class="no">John</span> <span class="no">Doe</span><span class="p">,</span> <span class="no">Photographer</span> <span class="o">&lt;</span><span class="sr">/title&gt;</span>
-</span><span class='line'><span class="sr">  &lt;link rel=&quot;stylesheet&quot; href=&quot;/</span><span class="n">css</span><span class="o">/</span><span class="n">styles</span><span class="o">.</span><span class="n">css</span><span class="s2">&quot; /&gt;</span>
-</span><span class='line'><span class="s2">&lt;/head&gt;</span>
-</span><span class='line'><span class="s2">&lt;body&gt;</span>
-</span><span class='line'><span class="s2"> </span>
-</span><span class='line'><span class="s2">  &lt;div id=&quot;</span><span class="n">main</span><span class="s2">&quot;&gt;</span>
-</span><span class='line'><span class="s2"> </span>
-</span><span class='line'><span class="s2">    &lt;header&gt;</span>
-</span><span class='line'><span class="s2">      &lt;h1&gt; John Doe Photograghy &lt;/h1&gt;</span>
-</span><span class='line'><span class="s2">    &lt;header&gt;</span>
-</span><span class='line'><span class="s2"> </span>
-</span><span class='line'><span class="s2">    &lt;nav role=&quot;</span><span class="n">navigation</span><span class="s2">&quot;&gt;</span>
-</span><span class='line'><span class="s2">      &lt;ul&gt;</span>
-</span><span class='line'><span class="s2">        &lt;li&gt;&lt;a href=&quot;</span><span class="o">/</span><span class="s2">&quot;&gt;Home&lt;/a&gt;&lt;/li&gt;</span>
-</span><span class='line'><span class="s2">        &lt;li&gt;&lt;a href=&quot;</span><span class="o">/</span><span class="n">portfolio</span><span class="o">/</span><span class="s2">&quot;&gt;Portfolio&lt;/a&gt;&lt;/li&gt;</span>
-</span><span class='line'><span class="s2">        &lt;li&gt;&lt;a href=&quot;</span><span class="o">/</span><span class="n">about</span><span class="s2">&quot;&gt;About&lt;/a&gt;&lt;/li&gt;</span>
-</span><span class='line'><span class="s2">        &lt;li&gt;&lt;a href=&quot;</span><span class="o">/</span><span class="n">contact</span><span class="s2">&quot;&gt;Contact&lt;/a&gt;&lt;/li&gt;</span>
-</span><span class='line'><span class="s2">      &lt;/ul&gt;</span>
-</span><span class='line'><span class="s2">    &lt;/nav&gt;</span>
-</span><span class='line'><span class="s2"> </span>
-</span><span class='line'><span class="s2">    </span>
-</span><span class='line'><span class="s2"> </span>
-</span><span class='line'><span class="s2">    &lt;footer&gt;</span>
-</span><span class='line'><span class="s2">      &lt;p&gt;@copy; John Doe Photography 2011 | All Rights Reserved. &lt;/p&gt;</span>
-</span><span class='line'><span class="s2">    &lt;/footer&gt;</span>
-</span><span class='line'><span class="s2"> </span>
-</span><span class='line'><span class="s2">  &lt;/div&gt;</span>
-</span><span class='line'><span class="s2">&lt;/body&gt;</span>
-</span><span class='line'><span class="s2">&lt;/html&gt;</span>
-</span></code></pre></td></tr></table></div></figure>
+<div><script src='https://gist.github.com/1481001.js?file='></script>
+<noscript><pre><code>&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+  &lt;meta charset=utf-8 /&gt;
+  &lt;title&gt; {% if page.title %} {{ page.title }} | {% endif %} John Doe, Photographer &lt;/title&gt;
+  &lt;link rel=&quot;stylesheet&quot; href=&quot;/css/styles.css&quot; /&gt;
+&lt;/head&gt;
+&lt;body&gt;
+ 
+  &lt;div id=&quot;main&quot;&gt;
+ 
+    &lt;header&gt;
+      &lt;h1&gt; John Doe Photograghy &lt;/h1&gt;
+    &lt;header&gt;
+ 
+    &lt;nav role=&quot;navigation&quot;&gt;
+      &lt;ul&gt;
+        &lt;li&gt;&lt;a href=&quot;/&quot;&gt;Home&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a href=&quot;/portfolio/&quot;&gt;Portfolio&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a href=&quot;/about&quot;&gt;About&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a href=&quot;/contact&quot;&gt;Contact&lt;/a&gt;&lt;/li&gt;
+      &lt;/ul&gt;
+    &lt;/nav&gt;
+ 
+    {{ content }}
+ 
+    &lt;footer&gt;
+      &lt;p&gt;@copy; John Doe Photography 2011 | All Rights Reserved. &lt;/p&gt;
+    &lt;/footer&gt;
+ 
+  &lt;/div&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre></noscript></div>
 
 
 <p>下面是要注意的：</p>
@@ -363,9 +330,8 @@
 
 <p>你可能会觉得奇怪，在上面为什么我们用if语句？如果page.title变量存在的话它也不会显示啊！如果它存在，我想让它后面跟着竖线(｜)，另一种写法是这样：</p>
 
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="err">用</span><span class="no">Jekyll</span><span class="err">构建静态网站</span> <span class="o">|</span>
-</span></code></pre></td></tr></table></div></figure>
+<div><script src='https://gist.github.com/1481008.js?file='></script>
+<noscript><pre><code> {{ page.title }}{% if page.title %} | {% endif %}</code></pre></noscript></div>
 
 
 <p>然后，我们怎样使用模板？我们需要用模板创建页面。在项目的根目录，创建名为index.html的文件。内容如下：</p>
@@ -500,24 +466,16 @@
 
 <p>相当简单，是吧？注意到，我们创建了一个自定义的YAML front matter域：image。这是该entry的图片地址。这样我们就可以在这个文件里构建整个entry的HTML。但是如果我们想修改怎么办？那我们必须返回到每个entry里进行修改。我们可以不用这样做，而使用portfolio_entry模板来表示它们。这个模板长得什么样呢？也是相当简单：</p>
 
-<figure class='code'><figcaption><span>_layouts/portfolio_entry.html  </span></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="o">---</span>
-</span><span class='line'><span class="n">layout</span><span class="p">:</span> <span class="n">default</span>
-</span><span class='line'><span class="o">---</span>
-</span><span class='line'>
-</span><span class='line'><span class="o">&lt;</span><span class="n">h2</span> <span class="n">class</span><span class="o">=</span><span class="s2">&quot;content&quot;</span><span class="o">&gt;</span><span class="err">用</span><span class="no">Jekyll</span><span class="err">构建静态网站</span><span class="o">&lt;</span><span class="sr">/h2&gt;</span>
-</span><span class='line'><span class="sr"> </span>
-</span><span class='line'><span class="sr">&lt;img src=&quot;&quot; /</span><span class="o">&gt;</span>
-</span><span class='line'>
-</span></code></pre></td></tr></table></div></figure>
+<div><script src='https://gist.github.com/1481014.js?file='></script>
+<noscript><pre><code>---
+layout: default
+---
+ 
+&lt;h2 class=&quot;content&quot;&gt;{{page.title}}&lt;/h2&gt;
+ 
+&lt;img src=&quot;{{ page.image }}&quot; /&gt;
+ 
+{{ content }}</code></pre></noscript></div>
 
 
 <p>如果你看<a href="https://github.com/mojombo/jekyll/wiki/Template-Data">template data page</a>，你就会发现我们添加的任何自定义front matter在page里都是可用的；在这里，我们可以access <code>page.image</code>。我们也可以用<code>page.title</code>和<code>content</code>（后一个三短线之后的所有东西）。</p>
@@ -526,125 +484,30 @@
 
 <p>entry （post）pages是建立起来了，但是portfolio主页怎么办呢？当我写我们的默认layout里的导航栏时，我注意到我们要的是 <code>/portfolio/</code>。那么我们在根目录创建名为<code>portfolio</code>的目录，打开里面的index.html文件。</p>
 
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-<span class='line-number'>21</span>
-<span class='line-number'>22</span>
-<span class='line-number'>23</span>
-<span class='line-number'>24</span>
-<span class='line-number'>25</span>
-<span class='line-number'>26</span>
-<span class='line-number'>27</span>
-<span class='line-number'>28</span>
-<span class='line-number'>29</span>
-<span class='line-number'>30</span>
-<span class='line-number'>31</span>
-<span class='line-number'>32</span>
-<span class='line-number'>33</span>
-<span class='line-number'>34</span>
-<span class='line-number'>35</span>
-<span class='line-number'>36</span>
-<span class='line-number'>37</span>
-<span class='line-number'>38</span>
-<span class='line-number'>39</span>
-<span class='line-number'>40</span>
-<span class='line-number'>41</span>
-<span class='line-number'>42</span>
-<span class='line-number'>43</span>
-<span class='line-number'>44</span>
-<span class='line-number'>45</span>
-<span class='line-number'>46</span>
-<span class='line-number'>47</span>
-<span class='line-number'>48</span>
-<span class='line-number'>49</span>
-<span class='line-number'>50</span>
-<span class='line-number'>51</span>
-<span class='line-number'>52</span>
-<span class='line-number'>53</span>
-<span class='line-number'>54</span>
-<span class='line-number'>55</span>
-<span class='line-number'>56</span>
-<span class='line-number'>57</span>
-<span class='line-number'>58</span>
-<span class='line-number'>59</span>
-</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="o">---</span>
-</span><span class='line'><span class="n">layout</span><span class="p">:</span> <span class="n">default</span>
-</span><span class='line'><span class="n">title</span><span class="p">:</span> <span class="no">Portfolio</span>
-</span><span class='line'><span class="o">---</span>
-</span><span class='line'>
-</span><span class='line'><span class="o">&lt;</span><span class="n">section</span> <span class="n">class</span><span class="o">=</span><span class="s2">&quot;content&quot;</span><span class="o">&gt;</span>
-</span><span class='line'>  <span class="o">&lt;</span><span class="n">h2</span><span class="o">&gt;</span><span class="no">Portfolio</span><span class="o">&lt;</span><span class="sr">/h2&gt;</span>
-</span><span class='line'><span class="sr"> </span>
-</span><span class='line'><span class="sr">  &lt;p&gt;Check out my images below!&lt;/</span><span class="nb">p</span><span class="o">&gt;</span>
-</span><span class='line'><span class="o">&lt;</span><span class="sr">/section&gt;</span>
-</span><span class='line'><span class="sr"> </span>
-</span><span class='line'><span class="sr">&lt;ul class=&quot;entries&quot;&gt;</span>
-</span><span class='line'><span class="sr">  </span>
-</span><span class='line'><span class="sr"> </span>
-</span><span class='line'><span class="sr">  &lt;li&gt;</span>
-</span><span class='line'><span class="sr">    &lt;a href=&quot;/</span><span class="n">blog</span><span class="o">/</span><span class="mi">2011</span><span class="o">/</span><span class="mi">12</span><span class="o">/</span><span class="mi">15</span><span class="o">/</span><span class="n">building</span><span class="o">-</span><span class="n">static</span><span class="o">-</span><span class="n">sites</span><span class="o">-</span><span class="n">with</span><span class="o">-</span><span class="n">jekyll</span><span class="o">/</span><span class="s2">&quot;&gt;</span>
-</span><span class='line'><span class="s2">      &lt;img src=&quot;&quot; /&gt;</span>
-</span><span class='line'><span class="s2">      &lt;h3&gt;用Jekyll构建静态网站&lt;/h3&gt;</span>
-</span><span class='line'><span class="s2">    &lt;/a&gt;</span>
-</span><span class='line'><span class="s2">  &lt;/li&gt;</span>
-</span><span class='line'><span class="s2"> </span>
-</span><span class='line'><span class="s2">  </span>
-</span><span class='line'><span class="s2"> </span>
-</span><span class='line'><span class="s2">  &lt;li&gt;</span>
-</span><span class='line'><span class="s2">    &lt;a href=&quot;</span><span class="o">/</span><span class="n">blog</span><span class="o">/</span><span class="mi">2011</span><span class="o">/</span><span class="mi">12</span><span class="o">/</span><span class="mo">04</span><span class="o">/</span><span class="n">github</span><span class="o">-</span><span class="n">pages</span><span class="o">-</span><span class="n">domain</span><span class="o">/</span><span class="s2">&quot;&gt;</span>
-</span><span class='line'><span class="s2">      &lt;img src=&quot;&quot; /&gt;</span>
-</span><span class='line'><span class="s2">      &lt;h3&gt;浅谈github页面域名绑定&lt;/h3&gt;</span>
-</span><span class='line'><span class="s2">    &lt;/a&gt;</span>
-</span><span class='line'><span class="s2">  &lt;/li&gt;</span>
-</span><span class='line'><span class="s2"> </span>
-</span><span class='line'><span class="s2">  </span>
-</span><span class='line'><span class="s2"> </span>
-</span><span class='line'><span class="s2">  &lt;li&gt;</span>
-</span><span class='line'><span class="s2">    &lt;a href=&quot;</span><span class="o">/</span><span class="n">blog</span><span class="o">/</span><span class="mi">2011</span><span class="o">/</span><span class="mi">12</span><span class="o">/</span><span class="mo">03</span><span class="o">/</span><span class="n">hello</span><span class="o">-</span><span class="n">octopress</span><span class="o">/</span><span class="s2">&quot;&gt;</span>
-</span><span class='line'><span class="s2">      &lt;img src=&quot;&quot; /&gt;</span>
-</span><span class='line'><span class="s2">      &lt;h3&gt;你好！octopress&lt;/h3&gt;</span>
-</span><span class='line'><span class="s2">    &lt;/a&gt;</span>
-</span><span class='line'><span class="s2">  &lt;/li&gt;</span>
-</span><span class='line'><span class="s2"> </span>
-</span><span class='line'><span class="s2">  </span>
-</span><span class='line'><span class="s2"> </span>
-</span><span class='line'><span class="s2">  &lt;li&gt;</span>
-</span><span class='line'><span class="s2">    &lt;a href=&quot;</span><span class="o">/</span><span class="n">blog</span><span class="o">/</span><span class="mi">2011</span><span class="o">/</span><span class="mi">11</span><span class="o">/</span><span class="mi">12</span><span class="o">/</span><span class="n">use</span><span class="o">-</span><span class="n">jekyll</span><span class="o">-</span><span class="n">template</span><span class="o">/</span><span class="s2">&quot;&gt;</span>
-</span><span class='line'><span class="s2">      &lt;img src=&quot;&quot; /&gt;</span>
-</span><span class='line'><span class="s2">      &lt;h3&gt;使用现有的jekyll模板&lt;/h3&gt;</span>
-</span><span class='line'><span class="s2">    &lt;/a&gt;</span>
-</span><span class='line'><span class="s2">  &lt;/li&gt;</span>
-</span><span class='line'><span class="s2"> </span>
-</span><span class='line'><span class="s2">  </span>
-</span><span class='line'><span class="s2"> </span>
-</span><span class='line'><span class="s2">  &lt;li&gt;</span>
-</span><span class='line'><span class="s2">    &lt;a href=&quot;</span><span class="o">/</span><span class="n">blog</span><span class="o">/</span><span class="mi">2011</span><span class="o">/</span><span class="mi">11</span><span class="o">/</span><span class="mi">12</span><span class="o">/</span><span class="n">study</span><span class="o">-</span><span class="n">plan</span><span class="o">/</span><span class="s2">&quot;&gt;</span>
-</span><span class='line'><span class="s2">      &lt;img src=&quot;&quot; /&gt;</span>
-</span><span class='line'><span class="s2">      &lt;h3&gt;学习计划&lt;/h3&gt;</span>
-</span><span class='line'><span class="s2">    &lt;/a&gt;</span>
-</span><span class='line'><span class="s2">  &lt;/li&gt;</span>
-</span><span class='line'><span class="s2"> </span>
-</span><span class='line'><span class="s2">  </span>
-</span><span class='line'><span class="s2">&lt;/ul&gt;</span>
-</span></code></pre></td></tr></table></div></figure>
+<div><script src='https://gist.github.com/1481016.js?file='></script>
+<noscript><pre><code>---
+layout: default
+title: Portfolio
+---
+ 
+&lt;section class=&quot;content&quot;&gt;
+  &lt;h2&gt;Portfolio&lt;/h2&gt;
+ 
+  &lt;p&gt;Check out my images below!&lt;/p&gt;
+&lt;/section&gt;
+ 
+&lt;ul class=&quot;entries&quot;&gt;
+  {% for post in site.posts %}
+ 
+  &lt;li&gt;
+    &lt;a href=&quot;{{ post.url }}&quot;&gt;
+      &lt;img src=&quot;{{ post.image }}&quot; /&gt;
+      &lt;h3&gt;{{ post.title }}&lt;/h3&gt;
+    &lt;/a&gt;
+  &lt;/li&gt;
+ 
+  {% endfor %}
+&lt;/ul&gt;</code></pre></noscript></div>
 
 
 <p>这是我们最复杂的一块了。记住，这不是模板：这是一个“正常的”文件，但是同样可以包含Liquid标签。我们把layout设置成default，把title设定成“Portfolio”。</p>
