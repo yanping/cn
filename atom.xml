@@ -4,7 +4,7 @@
   <title><![CDATA[雁起平沙的网络日志]]></title>
   <link href="http://chen.yanping.me/cn/atom.xml" rel="self"/>
   <link href="http://chen.yanping.me/cn/"/>
-  <updated>2011-12-15T18:23:42+08:00</updated>
+  <updated>2011-12-15T18:27:48+08:00</updated>
   <id>http://chen.yanping.me/cn/</id>
   <author>
     <name><![CDATA[ypchen]]></name>
@@ -135,7 +135,7 @@
 
 <p>最后，注意到我们链接的CSS文件：在你的项目根目录下创建一个<code>CSS</code>目录，然后把下面的代码写进style.css文件：</p>
 
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -297,7 +297,7 @@
 
 <p>然后，我们怎样使用模板？我们需要用模板创建页面。在项目的根目录，创建名为index.html的文件。内容如下：</p>
 
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -454,7 +454,7 @@
 
 <p>entry （post）pages是建立起来了，但是portfolio主页怎么办呢？当我写我们的默认layout里的导航栏时，我注意到我们要的是 <code>/portfolio/</code>。那么我们在根目录创建名为<code>portfolio</code>的目录，打开里面的index.html文件。</p>
 
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -477,42 +477,6 @@
 <span class='line-number'>21</span>
 <span class='line-number'>22</span>
 <span class='line-number'>23</span>
-<span class='line-number'>24</span>
-<span class='line-number'>25</span>
-<span class='line-number'>26</span>
-<span class='line-number'>27</span>
-<span class='line-number'>28</span>
-<span class='line-number'>29</span>
-<span class='line-number'>30</span>
-<span class='line-number'>31</span>
-<span class='line-number'>32</span>
-<span class='line-number'>33</span>
-<span class='line-number'>34</span>
-<span class='line-number'>35</span>
-<span class='line-number'>36</span>
-<span class='line-number'>37</span>
-<span class='line-number'>38</span>
-<span class='line-number'>39</span>
-<span class='line-number'>40</span>
-<span class='line-number'>41</span>
-<span class='line-number'>42</span>
-<span class='line-number'>43</span>
-<span class='line-number'>44</span>
-<span class='line-number'>45</span>
-<span class='line-number'>46</span>
-<span class='line-number'>47</span>
-<span class='line-number'>48</span>
-<span class='line-number'>49</span>
-<span class='line-number'>50</span>
-<span class='line-number'>51</span>
-<span class='line-number'>52</span>
-<span class='line-number'>53</span>
-<span class='line-number'>54</span>
-<span class='line-number'>55</span>
-<span class='line-number'>56</span>
-<span class='line-number'>57</span>
-<span class='line-number'>58</span>
-<span class='line-number'>59</span>
 </pre></td><td class='code'><pre><code class='html'><span class='line'>---
 </span><span class='line'>layout: default
 </span><span class='line'>title: Portfolio
@@ -525,7 +489,7 @@
 </span><span class='line'><span class="nt">&lt;/section&gt;</span>
 </span><span class='line'>
 </span><span class='line'><span class="nt">&lt;ul</span> <span class="na">class=</span><span class="s">&quot;entries&quot;</span><span class="nt">&gt;</span>
-</span><span class='line'>
+</span><span class='line'>  
 </span><span class='line'>
 </span><span class='line'>  <span class="nt">&lt;li&gt;</span>
 </span><span class='line'>    <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">&quot;/blog/2011/12/15/building-static-sites-with-jekyll/&quot;</span><span class="nt">&gt;</span>
@@ -534,7 +498,7 @@
 </span><span class='line'>    <span class="nt">&lt;/a&gt;</span>
 </span><span class='line'>  <span class="nt">&lt;/li&gt;</span>
 </span><span class='line'>
-</span><span class='line'>
+</span><span class='line'>  
 </span><span class='line'>
 </span><span class='line'>  <span class="nt">&lt;li&gt;</span>
 </span><span class='line'>    <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">&quot;/blog/2011/12/04/github-pages-domain/&quot;</span><span class="nt">&gt;</span>
@@ -543,7 +507,7 @@
 </span><span class='line'>    <span class="nt">&lt;/a&gt;</span>
 </span><span class='line'>  <span class="nt">&lt;/li&gt;</span>
 </span><span class='line'>
-</span><span class='line'>
+</span><span class='line'>  
 </span><span class='line'>
 </span><span class='line'>  <span class="nt">&lt;li&gt;</span>
 </span><span class='line'>    <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">&quot;/blog/2011/12/03/hello-octopress/&quot;</span><span class="nt">&gt;</span>
@@ -552,7 +516,7 @@
 </span><span class='line'>    <span class="nt">&lt;/a&gt;</span>
 </span><span class='line'>  <span class="nt">&lt;/li&gt;</span>
 </span><span class='line'>
-</span><span class='line'>
+</span><span class='line'>  
 </span><span class='line'>
 </span><span class='line'>  <span class="nt">&lt;li&gt;</span>
 </span><span class='line'>    <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">&quot;/blog/2011/11/12/use-jekyll-template/&quot;</span><span class="nt">&gt;</span>
@@ -561,7 +525,7 @@
 </span><span class='line'>    <span class="nt">&lt;/a&gt;</span>
 </span><span class='line'>  <span class="nt">&lt;/li&gt;</span>
 </span><span class='line'>
-</span><span class='line'>
+</span><span class='line'>  
 </span><span class='line'>
 </span><span class='line'>  <span class="nt">&lt;li&gt;</span>
 </span><span class='line'>    <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">&quot;/blog/2011/11/12/study-plan/&quot;</span><span class="nt">&gt;</span>
@@ -570,7 +534,7 @@
 </span><span class='line'>    <span class="nt">&lt;/a&gt;</span>
 </span><span class='line'>  <span class="nt">&lt;/li&gt;</span>
 </span><span class='line'>
-</span><span class='line'>
+</span><span class='line'>  
 </span><span class='line'><span class="nt">&lt;/ul&gt;</span>
 </span></code></pre></td></tr></table></div></figure>
 
