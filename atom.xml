@@ -4,7 +4,7 @@
   <title><![CDATA[雁起平沙的网络日志]]></title>
   <link href="http://chen.yanping.me/cn/atom.xml" rel="self"/>
   <link href="http://chen.yanping.me/cn/"/>
-  <updated>2011-12-15T20:37:59+08:00</updated>
+  <updated>2011-12-15T20:47:00+08:00</updated>
   <id>http://chen.yanping.me/cn/</id>
   <author>
     <name><![CDATA[ypchen]]></name>
@@ -59,43 +59,73 @@
 
 <p>我们来创建一个layout文件。我们以包含所有元素的全局layout文件开始。在<code>_layouts</code>目录下创建名为default.html的新文件（叫什么名字无所谓），加入下面的代码：</p>
 
-<pre>
-<code>
-<!DOCTYPE html>
-<html>
-<head>
-  <meta charset=utf-8 />
-  <title>  用Jekyll构建静态网站 |  John Doe, Photographer </title>
-  <link rel="stylesheet" href="http://chen.yanping.me/cn/css/styles.css" />
-</head>
-<body>
- 
-  <div id="main">
- 
-    <header>
-      <h1> John Doe Photograghy </h1>
-    <header>
- 
-    <nav role="navigation">
-      <ul>
-        <li><a href="http://chen.yanping.me/cn/">Home</a></li>
-        <li><a href="http://chen.yanping.me/cn/portfolio/">Portfolio</a></li>
-        <li><a href="http://chen.yanping.me/cn/about">About</a></li>
-        <li><a href="http://chen.yanping.me/cn/contact">Contact</a></li>
-      </ul>
-    </nav>
- 
-    
- 
-    <footer>
-      <p>@copy; John Doe Photography 2011 | All Rights Reserved. </p>
-    </footer>
- 
-  </div>
-</body>
-</html>
-</code>
-</pre>
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+</pre></td><td class='code'><pre><code class='tex'><span class='line'>&lt;!DOCTYPE html&gt;
+</span><span class='line'>&lt;html&gt;
+</span><span class='line'>&lt;head&gt;
+</span><span class='line'>  &lt;meta charset=utf-8 /&gt;
+</span><span class='line'>  &lt;title&gt;  用Jekyll构建静态网站 |  John Doe, Photographer &lt;/title&gt;
+</span><span class='line'>  &lt;link rel=&quot;stylesheet&quot; href=&quot;/css/styles.css&quot; /&gt;
+</span><span class='line'>&lt;/head&gt;
+</span><span class='line'>&lt;body&gt;
+</span><span class='line'>
+</span><span class='line'>  &lt;div id=&quot;main&quot;&gt;
+</span><span class='line'>
+</span><span class='line'>    &lt;header&gt;
+</span><span class='line'>      &lt;h1&gt; John Doe Photograghy &lt;/h1&gt;
+</span><span class='line'>    &lt;header&gt;
+</span><span class='line'>
+</span><span class='line'>    &lt;nav role=&quot;navigation&quot;&gt;
+</span><span class='line'>      &lt;ul&gt;
+</span><span class='line'>        &lt;li&gt;&lt;a href=&quot;/&quot;&gt;Home&lt;/a&gt;&lt;/li&gt;
+</span><span class='line'>        &lt;li&gt;&lt;a href=&quot;/portfolio/&quot;&gt;Portfolio&lt;/a&gt;&lt;/li&gt;
+</span><span class='line'>        &lt;li&gt;&lt;a href=&quot;/about&quot;&gt;About&lt;/a&gt;&lt;/li&gt;
+</span><span class='line'>        &lt;li&gt;&lt;a href=&quot;/contact&quot;&gt;Contact&lt;/a&gt;&lt;/li&gt;
+</span><span class='line'>      &lt;/ul&gt;
+</span><span class='line'>    &lt;/nav&gt;
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'>    &lt;footer&gt;
+</span><span class='line'>      &lt;p&gt;@copy; John Doe Photography 2011 | All Rights Reserved. &lt;/p&gt;
+</span><span class='line'>    &lt;/footer&gt;
+</span><span class='line'>
+</span><span class='line'>  &lt;/div&gt;
+</span><span class='line'>&lt;/body&gt;
+</span><span class='line'>&lt;/html&gt;
+</span></code></pre></td></tr></table></div></figure>
 
 
 <p>下面是要注意的：</p>
@@ -261,10 +291,9 @@
 
 <p>你可能会觉得奇怪，在上面为什么我们用if语句？如果page.title变量存在的话它也不会显示啊！如果它存在，我想让它后面跟着竖线(｜)，另一种写法是这样：</p>
 
-<pre><code>
-用Jekyll构建静态网站 | 
-
-</code></pre>
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='tex'><span class='line'>用Jekyll构建静态网站 |
+</span></code></pre></td></tr></table></div></figure>
 
 
 <p>然后，我们怎样使用模板？我们需要用模板创建页面。在项目的根目录，创建名为index.html的文件。内容如下：</p>
@@ -399,8 +428,6 @@
 
 <p>相当简单，是吧？注意到，我们创建了一个自定义的YAML front matter域：image。这是该entry的图片地址。这样我们就可以在这个文件里构建整个entry的HTML。但是如果我们想修改怎么办？那我们必须返回到每个entry里进行修改。我们可以不用这样做，而使用portfolio_entry模板来表示它们。这个模板长得什么样呢？也是相当简单：</p>
 
-<pre>
-
 <figure class='code'><figcaption><span>_layouts/portfolio_entry.html  </span></figcaption>
  <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
@@ -410,17 +437,15 @@
 <span class='line-number'>6</span>
 <span class='line-number'>7</span>
 <span class='line-number'>8</span>
-</pre></td><td class='code'><pre><code class='html'><span class='line'>---
+</pre></td><td class='code'><pre><code class='tex'><span class='line'>---
 </span><span class='line'>layout: default
 </span><span class='line'>---
 </span><span class='line'>
-</span><span class='line'><span class="nt">&lt;h2</span> <span class="na">class=</span><span class="s">&quot;content&quot;</span><span class="nt">&gt;</span>用Jekyll构建静态网站<span class="nt">&lt;/h2&gt;</span>
+</span><span class='line'>&lt;h2 class=&quot;content&quot;&gt;用Jekyll构建静态网站&lt;/h2&gt;
 </span><span class='line'>
-</span><span class='line'><span class="nt">&lt;img</span> <span class="na">src=</span><span class="s">&quot;&quot;</span> <span class="nt">/&gt;</span>
+</span><span class='line'>&lt;img src=&quot;&quot; /&gt;
 </span><span class='line'>
 </span></code></pre></td></tr></table></div></figure>
-
-</pre>
 
 
 <p>如果你看<a href="https://github.com/mojombo/jekyll/wiki/Template-Data">template data page</a>，你就会发现我们添加的任何自定义front matter在page里都是可用的；在这里，我们可以access <code>page.image</code>。我们也可以用<code>page.title</code>和<code>content</code>（后一个三短线之后的所有东西）。</p>
@@ -429,67 +454,125 @@
 
 <p>entry （post）pages是建立起来了，但是portfolio主页怎么办呢？当我写我们的默认layout里的导航栏时，我注意到我们要的是 <code>/portfolio/</code>。那么我们在根目录创建名为<code>portfolio</code>的目录，打开里面的index.html文件。</p>
 
-<pre><code>
----
-layout: default
-title: Portfolio
----
- 
-<section class="content">
-  <h2>Portfolio</h2>
- 
-  <p>Check out my images below!</p>
-</section>
- 
-<ul class="entries">
-  
- 
-  <li>
-    <a href="http://chen.yanping.me/cn/blog/2011/12/15/building-static-sites-with-jekyll/">
-      <img src="" />
-      <h3>用Jekyll构建静态网站</h3>
-    </a>
-  </li>
- 
-  
- 
-  <li>
-    <a href="http://chen.yanping.me/cn/blog/2011/12/04/github-pages-domain/">
-      <img src="" />
-      <h3>浅谈github页面域名绑定</h3>
-    </a>
-  </li>
- 
-  
- 
-  <li>
-    <a href="http://chen.yanping.me/cn/blog/2011/12/03/hello-octopress/">
-      <img src="" />
-      <h3>你好！octopress</h3>
-    </a>
-  </li>
- 
-  
- 
-  <li>
-    <a href="http://chen.yanping.me/cn/blog/2011/11/12/use-jekyll-template/">
-      <img src="" />
-      <h3>使用现有的jekyll模板</h3>
-    </a>
-  </li>
- 
-  
- 
-  <li>
-    <a href="http://chen.yanping.me/cn/blog/2011/11/12/study-plan/">
-      <img src="" />
-      <h3>学习计划</h3>
-    </a>
-  </li>
- 
-  
-</ul>
-</code></pre>
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+<span class='line-number'>45</span>
+<span class='line-number'>46</span>
+<span class='line-number'>47</span>
+<span class='line-number'>48</span>
+<span class='line-number'>49</span>
+<span class='line-number'>50</span>
+<span class='line-number'>51</span>
+<span class='line-number'>52</span>
+<span class='line-number'>53</span>
+<span class='line-number'>54</span>
+<span class='line-number'>55</span>
+<span class='line-number'>56</span>
+<span class='line-number'>57</span>
+<span class='line-number'>58</span>
+<span class='line-number'>59</span>
+</pre></td><td class='code'><pre><code class='tex'><span class='line'>---
+</span><span class='line'>layout: default
+</span><span class='line'>title: Portfolio
+</span><span class='line'>---
+</span><span class='line'>
+</span><span class='line'>&lt;section class=&quot;content&quot;&gt;
+</span><span class='line'>  &lt;h2&gt;Portfolio&lt;/h2&gt;
+</span><span class='line'>
+</span><span class='line'>  &lt;p&gt;Check out my images below!&lt;/p&gt;
+</span><span class='line'>&lt;/section&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;ul class=&quot;entries&quot;&gt;
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'>  &lt;li&gt;
+</span><span class='line'>    &lt;a href=&quot;/blog/2011/12/15/building-static-sites-with-jekyll/&quot;&gt;
+</span><span class='line'>      &lt;img src=&quot;&quot; /&gt;
+</span><span class='line'>      &lt;h3&gt;用Jekyll构建静态网站&lt;/h3&gt;
+</span><span class='line'>    &lt;/a&gt;
+</span><span class='line'>  &lt;/li&gt;
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'>  &lt;li&gt;
+</span><span class='line'>    &lt;a href=&quot;/blog/2011/12/04/github-pages-domain/&quot;&gt;
+</span><span class='line'>      &lt;img src=&quot;&quot; /&gt;
+</span><span class='line'>      &lt;h3&gt;浅谈github页面域名绑定&lt;/h3&gt;
+</span><span class='line'>    &lt;/a&gt;
+</span><span class='line'>  &lt;/li&gt;
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'>  &lt;li&gt;
+</span><span class='line'>    &lt;a href=&quot;/blog/2011/12/03/hello-octopress/&quot;&gt;
+</span><span class='line'>      &lt;img src=&quot;&quot; /&gt;
+</span><span class='line'>      &lt;h3&gt;你好！octopress&lt;/h3&gt;
+</span><span class='line'>    &lt;/a&gt;
+</span><span class='line'>  &lt;/li&gt;
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'>  &lt;li&gt;
+</span><span class='line'>    &lt;a href=&quot;/blog/2011/11/12/use-jekyll-template/&quot;&gt;
+</span><span class='line'>      &lt;img src=&quot;&quot; /&gt;
+</span><span class='line'>      &lt;h3&gt;使用现有的jekyll模板&lt;/h3&gt;
+</span><span class='line'>    &lt;/a&gt;
+</span><span class='line'>  &lt;/li&gt;
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'>  &lt;li&gt;
+</span><span class='line'>    &lt;a href=&quot;/blog/2011/11/12/study-plan/&quot;&gt;
+</span><span class='line'>      &lt;img src=&quot;&quot; /&gt;
+</span><span class='line'>      &lt;h3&gt;学习计划&lt;/h3&gt;
+</span><span class='line'>    &lt;/a&gt;
+</span><span class='line'>  &lt;/li&gt;
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'>&lt;/ul&gt;
+</span></code></pre></td></tr></table></div></figure>
 
 
 <p>这是我们最复杂的一块了。记住，这不是模板：这是一个“正常的”文件，但是同样可以包含Liquid标签。我们把layout设置成default，把title设定成“Portfolio”。</p>
