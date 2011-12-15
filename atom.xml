@@ -4,7 +4,7 @@
   <title><![CDATA[雁起平沙的网络日志]]></title>
   <link href="http://chen.yanping.me/cn/atom.xml" rel="self"/>
   <link href="http://chen.yanping.me/cn/"/>
-  <updated>2011-12-15T20:37:20+08:00</updated>
+  <updated>2011-12-15T20:37:59+08:00</updated>
   <id>http://chen.yanping.me/cn/</id>
   <author>
     <name><![CDATA[ypchen]]></name>
@@ -22,10 +22,10 @@
 
 <h2>Step 0: 遭遇Jekyll</h2>
 
-<p>{% blockquote %}
-Jekyll is a simple, blog aware, static site generator.
-{% endblockquote %}
-Jekyll是一种简单的、适用于博客（blog aware）的、静态网站生成引擎。Jekyll网站的宣传语这么说。但，这究竟是什么意思呢？静态网站生成引擎是利用一整套文件生成网站的程序。正如你看到的，我们可以利用一套模板，单独生成内容文件，然后用Jekyll生成网站。“blog aware”意思是我们可以用它来创建博客，或者其他有系列文章（例如合集，英文称portfolio）发布的网站。让我们来尝试一下吧！</p>
+<blockquote><p>Jekyll is a simple, blog aware, static site generator.</p></blockquote>
+
+
+<p>Jekyll是一种简单的、适用于博客（blog aware）的、静态网站生成引擎。Jekyll网站的宣传语这么说。但，这究竟是什么意思呢？静态网站生成引擎是利用一整套文件生成网站的程序。正如你看到的，我们可以利用一套模板，单独生成内容文件，然后用Jekyll生成网站。“blog aware”意思是我们可以用它来创建博客，或者其他有系列文章（例如合集，英文称portfolio）发布的网站。让我们来尝试一下吧！</p>
 
 <!--more-->
 
@@ -65,7 +65,7 @@ Jekyll是一种简单的、适用于博客（blog aware）的、静态网站生�
 <html>
 <head>
   <meta charset=utf-8 />
-  <title> {% if page.title %} {{ page.title }} | {% endif %} John Doe, Photographer </title>
+  <title>  用Jekyll构建静态网站 |  John Doe, Photographer </title>
   <link rel="stylesheet" href="http://chen.yanping.me/cn/css/styles.css" />
 </head>
 <body>
@@ -85,7 +85,7 @@ Jekyll是一种简单的、适用于博客（blog aware）的、静态网站生�
       </ul>
     </nav>
  
-    {{ content }}
+    
  
     <footer>
       <p>@copy; John Doe Photography 2011 | All Rights Reserved. </p>
@@ -262,27 +262,39 @@ Jekyll是一种简单的、适用于博客（blog aware）的、静态网站生�
 <p>你可能会觉得奇怪，在上面为什么我们用if语句？如果page.title变量存在的话它也不会显示啊！如果它存在，我想让它后面跟着竖线(｜)，另一种写法是这样：</p>
 
 <pre><code>
-{{ page.title }}{% if page.title %} | {% endif %}
-{% endcodeblock %}
+用Jekyll构建静态网站 | 
+
 </code></pre>
 
 
 <p>然后，我们怎样使用模板？我们需要用模板创建页面。在项目的根目录，创建名为index.html的文件。内容如下：</p>
 
-<h2>{% codeblock lang:html %}</h2>
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+</pre></td><td class='code'><pre><code class='html'><span class='line'>---
+</span><span class='line'>layout: default
+</span><span class='line'>---
+</span><span class='line'><span class="nt">&lt;section</span> <span class="na">role=</span><span class="s">&quot;banner&quot;</span><span class="nt">&gt;</span>
+</span><span class='line'>  <span class="nt">&lt;img</span> <span class="na">src=</span><span class="s">&quot;/img/banner.jpg&quot;</span> <span class="nt">/&gt;</span>
+</span><span class='line'><span class="nt">&lt;/section&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="nt">&lt;section</span> <span class="na">class=</span><span class="s">&quot;content&quot;</span><span class="nt">&gt;</span>
+</span><span class='line'>  <span class="nt">&lt;p&gt;</span>
+</span><span class='line'>  Welcome to John Doe Photography! Please, check out my <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">&quot;/portfolio/&quot;</span><span class="nt">&gt;</span>Portfolio<span class="nt">&lt;/a&gt;</span> to see my work.
+</span><span class='line'>  <span class="nt">&lt;/p&gt;</span>
+</span><span class='line'><span class="nt">&lt;/section&gt;</span>
+</span></code></pre></td></tr></table></div></figure>
 
-<h2>layout: default</h2>
-
-<p><section role="banner">
-  <img src="http://chen.yanping.me/cn/img/banner.jpg" />
-</section></p>
-
-<p><section class="content">
-  <p>
-  Welcome to John Doe Photography! Please, check out my <a href="http://chen.yanping.me/cn/portfolio/">Portfolio</a> to see my work.
-  </p>
-</section>
-{% endcodeblock %}</p>
 
 <p>这是index.html的内容。注意到文件的顶部，Jekyll称之为YAML front matter。有YAML front matter的任何文件（不以下划线开头的）将会先被Jekyll处理然后才被放进<em>site目录中，如果不以YFM开头，将会被直接放进</em>site目录。在上面这个例子中，YAML front matter告诉Jekyll要用什么模板。</p>
 
@@ -315,64 +327,99 @@ Jekyll是一种简单的、适用于博客（blog aware）的、静态网站生�
 
 <p>我们来创建几个posts：这些实际上是我们portfolio的entries。</p>
 
-<h2>{% codeblock _posts/2010-03-04-bikes.md lang:html %}</h2>
+<figure class='code'><figcaption><span>_posts/2010-03-04-bikes.md  </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='html'><span class='line'>---
+</span><span class='line'>layout: portfolio_entry
+</span><span class='line'>image: /img/bikes.jpg
+</span><span class='line'>title: Bikes, Black and White
+</span><span class='line'>---
+</span><span class='line'>Bikes are used by almost everyone in downtown Amsterdam. These ones are chained to a bike rack.
+</span></code></pre></td></tr></table></div></figure>
 
-<p>layout: portfolio_entry
-image: /img/bikes.jpg</p>
 
-<h2>title: Bikes, Black and White</h2>
 
-<p>Bikes are used by almost everyone in downtown Amsterdam. These ones are chained to a bike rack.</p>
 
-<p>{% endcodeblock %}</p>
+<figure class='code'><figcaption><span>_posts/2010-10-01-wing.md  </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='html'><span class='line'>---
+</span><span class='line'>layout: portfolio_entry
+</span><span class='line'>title: Wing and a Prayer
+</span><span class='line'>image: /img/wing.jpg
+</span><span class='line'>---
+</span><span class='line'>The wing of the AirBus I rode to England.
+</span></code></pre></td></tr></table></div></figure>
 
-<h2>{% codeblock _posts/2010-10-01-wing.md lang:html %}</h2>
 
-<p>layout: portfolio_entry
-title: Wing and a Prayer</p>
 
-<h2>image: /img/wing.jpg</h2>
 
-<p>The wing of the AirBus I rode to England.</p>
+<figure class='code'><figcaption><span>_posts/2011-06-05-bridge.md  </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='html'><span class='line'>---
+</span><span class='line'>layout: portfolio_entry
+</span><span class='line'>title: Stone Bridge
+</span><span class='line'>image: /img/bridge.jpg
+</span><span class='line'>---
+</span><span class='line'>An old stone bridge in London.
+</span></code></pre></td></tr></table></div></figure>
 
-<p>{% endcodeblock %}</p>
 
-<h2>{% codeblock _posts/2011-06-05-bridge.md lang:html %}</h2>
 
-<p>layout: portfolio_entry
-title: Stone Bridge</p>
 
-<h2>image: /img/bridge.jpg</h2>
+<figure class='code'><figcaption><span>_posts/2011-07-09-road.md  </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='html'><span class='line'>---
+</span><span class='line'>layout: portfolio_entry
+</span><span class='line'>title: Road and Curb
+</span><span class='line'>image: /img/road.jpg
+</span><span class='line'>---
+</span><span class='line'>Bike lanes here are terribly thin.
+</span></code></pre></td></tr></table></div></figure>
 
-<p>An old stone bridge in London.
-{% endcodeblock %}</p>
-
-<h2>{% codeblock _posts/2011-07-09-road.md lang:html %}</h2>
-
-<p>layout: portfolio_entry
-title: Road and Curb</p>
-
-<h2>image: /img/road.jpg</h2>
-
-<p>Bike lanes here are terribly thin.</p>
-
-<p>{% endcodeblock %}</p>
 
 <p>相当简单，是吧？注意到，我们创建了一个自定义的YAML front matter域：image。这是该entry的图片地址。这样我们就可以在这个文件里构建整个entry的HTML。但是如果我们想修改怎么办？那我们必须返回到每个entry里进行修改。我们可以不用这样做，而使用portfolio_entry模板来表示它们。这个模板长得什么样呢？也是相当简单：</p>
 
 <pre>
-{% codeblock _layouts/portfolio_entry.html lang:html %}
----
-layout: default
----
- 
-<h2 class="content">{{page.title}}</h2>
- 
-<img src="{{ page.image }}" />
- 
-{{ content }}
 
-{% endcodeblock %}
+<figure class='code'><figcaption><span>_layouts/portfolio_entry.html  </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class='html'><span class='line'>---
+</span><span class='line'>layout: default
+</span><span class='line'>---
+</span><span class='line'>
+</span><span class='line'><span class="nt">&lt;h2</span> <span class="na">class=</span><span class="s">&quot;content&quot;</span><span class="nt">&gt;</span>用Jekyll构建静态网站<span class="nt">&lt;/h2&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="nt">&lt;img</span> <span class="na">src=</span><span class="s">&quot;&quot;</span> <span class="nt">/&gt;</span>
+</span><span class='line'>
+</span></code></pre></td></tr></table></div></figure>
+
 </pre>
 
 
@@ -395,16 +442,52 @@ title: Portfolio
 </section>
  
 <ul class="entries">
-  {% for post in site.posts %}
+  
  
   <li>
-    <a href="{{ post.url }}">
-      <img src="{{ post.image }}" />
-      <h3>{{ post.title }}</h3>
+    <a href="http://chen.yanping.me/cn/blog/2011/12/15/building-static-sites-with-jekyll/">
+      <img src="" />
+      <h3>用Jekyll构建静态网站</h3>
     </a>
   </li>
  
-  {% endfor %}
+  
+ 
+  <li>
+    <a href="http://chen.yanping.me/cn/blog/2011/12/04/github-pages-domain/">
+      <img src="" />
+      <h3>浅谈github页面域名绑定</h3>
+    </a>
+  </li>
+ 
+  
+ 
+  <li>
+    <a href="http://chen.yanping.me/cn/blog/2011/12/03/hello-octopress/">
+      <img src="" />
+      <h3>你好！octopress</h3>
+    </a>
+  </li>
+ 
+  
+ 
+  <li>
+    <a href="http://chen.yanping.me/cn/blog/2011/11/12/use-jekyll-template/">
+      <img src="" />
+      <h3>使用现有的jekyll模板</h3>
+    </a>
+  </li>
+ 
+  
+ 
+  <li>
+    <a href="http://chen.yanping.me/cn/blog/2011/11/12/study-plan/">
+      <img src="" />
+      <h3>学习计划</h3>
+    </a>
+  </li>
+ 
+  
 </ul>
 </code></pre>
 
