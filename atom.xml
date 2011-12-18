@@ -4,7 +4,7 @@
   <title><![CDATA[雁起平沙的网络日志]]></title>
   <link href="http://chen.yanping.me/cn/atom.xml" rel="self"/>
   <link href="http://chen.yanping.me/cn/"/>
-  <updated>2011-12-18T22:15:15+08:00</updated>
+  <updated>2011-12-18T22:37:05+08:00</updated>
   <id>http://chen.yanping.me/cn/</id>
   <author>
     <name><![CDATA[ypchen]]></name>
@@ -493,12 +493,18 @@
 
 <h2>译者言</h2>
 
-<p>我也是一边翻译，一边练习使用Octopress，在翻译过程中遇到了最大到问题就是，文章中引用了几段含有Liquid标签的代码，而这些代码用<a href="http://octopress.org/docs/plugins/codeblock/" target="_blank">codeblock插件</a>或者用 <code>```</code>括起来（也就是Backtick Code Blocks的方式），都不能保持原样，也就是会被jekyll渲染出来，为此，我也试了很久，也到<a href="http://ruby-taiwan.org/topics/74">ruby-taiwan.org</a>上发帖问了，总结起来有几种方法：</p>
+<p>我也是一边翻译，一边练习使用Octopress，在翻译过程中遇到了三个问题。</p>
+
+<p>第一个问题是在markdown里直接写html标签的话可能会出错。例如在step2中，我写了个&lt;title&gt;，一开始的时候没有做任何处理，结果出来的网页有错，后来我才想起来，markdown里的html语句会被直接放到最终网页里，那么我直接这么写的话，就会出现两个&lt;title&gt;，所以正确的做法是用<code>``把&amp;lt;title&amp;gt;括起来，得到的效果是</code><title><code>，或者就写</code>&lt;title&gt;`。</p>
+
+<p>第二个问题是当文章中引用了含有Liquid标签的代码片段时，这些代码会被jekyll渲染。一般代码是用<a href="http://octopress.org/docs/plugins/codeblock/" target="_blank">codeblock标签</a>或者用 <code>```</code>括起来（也就是Backtick Code Blocks的方式），能保持原样，还能显示语法高亮，但是当引用的代码里含有Liquid标签时就出现了混乱。为此，我也试了很久，也到<a href="http://ruby-taiwan.org/topics/74">ruby-taiwan.org</a>上发帖问了，总结起来有几种方法：</p>
 
 <p>1.用gist插件</p>
 
 <pre><code>{% gist gist_id [filename] %}
 </code></pre>
+
+<p>这种方式比较强大，但是需要连接gist，加载页面的时候有点卡。</p>
 
 <p>2.用include_code插件</p>
 
@@ -509,7 +515,9 @@
 
 <p>3.用codeblock标签里嵌套raw标签，详情请看<a href="http://jimpravetz.com/blog/2011/12/inserting-liquid-syntax-into-octopress-codeblock/">http://jimpravetz.com/blog/2011/12/inserting-liquid-syntax-into-octopress-codeblock/</a>。这种方式只能帖代码，不能语法高亮。</p>
 
-<p>第二个问题是CSS代码不能被着色，找到了一篇文章<a href="http://hack.sslab.co/blog/2011/11/13/octopress-upgrade-pygments/" target="_blank">《讓 Octopress 支援更多語言的程式碼區塊（更新 Pygments）》</a>，用里面的方法更新pygment就行了。需要注意的是pygments.rb的目录和那篇文章的不同，我的ubuntu11.10下为</p>
+<p>仔细研究一下Octopress官方网站的代码（比如<a href="https://raw.github.com/imathis/octopress/site/source/docs/plugins/codeblock/index.markdown">codeblock这节</a>），还能学到另一个技巧。在我翻译这篇文章时，几种方法都用到了，有兴趣的可以查看本文的markdown代码。</p>
+
+<p>第三个问题是CSS代码不能被着色，找到了一篇文章<a href="http://hack.sslab.co/blog/2011/11/13/octopress-upgrade-pygments/" target="_blank">《讓 Octopress 支援更多語言的程式碼區塊（更新 Pygments）》</a>，用里面的方法更新pygment就行了。需要注意的是pygments.rb的目录和那篇文章的不同，我的ubuntu11.10下为</p>
 
 <figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class='sh'><span class='line'>~/.rvm/gems/ruby-1.9.2-p290/gems/pygments.rb-0.2.4/vendor
