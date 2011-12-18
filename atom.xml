@@ -4,7 +4,7 @@
   <title><![CDATA[雁起平沙的网络日志]]></title>
   <link href="http://chen.yanping.me/cn/atom.xml" rel="self"/>
   <link href="http://chen.yanping.me/cn/"/>
-  <updated>2011-12-18T20:43:14+08:00</updated>
+  <updated>2011-12-18T20:53:04+08:00</updated>
   <id>http://chen.yanping.me/cn/</id>
   <author>
     <name><![CDATA[ypchen]]></name>
@@ -59,8 +59,8 @@ Jekyll是一种简单的、适用于博客（blog aware）的、静态网站生�
 
 <p>我们来创建一个layout文件。我们以包含所有元素的全局layout文件开始。在<code>_layouts</code>目录下创建名为default.html的新文件（叫什么名字无所谓），加入下面的代码：</p>
 
-<p>[% codeblock %]
-[% raw %]
+<p>{% codeblock %}
+{% raw %}
 &lt;!DOCTYPE html>
 <html>
 <head>
@@ -95,8 +95,8 @@ Jekyll是一种简单的、适用于博客（blog aware）的、静态网站生�
 <p>  </div>
 </body>
 </html>
-[% endraw %]
-[% endcodeblock %]</p>
+{% endraw %}
+{% endcodeblock %}</p>
 
 <p>下面是要注意的：</p>
 
@@ -469,14 +469,17 @@ title: Road and Curb</p>
 <p>我也是一边翻译，一边练习使用Octopress，在翻译过程中遇到了最大到问题就是，文章中引用了几段含有Liquid标签的代码，而这些代码用<code>{% codeblock %} ... {% endcodeblock %}</code>或者用<code>```</code>括起来（也就是Backtick Code Blocks的方式），都不能保持原样，也就是会被jekyll渲染出来，为此，我也试了很久，也到<a href="http://ruby-taiwan.org/topics/74">ruby-taiwan.org</a>上发帖问了，总结起来有几种方法：</p>
 
 <ol>
-<li>用插件
- {{ &#8220;{% gist gist_id [filename]&#8221; }} %}</li>
-<li>用include_code插件
- {{ &#8220;{% include_code [title] [lang:language] path/to/file&#8221; }} %}
-上面两种方法在Octoprss的官方网站都有介绍，请看<a href="http://octopress.org/docs/blogging/code/">http://octopress.org/docs/blogging/code/</a></li>
-<li>用<code>{% codeblock %} {% raw %} ... {% endraw } {% endcodeblock %}</code>包含代码，请看<a href="http://jimpravetz.com/blog/2011/12/inserting-liquid-syntax-into-octopress-codeblock/">http://jimpravetz.com/blog/2011/12/inserting-liquid-syntax-into-octopress-codeblock/</a></li>
+<li><p>用gist插件</p>
+
+<p> {{ &#8220;{% gist gist_id [filename] &#8220;}} %}</p></li>
+<li><p>用include_code插件</p>
+
+<p> {{ &#8220;{% include_code [title] [lang:language] path/to/file&#8221; }} %}</p></li>
 </ol>
 
+
+<p>上面两种方法在Octoprss的官方网站都有介绍，请看<a href="http://octopress.org/docs/blogging/code/">http://octopress.org/docs/blogging/code/</a>
+3. 用<code>{% codeblock %} {% raw %} ... {% endraw } {% endcodeblock %}</code>包含代码，请看<a href="http://jimpravetz.com/blog/2011/12/inserting-liquid-syntax-into-octopress-codeblock/">http://jimpravetz.com/blog/2011/12/inserting-liquid-syntax-into-octopress-codeblock/</a></p>
 
 <p>第二个问题是CSS代码不能被着色，找到了一篇文章<a href="http://hack.sslab.co/blog/2011/11/13/octopress-upgrade-pygments/" target="_blank">《讓 Octopress 支援更多語言的程式碼區塊（更新 Pygments）》</a>，用里面的方法更新pygment就行了。需要注意的是pygments.rb的目录和那篇文章的不同，我的ubuntu11.10下为</p>
 
