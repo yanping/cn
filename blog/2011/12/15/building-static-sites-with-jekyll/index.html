@@ -5,7 +5,7 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>用Jekyll构建静态网站 - 雁起平沙的网络日志</title>
+  <title>【译文】用Jekyll构建静态网站 - 雁起平沙的网络日志</title>
   <meta name="author" content="ypchen">
 
   
@@ -30,6 +30,18 @@
 <link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
 
   
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-27377274-2']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
 
 </head>
 
@@ -67,7 +79,7 @@
   
   <header>
     
-      <h1 class="entry-title">用Jekyll构建静态网站</h1>
+      <h1 class="entry-title">【译文】用Jekyll构建静态网站</h1>
     
     
       <p class="meta">
@@ -94,10 +106,10 @@
 
 <h2>Step 0: 遭遇Jekyll</h2>
 
-<blockquote><p>Jekyll is a simple, blog aware, static site generator.</p></blockquote>
-
-
-<p>Jekyll是一种简单的、适用于博客（blog aware）的、静态网站生成引擎。Jekyll网站的宣传语这么说。但，这究竟是什么意思呢？静态网站生成引擎是利用一整套文件生成网站的程序。正如你看到的，我们可以利用一套模板，单独生成内容文件，然后用Jekyll生成网站。“blog aware”意思是我们可以用它来创建博客，或者其他有系列文章（例如合集，英文称portfolio）发布的网站。让我们来尝试一下吧！</p>
+<p>{% blockquote %}
+Jekyll is a simple, blog aware, static site generator.
+{% endblockquote %}
+Jekyll是一种简单的、适用于博客（blog aware）的、静态网站生成引擎。Jekyll网站的宣传语这么说。但，这究竟是什么意思呢？静态网站生成引擎是利用一整套文件生成网站的程序。正如你看到的，我们可以利用一套模板，单独生成内容文件，然后用Jekyll生成网站。“blog aware”意思是我们可以用它来创建博客，或者其他有系列文章（例如合集，英文称portfolio）发布的网站。让我们来尝试一下吧！</p>
 
 <!--more-->
 
@@ -112,7 +124,7 @@
 <p>我们从安装Jekyll开始；它是一种Ruby Gem，所以可以直接用下面的命令安装：</p>
 
 <figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='sh'><span class='line'>gem install jekyll <span class="c"># use `sudo` if your setup requires it</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'>gem install jekyll <span class="c">#  use `sudo` if your setup requires it</span>
 </span></code></pre></td></tr></table></div></figure>
 
 
@@ -127,45 +139,48 @@
 
 <p>下一步，我们新建一个目录，命名为example-app作为教学用；我们打算建一个合集网站，比如，发布影集。这是个很好的例子，用来说明Jekyll的优势之处：这是个小网站，不会更新地太频繁，但是当你想改变其中一处小细节时如果一页页打开页面修改又很麻烦。</p>
 
-<p>在<code>example-app</code>中，建一个名为<code>_layouts</code>的目录。注意这个下划线，任何以下划线开头的文件和目录都不会成为网站的一部分。如果它们的名字Jekyll能够识别的话（比如<code>_config.yml</code>或者<code>_layouts</code>），它们的内容会被用于生成网站，但是它们的文件不会出现在网站目录下。记住这一点：任何不以下划线开头的文件和目录都会被复制到生成的网站（默认为_site子目录）。</p>
+<p>在example-app中，建一个名为<code>_layouts</code>的目录。注意这个下划线，任何以下划线开头的文件和目录都不会成为网站的一部分。如果它们的名字Jekyll能够识别的话（比如<code>_config.yml</code>或者<code>_layouts</code>），它们的内容会被用于生成网站，但是它们的文件不会出现在网站目录下。记住这一点：任何不以下划线开头的文件和目录都会被复制到生成的网站（默认为<code>_site</code>子目录）。</p>
 
 <p>我们来创建一个layout文件。我们以包含所有元素的全局layout文件开始。在<code>_layouts</code>目录下创建名为default.html的新文件（叫什么名字无所谓），加入下面的代码：</p>
 
-<div><script src='https://gist.github.com/1481001.js?file='></script>
-<noscript><pre><code>&lt;!DOCTYPE html&gt;
-&lt;html&gt;
-&lt;head&gt;
-  &lt;meta charset=utf-8 /&gt;
-  &lt;title&gt; {% if page.title %} {{ page.title }} | {% endif %} John Doe, Photographer &lt;/title&gt;
-  &lt;link rel=&quot;stylesheet&quot; href=&quot;/css/styles.css&quot; /&gt;
-&lt;/head&gt;
-&lt;body&gt;
- 
-  &lt;div id=&quot;main&quot;&gt;
- 
-    &lt;header&gt;
-      &lt;h1&gt; John Doe Photograghy &lt;/h1&gt;
-    &lt;header&gt;
- 
-    &lt;nav role=&quot;navigation&quot;&gt;
-      &lt;ul&gt;
-        &lt;li&gt;&lt;a href=&quot;/&quot;&gt;Home&lt;/a&gt;&lt;/li&gt;
-        &lt;li&gt;&lt;a href=&quot;/portfolio/&quot;&gt;Portfolio&lt;/a&gt;&lt;/li&gt;
-        &lt;li&gt;&lt;a href=&quot;/about&quot;&gt;About&lt;/a&gt;&lt;/li&gt;
-        &lt;li&gt;&lt;a href=&quot;/contact&quot;&gt;Contact&lt;/a&gt;&lt;/li&gt;
-      &lt;/ul&gt;
-    &lt;/nav&gt;
- 
-    {{ content }}
- 
-    &lt;footer&gt;
-      &lt;p&gt;@copy; John Doe Photography 2011 | All Rights Reserved. &lt;/p&gt;
-    &lt;/footer&gt;
- 
-  &lt;/div&gt;
-&lt;/body&gt;
-&lt;/html&gt;</code></pre></noscript></div>
+<p>[% codeblock %]
+[% raw %]
+&lt;!DOCTYPE html>
+<html>
+<head>
+  <meta charset=utf-8 />
+  <title> {% if page.title %} {{ page.title }} | {% endif %} John Doe, Photographer </title>
+  <link rel="stylesheet" href="/cn/css/styles.css" />
+</head>
+<body></p>
 
+<p>  <div id="main"></p>
+
+<pre><code>&lt;header&gt;
+  &lt;h1&gt; John Doe Photograghy &lt;/h1&gt;
+&lt;header&gt;
+
+&lt;nav role="navigation"&gt;
+  &lt;ul&gt;
+    &lt;li&gt;&lt;a href="/cn/"&gt;Home&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href="/cn/portfolio/"&gt;Portfolio&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href="/cn/about"&gt;About&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href="/cn/contact"&gt;Contact&lt;/a&gt;&lt;/li&gt;
+  &lt;/ul&gt;
+&lt;/nav&gt;
+
+{{ content }}
+
+&lt;footer&gt;
+  &lt;p&gt;@copy; John Doe Photography 2011 | All Rights Reserved. &lt;/p&gt;
+&lt;/footer&gt;
+</code></pre>
+
+<p>  </div>
+</body>
+</html>
+[% endraw %]
+[% endcodeblock %]</p>
 
 <p>下面是要注意的：</p>
 
@@ -173,7 +188,7 @@
 
 <p>其次，Liquid标签中诸如<code>page.title</code>和<code>content</code>等都是Jekyll提供的变量；你可以查看文档中的<a href="https://github.com/mojombo/jekyll/wiki/Template-Data">可用的模板数据</a>。我们也可以创建自定义的模板数据。</p>
 
-<p>最后，注意到我们链接的CSS文件：在你的项目根目录下创建一个<code>CSS</code>目录，然后把下面的代码写进style.css文件：</p>
+<p>最后，注意到我们链接的CSS文件：在你的项目根目录下创建一个CSS目录，然后把下面的代码写进style.css文件：</p>
 
 <figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
@@ -330,40 +345,26 @@
 
 <p>你可能会觉得奇怪，在上面为什么我们用if语句？如果page.title变量存在的话它也不会显示啊！如果它存在，我想让它后面跟着竖线(｜)，另一种写法是这样：</p>
 
-<div><script src='https://gist.github.com/1481008.js?file='></script>
-<noscript><pre><code> {{ page.title }}{% if page.title %} | {% endif %}</code></pre></noscript></div>
-
+<p>{{ &#8221; {{ page.title }}{% if page.title %} | {% endif %} &#8221; }} %}</p>
 
 <p>然后，我们怎样使用模板？我们需要用模板创建页面。在项目的根目录，创建名为index.html的文件。内容如下：</p>
 
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-</pre></td><td class='code'><pre><code class='html'><span class='line'>---
-</span><span class='line'>layout: default
-</span><span class='line'>---
-</span><span class='line'><span class="nt">&lt;section</span> <span class="na">role=</span><span class="s">&quot;banner&quot;</span><span class="nt">&gt;</span>
-</span><span class='line'>  <span class="nt">&lt;img</span> <span class="na">src=</span><span class="s">&quot;/img/banner.jpg&quot;</span> <span class="nt">/&gt;</span>
-</span><span class='line'><span class="nt">&lt;/section&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="nt">&lt;section</span> <span class="na">class=</span><span class="s">&quot;content&quot;</span><span class="nt">&gt;</span>
-</span><span class='line'>  <span class="nt">&lt;p&gt;</span>
-</span><span class='line'>  Welcome to John Doe Photography! Please, check out my <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">&quot;/portfolio/&quot;</span><span class="nt">&gt;</span>Portfolio<span class="nt">&lt;/a&gt;</span> to see my work.
-</span><span class='line'>  <span class="nt">&lt;/p&gt;</span>
-</span><span class='line'><span class="nt">&lt;/section&gt;</span>
-</span></code></pre></td></tr></table></div></figure>
+<h2>{% codeblock lang:html %}</h2>
 
+<h2>layout: default</h2>
 
-<p>这是index.html的内容。注意到文件的顶部，Jekyll称之为YAML front matter。有YAML front matter的任何文件（不以下划线开头的）将会先被Jekyll处理然后才被放进<em>site目录中，如果不以YFM开头，将会被直接放进</em>site目录。在上面这个例子中，YAML front matter告诉Jekyll要用什么模板。</p>
+<p><section role="banner">
+  <img src="/cn/img/banner.jpg" />
+</section></p>
+
+<p><section class="content">
+  <p>
+  Welcome to John Doe Photography! Please, check out my <a href="/cn/portfolio/">Portfolio</a> to see my work.
+  </p>
+</section>
+{% endcodeblock %}</p>
+
+<p>这是index.html的内容。注意到文件的顶部，Jekyll称之为YAML front matter。有YAML front matter的任何文件（不以下划线开头的）将会先被Jekyll处理然后才被放进<code>_site</code>目录中，如果不以YFM开头，将会被直接放进<code>_site</code>目录。在上面这个例子中，YAML front matter告诉Jekyll要用什么模板。</p>
 
 <p>然后打开终端命令行，cd进项目目录，运行jekyll。你会看到类似下面的提示：</p>
 
@@ -378,105 +379,68 @@
 </span></code></pre></td></tr></table></div></figure>
 
 
-<p>忽略警告，我们一会儿处理。你可以看出网站在新建的_site目录中被构建出来。如果你用浏览器打开 <code>_site/index.html</code>文件，你可以看到网页有错误。这是因为我们的路径（url和样式表）是以斜杠<code>/</code>开头的。这意味着我们只能以文件的形式查看。当然，你可以开启W/MAMP，但是为什么要那么麻烦呢？jekyll内置有服务器。只要运行<code>jekyll --server</code>，然后浏览 <a href="http://localhost:4000" target="_blank">localhost:4000</a>就可以看到下面的图片：</p>
+<p>忽略警告，我们一会儿处理。你可以看出网站在新建的<code>_site</code>目录中被构建出来。如果你用浏览器打开 <code>_site/index.html</code>文件，你可以看到网页有错误。这是因为我们的路径（url和样式表）是以斜杠<code>/</code>开头的。这意味着我们只能以文件的形式查看。当然，你可以开启W/MAMP，但是为什么要那么麻烦呢？jekyll内置有服务器。只要运行<code>jekyll --server</code>，然后浏览localhost:4000就可以看到下面的图片：</p>
 
 <p><img src="http://d2o0t5hpnwv4c1.cloudfront.net/1064_jekyll/index.png" alt="pic1" /></p>
 
-<p>如果上面的图还不够，可以看看_site/index.html的代码。你可以看出我们指定的模板和我们提供的内容混合在一起。哇呜！——我们得到了页面。</p>
+<p>如果上面的图还不够，可以看看<code>_site/index.html</code>的代码。你可以看出我们指定的模板和我们提供的内容混合在一起。哇呜！——页面就生成了。</p>
 
-<p>我要提醒一点的是，是YAML front matter使得这一神奇的事发生。如果一个文件不以三个短线开头，后接一行或多行属性，再以三个短线结尾，那这个文件只会被复制到_site中。</p>
+<p>我要提醒一点的是，是YAML front matter使得这一神奇的事发生。如果一个文件不以三个短线开头，后接一行或多行属性，再以三个短线结尾，那这个文件只会被复制到<code>_site</code>中。</p>
 
 <h2>Step 3: 创建一个合集模板</h2>
 
 <p>现在我们对基础很熟悉了，那我们来创建几幅图的合集。还记得我们前面说的jekyll是“适用于博客的”吗？我们来使用blog-awareness特性：我们来做portfolio entries，而不是posts。</p>
 
-<p>Posts位于名为_posts目录中，创建该目录。posts的文件名模式必须设定：year-month-day-title.ext。Posts，jekyll网站的任何文件，可以是markdown或者HTML格式。</p>
+<p>Posts位于名为<code>_posts</code>目录中，创建该目录。posts的文件名模式必须设定：year-month-day-title.ext。Posts，jekyll网站的任何文件，可以是markdown或者HTML格式。</p>
 
 <p>我们来创建几个posts：这些实际上是我们portfolio的entries。</p>
 
-<figure class='code'><figcaption><span>_posts/2010-03-04-bikes.md  </span></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-</pre></td><td class='code'><pre><code class='html'><span class='line'>---
-</span><span class='line'>layout: portfolio_entry
-</span><span class='line'>image: /img/bikes.jpg
-</span><span class='line'>title: Bikes, Black and White
-</span><span class='line'>---
-</span><span class='line'>Bikes are used by almost everyone in downtown Amsterdam. These ones are chained to a bike rack.
-</span></code></pre></td></tr></table></div></figure>
+<h2>{% codeblock _posts/2010-03-04-bikes.md lang:html %}</h2>
 
+<p>layout: portfolio_entry
+image: /img/bikes.jpg</p>
 
+<h2>title: Bikes, Black and White</h2>
 
+<p>Bikes are used by almost everyone in downtown Amsterdam. These ones are chained to a bike rack.</p>
 
-<figure class='code'><figcaption><span>_posts/2010-10-01-wing.md  </span></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-</pre></td><td class='code'><pre><code class='html'><span class='line'>---
-</span><span class='line'>layout: portfolio_entry
-</span><span class='line'>title: Wing and a Prayer
-</span><span class='line'>image: /img/wing.jpg
-</span><span class='line'>---
-</span><span class='line'>The wing of the AirBus I rode to England.
-</span></code></pre></td></tr></table></div></figure>
+<p>{% endcodeblock %}</p>
 
+<h2>{% codeblock _posts/2010-10-01-wing.md lang:html %}</h2>
 
+<p>layout: portfolio_entry
+title: Wing and a Prayer</p>
 
+<h2>image: /img/wing.jpg</h2>
 
-<figure class='code'><figcaption><span>_posts/2011-06-05-bridge.md  </span></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-</pre></td><td class='code'><pre><code class='html'><span class='line'>---
-</span><span class='line'>layout: portfolio_entry
-</span><span class='line'>title: Stone Bridge
-</span><span class='line'>image: /img/bridge.jpg
-</span><span class='line'>---
-</span><span class='line'>An old stone bridge in London.
-</span></code></pre></td></tr></table></div></figure>
+<p>The wing of the AirBus I rode to England.</p>
 
+<p>{% endcodeblock %}</p>
 
+<h2>{% codeblock _posts/2011-06-05-bridge.md lang:html %}</h2>
 
+<p>layout: portfolio_entry
+title: Stone Bridge</p>
 
-<figure class='code'><figcaption><span>_posts/2011-07-09-road.md  </span></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-</pre></td><td class='code'><pre><code class='html'><span class='line'>---
-</span><span class='line'>layout: portfolio_entry
-</span><span class='line'>title: Road and Curb
-</span><span class='line'>image: /img/road.jpg
-</span><span class='line'>---
-</span><span class='line'>Bike lanes here are terribly thin.
-</span></code></pre></td></tr></table></div></figure>
+<h2>image: /img/bridge.jpg</h2>
 
+<p>An old stone bridge in London.
+{% endcodeblock %}</p>
+
+<h2>{% codeblock _posts/2011-07-09-road.md lang:html %}</h2>
+
+<p>layout: portfolio_entry
+title: Road and Curb</p>
+
+<h2>image: /img/road.jpg</h2>
+
+<p>Bike lanes here are terribly thin.</p>
+
+<p>{% endcodeblock %}</p>
 
 <p>相当简单，是吧？注意到，我们创建了一个自定义的YAML front matter域：image。这是该entry的图片地址。这样我们就可以在这个文件里构建整个entry的HTML。但是如果我们想修改怎么办？那我们必须返回到每个entry里进行修改。我们可以不用这样做，而使用portfolio_entry模板来表示它们。这个模板长得什么样呢？也是相当简单：</p>
 
-<div><script src='https://gist.github.com/1481014.js?file='></script>
-<noscript><pre><code>---
-layout: default
----
- 
-&lt;h2 class=&quot;content&quot;&gt;{{page.title}}&lt;/h2&gt;
- 
-&lt;img src=&quot;{{ page.image }}&quot; /&gt;
- 
-{{ content }}</code></pre></noscript></div>
-
+<p>{% include_code portfolio_entry.html %}</p>
 
 <p>如果你看<a href="https://github.com/mojombo/jekyll/wiki/Template-Data">template data page</a>，你就会发现我们添加的任何自定义front matter在page里都是可用的；在这里，我们可以access <code>page.image</code>。我们也可以用<code>page.title</code>和<code>content</code>（后一个三短线之后的所有东西）。</p>
 
@@ -484,37 +448,42 @@ layout: default
 
 <p>entry （post）pages是建立起来了，但是portfolio主页怎么办呢？当我写我们的默认layout里的导航栏时，我注意到我们要的是 <code>/portfolio/</code>。那么我们在根目录创建名为<code>portfolio</code>的目录，打开里面的index.html文件。</p>
 
-<div><script src='https://gist.github.com/1481016.js?file='></script>
-<noscript><pre><code>---
-layout: default
-title: Portfolio
----
- 
-&lt;section class=&quot;content&quot;&gt;
-  &lt;h2&gt;Portfolio&lt;/h2&gt;
- 
-  &lt;p&gt;Check out my images below!&lt;/p&gt;
-&lt;/section&gt;
- 
-&lt;ul class=&quot;entries&quot;&gt;
+<p>{% codeblock %}</p>
+
+<h2>{% raw %}</h2>
+
+<p>layout: default</p>
+
+<h2>title: Portfolio</h2>
+
+<p><section class="content">
+  <h2>Portfolio</h2></p>
+
+<p>  <p>Check out my images below!</p>
+</section></p>
+
+<ul class="entries">
   {% for post in site.posts %}
  
-  &lt;li&gt;
-    &lt;a href=&quot;{{ post.url }}&quot;&gt;
-      &lt;img src=&quot;{{ post.image }}&quot; /&gt;
-      &lt;h3&gt;{{ post.title }}&lt;/h3&gt;
-    &lt;/a&gt;
-  &lt;/li&gt;
+  <li>
+    <a href="{{ post.url }}">
+      <img src="{{ post.image }}" />
+      <h3>{{ post.title }}</h3>
+    </a>
+  </li>
  
   {% endfor %}
-&lt;/ul&gt;</code></pre></noscript></div>
+</ul>
 
+
+<p>{% endraw %}
+{% endcodeblock %}</p>
 
 <p>这是我们最复杂的一块了。记住，这不是模板：这是一个“正常的”文件，但是同样可以包含Liquid标签。我们把layout设置成default，把title设定成“Portfolio”。</p>
 
 <p>注意到，在HTML文件中，我们用了Liquid的<code>for-in</code>循环。我们用<code>site.posts</code>retrieve出所有posts，然后用<code>for post in site.posts / endfor</code>遍历所有的posts。如果你用过Wordpress，或者其他博客系统，相信你对循环的概念很熟悉。这样就完成了！正如你看到的，我们可以得到标准属性，以及我们定义的front matter（例如<code>image</code>）。</p>
 
-<p>现在运行<code>jekyll --server</code>来生成网站，然后浏览 <a href="http://localhost:4000" target="_blank">localhost:4000</a>就可以看到</p>
+<p>现在运行<code>jekyll --server</code>来生成网站，然后浏览localhost:4000就可以看到</p>
 
 <p><img src="http://d2o0t5hpnwv4c1.cloudfront.net/1064_jekyll/portfolio.png" alt="pic2" /></p>
 
@@ -541,6 +510,8 @@ title: Portfolio
 </blockquote>
 
 
+<p>我们来看看常用的选项有哪些：</p>
+
 <ul>
 <li>auto： 添加<code>auto: true</code>到你的配置文件来保持Jekyll运行，查看你的项目目录的改变并随时生成网站。</li>
 <li>source: 如果源文件目录不是运行Jekyll的目录，你就要用<code>source</code>选项来设置源文件目录。</li>
@@ -549,8 +520,6 @@ title: Portfolio
 <li>exclude: 像上面所言，Jekyll会忽略以下划线开头的文件，但是，如果你有需要忽略的目录，但是又不是以下划线开头，你可以在<code>exclude</code>中设定。</li>
 </ul>
 
-
-<p>我们来看看常用的选项有哪些：</p>
 
 <h2>Step 5: 部署网站</h2>
 
@@ -578,6 +547,29 @@ title: Portfolio
 <p>本文介绍了Jekyll——一种简单的、适用于做博客的、静态网站生成引擎。下次如果你想建一个宣传册风格的、小型展示页面，可以试试用Jekyll。请在留言中告诉我，感谢您的阅读。</p>
 
 <p>原文地址：<a href="http://net.tutsplus.com/tutorials/other/building-static-sites-with-jekyll/">http://net.tutsplus.com/tutorials/other/building-static-sites-with-jekyll/</a></p>
+
+<h2>译者言</h2>
+
+<p>我也是一边翻译，一边练习使用Octopress，在翻译过程中遇到了最大到问题就是，文章中引用了几段含有Liquid标签的代码，而这些代码用<code>{% codeblock %} ... {% endcodeblock %}</code>或者用<code>```</code>括起来（也就是Backtick Code Blocks的方式），都不能保持原样，也就是会被jekyll渲染出来，为此，我也试了很久，也到<a href="http://ruby-taiwan.org/topics/74">ruby-taiwan.org</a>上发帖问了，总结起来有几种方法：</p>
+
+<ol>
+<li>用插件
+ {{ &#8220;{% gist gist_id [filename]&#8221; }} %}</li>
+<li>用include_code插件
+ {{ &#8220;{% include_code [title] [lang:language] path/to/file&#8221; }} %}
+上面两种方法在Octoprss的官方网站都有介绍，请看<a href="http://octopress.org/docs/blogging/code/">http://octopress.org/docs/blogging/code/</a></li>
+<li>用<code>{% codeblock %} {% raw %} ... {% endraw } {% endcodeblock %}</code>包含代码，请看<a href="http://jimpravetz.com/blog/2011/12/inserting-liquid-syntax-into-octopress-codeblock/">http://jimpravetz.com/blog/2011/12/inserting-liquid-syntax-into-octopress-codeblock/</a></li>
+</ol>
+
+
+<p>第二个问题是CSS代码不能被着色，找到了一篇文章<a href="http://hack.sslab.co/blog/2011/11/13/octopress-upgrade-pygments/" target="_blank">《讓 Octopress 支援更多語言的程式碼區塊（更新 Pygments）》</a>，用里面的方法更新pygment就行了。需要注意的是pygments.rb的目录和那篇文章的不同，我的ubuntu11.10下为</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'>~/.rvm/gems/ruby-1.9.2-p290/gems/pygments.rb-0.2.4/vendor
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>后面的类似。</p>
 </div>
 
 
@@ -612,6 +604,21 @@ title: Portfolio
   
   
   
+  
+	<!-- JiaThis Button BEGIN -->
+	<div id="ckepop">
+		<span class="jiathis_txt">分享到： </span>
+		<a class="jiathis_button_tools_1"></a>
+		<a class="jiathis_button_tools_2"></a>
+		<a class="jiathis_button_tools_3"></a>
+		<a class="jiathis_button_tools_4"></a>
+		<a href="http://www.jiathis.com/share?uid=1558027" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank">更多</a>
+		<a class="jiathis_counter_style"></a>
+	</div>
+	<script type="text/javascript">var jiathis_config = {data_track_clickback:true};</script>
+	<script type="text/javascript" src="http://v2.jiathis.com/code/jia.js?uid=1558027" charset="utf-8"></script>
+	<!-- JiaThis Button END -->
+  
 </div>
 
     
@@ -639,7 +646,7 @@ title: Portfolio
   <ul id="recent_posts">
     
       <li class="post">
-        <a href="/cn/blog/2011/12/15/building-static-sites-with-jekyll/">用Jekyll构建静态网站</a>
+        <a href="/cn/blog/2011/12/15/building-static-sites-with-jekyll/">【译文】用Jekyll构建静态网站</a>
       </li>
     
       <li class="post">
@@ -660,36 +667,6 @@ title: Portfolio
     
   </ul>
 </section>
-
-<section>
-  <h1>Github代码库</h1>
-  <ul id="gh_repos">
-    <li class="loading">更新状态...</li>
-  </ul>
-  
-  <a href="https://github.com/yanping">@yanping</a> on Github
-  
-  <script type="text/javascript">
-    $.domReady(function(){
-        if (!window.jXHR){
-            var jxhr = document.createElement('script');
-            jxhr.type = 'text/javascript';
-            jxhr.src = '/javascripts/libs/jXHR.js';
-            var s = document.getElementsByTagName('script')[0];
-            s.parentNode.insertBefore(jxhr, s);
-        }
-
-        github.showRepos({
-            user: 'yanping',
-            count: 0,
-            skip_forks: true,
-            target: '#gh_repos'
-        });
-    });
-  </script>
-  <script src="/cn/javascripts/github.js" type="text/javascript"> </script>
-</section>
-
 <section id="blogroll">
 <h1>友情链接</h1>
 <ul >
@@ -704,11 +681,19 @@ title: Portfolio
 	<li><a target="_blank" href="http://taiyun.cos.name">魏太云</a></li>
 </ul>
 </section>
+<section>
+<div style="text-align: center;"><!-- Feedsky FEED发布代码开始 --><!-- FEED自动发现标记开始 -->
+<link target="_blank" rel="alternate" href="http://feed.yanping.me" type="application/rss+xml" title="RSS 2.0"/>
+<!-- FEED自动发现标记结束 --><a target="_blank" href="http://feed.yanping.me"><img vspace="2" border="0" style="margin-bottom: 3px;" alt="feedsky" src="http://img.feedsky.com/images/icon_sub_c1s17_d.gif"/></a><br/>
+</div>
+<div style="text-align: center;"><a target="_blank" href="http://www.zhuaxia.com/add_channel.php?url=http://feed.yanping.me"><img vspace="2" border="0" style="margin-bottom: 3px;" alt="抓虾" src="http://img.feedsky.com/images/icon_subshot01_zhuaxia.gif"/></a><a target="_blank" href="http://add.my.yahoo.com/rss?url=http://feed.feedsky.com/ypchen"><img vspace="2" border="0" style="margin-bottom: 3px;" alt="my yahoo" src="http://img.feedsky.com/images/icon_subshot01_yahoo.gif"/></a><br/>
+<a target="_blank" href="http://fusion.google.com/add?feedurl=http://feed.yanping.me"><img vspace="2" border="0" style="margin-bottom: 3px;" alt="google reader" src="http://img.feedsky.com/images/icon_subshot01_google.gif"/></a><a target="_blank" href="http://mail.qq.com/cgi-bin/feed?u=http://feed.yanping.me"><img vspace="2" border="0" style="margin-bottom: 3px;" alt="QQ邮箱" src="http://img.feedsky.com/images/icon_subshot01_qq.gif"/></a><br/>
+</div>
+<section>
 
 <section>
-<h1>新浪微博</h1>
-<iframe width="100%" height="90" class="share_self"  frameborder="0" scrolling="no" 
-	src="http://widget.weibo.com/weiboshow/index.php?	language=&width=0&height=90&fansRow=2&ptype=1&speed=0&skin=1&isTitle=0&noborder=0&isWeibo=0&isFans=0&uid=1780626537&verifier=d1d5f291&dpc=1">
+<iframe width="100%" height="110" class="share_self"  frameborder="0" scrolling="no" 
+	src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=110&fansRow=2&ptype=1&speed=300&skin=2&isTitle=1&noborder=1&isWeibo=0&isFans=0&uid=1780626537&verifier=d1d5f291&dpc=1">
 </iframe>
 </section>
 
@@ -717,10 +702,9 @@ title: Portfolio
 
 
 <section id="copyleft">
-<h1>版权说明</h1>
+<h1>版权协议</h1>
 	
-	<p align="center"> <a target="_ blank" href="http://creativecommons.org/licenses/by-nc-sa/2.5/cn/"><img align="middle" src="http://i.creativecommons.org/l/by-nc-sa/2.5/cn/88x31.png" alt="Creative Commons License"/></a></p>
-
+	<div align="center"> <a target="_ blank" href="http://creativecommons.org/licenses/by-nc-sa/2.5/cn/"><img src="http://i.creativecommons.org/l/by-nc-sa/2.5/cn/88x31.png" alt="Creative Commons License"/></a></div>
 	<a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/2.5/cn/">CC2.5: 知识共享署名-非商业性使用</a>
 </section>
 

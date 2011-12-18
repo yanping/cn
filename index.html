@@ -30,6 +30,18 @@
 <link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
 
   
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-27377274-2']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
 
 </head>
 
@@ -70,7 +82,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/cn/blog/2011/12/15/building-static-sites-with-jekyll/">用Jekyll构建静态网站</a></h1>
+      <h1 class="entry-title"><a href="/cn/blog/2011/12/15/building-static-sites-with-jekyll/">【译文】用Jekyll构建静态网站</a></h1>
     
     
       <p class="meta">
@@ -97,10 +109,10 @@
 
 <h2>Step 0: 遭遇Jekyll</h2>
 
-<blockquote><p>Jekyll is a simple, blog aware, static site generator.</p></blockquote>
-
-
-<p>Jekyll是一种简单的、适用于博客（blog aware）的、静态网站生成引擎。Jekyll网站的宣传语这么说。但，这究竟是什么意思呢？静态网站生成引擎是利用一整套文件生成网站的程序。正如你看到的，我们可以利用一套模板，单独生成内容文件，然后用Jekyll生成网站。“blog aware”意思是我们可以用它来创建博客，或者其他有系列文章（例如合集，英文称portfolio）发布的网站。让我们来尝试一下吧！</p>
+<p>{% blockquote %}
+Jekyll is a simple, blog aware, static site generator.
+{% endblockquote %}
+Jekyll是一种简单的、适用于博客（blog aware）的、静态网站生成引擎。Jekyll网站的宣传语这么说。但，这究竟是什么意思呢？静态网站生成引擎是利用一整套文件生成网站的程序。正如你看到的，我们可以利用一套模板，单独生成内容文件，然后用Jekyll生成网站。“blog aware”意思是我们可以用它来创建博客，或者其他有系列文章（例如合集，英文称portfolio）发布的网站。让我们来尝试一下吧！</p>
 
 </div>
   
@@ -347,7 +359,7 @@ github pages的<a target="_blank" href="http://pages.github.com/">官方主页</
   <ul id="recent_posts">
     
       <li class="post">
-        <a href="/cn/blog/2011/12/15/building-static-sites-with-jekyll/">用Jekyll构建静态网站</a>
+        <a href="/cn/blog/2011/12/15/building-static-sites-with-jekyll/">【译文】用Jekyll构建静态网站</a>
       </li>
     
       <li class="post">
@@ -412,11 +424,19 @@ github pages的<a target="_blank" href="http://pages.github.com/">官方主页</
 	<li><a target="_blank" href="http://taiyun.cos.name">魏太云</a></li>
 </ul>
 </section>
+<section>
+<div style="text-align: center;"><!-- Feedsky FEED发布代码开始 --><!-- FEED自动发现标记开始 -->
+<link target="_blank" rel="alternate" href="http://feed.yanping.me" type="application/rss+xml" title="RSS 2.0"/>
+<!-- FEED自动发现标记结束 --><a target="_blank" href="http://feed.yanping.me"><img vspace="2" border="0" style="margin-bottom: 3px;" alt="feedsky" src="http://img.feedsky.com/images/icon_sub_c1s17_d.gif"/></a><br/>
+</div>
+<div style="text-align: center;"><a target="_blank" href="http://www.zhuaxia.com/add_channel.php?url=http://feed.yanping.me"><img vspace="2" border="0" style="margin-bottom: 3px;" alt="抓虾" src="http://img.feedsky.com/images/icon_subshot01_zhuaxia.gif"/></a><a target="_blank" href="http://add.my.yahoo.com/rss?url=http://feed.feedsky.com/ypchen"><img vspace="2" border="0" style="margin-bottom: 3px;" alt="my yahoo" src="http://img.feedsky.com/images/icon_subshot01_yahoo.gif"/></a><br/>
+<a target="_blank" href="http://fusion.google.com/add?feedurl=http://feed.yanping.me"><img vspace="2" border="0" style="margin-bottom: 3px;" alt="google reader" src="http://img.feedsky.com/images/icon_subshot01_google.gif"/></a><a target="_blank" href="http://mail.qq.com/cgi-bin/feed?u=http://feed.yanping.me"><img vspace="2" border="0" style="margin-bottom: 3px;" alt="QQ邮箱" src="http://img.feedsky.com/images/icon_subshot01_qq.gif"/></a><br/>
+</div>
+<section>
 
 <section>
-<h1>新浪微博</h1>
-<iframe width="100%" height="90" class="share_self"  frameborder="0" scrolling="no" 
-	src="http://widget.weibo.com/weiboshow/index.php?	language=&width=0&height=90&fansRow=2&ptype=1&speed=0&skin=1&isTitle=0&noborder=0&isWeibo=0&isFans=0&uid=1780626537&verifier=d1d5f291&dpc=1">
+<iframe width="100%" height="110" class="share_self"  frameborder="0" scrolling="no" 
+	src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=110&fansRow=2&ptype=1&speed=300&skin=2&isTitle=1&noborder=1&isWeibo=0&isFans=0&uid=1780626537&verifier=d1d5f291&dpc=1">
 </iframe>
 </section>
 
@@ -425,10 +445,9 @@ github pages的<a target="_blank" href="http://pages.github.com/">官方主页</
 
 
 <section id="copyleft">
-<h1>版权说明</h1>
+<h1>版权协议</h1>
 	
-	<p align="center"> <a target="_ blank" href="http://creativecommons.org/licenses/by-nc-sa/2.5/cn/"><img align="middle" src="http://i.creativecommons.org/l/by-nc-sa/2.5/cn/88x31.png" alt="Creative Commons License"/></a></p>
-
+	<div align="center"> <a target="_ blank" href="http://creativecommons.org/licenses/by-nc-sa/2.5/cn/"><img src="http://i.creativecommons.org/l/by-nc-sa/2.5/cn/88x31.png" alt="Creative Commons License"/></a></div>
 	<a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/2.5/cn/">CC2.5: 知识共享署名-非商业性使用</a>
 </section>
 
