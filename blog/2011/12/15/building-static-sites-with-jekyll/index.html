@@ -400,11 +400,11 @@
 
 <h2>Step 3: 创建一个合集模板</h2>
 
-<p>现在我们对基础很熟悉了，那我们来创建几幅图的合集。还记得我们前面说的jekyll是“适用于博客的”吗？我们来使用blog-awareness特性：我们来做portfolio entries，而不是posts。</p>
+<p>现在我们对基础很熟悉了，那我们来创建几幅图的合集。还记得我们前面说的jekyll是“适用于博客的”吗？我们来使用blog-awareness特性：我们来做一整套的条目(portfolio entries)，而不是零散的帖子(posts)。</p>
 
-<p>Posts位于名为<code>_posts</code>目录中，创建该目录。posts的文件名模式必须设定：year-month-day-title.ext。Posts，jekyll网站的任何文件，可以是markdown或者HTML格式。</p>
+<p>帖子位于名为<code>_posts</code>目录中，创建该目录。帖子的文件名模式必须设定：year-month-day-title.ext。帖子，jekyll网站的任何文件，可以是markdown或者HTML格式。</p>
 
-<p>我们来创建几个posts：这些实际上是我们portfolio的entries。</p>
+<p>我们来创建几个帖子：这些实际上是我们整套的条目。</p>
 
 <figure class='code'><figcaption><span>_posts/2010-03-04-bikes.md  </span></figcaption>
  <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
@@ -476,7 +476,7 @@
 </span></code></pre></td></tr></table></div></figure>
 
 
-<p>相当简单，是吧？注意到，我们创建了一个自定义的YAML front matter域：image。这是该entry的图片地址。这样我们就可以在这个文件里构建整个entry的HTML。但是如果我们想修改怎么办？那我们必须返回到每个entry里进行修改。我们可以不用这样做，而使用portfolio_entry模板来表示它们。这个模板长得什么样呢？也是相当简单：</p>
+<p>相当简单，是吧？注意到，我们创建了一个自定义的YAML front matter域：image。这是该entry的图片地址。这样我们就可以在这个文件里构建整个条目（entry）的HTML。但是如果我们想修改怎么办？那我们必须返回到每个条目里进行修改。我们可以不用这样做，而使用portfolio_entry模板来表示它们。这个模板长什么样呢？也是相当简单：</p>
 
 <figure class='code'><figcaption><span> (portfolio_entry.html)</span> <a href='/cn/downloads/code/portfolio_entry.html'>download</a></figcaption>
  <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
@@ -504,17 +504,17 @@
 
 <p>我必须提一点的是，虽然post <code>title</code>被认为在post对象中是可用的，我只在page对象中也可以用。</p>
 
-<p>entry （post）pages是建立起来了，但是portfolio主页怎么办呢？当我写我们的默认layout里的导航栏时，我注意到我们要的是 <code>/portfolio/</code>。那么我们在根目录创建名为<code>portfolio</code>的目录，打开里面的index.html文件。</p>
+<p>帖子（文章）页面建立起来了，但是portfolio主页怎么办呢？当我写我们的默认layout里的导航栏时，我注意到我们要的是 <code>/portfolio/</code>。那么我们在根目录创建名为<code>portfolio</code>的目录，打开里面的index.html文件。</p>
 
 <p>这是我们最复杂的一块了。记住，这不是模板：这是一个“正常的”文件，但是同样可以包含Liquid标签。我们把layout设置成default，把title设定成“Portfolio”。</p>
 
-<p>注意到，在HTML文件中，我们用了Liquid的<code>for-in</code>循环。我们用<code>site.posts</code>retrieve出所有posts，然后用<code>for post in site.posts / endfor</code>遍历所有的posts。如果你用过Wordpress，或者其他博客系统，相信你对循环的概念很熟悉。这样就完成了！正如你看到的，我们可以得到标准属性，以及我们定义的front matter（例如<code>image</code>）。</p>
+<p>注意到，在HTML文件中，我们用了Liquid的<code>for-in</code>循环。我们用<code>site.posts</code>遍历出所有帖子，然后用<code>for post in site.posts / endfor</code>遍历所有的帖子。如果你用过Wordpress，或者其他博客系统，相信你对循环的概念很熟悉。这样就完成了！正如你看到的，我们可以得到标准属性，以及我们定义的front matter（例如<code>image</code>）。</p>
 
 <p>现在运行<code>jekyll --server</code>来生成网站，然后浏览localhost:4000就可以看到</p>
 
 <p><img src="http://d2o0t5hpnwv4c1.cloudfront.net/1064_jekyll/portfolio.png" alt="pic2" /></p>
 
-<p>下面是entry page：</p>
+<p>下面是条目页面:</p>
 
 <p><img src="http://d2o0t5hpnwv4c1.cloudfront.net/1064_jekyll/entry.png" alt="pic3" /></p>
 
