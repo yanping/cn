@@ -4,7 +4,7 @@
   <title><![CDATA[雁起平沙的网络日志]]></title>
   <link href="http://chen.yanping.me/cn/atom.xml" rel="self"/>
   <link href="http://chen.yanping.me/cn/"/>
-  <updated>2011-12-18T22:09:52+08:00</updated>
+  <updated>2011-12-18T22:15:15+08:00</updated>
   <id>http://chen.yanping.me/cn/</id>
   <author>
     <name><![CDATA[ypchen]]></name>
@@ -493,13 +493,7 @@
 
 <h2>译者言</h2>
 
-<p>我也是一边翻译，一边练习使用Octopress，在翻译过程中遇到了最大到问题就是，文章中引用了几段含有Liquid标签的代码，而这些代码用`</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>`... `</span></code></pre></td></tr></table></div></figure>
-
-
-<p>`或者用 <code>```</code>括起来（也就是Backtick Code Blocks的方式），都不能保持原样，也就是会被jekyll渲染出来，为此，我也试了很久，也到<a href="http://ruby-taiwan.org/topics/74">ruby-taiwan.org</a>上发帖问了，总结起来有几种方法：</p>
+<p>我也是一边翻译，一边练习使用Octopress，在翻译过程中遇到了最大到问题就是，文章中引用了几段含有Liquid标签的代码，而这些代码用<a href="http://octopress.org/docs/plugins/codeblock/" target="_blank">codeblock插件</a>或者用 <code>```</code>括起来（也就是Backtick Code Blocks的方式），都不能保持原样，也就是会被jekyll渲染出来，为此，我也试了很久，也到<a href="http://ruby-taiwan.org/topics/74">ruby-taiwan.org</a>上发帖问了，总结起来有几种方法：</p>
 
 <p>1.用gist插件</p>
 
@@ -513,13 +507,7 @@
 
 <p>上面两种方法在Octoprss的官方网站都有介绍，请看<a href="http://octopress.org/docs/blogging/code/">http://octopress.org/docs/blogging/code/</a></p>
 
-<p>3.用`</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>``  `...` ``</span></code></pre></td></tr></table></div></figure>
-
-
-<p>`包含代码，请看<a href="http://jimpravetz.com/blog/2011/12/inserting-liquid-syntax-into-octopress-codeblock/">http://jimpravetz.com/blog/2011/12/inserting-liquid-syntax-into-octopress-codeblock/</a>。这种方式只能帖代码，不能语法高亮。</p>
+<p>3.用codeblock标签里嵌套raw标签，详情请看<a href="http://jimpravetz.com/blog/2011/12/inserting-liquid-syntax-into-octopress-codeblock/">http://jimpravetz.com/blog/2011/12/inserting-liquid-syntax-into-octopress-codeblock/</a>。这种方式只能帖代码，不能语法高亮。</p>
 
 <p>第二个问题是CSS代码不能被着色，找到了一篇文章<a href="http://hack.sslab.co/blog/2011/11/13/octopress-upgrade-pygments/" target="_blank">《讓 Octopress 支援更多語言的程式碼區塊（更新 Pygments）》</a>，用里面的方法更新pygment就行了。需要注意的是pygments.rb的目录和那篇文章的不同，我的ubuntu11.10下为</p>
 
