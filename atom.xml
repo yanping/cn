@@ -4,7 +4,7 @@
   <title><![CDATA[雁起平沙的网络日志]]></title>
   <link href="http://chen.yanping.me/cn/atom.xml" rel="self"/>
   <link href="http://chen.yanping.me/cn/"/>
-  <updated>2011-12-18T21:43:17+08:00</updated>
+  <updated>2011-12-18T21:47:05+08:00</updated>
   <id>http://chen.yanping.me/cn/</id>
   <author>
     <name><![CDATA[ypchen]]></name>
@@ -501,22 +501,19 @@
 
 <p></code>或者用<code> ``` </code>括起来（也就是Backtick Code Blocks的方式），都不能保持原样，也就是会被jekyll渲染出来，为此，我也试了很久，也到<a href="http://ruby-taiwan.org/topics/74">ruby-taiwan.org</a>上发帖问了，总结起来有几种方法：</p>
 
-<ol>
-<li><p>用gist插件</p>
+<p>1.用gist插件</p>
 
-<p> {% gist gist_id [filename] %}</p></li>
-<li><p>用include_code插件</p>
+<pre><code>{% gist gist_id [filename] %}
+</code></pre>
 
-<p> {% include_code [title] [lang:language] path/to/file %}</p></li>
-</ol>
+<p>2.用include_code插件</p>
 
+<pre><code>{% include_code [title] [lang:language] path/to/file %}
+</code></pre>
 
 <p>上面两种方法在Octoprss的官方网站都有介绍，请看<a href="http://octopress.org/docs/blogging/code/">http://octopress.org/docs/blogging/code/</a></p>
 
-<ol>
-<li>用<code></li>
-</ol>
-
+<p>3.用<code></p>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>...</span></code></pre></td></tr></table></div></figure>
