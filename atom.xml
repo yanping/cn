@@ -4,7 +4,7 @@
   <title><![CDATA[雁起平沙的网络日志]]></title>
   <link href="http://chen.yanping.me/cn/atom.xml" rel="self"/>
   <link href="http://chen.yanping.me/cn/"/>
-  <updated>2011-12-18T21:58:08+08:00</updated>
+  <updated>2011-12-18T22:03:10+08:00</updated>
   <id>http://chen.yanping.me/cn/</id>
   <author>
     <name><![CDATA[ypchen]]></name>
@@ -406,7 +406,7 @@ title: Road and Curb</p>
 
 <h2>译者言</h2>
 
-<p>我也是一边翻译，一边练习使用Octopress，在翻译过程中遇到了最大到问题就是，文章中引用了几段含有Liquid标签的代码，而这些代码用{{ &#8220;{% codeblock %} &#8230; {% endcodeblock&#8221;}} %}</code>或者用<code> ``` </code>括起来（也就是Backtick Code Blocks的方式），都不能保持原样，也就是会被jekyll渲染出来，为此，我也试了很久，也到<a href="http://ruby-taiwan.org/topics/74">ruby-taiwan.org</a>上发帖问了，总结起来有几种方法：</p>
+<p>我也是一边翻译，一边练习使用Octopress，在翻译过程中遇到了最大到问题就是，文章中引用了几段含有Liquid标签的代码，而这些代码用<code>{{ "{% codeblock "}} %} ... {{" {% endcodeblock"}} %}</code></code>或者用<code> ``` </code>括起来（也就是Backtick Code Blocks的方式），都不能保持原样，也就是会被jekyll渲染出来，为此，我也试了很久，也到<a href="http://ruby-taiwan.org/topics/74">ruby-taiwan.org</a>上发帖问了，总结起来有几种方法：</p>
 
 <p>1.用gist插件</p>
 
