@@ -4,7 +4,7 @@
   <title><![CDATA[雁起平沙的网络日志]]></title>
   <link href="http://chen.yanping.me/cn/atom.xml" rel="self"/>
   <link href="http://chen.yanping.me/cn/"/>
-  <updated>2011-12-18T22:55:35+08:00</updated>
+  <updated>2011-12-18T23:06:06+08:00</updated>
   <id>http://chen.yanping.me/cn/</id>
   <author>
     <name><![CDATA[ypchen]]></name>
@@ -495,7 +495,7 @@
 
 <p>我也是一边翻译，一边练习使用Octopress，在翻译过程中遇到了三个问题。</p>
 
-<p>第一个问题是在markdown里直接写html标签的话可能会出错。例如在step2中，我写了个&lt;title&gt;，一开始的时候没有做任何处理，结果出来的网页有错，后来我才想起来，markdown里的html语句会被直接放到最终网页里，那么我直接这么写的话，就会出现两个&lt;title&gt;，所以正确的做法是用&#96;把&lt;title&gt;括起来，或者就写<code>&amp;lt;title&amp;gt;</code>。</p>
+<p>第一个问题是在markdown里直接写html标签的话可能会出错。例如在step2中，我写了个&lt;title&gt;，一开始的时候没有做任何处理，结果出来的网页有错，后来我才想起来，markdown里的html语句会被直接放到最终网页里，那么我直接这么写的话，就会出现两个&lt;title&gt;，所以正确的做法是用&#96;把&lt;title&gt;括起来，或者就写<code>&amp;lt;title&amp;gt;</code>。就在我刚才编辑这段话时，又接连出现问题，这个&#96;会自动寻找最近的另一半来匹配，所以我不得不用数字实体引用来表示它。</p>
 
 <p>第二个问题是当文章中引用了含有Liquid标签的代码片段时，这些代码会被jekyll渲染。一般代码是用<a href="http://octopress.org/docs/plugins/codeblock/" target="_blank">codeblock标签</a>或者用 <code>```</code>括起来（也就是Backtick Code Blocks的方式），能保持原样，还能显示语法高亮，但是当引用的代码里含有Liquid标签时就出现了混乱。为此，我也试了很久，也到<a href="http://ruby-taiwan.org/topics/74">ruby-taiwan.org</a>上发帖问了，总结起来有几种方法：</p>
 
