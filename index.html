@@ -9,7 +9,7 @@
   <meta name="author" content="ypchen">
 
   
-  <meta name="description" content="功能五花八门的CMS（内容管理系统）有时候并不是必需的，你只需要创建一个轻量级的静态网站&#8230; 当你有足够多的页面就会使复制模板文件和跨网站标记的过程变成繁琐的事。今天，我将介绍一种简单的解决方案——Jekyll——使得你可以轻而易举地创建小型网站。 Step 0: 遭遇Jekyll &hellip;">
+  <meta name="description" content="首先，我要感慨一下，有心栽花花不开，无心插柳柳成荫。 最初我发现在windows下不能部署octopress，安装rvm不成功，跟阳志平交流后，他也说在windows不可以，到网上搜寻了一下，也没有人说在windows下安装成功。 去上海参加R语言会议时，见到怡轩和思喆的ubuntu，甚是羡慕， &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -54,10 +54,8 @@
 </hgroup>
 
 </header>
-  <nav role="navigation"><ul class="subscription" data-subscription="rss email">
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
   <li><a href="/cn/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
-  
-    <li><a href="chen@yanping.me" rel="subscribe-email" title="subscribe via email">Email</a></li>
   
 </ul>
 <form action="http://google.com/search" method="get">
@@ -76,6 +74,95 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/cn/blog/2011/12/26/octopress-on-windows/">Windows下安装Octopress</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-12-26T15:36:00+08:00" pubdate data-updated="true">Dec 26<span>th</span>, 2011</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>首先，我要感慨一下，有心栽花花不开，无心插柳柳成荫。</p>
+
+<p>最初我发现在windows下不能部署octopress，安装rvm不成功，跟<a href="http://yangzhiping.com" target="_blank">阳志平</a>交流后，他也说在windows不可以，到网上搜寻了一下，也没有人说在windows下安装成功。</p>
+
+<p>去上海参加R语言会议时，见到怡轩和思喆的ubuntu，甚是羡慕，当初哥也玩过很长一段时间的，没玩明白呢就荒废了，现在决定捡起来。重新给硬盘分区太麻烦了，好在现在的电脑性能比3、4年前要强太多了，办公室的电脑随便哪台都是双核4G内存256G硬盘，用来打字上网淘宝人人开心微博就太浪费了<sup>[<a id="back_2_1" href="#fn_2_1">1</a>]</sup>，于是我决定在办公室的电脑上安装虚拟机virtualBox，在虚拟机里装ubuntu 10.04。这中间也遇到了些问题，我到ruby-taiwan上也发帖问过（请看<a href="http://ruby-taiwan.org/topics/37" target="_blank">当时的帖子</a>）。后来用wubi的方式在自己笔记本上安装了ubuntu11.10，用得挺爽，我的octopress博客也开张了，地址是<a href="http://chen.yanping.me" target="_blank">http://chen.yanping.me</a>。原来的wordpress博客暂停更新。</p>
+
+<p>因为大部分工作还是要在windows里完成，所以我还是想能在windows下使用Octopress。</p>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/cn/blog/2011/12/26/octopress-on-windows/">查看全文 &rarr;</a>
+    </footer>
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/cn/blog/2011/12/26/github-pages-domain-2/">再谈github页面域名绑定</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-12-26T14:56:00+08:00" pubdate data-updated="true">Dec 26<span>th</span>, 2011</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>之前我写过一篇<a href="http://chen.yanping.me/cn/blog/2011/12/04/github-pages-domain/" target="_blank">浅谈github页面域名绑定</a>，现在一直困扰我的问题终于解决了。</p>
+
+<p>假设你的用户名是<code>username</code>，要绑定一个二级域名的话，那么不管是user page还是project page，除了在github的版本库里添加CNAME文件，还要在DNS record里增加相应的CNAME记录指向<code>username.github.com</code>。注意这里的表述，指向的地址在两种情况下都是一样的。</p>
+
+<p>如果要绑定顶级域名，就建立A记录，指向<code>207.97.227.245</code>。</p>
+
+<p>经过这样的操作，你想绑定几个域名都可以了。</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -105,7 +192,9 @@
   </header>
 
 
-  <div class="entry-content"><p>功能五花八门的CMS（内容管理系统）有时候并不是必需的，你只需要创建一个轻量级的静态网站&#8230;  当你有足够多的页面就会使复制模板文件和跨网站标记的过程变成繁琐的事。今天，我将介绍一种简单的解决方案——<a href="http://jekyllrb.com/">Jekyll</a>——使得你可以轻而易举地创建小型网站。</p>
+  <div class="entry-content"><p>原文地址：<a href="http://net.tutsplus.com/tutorials/other/building-static-sites-with-jekyll/">http://net.tutsplus.com/tutorials/other/building-static-sites-with-jekyll/</a></p>
+
+<p>功能五花八门的CMS（内容管理系统）有时候并不是必需的，你只需要创建一个轻量级的静态网站&#8230;  当你有足够多的页面就会使复制模板文件和跨网站标记的过程变成繁琐的事。今天，我将介绍一种简单的解决方案——<a href="http://jekyllrb.com/">Jekyll</a>——使你可以轻而易举地创建小型网站。</p>
 
 <h2>Step 0: 遭遇Jekyll</h2>
 
@@ -283,66 +372,9 @@ github pages的<a target="_blank" href="http://pages.github.com/">官方主页</
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/cn/blog/2011/11/12/study-plan/">学习计划</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2011-11-12T14:36:00+08:00" pubdate data-updated="true">Nov 12<span>th</span>, 2011</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>紧急任务</p>
-
-<ul>
-<li>Predicting Stock Market return，为11月12-13日的<a href="http://cos.name/2011/09/chinar-2011-sh/" target="_blank">第四届R语言会议上海站</a>准备的</li>
-</ul>
-
-
-<p>中期任务</p>
-
-<ul>
-<li>《我的第一本C++书》，对C++的全貌做一个简单了解，尤其是上学的时候学得不扎实的面向对象编程以及完全没了解的STL</li>
-<li>The mathematics of derivatives， 对衍生品定价方面的数学做一个简单复习</li>
-</ul>
-
-
-<p>更远的计划</p>
-
-<ul>
-<li>C++与面向对象数值计算，进一步熟悉C++，并学习用C++做数值计算</li>
-<li>C++ design patterns and derivatives pricing，学习用C++做衍生品定价的设计模式</li>
-<li>S. E. Shreve, Stochastic calculus and Finance I&amp;II</li>
-<li>…… 前面的看完再说吧</li>
-</ul>
-
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
+    
+      <a class="prev" href="/cn/blog/page/2/">&larr; Older</a>
     
     <a href="/cn/blog/archives">Blog Archives</a>
     
@@ -351,12 +383,21 @@ github pages的<a target="_blank" href="http://pages.github.com/">官方主页</
 <aside class="sidebar">
   
     <section>
-  <h1>关于本人</h1>
-  <p>非主流统计学家，不靠谱的经济分析师</p>
+  	<h1>关于本人</h1>
+  	<p>非主流统计学家，不靠谱的经济分析师</p>
+	<p>本人主页为<a href="http://chen.yanping.me" target="_blank">http://chen.yanping.me</a></p>
 </section>
 <section>
   <h1>近期文章</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/cn/blog/2011/12/26/octopress-on-windows/">Windows下安装Octopress</a>
+      </li>
+    
+      <li class="post">
+        <a href="/cn/blog/2011/12/26/github-pages-domain-2/">再谈github页面域名绑定</a>
+      </li>
     
       <li class="post">
         <a href="/cn/blog/2011/12/15/building-static-sites-with-jekyll/">【译文】用Jekyll构建静态网站</a>
@@ -368,14 +409,6 @@ github pages的<a target="_blank" href="http://pages.github.com/">官方主页</
     
       <li class="post">
         <a href="/cn/blog/2011/12/03/hello-octopress/">你好！octopress</a>
-      </li>
-    
-      <li class="post">
-        <a href="/cn/blog/2011/11/12/use-jekyll-template/">使用现有的jekyll模板</a>
-      </li>
-    
-      <li class="post">
-        <a href="/cn/blog/2011/11/12/study-plan/">学习计划</a>
       </li>
     
   </ul>
@@ -441,12 +474,16 @@ github pages的<a target="_blank" href="http://pages.github.com/">官方主页</
 </section>
 <section>
 <h1>Feed订阅</h1>
-<div style="text-align: center;"><!-- Feedsky FEED发布代码开始 --><!-- FEED自动发现标记开始 -->
+<div style="text-align: center;">
+<!-- Feedsky FEED发布代码开始 -->
+<!-- FEED自动发现标记开始 -->
 <link target="_blank" rel="alternate" href="http://feed.yanping.me" type="application/rss+xml" title="RSS 2.0"/>
-<!-- FEED自动发现标记结束 --><a target="_blank" href="http://feed.yanping.me"><img vspace="2" border="0" style="margin-bottom: 3px;" alt="feedsky" src="http://img.feedsky.com/images/icon_sub_c1s17_d.gif"/></a><br/>
+<!-- FEED自动发现标记结束 -->
+<a target="_blank" href="http://feed.yanping.me"><img vspace="2" border="0" style="margin-bottom: 3px;" alt="feedsky" src="http://yanping.me/images/feed-icon.gif"/></a><br/>
 </div>
-<div style="text-align: center;"><a target="_blank" href="http://www.zhuaxia.com/add_channel.php?url=http://feed.yanping.me"><img vspace="2" border="0" style="margin-bottom: 3px;" alt="抓虾" src="http://img.feedsky.com/images/icon_subshot01_zhuaxia.gif"/></a><a target="_blank" href="http://add.my.yahoo.com/rss?url=http://feed.feedsky.com/ypchen"><img vspace="2" border="0" style="margin-bottom: 3px;" alt="my yahoo" src="http://img.feedsky.com/images/icon_subshot01_yahoo.gif"/></a><br/>
-<a target="_blank" href="http://fusion.google.com/add?feedurl=http://feed.yanping.me"><img vspace="2" border="0" style="margin-bottom: 3px;" alt="google reader" src="http://img.feedsky.com/images/icon_subshot01_google.gif"/></a><a target="_blank" href="http://mail.qq.com/cgi-bin/feed?u=http://feed.yanping.me"><img vspace="2" border="0" style="margin-bottom: 3px;" alt="QQ邮箱" src="http://img.feedsky.com/images/icon_subshot01_qq.gif"/></a><br/>
+<div style="text-align: center;">
+<a target="_blank" href="http://www.zhuaxia.com/add_channel.php?url=http://feed.yanping.me"><img vspace="2" border="0" style="margin-bottom: 3px;" alt="抓虾" src="http://yanping.me/images/icon_zhuaxia.gif"/></a><a target="_blank" href="http://www.xianguo.com/subscribe.php?url=http://feed.yanping.me"><img vspace="2" border="0" style="margin-bottom: 3px;" alt="鲜果" src="http://yanping.me/images/icon_xianguo.gif"/></a><br/>
+<a target="_blank" href="http://fusion.google.com/add?feedurl=http://feed.yanping.me"><img vspace="2" border="0" style="margin-bottom: 3px;" alt="google reader" src="http://yanping.me/images/icon_google.gif"/></a><a target="_blank" href="http://mail.qq.com/cgi-bin/feed?u=http://feed.yanping.me"><img vspace="2" border="0" style="margin-bottom: 3px;" alt="QQ邮箱" src="http://yanping.me/images/icon_qq.gif"/></a><br/>
 </div>
 <section>
 
