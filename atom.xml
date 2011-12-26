@@ -4,7 +4,7 @@
   <title><![CDATA[雁起平沙的网络日志]]></title>
   <link href="http://chen.yanping.me/cn/atom.xml" rel="self"/>
   <link href="http://chen.yanping.me/cn/"/>
-  <updated>2011-12-26T16:10:46+08:00</updated>
+  <updated>2011-12-26T17:45:58+08:00</updated>
   <id>http://chen.yanping.me/cn/</id>
   <author>
     <name><![CDATA[ypchen]]></name>
@@ -98,6 +98,24 @@
 <p>如果要绑定顶级域名，就建立A记录，指向<code>207.97.227.245</code>。</p>
 
 <p>经过这样的操作，你想绑定几个域名都可以了。</p>
+
+<h2>域名跳转的问题</h2>
+
+<p>当你访问<code>username.github.com</code>这个地址时，Github会自动转到绑定的域名，但是当你访问<code>http://username.github.com/repo-name</code>这样的网址，虽然可以显示网页，但是地址不会自动转。</p>
+
+<p>可以用.htaccess文件来实现跳转，在repo代码库根目录下创建.htaccess文件，内容是：</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>RewriteEngine on
+</span><span class='line'>RewriteCond %{HTTP_HOST} ^ruc\.github\.com\/stat$ [OR]
+</span><span class='line'>RewriteCond %{HTTP_HOST} ^www\.quantr\.net\/stat$
+</span><span class='line'>RewriteRule ^/?$ "http\:\/\/stat\.quantr\.net" [R=301,L]</span></code></pre></td></tr></table></div></figure>
+
+
+
 ]]></content>
   </entry>
   
@@ -650,7 +668,7 @@ github pages的<a target="_blank" href="http://pages.github.com/">官方主页</
 
 <h3>快速应用</h3>
 
-<p><code>jekyll</code>对初学者太难掌握，有人推荐使用<a target="_blank" href="http://www.octopress.org">octopress</a>、<a target="_blank" href="https://github.com/cloudhead/toto">toto</a>或者<a target="_blank" href="http://alexyoung.org/2011/07/24/pop/">pop</a>等基于Jekyll的静态博客站点生成系统<sup>[<a id="back2" href="#2">2</a>]</sup>，它很大程度上简化了用Jekyll搭建博客的过程。可惜这些系统在windows下都不能顺畅使用，我也没试成功。使用Linux的同学可以试一试。</p>
+<p><code>jekyll</code>对初学者太难掌握，有人推荐使用<a target="_blank" href="http://www.octopress.org">octopress</a>、<a target="_blank" href="https://github.com/cloudhead/toto">toto</a>或者<a target="_blank" href="http://alexyoung.org/2011/07/24/pop/">pop</a>等基于Jekyll的静态博客站点生成系统<sup>[<a id="back2" href="#2">2</a>]</sup>，它很大程度上简化了用Jekyll搭建博客的过程。<del>可惜这些系统在windows下都不能顺畅使用，我也没试成功。使用Linux的同学可以试一试。</del>在windows下使用Octopress的教程请看我的<a href="http://chen.yanping.me/cn/blog/2011/12/26/octopress-on-windows/" target="_blank">博客文章</a>。</p>
 
 <h3>参考文章：</h3>
 

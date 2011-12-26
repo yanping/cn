@@ -157,6 +157,24 @@
 <p>如果要绑定顶级域名，就建立A记录，指向<code>207.97.227.245</code>。</p>
 
 <p>经过这样的操作，你想绑定几个域名都可以了。</p>
+
+<h2>域名跳转的问题</h2>
+
+<p>当你访问<code>username.github.com</code>这个地址时，Github会自动转到绑定的域名，但是当你访问<code>http://username.github.com/repo-name</code>这样的网址，虽然可以显示网页，但是地址不会自动转。</p>
+
+<p>可以用.htaccess文件来实现跳转，在repo代码库根目录下创建.htaccess文件，内容是：</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>RewriteEngine on
+</span><span class='line'>RewriteCond %{HTTP_HOST} ^ruc\.github\.com\/stat$ [OR]
+</span><span class='line'>RewriteCond %{HTTP_HOST} ^www\.quantr\.net\/stat$
+</span><span class='line'>RewriteRule ^/?$ "http\:\/\/stat\.quantr\.net" [R=301,L]</span></code></pre></td></tr></table></div></figure>
+
+
+
 </div>
   
   
