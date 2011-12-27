@@ -4,7 +4,7 @@
   <title><![CDATA[雁起平沙的网络日志]]></title>
   <link href="http://chen.yanping.me/cn/atom.xml" rel="self"/>
   <link href="http://chen.yanping.me/cn/"/>
-  <updated>2011-12-26T17:45:58+08:00</updated>
+  <updated>2011-12-27T14:43:21+08:00</updated>
   <id>http://chen.yanping.me/cn/</id>
   <author>
     <name><![CDATA[ypchen]]></name>
@@ -22,7 +22,7 @@
 
 <p>最初我发现在windows下不能部署octopress，安装rvm不成功，跟<a href="http://yangzhiping.com" target="_blank">阳志平</a>交流后，他也说在windows不可以，到网上搜寻了一下，也没有人说在windows下安装成功。</p>
 
-<p>去上海参加R语言会议时，见到怡轩和思喆的ubuntu，甚是羡慕，当初哥也玩过很长一段时间的，没玩明白呢就荒废了，现在决定捡起来。重新给硬盘分区太麻烦了，好在现在的电脑性能比3、4年前要强太多了，办公室的电脑随便哪台都是双核4G内存256G硬盘，用来打字上网淘宝人人开心微博就太浪费了<sup>[<a id="back_2_1" href="#fn_2_1">1</a>]</sup>，于是我决定在办公室的电脑上安装虚拟机virtualBox，在虚拟机里装ubuntu 10.04。这中间也遇到了些问题，我到ruby-taiwan上也发帖问过（请看<a href="http://ruby-taiwan.org/topics/37" target="_blank">当时的帖子</a>）。后来用wubi的方式在自己笔记本上安装了ubuntu11.10，用得挺爽，我的octopress博客也开张了，地址是<a href="http://chen.yanping.me" target="_blank">http://chen.yanping.me</a>。原来的wordpress博客暂停更新。</p>
+<p>去上海参加R语言会议时，见到怡轩和思喆的ubuntu，甚是羡慕，当初哥也玩过很长一段时间的，没玩明白呢就荒废了，现在决定捡起来。重新给硬盘分区太麻烦了，好在现在的电脑性能比3、4年前要强太多了，办公室的电脑随便哪台都是双核4G内存256G硬盘，用来打字上网淘宝人人开心微博就太浪费了<sup>[<a id="back_2_1" href="#fn_2_1">1</a>]</sup>，于是我决定在办公室的电脑上安装虚拟机virtualBox，在虚拟机里装ubuntu 10.04。这中间也遇到了些问题，我到ruby-taiwan上也发帖问过（请看<a href="http://ruby-taiwan.org/topics/37" target="_blank">当时的帖子</a>）。后来用wubi的方式在自己笔记本上安装了ubuntu11.10，用得挺爽，我的octopress博客也开张了，地址是<a href="http://chen.yanping.me/cn" target="_blank">http://chen.yanping.me/cn</a>。原来的wordpress博客暂停更新。</p>
 
 <p>因为大部分工作还是要在windows里完成，所以我还是想能在windows下使用Octopress。</p>
 
