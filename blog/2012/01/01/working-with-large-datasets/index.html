@@ -5,11 +5,11 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>Windows下安装Octopress - 雁起平沙的网络日志</title>
+  <title>R处理大数据集 - 雁起平沙的网络日志</title>
   <meta name="author" content="ypchen">
 
   
-  <meta name="description" content="首先，我要感慨一下，有心栽花花不开，无心插柳柳成荫。 最初我发现在windows下不能部署octopress，安装rvm不成功，跟阳志平交流后，他也说在windows不可以，到网上搜寻了一下，也没有人说在windows下安装成功。 去上海参加R语言会议时，见到怡轩和思喆的ubuntu，甚是羡慕， &hellip;">
+  <meta name="description" content="本文翻译自R in Action的附录G，如果对该书感兴趣，请自行购买或去图书馆阅读。 R会把所有的对象读存入虚拟内存中。对我们大多数用户来说，这种设计可以提高与R相互的速度，但是当分析大数据集时，这种设计会降低程序运行速度有时还会产生跟内存相关的错误。 内存限制主要取决于R的build版（ &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -18,7 +18,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://chen.yanping.me/cn/blog/2011/12/26/octopress-on-windows">
+  <link rel="canonical" href="http://chen.yanping.me/cn/blog/2012/01/01/working-with-large-datasets">
   <link href="/cn/favicon.png" rel="icon">
   <link href="/cn/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <script src="/cn/javascripts/modernizr-2.0.js"></script>
@@ -77,7 +77,7 @@
   
   <header>
     
-      <h1 class="entry-title">Windows下安装Octopress</h1>
+      <h1 class="entry-title">R处理大数据集</h1>
     
     
       <p class="meta">
@@ -93,78 +93,91 @@
   
 
 
-<time datetime="2011-12-26T15:36:00+08:00" pubdate data-updated="true">Dec 26<span>th</span>, 2011</time>
+<time datetime="2012-01-01T15:36:00+08:00" pubdate data-updated="true">Jan 1<span>st</span>, 2012</time>
         
       </p>
     
   </header>
 
 
-<div class="entry-content"><p>首先，我要感慨一下，有心栽花花不开，无心插柳柳成荫。</p>
+<div class="entry-content"><p>本文翻译自<a href="http://www.manning.com/kabacoff/" target="_blank"><em>R in Action</em></a>的附录G，如果对该书感兴趣，请自行购买或去图书馆阅读。</p>
 
-<p>最初我发现在windows下不能部署octopress，安装rvm不成功，跟<a href="http://yangzhiping.com" target="_blank">阳志平</a>交流后，他也说在windows不可以，到网上搜寻了一下，也没有人说在windows下安装成功。</p>
+<p>R会把所有的对象读存入虚拟内存中。对我们大多数用户来说，这种设计可以提高与R相互的速度，但是当分析大数据集时，这种设计会降低程序运行速度有时还会产生跟内存相关的错误。</p>
 
-<p>去上海参加R语言会议时，见到怡轩和思喆的ubuntu，甚是羡慕，当初哥也玩过很长一段时间的，没玩明白呢就荒废了，现在决定捡起来。重新给硬盘分区太麻烦了，好在现在的电脑性能比3、4年前要强太多了，办公室的电脑随便哪台都是双核4G内存256G硬盘，用来打字上网淘宝人人开心微博就太浪费了<sup>[<a id="back_2_1" href="#fn_2_1">1</a>]</sup>，于是我决定在办公室的电脑上安装虚拟机virtualBox，在虚拟机里装ubuntu 10.04。这中间也遇到了些问题，我到ruby-taiwan上也发帖问过（请看<a href="http://ruby-taiwan.org/topics/37" target="_blank">当时的帖子</a>）。后来用wubi的方式在自己笔记本上安装了ubuntu11.10，用得挺爽，我的octopress博客也开张了，地址是<a href="http://chen.yanping.me/cn" target="_blank">http://chen.yanping.me/cn</a>。原来的wordpress博客暂停更新。</p>
+<p>内存限制主要取决于R的build版（32位还是64位），而在32位的windows下，取决于操作系统的版本。以cannot allocate vectoe of size开头的出错信息表示无法分配充足的连续内存，而以cannot allocate vector of length开头的出错信息表示超越了地址限制（address limit）。在处理大数据集时，应尽量使用64位版的R。对于各种build版，向量中的元素个数最大为2147483647（请自行?Memory）。</p>
 
-<p>因为大部分工作还是要在windows里完成，所以我还是想能在windows下使用Octopress。</p>
+<p>在处理大数据集时有三方面应该考虑：（a）提高程序的效率，保证执行速度；（b）把数据储存在外部，以解决内存限制问题；（c）使用专门的统计方法来有效处理大数据量的问题。下面将分别讨论。</p>
 
-<!--more-->
+<h3>高效编程</h3>
 
+<p>下面几条编程技巧来可以提高处理大数据集时的效率</p>
 
-<p>想起阳志平推荐的RailsInstaller<sup>[<a id="back_2_2" href="#fn_2_2">1</a>]</sup>，其中ruby的版本就是1.9.2，而Octopress就要求Ruby1.9.2的环境。于是打开Git Bash，按照<a href="http://octopress.org/docs/" target="_blank">官方指南</a>安装，</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-</pre></td><td class='code'><pre><code class='sh'><span class='line'>git clone git://github.com/imathis/octopress.git octopress
-</span><span class='line'><span class="nb">cd </span>octopress    <span class="c"># If you use RVM, You&#39;ll be asked if you trust the .rvmrc file (say yes).</span>
-</span><span class='line'>ruby --version  <span class="c"># Should report Ruby 1.9.2</span>
-</span><span class='line'>gem install bundler
-</span><span class='line'>bundle install
-</span></code></pre></td></tr></table></div></figure>
+<ul>
+<li>尽量向量化运算。使用R内置的函数来处理向量、矩阵和list（例如函数sapply，lapply和mapply），尽量避免使用循环（for和while）;</li>
+<li>使用矩阵，必要时才使用数据框，因为矩阵的开销更少；</li>
+<li>使用<code>read.table()</code>函数族把外部数据导入数据框时，尽量显式设定<code>colClasses</code>和<code>nrows</code>选项，设定<code>comment.char = ""</code>，把不需要的列设置成NULL。这样可以减少占用的内存，同时加快处理速度。将外部数据导入矩阵时，使用<code>scan()</code>函数；</li>
+<li>在处理全部数据前，用数据的子集测试程序，来优化程序，去掉bug；</li>
+<li>删除临时对象和不再用的对象。调用<code>rm(list=ls())</code>可以删除内存中的所有对象。删除指定的对象可以用<code>rm(object)</code>；</li>
+<li>在Jeromy Anglim的博客文章“R的内存管理：一些小窍门和技巧”中提到，使用函数<code>.ls.objects()</code>列出工作区内的对象占用的内存大小。这个函数会帮助你找到吃内存的大家伙。</li>
+<li>profile你的程序，看看在每个函数中花的时间。你可以用<code>Rprof()</code>和<code>summaryRprof()</code>函数完成这项工作。<code>system.time()</code>函数也可以帮助你。<em>profr</em>和<em>prooftools</em>包提供了若干函数来帮助分析profile的输出。</li>
+<li>Rcpp包可以把R对象转成C++函数（原文是The Rcpp package can be used to transfer R objects to C++ functions and back when more optimized subroutines are needed. 后半句不知怎么翻译）</li>
+</ul>
 
 
-<p><code>bundle install</code>不成功的话可以换成<code>bundle update</code>。下一步应该运行<code>rake install</code>了，结果返回信息：</p>
+<p>处理大数据集，提高代码效率只能解决一部分问题。你也可以把数据存在外部存储并使用专门的统计分析方法。</p>
 
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='sh'><span class='line'>You have already activated rake 0.9.2.2, but your Gemfile requires rake 0.9.2. Using bundle <span class="nb">exec </span>may solve this.
-</span></code></pre></td></tr></table></div></figure>
+<h3>把数据存储在内存之外</h3>
+
+<p>有几种包可以实现在内存之外存储数据。解决之道是把数据保存在外部数据库或者硬盘里的二进制文件中，然后在需要的时候部分地读取。下表描述了几种有用的包：</p>
+
+<table>
+<tr>
+<th>包</th>
+<th>描述</th>
+</tr>
+<tr>
+<td>ff</td>
+<td>提供了一种数据结构，保存在硬盘中，但是操作起来就如同在内存中一样</td>
+</tr>
+<tr>
+<td>bigmemory</td>
+<td>支持大规模矩阵的创建、储存、读取和操作。矩阵被分配到共享内存或内存映射的文件中（memory-mapped files）</td>
+</tr>
+<tr>
+<td>filehash</td>
+<td>实现了简单的key-value数据库，在其中特征字符串key与存储在硬盘中的数据value相关联。</td>
+</tr>
+<tr>
+<td>ncdf, ncdf4</td>
+<td>Provides an interface to Unidata netCDF data files.
+</td>
+</tr>
+<tr>
+<td>RODBC, RMySQL,<br /> 
+ROracle, <br />
+RPostgreSQL, <br />
+RSQLite 
+</td>
+<td>可以用这些包读取外部关系数据库管理系统的数据</td>
+</tr>
+</table>
 
 
-<p>换成<code>bundle exec rake install</code>就行了，于是后面所有要用到rake的命令，通过都用bundle exec rake代替。嫌麻烦的话也可以在bash的配置文件里添加命令的别名。如果你windows的用户名为user，bash的配置文件在C:\Documents and Settings\user下，也可以直接在git bash下输入<code>cd ~</code>，文件名为<code>.bash_profile</code>，在文件里添加一行</p>
+<p>上面的包可以帮助客服R的内存限制。除此以外，当需要在有限时间内分析大数据集时，使用专门方法也是必须的。一些有用的方法将在下面介绍。</p>
 
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='sh'><span class='line'><span class="nb">alias </span><span class="nv">rake</span><span class="o">=</span><span class="s1">&#39;bundle exec rake&#39;</span>
-</span></code></pre></td></tr></table></div></figure>
+<h3>分析大数据集的包</h3>
 
+<p>R提供了几种分析大数据集的包：</p>
 
-<p>后面都和官方指南一样。但真正用起来的时候，发现不能使用中文（请看<a href="http://ruby-taiwan.org/topics/46" target="_blank">帖子</a>）。经论坛上laoyang945点拨，字符集不兼容的问题终于解决了，只要在<code>.bash_profile</code>再加两行</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class='sh'><span class='line'><span class="nb">export   </span><span class="nv">LC_ALL</span><span class="o">=</span>zh_CN.UTF-8
-</span><span class='line'><span class="nb">export   </span><span class="nv">LANG</span><span class="o">=</span>zh_CN.UTF-8
-</span></code></pre></td></tr></table></div></figure>
+<ul>
+<li><em>biglm</em>和<em>speedglm</em>包可以针对大数据集有效地拟合线性和广义线性模型。在处理大规模数据集时，这两个包提供了类似<code>lm()</code>和<code>glm()</code>的功能。</li>
+<li>由<em>bigmemory</em>包可产生大规模矩阵，一些包可以提供分析这些大规模矩阵的函数。<em>bigannalytics</em>包提供了k-means聚类、行统计量（column statistics）和一个对<code>biglm()</code>的封装。<em>bigtabulate</em>包提供了<code>table()</code>、<code>split()</code>和<code>tapply()</code>的功能，<em>bigalgebra</em>包提供了高等线性代数的函数。</li>
+<li><em>biglars</em>包提供了最小角回归（least-angle regression）、lasso以及针对大数据集的逐步回归，数据集因太大而不能读入到内存中，这时候要配合<em>ff</em>包使用。</li>
+<li><em>Brobdingnag</em>包可以用来处理大数字（大于2<sup>1024）</sup></li>
+</ul>
 
 
-<p>另外，淘宝给我们送了一份圣诞大礼（请猛戳<a href="http://www.oschina.net/news/24321/rubygems-taobao-mirror?from=rss" target="_blank">淘宝提供RubyGems的国内镜像站点</a>），这样我可以修改下载的Octopress目录下的Gemfile文件，把第一行改成</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">source</span> <span class="s2">&quot;http://ruby.taobao.org/&quot;</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>做这样的修改后，安装速度会大大提高。</p>
-
-<h3>脚注</h3>
-
-<ol>
-<li>我所在的并不是技术公司，相反，那是个文人聚集的地方  [<a id="fn_2_1" href="#back_2_1">↩</a>]</li>
-<li>关于在windows下搭建ruby环境，请看他的<a href="http://www.yangzhiping.com/tech/happy-ruby-ps1-windows.html">文章</a> [<a id="fn_2_2" href="#back_2_2">↩</a>]</li>
-</ol>
-
+<p>处理从GB到TB级的数据对于任何数据都是极大的挑战。如果想查看R的更多方法，请看CRAN task View:<em>High-Performance and Parallel Computing with R</em>（<a href="http://cran.r-project.org/web/view">http://cran.r-project.org/web/view</a>）。</p>
 </div>
 
 
@@ -187,7 +200,7 @@
   
 
 
-<time datetime="2011-12-26T15:36:00+08:00" pubdate data-updated="true">Dec 26<span>th</span>, 2011</time>
+<time datetime="2012-01-01T15:36:00+08:00" pubdate data-updated="true">Jan 1<span>st</span>, 2012</time>
       
 
 
@@ -217,10 +230,8 @@
     
     <p class="meta">
       
-        <a class="basic-alignment left" href="/cn/blog/2011/12/26/github-pages-domain-2/" title="Previous Post: 再谈github页面域名绑定">&laquo; 再谈github页面域名绑定</a>
+        <a class="basic-alignment left" href="/cn/blog/2011/12/26/octopress-on-windows/" title="Previous Post: Windows下安装Octopress">&laquo; Windows下安装Octopress</a>
       
-      
-        <a class="basic-alignment right" href="/cn/blog/2012/01/01/working-with-large-datasets/" title="next Post: R处理大数据集">R处理大数据集 &raquo;</a>
       
     </p>
   </footer>
@@ -331,8 +342,8 @@
       
         
         // var disqus_developer = 1;
-        var disqus_identifier = 'http://chen.yanping.me/cn/blog/2011/12/26/octopress-on-windows/';
-        var disqus_url = 'http://chen.yanping.me/cn/blog/2011/12/26/octopress-on-windows/';
+        var disqus_identifier = 'http://chen.yanping.me/cn/blog/2012/01/01/working-with-large-datasets/';
+        var disqus_url = 'http://chen.yanping.me/cn/blog/2012/01/01/working-with-large-datasets/';
         var disqus_script = 'embed.js';
       
     (function () {

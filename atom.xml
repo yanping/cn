@@ -4,7 +4,7 @@
   <title><![CDATA[雁起平沙的网络日志]]></title>
   <link href="http://chen.yanping.me/cn/atom.xml" rel="self"/>
   <link href="http://chen.yanping.me/cn/"/>
-  <updated>2011-12-30T11:51:13+08:00</updated>
+  <updated>2012-01-01T22:18:59+08:00</updated>
   <id>http://chen.yanping.me/cn/</id>
   <author>
     <name><![CDATA[ypchen]]></name>
@@ -12,6 +12,92 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[R处理大数据集]]></title>
+    <link href="http://chen.yanping.me/cn/blog/2012/01/01/working-with-large-datasets/"/>
+    <updated>2012-01-01T15:36:00+08:00</updated>
+    <id>http://chen.yanping.me/cn/blog/2012/01/01/working-with-large-datasets</id>
+    <content type="html"><![CDATA[<p>本文翻译自<a href="http://www.manning.com/kabacoff/" target="_blank"><em>R in Action</em></a>的附录G，如果对该书感兴趣，请自行购买或去图书馆阅读。</p>
+
+<p>R会把所有的对象读存入虚拟内存中。对我们大多数用户来说，这种设计可以提高与R相互的速度，但是当分析大数据集时，这种设计会降低程序运行速度有时还会产生跟内存相关的错误。</p>
+
+<p>内存限制主要取决于R的build版（32位还是64位），而在32位的windows下，取决于操作系统的版本。以cannot allocate vectoe of size开头的出错信息表示无法分配充足的连续内存，而以cannot allocate vector of length开头的出错信息表示超越了地址限制（address limit）。在处理大数据集时，应尽量使用64位版的R。对于各种build版，向量中的元素个数最大为2147483647（请自行?Memory）。</p>
+
+<p>在处理大数据集时有三方面应该考虑：（a）提高程序的效率，保证执行速度；（b）把数据储存在外部，以解决内存限制问题；（c）使用专门的统计方法来有效处理大数据量的问题。下面将分别讨论。</p>
+
+<h3>高效编程</h3>
+
+<p>下面几条编程技巧来可以提高处理大数据集时的效率</p>
+
+<ul>
+<li>尽量向量化运算。使用R内置的函数来处理向量、矩阵和list（例如函数sapply，lapply和mapply），尽量避免使用循环（for和while）;</li>
+<li>使用矩阵，必要时才使用数据框，因为矩阵的开销更少；</li>
+<li>使用<code>read.table()</code>函数族把外部数据导入数据框时，尽量显式设定<code>colClasses</code>和<code>nrows</code>选项，设定<code>comment.char = ""</code>，把不需要的列设置成NULL。这样可以减少占用的内存，同时加快处理速度。将外部数据导入矩阵时，使用<code>scan()</code>函数；</li>
+<li>在处理全部数据前，用数据的子集测试程序，来优化程序，去掉bug；</li>
+<li>删除临时对象和不再用的对象。调用<code>rm(list=ls())</code>可以删除内存中的所有对象。删除指定的对象可以用<code>rm(object)</code>；</li>
+<li>在Jeromy Anglim的博客文章“R的内存管理：一些小窍门和技巧”中提到，使用函数<code>.ls.objects()</code>列出工作区内的对象占用的内存大小。这个函数会帮助你找到吃内存的大家伙。</li>
+<li>profile你的程序，看看在每个函数中花的时间。你可以用<code>Rprof()</code>和<code>summaryRprof()</code>函数完成这项工作。<code>system.time()</code>函数也可以帮助你。<em>profr</em>和<em>prooftools</em>包提供了若干函数来帮助分析profile的输出。</li>
+<li>Rcpp包可以把R对象转成C++函数（原文是The Rcpp package can be used to transfer R objects to C++ functions and back when more optimized subroutines are needed. 后半句不知怎么翻译）</li>
+</ul>
+
+
+<p>处理大数据集，提高代码效率只能解决一部分问题。你也可以把数据存在外部存储并使用专门的统计分析方法。</p>
+
+<h3>把数据存储在内存之外</h3>
+
+<p>有几种包可以实现在内存之外存储数据。解决之道是把数据保存在外部数据库或者硬盘里的二进制文件中，然后在需要的时候部分地读取。下表描述了几种有用的包：</p>
+
+<table>
+<tr>
+<th>包</th>
+<th>描述</th>
+</tr>
+<tr>
+<td>ff</td>
+<td>提供了一种数据结构，保存在硬盘中，但是操作起来就如同在内存中一样</td>
+</tr>
+<tr>
+<td>bigmemory</td>
+<td>支持大规模矩阵的创建、储存、读取和操作。矩阵被分配到共享内存或内存映射的文件中（memory-mapped files）</td>
+</tr>
+<tr>
+<td>filehash</td>
+<td>实现了简单的key-value数据库，在其中特征字符串key与存储在硬盘中的数据value相关联。</td>
+</tr>
+<tr>
+<td>ncdf, ncdf4</td>
+<td>Provides an interface to Unidata netCDF data files.
+</td>
+</tr>
+<tr>
+<td>RODBC, RMySQL,<br /> 
+ROracle, <br />
+RPostgreSQL, <br />
+RSQLite 
+</td>
+<td>可以用这些包读取外部关系数据库管理系统的数据</td>
+</tr>
+</table>
+
+
+<p>上面的包可以帮助客服R的内存限制。除此以外，当需要在有限时间内分析大数据集时，使用专门方法也是必须的。一些有用的方法将在下面介绍。</p>
+
+<h3>分析大数据集的包</h3>
+
+<p>R提供了几种分析大数据集的包：</p>
+
+<ul>
+<li><em>biglm</em>和<em>speedglm</em>包可以针对大数据集有效地拟合线性和广义线性模型。在处理大规模数据集时，这两个包提供了类似<code>lm()</code>和<code>glm()</code>的功能。</li>
+<li>由<em>bigmemory</em>包可产生大规模矩阵，一些包可以提供分析这些大规模矩阵的函数。<em>bigannalytics</em>包提供了k-means聚类、行统计量（column statistics）和一个对<code>biglm()</code>的封装。<em>bigtabulate</em>包提供了<code>table()</code>、<code>split()</code>和<code>tapply()</code>的功能，<em>bigalgebra</em>包提供了高等线性代数的函数。</li>
+<li><em>biglars</em>包提供了最小角回归（least-angle regression）、lasso以及针对大数据集的逐步回归，数据集因太大而不能读入到内存中，这时候要配合<em>ff</em>包使用。</li>
+<li><em>Brobdingnag</em>包可以用来处理大数字（大于2<sup>1024）</sup></li>
+</ul>
+
+
+<p>处理从GB到TB级的数据对于任何数据都是极大的挑战。如果想查看R的更多方法，请看CRAN task View:<em>High-Performance and Parallel Computing with R</em>（<a href="http://cran.r-project.org/web/view">http://cran.r-project.org/web/view</a>）。</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Windows下安装Octopress]]></title>
