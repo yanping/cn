@@ -4,7 +4,7 @@
   <title><![CDATA[雁起平沙的网络日志]]></title>
   <link href="http://chen.yanping.me/cn/atom.xml" rel="self"/>
   <link href="http://chen.yanping.me/cn/"/>
-  <updated>2012-01-01T22:34:05+08:00</updated>
+  <updated>2012-01-01T22:36:00+08:00</updated>
   <id>http://chen.yanping.me/cn/</id>
   <author>
     <name><![CDATA[ypchen]]></name>
@@ -53,33 +53,33 @@
 
 <table border="1" cellpadding="1" cellspacing="1">
 <tr>
-<th>包</th>
-<th>描述</th>
+    <th>包</th>
+    <th>描述</th>
 </tr>
 <tr>
-<td>ff</td>
-<td>提供了一种数据结构，保存在硬盘中，但是操作起来就如同在内存中一样</td>
+    <td>ff</td>
+    <td>提供了一种数据结构，保存在硬盘中，但是操作起来就如同在内存中一样</td>
 </tr>
 <tr>
-<td>bigmemory</td>
-<td>支持大规模矩阵的创建、储存、读取和操作。矩阵被分配到共享内存或内存映射的文件中（memory-mapped files）</td>
+    <td>bigmemory</td>
+    <td>支持大规模矩阵的创建、储存、读取和操作。矩阵被分配到共享内存或内存映射的文件中（memory-mapped files）</td>
 </tr>
 <tr>
-<td>filehash</td>
-<td>实现了简单的key-value数据库，在其中特征字符串key与存储在硬盘中的数据value相关联。</td>
+    <td>filehash</td>
+    <td>实现了简单的key-value数据库，在其中特征字符串key与存储在硬盘中的数据value相关联。</td>
 </tr>
 <tr>
-<td>ncdf, ncdf4</td>
-<td>Provides an interface to Unidata netCDF data files.
+    <td>ncdf, ncdf4</td>
+    <td>Provides an interface to Unidata netCDF data files.
 </td>
 </tr>
 <tr>
-<td>RODBC, RMySQL,<br /> 
-ROracle, <br />
-RPostgreSQL, <br />
-RSQLite 
-</td>
-<td>可以用这些包读取外部关系数据库管理系统的数据</td>
+    <td>RODBC, RMySQL,<br /> 
+    ROracle, <br />
+    RPostgreSQL, <br />
+    RSQLite 
+    </td>
+    <td>可以用这些包读取外部关系数据库管理系统的数据</td>
 </tr>
 </table>
 
