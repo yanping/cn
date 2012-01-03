@@ -124,7 +124,7 @@
 <li>在处理全部数据前，用数据的子集测试程序，来优化程序，去掉bug；</li>
 <li>删除临时对象和不再用的对象。调用<code>rm(list=ls())</code>可以删除内存中的所有对象。删除指定的对象可以用<code>rm(object)</code>；</li>
 <li>在Jeromy Anglim的博客文章“R的内存管理：一些小窍门和技巧”(原文<a href="http://jeromyanglim.blogspot.com/2009/11/memory-management-in-r-few-tips-and.html">Memory Management in R: A Few Tips and Tricks </a>，被墙)中提到，使用函数<code>.ls.objects()</code>列出工作区内的对象占用的内存大小。这个函数会帮助你找到吃内存的大家伙。</li>
-<li>profile你的程序，看看在每个函数中花的时间。你可以用<code>Rprof()</code>和<code>summaryRprof()</code>函数完成这项工作。<code>system.time()</code>函数也可以帮助你。<em>profr</em>和<em>prooftools</em>包提供了若干函数来帮助分析profile的输出。</li>
+<li>profile你的程序，看看在每个函数中花的时间。你可以用<code>Rprof()</code>和<code>summaryRprof()</code>函数完成这项工作。<code>system.time()</code>函数也可以帮助你。<em>profr</em> 和<em>prooftools</em> 包提供了若干函数来帮助分析profile的输出。</li>
 <li>Rcpp包可以把R对象转成C++函数（原文是The Rcpp package can be used to transfer R objects to C++ functions and back when more optimized subroutines are needed. 后半句不知怎么翻译）</li>
 </ul>
 
@@ -183,6 +183,10 @@
 
 
 <p>处理从GB到TB级的数据对于任何数据都是极大的挑战。如果想查看R的更多方法，请看CRAN task View:<em>High-Performance and Parallel Computing with R</em>（<a href="http://cran.r-project.org/web/view">http://cran.r-project.org/web/view</a>）。</p>
+
+<h3>译者注</h3>
+
+<p><a href="http://jliblog.com/">李舰</a>曾经在第四届R语言会议（北京会场）上做了题为《<em>R与高性能运算</em>》的报告，报告slides及代码请见<a href="http://cos.name/2011/05/4th-china-r-beijing-summary/">会议纪要</a></p>
 </div>
 
 
