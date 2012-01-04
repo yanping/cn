@@ -2,35 +2,35 @@
 <urlset xmlns='http://www.sitemaps.org/schemas/sitemap/0.9'>
     <url>
         <loc>http://chen.yanping.me/cn/blog/2011/11/12/study-plan/</loc>
-        <lastmod>2011-12-08T15:49:18+08:00</lastmod>
+        <lastmod>2012-01-04T00:44:19+08:00</lastmod>
     </url>
     <url>
         <loc>http://chen.yanping.me/cn/blog/2011/11/12/use-jekyll-template/</loc>
-        <lastmod>2011-12-14T08:37:43+08:00</lastmod>
+        <lastmod>2012-01-04T00:44:19+08:00</lastmod>
     </url>
     <url>
         <loc>http://chen.yanping.me/cn/blog/2011/12/03/hello-octopress/</loc>
-        <lastmod>2011-12-07T15:45:34+08:00</lastmod>
+        <lastmod>2012-01-04T00:44:19+08:00</lastmod>
     </url>
     <url>
         <loc>http://chen.yanping.me/cn/blog/2011/12/04/github-pages-domain/</loc>
-        <lastmod>2011-12-26T16:14:12+08:00</lastmod>
+        <lastmod>2012-01-04T00:44:19+08:00</lastmod>
     </url>
     <url>
         <loc>http://chen.yanping.me/cn/blog/2011/12/15/building-static-sites-with-jekyll/</loc>
-        <lastmod>2011-12-19T15:56:49+08:00</lastmod>
+        <lastmod>2012-01-04T00:44:19+08:00</lastmod>
     </url>
     <url>
         <loc>http://chen.yanping.me/cn/blog/2011/12/26/github-pages-domain-2/</loc>
-        <lastmod>2011-12-26T17:16:15+08:00</lastmod>
+        <lastmod>2012-01-04T00:44:19+08:00</lastmod>
     </url>
     <url>
         <loc>http://chen.yanping.me/cn/blog/2011/12/26/octopress-on-windows/</loc>
-        <lastmod>2012-01-02T00:26:34+08:00</lastmod>
+        <lastmod>2012-01-04T00:44:19+08:00</lastmod>
     </url>
     <url>
         <loc>http://chen.yanping.me/cn/blog/2012/01/01/working-with-large-datasets/</loc>
-        <lastmod>2012-01-03T15:51:28+08:00</lastmod>
+        <lastmod>2012-01-04T00:44:19+08:00</lastmod>
     </url>
     <url>
         <loc>http://chen.yanping.me/cn/downloads/code/portfolio_entry.html</loc>
@@ -38,10 +38,10 @@
     </url>
     <url>
         <loc>http://chen.yanping.me/cn/blog/archives/</loc>
-        <lastmod>2012-01-03T15:51:28+08:00</lastmod>
+        <lastmod>2012-01-03T16:17:09+08:00</lastmod>
     </url>
     <url>
         <loc>http://chen.yanping.me/cn/</loc>
-        <lastmod>2012-01-03T15:51:28+08:00</lastmod>
+        <lastmod>2012-01-03T16:17:09+08:00</lastmod>
     </url>
 </urlset>
