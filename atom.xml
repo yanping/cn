@@ -4,7 +4,7 @@
   <title><![CDATA[雁起平沙的网络日志]]></title>
   <link href="http://chen.yanping.me/cn/atom.xml" rel="self"/>
   <link href="http://chen.yanping.me/cn/"/>
-  <updated>2012-01-06T14:55:52+08:00</updated>
+  <updated>2012-01-06T15:07:51+08:00</updated>
   <id>http://chen.yanping.me/cn/</id>
   <author>
     <name><![CDATA[ypchen]]></name>
@@ -38,7 +38,7 @@
  <script src="https://gist.github.com/1569225.js?file=save-old-installed-packages.r"></script>
 其中<em>path</em>是R的安装目录。</li>
 <li>下载并安装最新版的R。</li>
-<li>如果你保存了原来的Rprofile.site文件，把它复制到新的安装目录中。</li>
+<li>如果你保存了原来的<strong>Rprofile.site</strong>文件，把它复制到新的安装目录中。</li>
 <li>启动新版的R，然后运行下面的命令 <br/>
  <script src="https://gist.github.com/1569241.js?file=install-new-packages.r"></script></li>
 <li>删除旧的安装（可选）</li>
