@@ -11,14 +11,14 @@ body{
     line-height:1
 }
 
-# ol,ul{
-#    list-style:none
-#}
+ol,ul{
+    list-style:none
+}
 
-
-ol, ul{
-    padding-left: 1em;  
+ul, ol{
+    padding-left: 1.3em;  
 }# list 缩进
+
 
 
 table{
@@ -105,7 +105,9 @@ h3,section h2,section section h1{font-size:1.3em}
 h4,section h3,section section h2,section section section h1{font-size:1em}
 h5,section h4,section section h3{font-size:.9em}
 h6,section h5,section section h4,section section section h3{font-size:.8em}
-p,blockquote,ul,ol{margin-bottom: 0.618em} 
+p,blockquote,ul,ol{margin-bottom: 0.618em}  # 调整行距
+
+
 
 ul{list-style-type:disc}
 
@@ -375,6 +377,23 @@ body > footer a:visited{color:#6b6b6b}
 body > footer a:hover{color:#484848}
 
 body > footer p:last-child{margin-bottom:0}
+
+.info{
+	background:#d5e9f6 url(/cn/images/blog/tab_info.gif) no-repeat left top;
+	border:none;
+	padding:0.6em 1.25em 0.6em 48px;
+	margin-top:0.25em;
+}
+
+.warning{
+	background:#f9d9d8 url(/cn/images/blog/tab_red.gif) no-repeat left top;
+	border:none;
+	padding:0.6em 1.25em 0.6em 48px;
+	margin-left:0;
+	margin-top:0.25em;
+}
+
+
 
 #blogroll a{
     text-decoration:none;

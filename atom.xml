@@ -4,7 +4,7 @@
   <title><![CDATA[雁起平沙的网络日志]]></title>
   <link href="http://chen.yanping.me/cn/atom.xml" rel="self"/>
   <link href="http://chen.yanping.me/cn/"/>
-  <updated>2012-01-04T09:04:21+08:00</updated>
+  <updated>2012-01-06T14:55:52+08:00</updated>
   <id>http://chen.yanping.me/cn/</id>
   <author>
     <name><![CDATA[ypchen]]></name>
@@ -14,11 +14,57 @@
 
   
   <entry>
+    <title type="html"><![CDATA[如何升级R]]></title>
+    <link href="http://chen.yanping.me/cn/blog/2012/01/06/updating-an-r-installation/"/>
+    <updated>2012-01-06T17:12:00+08:00</updated>
+    <id>http://chen.yanping.me/cn/blog/2012/01/06/updating-an-r-installation</id>
+    <content type="html"><![CDATA[<p><span class="info">
+本文翻译自<a href="http://www.manning.com/kabacoff/" target="_blank">R in Action</a>的附录H，如果对该书感兴趣，请自行购买或去图书馆阅读。
+</span>
+</p>
+
+
+<p>R的函数<code>update.packages()</code>可以下载和升级安装的包，但是没有相应的函数升级R本身。如果你想把R从4.1.0版升级到5.1.1版，那你必须有点创造性。（实际上作者写书的时候R的版本还只是2.13.0，但是他说想这本书在若干年后仍然不显得过时）</p>
+
+<p>从CRAN（<a href="http://cran.r-project.org/bin">http://cran.r-project.org/bin</a>）下载并安装最新版的R相当简单。但是想在新安装时保留之前的个性化设置（比如之前安装的包）就复杂了。在我现在的安装中，安装了248个包。我实在是不想把这些包的名字写下来，然后在下次升级R的时候手动重装它们。</p>
+
+<p>关于如何方便简洁高效地升级R，网上有很多这方面的讨论。下面描述的方法既不简洁，也不高效，但是我发现它可以用在任何平台（Windows，Mac以及Linux）。</p>
+
+<p><code>installed.packages()</code>函数用来保存一份已安装包的列表到R目录之外。然后利用这个列表和<code>install.packges()</code>函数来下载和安装最新的包到新安装的R中。下面是步骤：</p>
+
+<ol>
+<li>如果有自定义的配置文件<strong>Rprofile.site</strong>，就把它保存到R之外。</li>
+<li>启动当前版本的R，运行下面的命令
+ <script src="https://gist.github.com/1569225.js?file=save-old-installed-packages.r"></script>
+其中<em>path</em>是R的安装目录。</li>
+<li>下载并安装最新版的R。</li>
+<li>如果你保存了原来的Rprofile.site文件，把它复制到新的安装目录中。</li>
+<li>启动新版的R，然后运行下面的命令 <br/>
+ <script src="https://gist.github.com/1569241.js?file=install-new-packages.r"></script></li>
+<li>删除旧的安装（可选）</li>
+</ol>
+
+
+<p><span class="warning">
+这种方法只能安装从CRAN能获取到的包。其他途径获取的包要单独安装。
+</span>
+</p>
+
+
+
+]]></content>
+  </entry>
+  
+  <entry>
     <title type="html"><![CDATA[用R处理大数据集]]></title>
     <link href="http://chen.yanping.me/cn/blog/2012/01/01/working-with-large-datasets/"/>
     <updated>2012-01-01T15:36:00+08:00</updated>
     <id>http://chen.yanping.me/cn/blog/2012/01/01/working-with-large-datasets</id>
-    <content type="html"><![CDATA[<p>本文翻译自<a href="http://www.manning.com/kabacoff/" target="_blank"><em>R in Action</em></a>的附录G，如果对该书感兴趣，请自行购买或去图书馆阅读。</p>
+    <content type="html"><![CDATA[<p><span class="info">
+本文翻译自<a href="http://www.manning.com/kabacoff/" target="_blank">R in Action</a>的附录G，如果对该书感兴趣，请自行购买或去图书馆阅读。
+</span>
+</p>
+
 
 <p>R会把所有的对象读存入虚拟内存中。对我们大多数用户来说，这种设计可以提高与R相互的速度，但是当分析大数据集时，这种设计会降低程序运行速度有时还会产生跟内存相关的错误。</p>
 
