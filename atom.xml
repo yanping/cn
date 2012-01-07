@@ -4,7 +4,7 @@
   <title><![CDATA[雁起平沙的网络日志]]></title>
   <link href="http://chen.yanping.me/cn/atom.xml" rel="self"/>
   <link href="http://chen.yanping.me/cn/"/>
-  <updated>2012-01-06T15:07:51+08:00</updated>
+  <updated>2012-01-08T01:12:42+08:00</updated>
   <id>http://chen.yanping.me/cn/</id>
   <author>
     <name><![CDATA[ypchen]]></name>
@@ -12,6 +12,312 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[为Octopress修改主题和自定义样式]]></title>
+    <link href="http://chen.yanping.me/cn/blog/2012/01/07/theming-and-customization/"/>
+    <updated>2012-01-07T21:16:00+08:00</updated>
+    <id>http://chen.yanping.me/cn/blog/2012/01/07/theming-and-customization</id>
+    <content type="html"><![CDATA[<p class="info">
+本文翻译自Octopress的帮助文档<a href="http://octopress.org/docs/theme" target="_blank">Theming & Customization</a>。
+本人水平有限，不当之处请指正，欢迎留言给出修改意见。
+</p>
+
+
+<p>Octopress在 <code>.themes</code> 目录提供了一个默认主题。当你安装Octopress时，HTML和Javascripts被复制到 <code>/source</code>，Sass样式表被复制到 <code>/sass</code>。
+你可以随意修改上述文件，不过我还是设计了一些模式，来让自定制变得更简单，更新Octopress更方便。</p>
+
+<p>本文分成两部分：</p>
+
+<ol>
+<li><a href="http://chen.yanping.me/cn/blog/2012/01/07/theming-and-customization/#theme">自定义模板</a> - <em>学习如何修改HEAD，sidebar，header，navigation 以及footer</em></li>
+<li><a href="http://chen.yanping.me/cn/blog/2012/01/07/theming-and-customization/#styles">修改样式</a> - <em>学习如何修改颜色和布局，控制样式</em></li>
+</ol>
+
+
+<!--more-->
+
+
+
+
+<h2 id="theme" style="font-size:32px;color:red;">主题</h2>
+
+
+<p>不久前发布的 Octopress 2.0版增加了 <code>source/_includes/custom</code>目录。 如果你没有这个目录， 建议 <a href="http://octopress.org/docs/updating">升级</a> Octopress，因为它真的很棒。</p>
+
+<pre><code>source/
+  _includes/    # Main layout partials
+    custom/     # &lt;- Customize head, header, navigation, footer, and sidebar here
+    asides/     # Theme sidebar partials
+    post/       # post metadata, sharing &amp; comment partials
+  _layouts/     # layouts for pages, posts &amp; category archives
+</code></pre>
+
+<h2 id="landing_page">登录页 vs. 博客主页</h2>
+
+
+<p>Octopress默认地把博客主页生成在网站的根目录下。
+如果你想把你的博客主页发布在别的位置，比如 <code>blog/index.html</code>，那么请在终端里进行下面的操作：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'>mv <span class="nb">source</span>/index.html <span class="nb">source</span>/blog/index.html
+</span><span class='line'>rake new_page<span class="o">[</span>index.html<span class="o">]</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>当你 <a href="http://octopress.org/docs/updating">更新Octopress</a>，下一步你要更新<code>Rakefile</code> ，以保证博客主页不被修改。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">blog_index_dir</span> <span class="o">=</span> <span class="s1">&#39;source/blog&#39;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>记住修改网站的导航栏（navigation），因为现在博客链接指向<code>/</code>。跳到下面<a href="#changing_navigation">修改navigation</a>这节，添加“主页”链接，更新“博客”链接指向<code>/blog/</code>。</p>
+
+<p>最后，<code>source/index.html</code> 可以成为你网站的登录页（landing page）。</p>
+
+<h2>修改 &lt;HEAD&gt;</h2>
+
+<p>如果你想修改<code>&lt;HEAD&gt;</code>，请看一下 <code>/source/_includes/custom/head.html</code>。</p>
+
+<figure class='code'><figcaption><span>&lt;HEAD&gt; (source/_includes/custom/head.html) </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='html'><span class='line'><span class="c">&lt;!--Fonts from Google&quot;s Web font directory at http://google.com/webfonts --&gt;</span>
+</span><span class='line'><span class="nt">&lt;link</span> <span class="na">href=</span><span class="s">&quot;http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic&quot;</span> <span class="na">rel=</span><span class="s">&quot;stylesheet&quot;</span> <span class="na">type=</span><span class="s">&quot;text/css&quot;</span><span class="nt">&gt;</span>
+</span><span class='line'><span class="nt">&lt;link</span> <span class="na">href=</span><span class="s">&quot;http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic&quot;</span> <span class="na">rel=</span><span class="s">&quot;stylesheet&quot;</span> <span class="na">type=</span><span class="s">&quot;text/css&quot;</span><span class="nt">&gt;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>在这里你可以轻易地修改或移除<a href="http://google.com/webfonts">Google Webfonts</a>，插入javascripts等等。</p>
+
+<h3>修改侧边栏</h3>
+
+<p>Octopress整合了一些<a href="http://www.octopress.org/docs/configuring/#third_party">第三方服务</a>，诸如出现在侧边栏的Twitter，Pinboard和Delicious。
+在<code>_config.yml</code>你可以重新安排它们的位置，为每种layout创建自定制的侧边栏，添加你自己的侧边栏section。</p>
+
+<figure class='code'><figcaption><span>Sidebar configuration (_config.yml) </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='yaml'><span class='line'><span class="l-Scalar-Plain">default_asides</span><span class="p-Indicator">:</span>   <span class="p-Indicator">[</span><span class="nv">asides/recent_posts.html</span><span class="p-Indicator">,</span> <span class="nv">asides/twitter.html</span><span class="p-Indicator">,</span> <span class="nv">asides/delicious.html</span><span class="p-Indicator">,</span> <span class="nv">asides/pinboard.html</span><span class="p-Indicator">]</span>
+</span><span class='line'><span class="c1"># blog_index_asides:</span>
+</span><span class='line'><span class="c1"># post_asides:</span>
+</span><span class='line'><span class="c1"># page_asides:</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>如果你想在侧边栏添加新的section，就在 <code>source/_includes/custom/asides/</code>中创建新的文件。
+许多都会想在侧边栏加一个“关于我”的section，上面提到的这个目录下已经有个<code>about.html</code> 文件以供修改。内容如下：</p>
+
+<figure class='code'><figcaption><span>About Me (source/_includes/custom/asides/about.html) </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='html'><span class='line'><span class="nt">&lt;section&gt;</span>
+</span><span class='line'>  <span class="nt">&lt;h1&gt;</span>About Me<span class="nt">&lt;/h1&gt;</span>
+</span><span class='line'>  <span class="nt">&lt;p&gt;</span>A little something about me.<span class="nt">&lt;/p&gt;</span>
+</span><span class='line'><span class="nt">&lt;/section&gt;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>如果你要添加section到侧边栏, 必须遵循这样的模式，要有一个<code>&lt;section&gt;</code> 代码块，并以<code>&lt;h1&gt;</code>为标题。如果想把这个section加到侧边栏里，就要编辑 <code>_config.yml</code> 把它加到asides列表里。</p>
+
+<figure class='code'><figcaption><span>Sidebar configuration (_config.yml) </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='yaml'><span class='line'><span class="l-Scalar-Plain">default_asides</span><span class="p-Indicator">:</span>     <span class="p-Indicator">[</span><span class="nv">asides/recent_posts.html</span><span class="p-Indicator">,</span> <span class="nv">asides/twitter.html</span><span class="p-Indicator">,</span> <span class="nv">asides/delicious.html</span><span class="p-Indicator">,</span> <span class="nv">asides/pinboard.html</span><span class="p-Indicator">]</span>
+</span><span class='line'><span class="l-Scalar-Plain">blog_index_asides</span><span class="p-Indicator">:</span>  <span class="p-Indicator">[</span><span class="nv">custom/asides/about.html</span><span class="p-Indicator">,</span> <span class="nv">asides/recent_posts.html</span><span class="p-Indicator">,</span> <span class="nv">asides/twitter.html</span><span class="p-Indicator">,</span> <span class="nv">asides/delicious.html</span><span class="p-Indicator">,</span> <span class="nv">asides/pinboard.html</span><span class="p-Indicator">]</span>
+</span><span class='line'><span class="l-Scalar-Plain">post_asides</span><span class="p-Indicator">:</span>        <span class="p-Indicator">[</span><span class="nv">custom/asides/about.html</span><span class="p-Indicator">,</span> <span class="nv">asides/recent_posts.html</span><span class="p-Indicator">,</span> <span class="nv">asides/twitter.html</span><span class="p-Indicator">,</span> <span class="nv">asides/delicious.html</span><span class="p-Indicator">,</span> <span class="nv">asides/pinboard.html</span><span class="p-Indicator">]</span>
+</span><span class='line'><span class="c1"># page_asides:</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>在上面的配置文件中，我向博客主页和文章页面添加了about页。 由于<code>page_asides</code> 没有被设置, 它会从默认列表（default_asides）中继承内容。</p>
+
+<h2>修改Header, Navigation和Footer</h2>
+
+<p>网站的这几个部分是经常被自定制的。你可以编辑 <code>/source/_includes/custom/</code>里的每个文件，即使更新Octopress,你的修改还会保留。</p>
+
+<h3>修改Header</h3>
+
+<p>header的标题和子标题必须在 <code>_config.yml</code>中设置。如果你想对header做其他设置，就要编辑<code>/source/_includes/custom/header.html</code>：</p>
+
+<figure class='code'><figcaption><span>Header (source/_includes/custom/header.html) </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='html'><span class='line'><span class="nt">&lt;hgroup&gt;</span>
+</span><span class='line'>  <span class="nt">&lt;h1&gt;&lt;a</span> <span class="na">href=</span><span class="s">&quot;{{ root_url }}/&quot;</span><span class="nt">&gt;</span>{{ site.title }}<span class="nt">&lt;/a&gt;&lt;/h1&gt;</span>
+</span><span class='line'>  {% if site.subtitle %}
+</span><span class='line'>    <span class="nt">&lt;h2&gt;</span>{{ site.subtitle }}<span class="nt">&lt;/h2&gt;</span>
+</span><span class='line'>  {% endif %}
+</span><span class='line'><span class="nt">&lt;/hgroup&gt;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+
+
+<h3 id="changing_navigation">修改Navigation</h3>
+
+
+<p>编辑<code>/source/_includes/custom/navigation.html</code>来修改或添加链接到主导航栏，代码如下：</p>
+
+<figure class='code'><figcaption><span>Navigation (source/_includes/custom/navigation.html) </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='html'><span class='line'><span class="nt">&lt;ul</span> <span class="na">class=</span><span class="s">&quot;main-navigation&quot;</span><span class="nt">&gt;</span>
+</span><span class='line'>  <span class="nt">&lt;li&gt;&lt;a</span> <span class="na">href=</span><span class="s">&quot;{{ root_url }}/&quot;</span><span class="nt">&gt;</span>Blog<span class="nt">&lt;/a&gt;&lt;/li&gt;</span>
+</span><span class='line'>  <span class="nt">&lt;li&gt;&lt;a</span> <span class="na">href=</span><span class="s">&quot;{{ root_url }}/blog/archives&quot;</span><span class="nt">&gt;</span>Archives<span class="nt">&lt;/a&gt;&lt;/li&gt;</span>
+</span><span class='line'><span class="nt">&lt;/ul&gt;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>每个链接的<code>href</code>都以 <code>{{ root_url }}</code>开始 (如果网站部署到子目录里，这可以帮助Octopress采用不同的链接).
+如果你想把你的网站部署到像 <code>yoursite.com/octopress</code> 这样的子目录，你必须把它加到你添加的任何链接里。</p>
+
+<h3>修改Footer</h3>
+
+<p>你可以在<code>source/_includes/custom/footer.html</code>中修改footer，像这样：</p>
+
+<figure class='code'><figcaption><span>Footer (source/_includes/custom/footer.html) </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='html'><span class='line'><span class="nt">&lt;p&gt;</span>
+</span><span class='line'>  Copyright <span class="ni">&amp;copy;</span> {{ site.time | date: &quot;%Y&quot; }} - {{ site.author }} -
+</span><span class='line'>  <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;credit&quot;</span><span class="nt">&gt;</span>Powered by <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">&quot;http://octopress.org&quot;</span><span class="nt">&gt;</span>Octopress<span class="nt">&lt;/a&gt;&lt;/span&gt;</span>
+</span><span class='line'><span class="nt">&lt;/p&gt;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>你可以做任意修改，只要够酷并保留Octopress的链接就可以。</p>
+
+<h2 id="styles" style="font-size:32px;color:red;">样式</h2>
+
+
+
+
+<h2 id="overriding_styles">控制样式</h2>
+
+
+<p>如果想添加或控制样式，编辑<code>sass/custom/_styles.scss</code>。样式表最后才引入， so you can override styles with the cascade.</p>
+
+<h2 id="customizing_styles">修改配色</h2>
+
+
+<p>请查看<a href="http://hslpicker.com">HSL Color Picker</a>，它可以帮助你选择颜色，是一种易用的基于网页的选色工具。</p>
+
+<pre><code># In /sass/base/
+_theme.scss      # All colors are defined here
+
+# In /sass/custom/ - Change these files for easy customization
+_colors.scss     # Override colors in base/_theme.scss to change color schemes
+_styles.scss     # Easly Override any style (last in the cascade)
+</code></pre>
+
+<p>Octopress的所有颜色都是以Sass变量的形式在 <code>/sass/base/_theme.scss</code>文件中定义。
+想自定制你的配色，就要编辑<code>sass/custom/_colors.scss</code> 并在<code>sass/base/_theme.scss</code>中控制颜色。</p>
+
+<p>Octopress官方网站用的是默认的&#8217;classic&#8217;主题，颜色在自定制颜色文件中稍微做了调整。仔细看这个文件，你会看到sass代码的某些行被取注释。</p>
+
+<figure class='code'><figcaption><span>Custom Colors (sass/custom/_colors.scss)</span><a href='https://github.com/imathis/octopress/tree/master/.themes/classic/sass/custom/_colors.scss'>View on Github </a></figcaption> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='scss'><span class='line'><span class="na">$header-bg</span><span class="o">:</span> <span class="mh">#263347</span><span class="p">;</span>
+</span><span class='line'><span class="na">$subtitle-color</span><span class="o">:</span> <span class="nf">lighten</span><span class="p">(</span><span class="nv">$header-bg</span><span class="o">,</span> <span class="mi">58</span><span class="p">);</span>
+</span><span class='line'><span class="na">$nav-bg</span><span class="o">:</span> <span class="nf">desaturate</span><span class="p">(</span><span class="nf">lighten</span><span class="p">(</span><span class="mh">#8fc17a</span><span class="o">,</span> <span class="mi">18</span><span class="p">)</span><span class="o">,</span> <span class="mi">5</span><span class="p">);</span>
+</span><span class='line'><span class="na">$sidebar-bg</span><span class="o">:</span> <span class="nf">desaturate</span><span class="p">(</span><span class="mh">#eceff5</span><span class="o">,</span> <span class="mi">8</span><span class="p">);</span>
+</span><span class='line'><span class="na">$sidebar-link-color</span><span class="o">:</span> <span class="nf">saturate</span><span class="p">(</span><span class="mh">#526f9a</span><span class="o">,</span> <span class="mi">10</span><span class="p">);</span>
+</span><span class='line'><span class="na">$sidebar-link-color-hover</span><span class="o">:</span> <span class="nf">darken</span><span class="p">(</span><span class="mh">#7ab662</span><span class="o">,</span> <span class="mi">9</span><span class="p">);</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>自定制颜色文件有几项被取消注释的颜色可以用。主题文件被分成几个部分以使文件更容易阅读。请看<code>sass/base/_theme.scss</code>中关于navigation的部分。</p>
+
+<figure class='code'><figcaption><span>Navigation (sass/base/_theme.scss)</span><a href='https://github.com/imathis/octopress/tree/master/.themes/classic/sass/base/_theme.scss'>View on Github </a></figcaption> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='scss'><span class='line'><span class="cm">/* Navigation */</span>
+</span><span class='line'><span class="na">$nav-bg</span><span class="o">:</span> <span class="mh">#ccc</span> <span class="nv">!default</span><span class="p">;</span>
+</span><span class='line'><span class="na">$nav-color</span><span class="o">:</span> <span class="nf">darken</span><span class="p">(</span><span class="nv">$nav-bg</span><span class="o">,</span> <span class="mi">38</span><span class="p">)</span> <span class="nv">!default</span><span class="p">;</span>
+</span><span class='line'><span class="na">$nav-color-hover</span><span class="o">:</span> <span class="nf">darken</span><span class="p">(</span><span class="nv">$nav-color</span><span class="o">,</span> <span class="mi">25</span><span class="p">)</span> <span class="nv">!default</span><span class="p">;</span>
+</span><span class='line'><span class="nc">...</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>The <code>!default</code> rule lets the variable be overridden if it is defined beforehand.
+is imported before the <code>_theme.scss</code> it can predefine these colors easily. There are comments to help out with this in the
+<a href="https://github.com/imathis/octopress/tree/master/.themes/classic/sass/custom/_colors.scss">source</a>.</p>
+
+<p>主题里的许多颜色是用 <a href="http://sass-lang.com/docs/yardoc/Sass/Script/Functions.html">Sass&#8217;s color functions</a>来设置的。
+你可以通过设置<code>$nav-bg</code>变量为navigation选择新的背景颜色，并且其它颜色会做相应的改变。虽然这不是很完美，但是它对大多数颜色都是合适的。</p>
+
+<h2 id="changing_layout">修改布局</h2>
+
+
+<pre><code># In /sass/base
+_layout.scss     # Responsive layouts are defined here
+
+# In /sass/custom - Change these files for easy customization
+_layout.scss     # Override settings for base/_layout.scss to change the layout
+</code></pre>
+
+<p>和颜色一样， <code>/sass/base/_layout.scss</code>里的宽度像<code>$max-width: 1200px !default;</code>定义，在<code>sass/custom/_layout.scss</code>中定义它们可以很容易地自定制。下面是布局的一些默认值：</p>
+
+<figure class='code'><figcaption><span>Layout Defaults (_layout.scss)</span><a href='https://github.com/imathis/octopress/tree/master/.themes/classic/sass/base/_layout.scss'>view on Github </a></figcaption> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+</pre></td><td class='code'><pre><code class='scss'><span class='line'><span class="na">$max-width</span><span class="o">:</span> <span class="mi">1200</span><span class="kt">px</span> <span class="nv">!default</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">// Padding used for layout margins</span>
+</span><span class='line'><span class="na">$pad-min</span><span class="o">:</span> <span class="mi">18</span><span class="kt">px</span> <span class="nv">!default</span><span class="p">;</span>
+</span><span class='line'><span class="na">$pad-narrow</span><span class="o">:</span> <span class="mi">25</span><span class="kt">px</span> <span class="nv">!default</span><span class="p">;</span>
+</span><span class='line'><span class="na">$pad-medium</span><span class="o">:</span> <span class="mi">35</span><span class="kt">px</span> <span class="nv">!default</span><span class="p">;</span>
+</span><span class='line'><span class="na">$pad-wide</span><span class="o">:</span> <span class="mi">55</span><span class="kt">px</span> <span class="nv">!default</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">// Sidebar widths used in media queries</span>
+</span><span class='line'><span class="na">$sidebar-width-medium</span><span class="o">:</span> <span class="mi">240</span><span class="kt">px</span> <span class="nv">!default</span><span class="p">;</span>
+</span><span class='line'><span class="na">$sidebar-pad-medium</span><span class="o">:</span> <span class="mi">15</span><span class="kt">px</span> <span class="nv">!default</span><span class="p">;</span>
+</span><span class='line'><span class="na">$sidebar-pad-wide</span><span class="o">:</span> <span class="mi">20</span><span class="kt">px</span> <span class="nv">!default</span><span class="p">;</span>
+</span><span class='line'><span class="na">$sidebar-width-wide</span><span class="o">:</span> <span class="mi">300</span><span class="kt">px</span> <span class="nv">!default</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'><span class="na">$indented-lists</span><span class="o">:</span> <span class="n-Pseudo">false</span> <span class="nv">!default</span><span class="p">;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>这些变量是用来计算相应布局的宽度和padding的。<code>$indented-lists</code> 变量允许你选择列表的样式是使用缩进还是正常的。</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[如何升级R]]></title>
@@ -29,6 +335,9 @@
 <p>从CRAN（<a href="http://cran.r-project.org/bin">http://cran.r-project.org/bin</a>）下载并安装最新版的R相当简单。但是想在新安装时保留之前的个性化设置（比如之前安装的包）就复杂了。在我现在的安装中，安装了248个包。我实在是不想把这些包的名字写下来，然后在下次升级R的时候手动重装它们。</p>
 
 <p>关于如何方便简洁高效地升级R，网上有很多这方面的讨论。下面描述的方法既不简洁，也不高效，但是我发现它可以用在任何平台（Windows，Mac以及Linux）。</p>
+
+<!--more-->
+
 
 <p><code>installed.packages()</code>函数用来保存一份已安装包的列表到R目录之外。然后利用这个列表和<code>install.packges()</code>函数来下载和安装最新的包到新安装的R中。下面是步骤：</p>
 
@@ -163,7 +472,7 @@
 
 <p>最初我发现在windows下不能部署octopress，安装rvm不成功，跟<a href="http://yangzhiping.com" target="_blank">阳志平</a>交流后，他也说在windows不可以，到网上搜寻了一下，也没有人说在windows下安装成功。</p>
 
-<p>去上海参加R语言会议时，见到怡轩和思喆的ubuntu，甚是羡慕，当初哥也玩过很长一段时间的，没玩明白呢就荒废了，现在决定捡起来。重新给硬盘分区太麻烦了，好在现在的电脑性能比3、4年前要强太多了，办公室的电脑随便哪台都是双核4G内存256G硬盘，用来打字上网淘宝人人开心微博就太浪费了<sup>[<a id="back_2_1" href="#fn_2_1">1</a>]</sup>，于是我决定在办公室的电脑上安装虚拟机virtualBox，在虚拟机里装ubuntu 10.04。这中间也遇到了些问题，我到ruby-taiwan上也发帖问过（请看<a href="http://ruby-taiwan.org/topics/37" target="_blank">当时的帖子</a>）。后来用wubi的方式在自己笔记本上安装了ubuntu11.10，用得挺爽，我的octopress博客也开张了，地址是<a href="http://chen.yanping.me/cn" target="_blank">http://chen.yanping.me/cn</a>。原来的wordpress博客暂停更新。</p>
+<p>去上海参加<a href="http://cos.name/2011/11/4th-china-r-shanghai-summary/">R语言会议</a>时，见到怡轩和思喆的ubuntu，甚是羡慕，当初哥也玩过很长一段时间的，没玩明白呢就荒废了，现在决定捡起来。重新给硬盘分区太麻烦了，好在现在的电脑性能比3、4年前要强太多了，办公室的电脑随便哪台都是双核4G内存256G硬盘，用来打字上网淘宝人人开心微博就太浪费了<sup>[<a id="back_2_1" href="#fn_2_1">1</a>]</sup>，于是我决定在办公室的电脑上安装虚拟机virtualBox，在虚拟机里装ubuntu 10.04。这中间也遇到了些问题，我到ruby-taiwan上也发帖问过（请看<a href="http://ruby-taiwan.org/topics/37" target="_blank">当时的帖子</a>）。后来用wubi的方式在自己笔记本上安装了ubuntu11.10，用得挺爽，我的octopress博客也开张了，地址是<a href="http://chen.yanping.me/cn" target="_blank">http://chen.yanping.me/cn</a>。原来的wordpress博客暂停更新。</p>
 
 <p>因为大部分工作还是要在windows里完成，所以我还是想能在windows下使用Octopress。</p>
 
@@ -265,7 +574,11 @@
     <link href="http://chen.yanping.me/cn/blog/2011/12/15/building-static-sites-with-jekyll/"/>
     <updated>2011-12-15T17:36:00+08:00</updated>
     <id>http://chen.yanping.me/cn/blog/2011/12/15/building-static-sites-with-jekyll</id>
-    <content type="html"><![CDATA[<p>原文地址：<a href="http://net.tutsplus.com/tutorials/other/building-static-sites-with-jekyll/">http://net.tutsplus.com/tutorials/other/building-static-sites-with-jekyll/</a></p>
+    <content type="html"><![CDATA[<p><span class="info">
+原文地址 <a href="http://net.tutsplus.com/tutorials/other/building-static-sites-with-jekyll/"> http://net.tutsplus.com/tutorials/other/building-static-sites-with-jekyll/</a>
+</span>
+</p>
+
 
 <p>功能五花八门的CMS（内容管理系统）有时候并不是必需的，你只需要创建一个轻量级的静态网站&#8230;  当你有足够多的页面就会使复制模板文件和跨网站标记的过程变成繁琐的事。今天，我将介绍一种简单的解决方案——<a href="http://jekyllrb.com/">Jekyll</a>——使你可以轻而易举地创建小型网站。</p>
 
@@ -747,21 +1060,22 @@
 
 <p>第二个问题是当文章中引用了含有Liquid标签的代码片段时，这些代码会被jekyll渲染。一般代码是用<a href="http://octopress.org/docs/plugins/codeblock/" target="_blank">codeblock标签</a>或者用 <code>```</code>括起来（也就是Backtick Code Blocks的方式），能保持原样，还能显示语法高亮，但是当引用的代码里含有Liquid标签时就出现了混乱。为此，我也试了很久，也到<a href="http://ruby-taiwan.org/topics/74">ruby-taiwan.org</a>上发帖问了，总结起来有几种方法：</p>
 
-<p>1.用gist插件</p>
+<ol>
+<li>用gist插件
 
-<pre><code>{% gist gist_id [filename] %}
+<pre><code> {% gist gist_id [filename] %}
 </code></pre>
 
-<p>这种方式比较强大，但是需要连接gist，加载页面的时候有点卡。</p>
+<p>这种方式比较强大，但是需要连接gist，加载页面的时候有点卡。</p></li>
+<li>用include_code插件
 
-<p>2.用include_code插件</p>
-
-<pre><code>{% include_code [title] [lang:language] path/to/file %}
+<pre><code> {% include_code [title] [lang:language] path/to/file %}
 </code></pre>
 
-<p>上面两种方法在Octoprss的官方网站都有介绍，请看<a href="http://octopress.org/docs/blogging/code/">http://octopress.org/docs/blogging/code/</a></p>
+<p>上面两种方法在Octoprss的官方网站都有介绍，请看<a href="http://octopress.org/docs/blogging/code/">http://octopress.org/docs/blogging/code/</a></p></li>
+<li>用codeblock标签里嵌套raw标签，详情请看<a href="http://jimpravetz.com/blog/2011/12/inserting-liquid-syntax-into-octopress-codeblock/">http://jimpravetz.com/blog/2011/12/inserting-liquid-syntax-into-octopress-codeblock/</a>。这种方式只能帖代码，不能语法高亮。</li>
+</ol>
 
-<p>3.用codeblock标签里嵌套raw标签，详情请看<a href="http://jimpravetz.com/blog/2011/12/inserting-liquid-syntax-into-octopress-codeblock/">http://jimpravetz.com/blog/2011/12/inserting-liquid-syntax-into-octopress-codeblock/</a>。这种方式只能帖代码，不能语法高亮。</p>
 
 <p>仔细研究一下Octopress官方网站的代码（比如<a href="https://raw.github.com/imathis/octopress/site/source/docs/plugins/codeblock/index.markdown">codeblock这节</a>），还能学到另一个技巧。在我翻译这篇文章时，几种方法都用到了，有兴趣的可以查看本文的markdown代码。</p>
 
@@ -809,7 +1123,7 @@ github pages的<a target="_blank" href="http://pages.github.com/">官方主页</
 
 <h3>快速应用</h3>
 
-<p><code>jekyll</code>对初学者太难掌握，有人推荐使用<a target="_blank" href="http://www.octopress.org">octopress</a>、<a target="_blank" href="https://github.com/cloudhead/toto">toto</a>或者<a target="_blank" href="http://alexyoung.org/2011/07/24/pop/">pop</a>等基于Jekyll的静态博客站点生成系统<sup>[<a id="back2" href="#2">2</a>]</sup>，它很大程度上简化了用Jekyll搭建博客的过程。<del>可惜这些系统在windows下都不能顺畅使用，我也没试成功。使用Linux的同学可以试一试。</del>在windows下使用Octopress的教程请看我的<a href="http://chen.yanping.me/cn/blog/2011/12/26/octopress-on-windows/" target="_blank">博客文章</a>。</p>
+<p><code>jekyll</code>对初学者太难掌握，有人推荐使用<a target="_blank" href="http://www.octopress.org">octopress</a>、<a target="_blank" href="https://github.com/cloudhead/toto">toto</a>或者<a target="_blank" href="http://alexyoung.org/2011/07/24/pop/">pop</a>等基于Jekyll的静态博客站点生成系统<sup>[<a id="back2" href="#2">2</a>]</sup>，它很大程度上简化了用Jekyll搭建博客的过程。<del>可惜这些系统在windows下都不能顺畅使用，我也没试成功。使用Linux的同学可以试一试。</del><ins>在windows下使用Octopress的教程请看我的<a href="http://chen.yanping.me/cn/blog/2011/12/26/octopress-on-windows/" target="_blank">博客文章</a></ins>。</p>
 
 <h3>参考文章：</h3>
 

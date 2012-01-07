@@ -9,7 +9,7 @@
   <meta name="author" content="ypchen">
 
   
-  <meta name="description" content="原文地址：http://net.tutsplus.com/tutorials/other/building-static-sites-with-jekyll/ 功能五花八门的CMS（内容管理系统）有时候并不是必需的，你只需要创建一个轻量级的静态网站&#8230; &hellip;">
+  <meta name="description" content="原文地址 http://net.tutsplus.com/tutorials/other/building-static-sites-with-jekyll/ 功能五花八门的CMS（内容管理系统）有时候并不是必需的，你只需要创建一个轻量级的静态网站&#8230; &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -100,7 +100,11 @@
   </header>
 
 
-<div class="entry-content"><p>原文地址：<a href="http://net.tutsplus.com/tutorials/other/building-static-sites-with-jekyll/">http://net.tutsplus.com/tutorials/other/building-static-sites-with-jekyll/</a></p>
+<div class="entry-content"><p><span class="info">
+原文地址 <a href="http://net.tutsplus.com/tutorials/other/building-static-sites-with-jekyll/"> http://net.tutsplus.com/tutorials/other/building-static-sites-with-jekyll/</a>
+</span>
+</p>
+
 
 <p>功能五花八门的CMS（内容管理系统）有时候并不是必需的，你只需要创建一个轻量级的静态网站&#8230;  当你有足够多的页面就会使复制模板文件和跨网站标记的过程变成繁琐的事。今天，我将介绍一种简单的解决方案——<a href="http://jekyllrb.com/">Jekyll</a>——使你可以轻而易举地创建小型网站。</p>
 
@@ -582,21 +586,22 @@
 
 <p>第二个问题是当文章中引用了含有Liquid标签的代码片段时，这些代码会被jekyll渲染。一般代码是用<a href="http://octopress.org/docs/plugins/codeblock/" target="_blank">codeblock标签</a>或者用 <code>```</code>括起来（也就是Backtick Code Blocks的方式），能保持原样，还能显示语法高亮，但是当引用的代码里含有Liquid标签时就出现了混乱。为此，我也试了很久，也到<a href="http://ruby-taiwan.org/topics/74">ruby-taiwan.org</a>上发帖问了，总结起来有几种方法：</p>
 
-<p>1.用gist插件</p>
+<ol>
+<li>用gist插件
 
-<pre><code>{% gist gist_id [filename] %}
+<pre><code> {% gist gist_id [filename] %}
 </code></pre>
 
-<p>这种方式比较强大，但是需要连接gist，加载页面的时候有点卡。</p>
+<p>这种方式比较强大，但是需要连接gist，加载页面的时候有点卡。</p></li>
+<li>用include_code插件
 
-<p>2.用include_code插件</p>
-
-<pre><code>{% include_code [title] [lang:language] path/to/file %}
+<pre><code> {% include_code [title] [lang:language] path/to/file %}
 </code></pre>
 
-<p>上面两种方法在Octoprss的官方网站都有介绍，请看<a href="http://octopress.org/docs/blogging/code/">http://octopress.org/docs/blogging/code/</a></p>
+<p>上面两种方法在Octoprss的官方网站都有介绍，请看<a href="http://octopress.org/docs/blogging/code/">http://octopress.org/docs/blogging/code/</a></p></li>
+<li>用codeblock标签里嵌套raw标签，详情请看<a href="http://jimpravetz.com/blog/2011/12/inserting-liquid-syntax-into-octopress-codeblock/">http://jimpravetz.com/blog/2011/12/inserting-liquid-syntax-into-octopress-codeblock/</a>。这种方式只能帖代码，不能语法高亮。</li>
+</ol>
 
-<p>3.用codeblock标签里嵌套raw标签，详情请看<a href="http://jimpravetz.com/blog/2011/12/inserting-liquid-syntax-into-octopress-codeblock/">http://jimpravetz.com/blog/2011/12/inserting-liquid-syntax-into-octopress-codeblock/</a>。这种方式只能帖代码，不能语法高亮。</p>
 
 <p>仔细研究一下Octopress官方网站的代码（比如<a href="https://raw.github.com/imathis/octopress/site/source/docs/plugins/codeblock/index.markdown">codeblock这节</a>），还能学到另一个技巧。在我翻译这篇文章时，几种方法都用到了，有兴趣的可以查看本文的markdown代码。</p>
 
@@ -684,6 +689,10 @@
   <ul id="recent_posts" class="none-left-margin">
     
       <li class="post">
+        <a href="/cn/blog/2012/01/07/theming-and-customization/">为Octopress修改主题和自定义样式</a>
+      </li>
+    
+      <li class="post">
         <a href="/cn/blog/2012/01/06/updating-an-r-installation/">如何升级R</a>
       </li>
     
@@ -705,10 +714,6 @@
     
       <li class="post">
         <a href="/cn/blog/2011/12/04/github-pages-domain/">浅谈github页面域名绑定</a>
-      </li>
-    
-      <li class="post">
-        <a href="/cn/blog/2011/12/03/hello-octopress/">你好！octopress</a>
       </li>
     
   </ul>

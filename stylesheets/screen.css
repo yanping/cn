@@ -11,9 +11,11 @@ body{
     line-height:1
 }
 
-# ol,ul{
-#    list-style:none
-#}
+/*
+ol,ul{
+    list-style:none
+}
+*/
 
 ul, ol{
     padding-left: 1.3em;  
@@ -369,7 +371,7 @@ body > footer{
     border-bottom-right-radius:0.4em;z-index:1
 }
 
-body > footer a{
+body > footer a{ 
 color:#6b6b6b}
 
 body > footer a:visited{color:#6b6b6b}
@@ -383,6 +385,14 @@ body > footer p:last-child{margin-bottom:0}
 	border:none;
 	padding:0.6em 1.25em 0.6em 48px;
 	margin-top:0.25em;
+
+	-webkit-border-radius: 8px; 
+	-moz-border-radius: 8px; 
+	border-radius: 8px;
+	
+	-webkit-box-shadow: 0 4px 4px rgba(0, 0, 0, 0.3); 
+	-moz-box-shadow: 0 4px 4px rgba(0, 0, 0, 0.3); 
+	-box-shadow: 0 4px 4px rgba(0, 0, 0, 0.3);  
 }
 
 .warning{
@@ -391,6 +401,14 @@ body > footer p:last-child{margin-bottom:0}
 	padding:0.6em 1.25em 0.6em 48px;
 	margin-left:0;
 	margin-top:0.25em;
+
+	-webkit-border-radius: 8px; 
+	-moz-border-radius: 8px; 
+	border-radius: 8px;
+	
+	-webkit-box-shadow: 0 15px 20px rgba(0, 0, 0, 0.3); 
+	-moz-box-shadow: 0 15px 20px rgba(0, 0, 0, 0.3); 
+	-box-shadow: 0 15px 20px rgba(0, 0, 0, 0.3);  
 }
 
 

@@ -9,7 +9,8 @@
   <meta name="author" content="ypchen">
 
   
-  <meta name="description" content="本文翻译自R in Action的附录H，如果对该书感兴趣，请自行购买或去图书馆阅读。 R的函数update.packages()可以下载和升级安装的包，但是没有相应的函数升级R本身。如果你想把R从4.1.0版升级到5.1.1版，那你必须有点创造性。（实际上作者写书的时候R的版本还只是2.13. &hellip;">
+  <meta name="description" content="本文翻译自Octopress的帮助文档Theming & Customization。
+本人水平有限，不当之处请指正，欢迎留言给出修改意见。 Octopress在 .themes 目录提供了一个默认主题。当你安装Octopress时，HTML和Javascripts被复制到 /source， &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -80,6 +81,62 @@
       
   <header>
     
+      <h1 class="entry-title"><a href="/cn/blog/2012/01/07/theming-and-customization/">为Octopress修改主题和自定义样式</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-01-07T21:16:00+08:00" pubdate data-updated="true">Jan 7<span>th</span>, 2012</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p class="info">
+本文翻译自Octopress的帮助文档<a href="http://octopress.org/docs/theme" target="_blank">Theming & Customization</a>。
+本人水平有限，不当之处请指正，欢迎留言给出修改意见。
+</p>
+
+
+<p>Octopress在 <code>.themes</code> 目录提供了一个默认主题。当你安装Octopress时，HTML和Javascripts被复制到 <code>/source</code>，Sass样式表被复制到 <code>/sass</code>。
+你可以随意修改上述文件，不过我还是设计了一些模式，来让自定制变得更简单，更新Octopress更方便。</p>
+
+<p>本文分成两部分：</p>
+
+<ol>
+<li><a href="/cn/blog/2012/01/07/theming-and-customization/#theme">自定义模板</a> - <em>学习如何修改HEAD，sidebar，header，navigation 以及footer</em></li>
+<li><a href="/cn/blog/2012/01/07/theming-and-customization/#styles">修改样式</a> - <em>学习如何修改颜色和布局，控制样式</em></li>
+</ol>
+
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/cn/blog/2012/01/07/theming-and-customization/">阅读全文 &rarr;</a>
+    </footer>
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
       <h1 class="entry-title"><a href="/cn/blog/2012/01/06/updating-an-r-installation/">如何升级R</a></h1>
     
     
@@ -115,30 +172,12 @@
 
 <p>关于如何方便简洁高效地升级R，网上有很多这方面的讨论。下面描述的方法既不简洁，也不高效，但是我发现它可以用在任何平台（Windows，Mac以及Linux）。</p>
 
-<p><code>installed.packages()</code>函数用来保存一份已安装包的列表到R目录之外。然后利用这个列表和<code>install.packges()</code>函数来下载和安装最新的包到新安装的R中。下面是步骤：</p>
-
-<ol>
-<li>如果有自定义的配置文件<strong>Rprofile.site</strong>，就把它保存到R之外。</li>
-<li>启动当前版本的R，运行下面的命令
- <script src="https://gist.github.com/1569225.js?file=save-old-installed-packages.r"></script>
-其中<em>path</em>是R的安装目录。</li>
-<li>下载并安装最新版的R。</li>
-<li>如果你保存了原来的<strong>Rprofile.site</strong>文件，把它复制到新的安装目录中。</li>
-<li>启动新版的R，然后运行下面的命令 <br/>
- <script src="https://gist.github.com/1569241.js?file=install-new-packages.r"></script></li>
-<li>删除旧的安装（可选）</li>
-</ol>
-
-
-<p><span class="warning">
-这种方法只能安装从CRAN能获取到的包。其他途径获取的包要单独安装。
-</span>
-</p>
-
-
-
 </div>
   
+  
+    <footer>
+      <a rel="full-article" href="/cn/blog/2012/01/06/updating-an-r-installation/">阅读全文 &rarr;</a>
+    </footer>
   
 
 
@@ -190,7 +229,7 @@
   
   
     <footer>
-      <a rel="full-article" href="/cn/blog/2012/01/01/working-with-large-datasets/">查看全文 &rarr;</a>
+      <a rel="full-article" href="/cn/blog/2012/01/01/working-with-large-datasets/">阅读全文 &rarr;</a>
     </footer>
   
 
@@ -229,7 +268,7 @@
 
 <p>最初我发现在windows下不能部署octopress，安装rvm不成功，跟<a href="http://yangzhiping.com" target="_blank">阳志平</a>交流后，他也说在windows不可以，到网上搜寻了一下，也没有人说在windows下安装成功。</p>
 
-<p>去上海参加R语言会议时，见到怡轩和思喆的ubuntu，甚是羡慕，当初哥也玩过很长一段时间的，没玩明白呢就荒废了，现在决定捡起来。重新给硬盘分区太麻烦了，好在现在的电脑性能比3、4年前要强太多了，办公室的电脑随便哪台都是双核4G内存256G硬盘，用来打字上网淘宝人人开心微博就太浪费了<sup>[<a id="back_2_1" href="#fn_2_1">1</a>]</sup>，于是我决定在办公室的电脑上安装虚拟机virtualBox，在虚拟机里装ubuntu 10.04。这中间也遇到了些问题，我到ruby-taiwan上也发帖问过（请看<a href="http://ruby-taiwan.org/topics/37" target="_blank">当时的帖子</a>）。后来用wubi的方式在自己笔记本上安装了ubuntu11.10，用得挺爽，我的octopress博客也开张了，地址是<a href="http://chen.yanping.me/cn" target="_blank">http://chen.yanping.me/cn</a>。原来的wordpress博客暂停更新。</p>
+<p>去上海参加<a href="http://cos.name/2011/11/4th-china-r-shanghai-summary/">R语言会议</a>时，见到怡轩和思喆的ubuntu，甚是羡慕，当初哥也玩过很长一段时间的，没玩明白呢就荒废了，现在决定捡起来。重新给硬盘分区太麻烦了，好在现在的电脑性能比3、4年前要强太多了，办公室的电脑随便哪台都是双核4G内存256G硬盘，用来打字上网淘宝人人开心微博就太浪费了<sup>[<a id="back_2_1" href="#fn_2_1">1</a>]</sup>，于是我决定在办公室的电脑上安装虚拟机virtualBox，在虚拟机里装ubuntu 10.04。这中间也遇到了些问题，我到ruby-taiwan上也发帖问过（请看<a href="http://ruby-taiwan.org/topics/37" target="_blank">当时的帖子</a>）。后来用wubi的方式在自己笔记本上安装了ubuntu11.10，用得挺爽，我的octopress博客也开张了，地址是<a href="http://chen.yanping.me/cn" target="_blank">http://chen.yanping.me/cn</a>。原来的wordpress博客暂停更新。</p>
 
 <p>因为大部分工作还是要在windows里完成，所以我还是想能在windows下使用Octopress。</p>
 
@@ -237,7 +276,7 @@
   
   
     <footer>
-      <a rel="full-article" href="/cn/blog/2011/12/26/octopress-on-windows/">查看全文 &rarr;</a>
+      <a rel="full-article" href="/cn/blog/2011/12/26/octopress-on-windows/">阅读全文 &rarr;</a>
     </footer>
   
 
@@ -332,7 +371,11 @@
   </header>
 
 
-  <div class="entry-content"><p>原文地址：<a href="http://net.tutsplus.com/tutorials/other/building-static-sites-with-jekyll/">http://net.tutsplus.com/tutorials/other/building-static-sites-with-jekyll/</a></p>
+  <div class="entry-content"><p><span class="info">
+原文地址 <a href="http://net.tutsplus.com/tutorials/other/building-static-sites-with-jekyll/"> http://net.tutsplus.com/tutorials/other/building-static-sites-with-jekyll/</a>
+</span>
+</p>
+
 
 <p>功能五花八门的CMS（内容管理系统）有时候并不是必需的，你只需要创建一个轻量级的静态网站&#8230;  当你有足够多的页面就会使复制模板文件和跨网站标记的过程变成繁琐的事。今天，我将介绍一种简单的解决方案——<a href="http://jekyllrb.com/">Jekyll</a>——使你可以轻而易举地创建小型网站。</p>
 
@@ -347,7 +390,7 @@
   
   
     <footer>
-      <a rel="full-article" href="/cn/blog/2011/12/15/building-static-sites-with-jekyll/">查看全文 &rarr;</a>
+      <a rel="full-article" href="/cn/blog/2011/12/15/building-static-sites-with-jekyll/">阅读全文 &rarr;</a>
     </footer>
   
 
@@ -399,44 +442,8 @@ github pages的<a target="_blank" href="http://pages.github.com/">官方主页</
   
   
     <footer>
-      <a rel="full-article" href="/cn/blog/2011/12/04/github-pages-domain/">查看全文 &rarr;</a>
+      <a rel="full-article" href="/cn/blog/2011/12/04/github-pages-domain/">阅读全文 &rarr;</a>
     </footer>
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/cn/blog/2011/12/03/hello-octopress/">你好！octopress</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2011-12-03T10:36:00+08:00" pubdate data-updated="true">Dec 3<span>rd</span>, 2011</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>第一次使用octopress，看看好不好用。</p>
-</div>
-  
   
 
 
@@ -462,6 +469,10 @@ github pages的<a target="_blank" href="http://pages.github.com/">官方主页</
   <ul id="recent_posts" class="none-left-margin">
     
       <li class="post">
+        <a href="/cn/blog/2012/01/07/theming-and-customization/">为Octopress修改主题和自定义样式</a>
+      </li>
+    
+      <li class="post">
         <a href="/cn/blog/2012/01/06/updating-an-r-installation/">如何升级R</a>
       </li>
     
@@ -483,10 +494,6 @@ github pages的<a target="_blank" href="http://pages.github.com/">官方主页</
     
       <li class="post">
         <a href="/cn/blog/2011/12/04/github-pages-domain/">浅谈github页面域名绑定</a>
-      </li>
-    
-      <li class="post">
-        <a href="/cn/blog/2011/12/03/hello-octopress/">你好！octopress</a>
       </li>
     
   </ul>
