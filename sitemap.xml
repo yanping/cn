@@ -18,7 +18,7 @@
     </url>
     <url>
         <loc>http://chen.yanping.me/cn/blog/2011/12/15/building-static-sites-with-jekyll/</loc>
-        <lastmod>2012-01-07T21:46:35+08:00</lastmod>
+        <lastmod>2012-01-09T22:45:25+08:00</lastmod>
     </url>
     <url>
         <loc>http://chen.yanping.me/cn/blog/2011/12/26/github-pages-domain-2/</loc>
@@ -38,7 +38,11 @@
     </url>
     <url>
         <loc>http://chen.yanping.me/cn/blog/2012/01/07/theming-and-customization/</loc>
-        <lastmod>2012-01-08T01:11:08+08:00</lastmod>
+        <lastmod>2012-01-08T09:52:37+08:00</lastmod>
+    </url>
+    <url>
+        <loc>http://chen.yanping.me/cn/blog/2012/01/09/customizing-the-startup-environment/</loc>
+        <lastmod>2012-01-09T22:58:47+08:00</lastmod>
     </url>
     <url>
         <loc>http://chen.yanping.me/cn/downloads/code/portfolio_entry.html</loc>
@@ -46,10 +50,10 @@
     </url>
     <url>
         <loc>http://chen.yanping.me/cn/blog/archives/</loc>
-        <lastmod>2012-01-08T01:11:08+08:00</lastmod>
+        <lastmod>2012-01-09T22:58:47+08:00</lastmod>
     </url>
     <url>
         <loc>http://chen.yanping.me/cn/</loc>
-        <lastmod>2012-01-08T01:11:08+08:00</lastmod>
+        <lastmod>2012-01-09T22:58:47+08:00</lastmod>
     </url>
 </urlset>

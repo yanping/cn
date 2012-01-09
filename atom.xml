@@ -4,7 +4,7 @@
   <title><![CDATA[雁起平沙的网络日志]]></title>
   <link href="http://chen.yanping.me/cn/atom.xml" rel="self"/>
   <link href="http://chen.yanping.me/cn/"/>
-  <updated>2012-01-08T01:12:42+08:00</updated>
+  <updated>2012-01-09T22:59:58+08:00</updated>
   <id>http://chen.yanping.me/cn/</id>
   <author>
     <name><![CDATA[ypchen]]></name>
@@ -12,6 +12,110 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[定制启动环境]]></title>
+    <link href="http://chen.yanping.me/cn/blog/2012/01/09/customizing-the-startup-environment/"/>
+    <updated>2012-01-09T22:16:00+08:00</updated>
+    <id>http://chen.yanping.me/cn/blog/2012/01/09/customizing-the-startup-environment</id>
+    <content type="html"><![CDATA[<p class="info">
+本文翻译自<a href="http://www.manning.com/kabacoff/" target="_blank">R in Action</a>的附录B，如果对该书感兴趣，请自行购买或去图书馆阅读。<br />
+R导论的10.8也是讲定制环境的。
+</p>
+
+
+<p>程序员最喜欢做的事之一是定制启动环境，好让程序按照他们喜欢方式工作。定制启动环境可以让你设置R的选项、指定工作目录、加载常用的包、加载用户自己写的函数、设置CRAN下载网址以及其它操作。</p>
+
+<p>你可以通过编辑位置位置初始化文件（Rprofile.site）或者目录初始化文件（.Rprofile）来定制R环境。这两个是纯文本文件，包含启动时要执行的R代码。</p>
+
+<!--more-->
+
+
+<p>在启动的时候，R会从<em>R_HOME</em>/etc这个目录寻找Rprofile.site来调用，其中<em>R_HOME</em>是环境变量。然后R会在当前工作目录寻找.Rprofile文件来调用。如果R没有找到这个文件，就会在用户的主目录寻找。你可以用<code>Sys.getenv("R_HOME")</code>、<code>Sys.getenv("HOME")</code>和<code>getwd()</code>分别查看<em>R_HOME</em>、<em>HOME</em>以及当前工作目录。</p>
+
+<p>你可以在这些文件里放两个特殊的函数，<code>.First()</code>函数在启动R会话的时候执行，<code>.Last()</code>函数在结束会话的时候执行。Rprofile.site文件的例子如下：</p>
+
+<figure class='code'><figcaption><span>Sample Rprofile.site file   </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+</pre></td><td class='code'><pre><code class='r'><span class='line'><span class="c1"># 设置常用选项</span>
+</span><span class='line'>options<span class="p">(</span>papersize<span class="o">=</span><span class="s">&quot;a4&quot;</span><span class="p">)</span>
+</span><span class='line'>options<span class="p">(</span>editor<span class="o">=</span><span class="s">&quot;notepad&quot;</span><span class="p">)</span>
+</span><span class='line'>options<span class="p">(</span>pager<span class="o">=</span><span class="s">&quot;internal&quot;</span><span class="p">)</span>
+</span><span class='line'>options<span class="p">(</span>tab.width <span class="o">=</span> <span class="m">2</span><span class="p">)</span>
+</span><span class='line'>options<span class="p">(</span>width <span class="o">=</span> <span class="m">130</span><span class="p">)</span>
+</span><span class='line'>options<span class="p">(</span>graphics.record<span class="o">=</span><span class="kc">TRUE</span><span class="p">)</span>
+</span><span class='line'>options<span class="p">(</span>show.signif.stars<span class="o">=</span><span class="kc">FALSE</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1"># 设置R交互提示信息</span>
+</span><span class='line'>options<span class="p">(</span>prompt<span class="o">=</span><span class="s">&quot;&gt; &quot;</span><span class="p">)</span>
+</span><span class='line'>options<span class="p">(</span>continue<span class="o">=</span><span class="s">&quot;+ &quot;</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'><span class="m">.</span>libPaths<span class="p">(</span><span class="s">&quot;C:/my_R_library&quot;</span><span class="p">)</span> <span class="c1"># 设置包的本地库（library）路径</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1"># 设置CRAN镜像默认地址</span>
+</span><span class='line'>local<span class="p">({</span>r <span class="o">&lt;-</span> getOption<span class="p">(</span><span class="s">&quot;repos&quot;</span><span class="p">)</span>
+</span><span class='line'>     r<span class="p">[</span><span class="s">&quot;CRAN&quot;</span><span class="p">]</span> <span class="o">&lt;-</span> <span class="s">&quot;http://cran.case.edu/&quot;</span>
+</span><span class='line'>     options<span class="p">(</span>repos<span class="o">=</span>r<span class="p">)})</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1"># 启动函数</span>
+</span><span class='line'><span class="m">.</span>First <span class="o">&lt;-</span> <span class="kr">function</span><span class="p">(){</span>
+</span><span class='line'> library<span class="p">(</span>lattice<span class="p">)</span>
+</span><span class='line'> library<span class="p">(</span>Hmisc<span class="p">)</span>
+</span><span class='line'> source<span class="p">(</span><span class="s">&quot;C:/mydir/myfunctions.R&quot;</span><span class="p">)</span>
+</span><span class='line'> cat<span class="p">(</span><span class="s">&quot;\nWelcome at&quot;</span><span class="p">,</span> date<span class="p">(),</span> <span class="s">&quot;\n&quot;</span><span class="p">)</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1"># 会话结束函数</span>
+</span><span class='line'><span class="m">.</span>Last <span class="o">&lt;-</span> <span class="kr">function</span><span class="p">(){</span>
+</span><span class='line'> cat<span class="p">(</span><span class="s">&quot;\nGoodbye at &quot;</span><span class="p">,</span> date<span class="p">(),</span> <span class="s">&quot;\n&quot;</span><span class="p">)</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>关于这个文件，你需要注意以下几点：</p>
+
+<ul>
+<li>设置.libPaths值允许你在R的安装目录之外创建包的本地库。这再升级时很有用，可以保留之前安装的包。</li>
+<li>设置CRAN镜像网站可以让你在使用<code>install.packages()</code>命令时不用每次都选择。</li>
+<li><code>.First()</code>函数是一个很好的地方，来加载你常用的包，运行常用的用户编写的函数。</li>
+<li><code>.Last()</code>函数一个很好的地方做清理活动，包括保存命令历史、程序输出和数据文件。</li>
+</ul>
+
+
+<p>还有其他定制启动环境的方式，包括使用命令行选项和环境变量。查看<code>help(Startup)</code>以及R导论的附录B（<a href="http://cran.r-project.org/doc/manuals/R-intro.pdf">http://cran.r-project.org/doc/manuals/R-intro.pdf</a>，中文版地址<a href="http://cran.r-project.org/doc/contrib/Ding-R-intro_cn.pdf">http://cran.r-project.org/doc/contrib/Ding-R-intro_cn.pdf</a>）获取更多细节。</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[为Octopress修改主题和自定义样式]]></title>
@@ -40,7 +144,7 @@
 
 
 
-<h2 id="theme" style="font-size:32px;color:red;">主题</h2>
+<h2 id="theme" style="font-size:32px;color:red;">1. 主题</h2>
 
 
 <p>不久前发布的 Octopress 2.0版增加了 <code>source/_includes/custom</code>目录。 如果你没有这个目录， 建议 <a href="http://octopress.org/docs/updating">升级</a> Octopress，因为它真的很棒。</p>
@@ -205,7 +309,7 @@
 
 <p>你可以做任意修改，只要够酷并保留Octopress的链接就可以。</p>
 
-<h2 id="styles" style="font-size:32px;color:red;">样式</h2>
+<h2 id="styles" style="font-size:32px;color:red;">2. 样式</h2>
 
 
 
@@ -231,7 +335,7 @@ _styles.scss     # Easly Override any style (last in the cascade)
 <p>Octopress的所有颜色都是以Sass变量的形式在 <code>/sass/base/_theme.scss</code>文件中定义。
 想自定制你的配色，就要编辑<code>sass/custom/_colors.scss</code> 并在<code>sass/base/_theme.scss</code>中控制颜色。</p>
 
-<p>Octopress官方网站用的是默认的&#8217;classic&#8217;主题，颜色在自定制颜色文件中稍微做了调整。仔细看这个文件，你会看到sass代码的某些行被取注释。</p>
+<p>Octopress官方网站用的是默认的&#8217;classic&#8217;主题，颜色在自定制颜色文件中稍微做了调整。仔细看这个文件，你会看到sass代码的某些行被取消注释。</p>
 
 <figure class='code'><figcaption><span>Custom Colors (sass/custom/_colors.scss)</span><a href='https://github.com/imathis/octopress/tree/master/.themes/classic/sass/custom/_colors.scss'>View on Github </a></figcaption> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
@@ -984,6 +1088,32 @@ _layout.scss     # Override settings for base/_layout.scss to change the layout
 <p>我必须提一点的是，虽然帖子（post）的 <code>title</code>被认为在post对象中是可用的，我只在page对象中也可以用。</p>
 
 <p>帖子（文章）页面建立起来了，但是合集（portfolio）主页怎么办呢？当我写我们的默认layout里的导航栏时，我注意到我们要的是 <code>/portfolio/</code>。那么我们在根目录创建名为<code>portfolio</code>的目录，打开里面的index.html文件。</p>
+
+<div><script src='https://gist.github.com/1481016.js?file='></script>
+<noscript><pre><code>---
+layout: default
+title: Portfolio
+---
+ 
+&lt;section class=&quot;content&quot;&gt;
+  &lt;h2&gt;Portfolio&lt;/h2&gt;
+ 
+  &lt;p&gt;Check out my images below!&lt;/p&gt;
+&lt;/section&gt;
+ 
+&lt;ul class=&quot;entries&quot;&gt;
+  {% for post in site.posts %}
+ 
+  &lt;li&gt;
+    &lt;a href=&quot;{{ post.url }}&quot;&gt;
+      &lt;img src=&quot;{{ post.image }}&quot; /&gt;
+      &lt;h3&gt;{{ post.title }}&lt;/h3&gt;
+    &lt;/a&gt;
+  &lt;/li&gt;
+ 
+  {% endfor %}
+&lt;/ul&gt;</code></pre></noscript></div>
+
 
 <p>这是我们最复杂的一块了。记住，这不是模板：这是一个“正常的”文件，但是同样可以包含Liquid标签。我们把layout设置成default，把title设定成“Portfolio”。</p>
 

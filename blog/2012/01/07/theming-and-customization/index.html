@@ -123,7 +123,7 @@
 
 
 
-<h2 id="theme" style="font-size:32px;color:red;">主题</h2>
+<h2 id="theme" style="font-size:32px;color:red;">1. 主题</h2>
 
 
 <p>不久前发布的 Octopress 2.0版增加了 <code>source/_includes/custom</code>目录。 如果你没有这个目录， 建议 <a href="http://octopress.org/docs/updating">升级</a> Octopress，因为它真的很棒。</p>
@@ -288,7 +288,7 @@
 
 <p>你可以做任意修改，只要够酷并保留Octopress的链接就可以。</p>
 
-<h2 id="styles" style="font-size:32px;color:red;">样式</h2>
+<h2 id="styles" style="font-size:32px;color:red;">2. 样式</h2>
 
 
 
@@ -314,7 +314,7 @@ _styles.scss     # Easly Override any style (last in the cascade)
 <p>Octopress的所有颜色都是以Sass变量的形式在 <code>/sass/base/_theme.scss</code>文件中定义。
 想自定制你的配色，就要编辑<code>sass/custom/_colors.scss</code> 并在<code>sass/base/_theme.scss</code>中控制颜色。</p>
 
-<p>Octopress官方网站用的是默认的&#8217;classic&#8217;主题，颜色在自定制颜色文件中稍微做了调整。仔细看这个文件，你会看到sass代码的某些行被取注释。</p>
+<p>Octopress官方网站用的是默认的&#8217;classic&#8217;主题，颜色在自定制颜色文件中稍微做了调整。仔细看这个文件，你会看到sass代码的某些行被取消注释。</p>
 
 <figure class='code'><figcaption><span>Custom Colors (sass/custom/_colors.scss)</span><a href='https://github.com/imathis/octopress/tree/master/.themes/classic/sass/custom/_colors.scss'>View on Github </a></figcaption> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
@@ -454,6 +454,8 @@ _layout.scss     # Override settings for base/_layout.scss to change the layout
         <a class="basic-alignment left" href="/cn/blog/2012/01/06/updating-an-r-installation/" title="Previous Post: 如何升级R">&laquo; 如何升级R</a>
       
       
+        <a class="basic-alignment right" href="/cn/blog/2012/01/09/customizing-the-startup-environment/" title="next Post: 定制启动环境">定制启动环境 &raquo;</a>
+      
     </p>
   </footer>
 </article>
@@ -471,6 +473,10 @@ _layout.scss     # Override settings for base/_layout.scss to change the layout
     <section>
   <h1>近期文章</h1>
   <ul id="recent_posts" class="none-left-margin">
+    
+      <li class="post">
+        <a href="/cn/blog/2012/01/09/customizing-the-startup-environment/">定制启动环境</a>
+      </li>
     
       <li class="post">
         <a href="/cn/blog/2012/01/07/theming-and-customization/">为Octopress修改主题和自定义样式</a>
@@ -494,10 +500,6 @@ _layout.scss     # Override settings for base/_layout.scss to change the layout
     
       <li class="post">
         <a href="/cn/blog/2011/12/15/building-static-sites-with-jekyll/">【译文】用Jekyll构建静态网站</a>
-      </li>
-    
-      <li class="post">
-        <a href="/cn/blog/2011/12/04/github-pages-domain/">浅谈github页面域名绑定</a>
       </li>
     
   </ul>
