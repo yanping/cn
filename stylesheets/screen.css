@@ -436,6 +436,11 @@ body > footer p:last-child{margin-bottom:0}
     border-collapse:collapse;
 }
 
+.datalist caption{
+	font-weight:bold;
+	text-align:center;
+}
+
 .datalist th{
     border:1px solid #429fff;
     background-color:#d2e8ff;

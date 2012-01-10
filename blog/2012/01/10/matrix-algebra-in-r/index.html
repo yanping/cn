@@ -5,16 +5,12 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>Blog Archive - 雁起平沙的网络日志</title>
+  <title>R的矩阵代数 - 雁起平沙的网络日志</title>
   <meta name="author" content="ypchen">
 
   
-  <meta name="description" content="Blog Archive 2012 R的矩阵代数
-Jan 10 2012 定制R启动环境
-Jan 09 2012 为Octopress修改主题和自定义样式
-Jan 07 2012 如何升级R
-Jan 06 2012 用R处理大数据集
-Jan 01 2012 2011 &hellip;">
+  <meta name="description" content="本文翻译自R in Action的附录E，如果对该书感兴趣，请自行购买或去图书馆阅读。
+更多的例子请看http://yishuo.org/2011/08/matrix-operations/ 书中描述的很多函数都是在矩阵上的操作。矩阵的处理根植于R语言底层。 &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -23,7 +19,7 @@ Jan 01 2012 2011 &hellip;">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://chen.yanping.me/cn/blog/archives">
+  <link rel="canonical" href="http://chen.yanping.me/cn/blog/2012/01/10/matrix-algebra-in-r">
   <link href="/cn/favicon.png" rel="icon">
   <link href="/cn/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <script src="/cn/javascripts/modernizr-2.0.js"></script>
@@ -78,145 +74,190 @@ Jan 01 2012 2011 &hellip;">
   <div id="main">
     <div id="content">
       <div>
-<article role="article">
+<article class="hentry" role="article">
   
   <header>
-    <h1 class="entry-title">Blog Archive</h1>
+    
+      <h1 class="entry-title">R的矩阵代数</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-01-10T14:00:00+08:00" pubdate data-updated="true">Jan 10<span>th</span>, 2012</time>
+        
+      </p>
     
   </header>
-  
-  <div id="blog-archives">
 
 
-
-  
-  <h2>2012</h2>
-
-<article>
-  
-<h1><a href="/cn/blog/2012/01/10/matrix-algebra-in-r/">R的矩阵代数</a></h1>
-<time datetime="2012-01-10T14:00:00+08:00" pubdate><span class='month'>Jan</span> <span class='day'>10</span> <span class='year'>2012</span></time>
+<div class="entry-content"><p class="info">
+本文翻译自<a target="_blank" href="http://www.manning.com/kabacoff/">R in Action</a>的附录E，如果对该书感兴趣，请自行购买或去图书馆阅读。<br />
+更多的例子请看<a href="http://yishuo.org/2011/08/matrix-operations/">http://yishuo.org/2011/08/matrix-operations/</a>
+</p>
 
 
-</article>
+<p>书中描述的很多函数都是在矩阵上的操作。矩阵的处理根植于R语言底层。下表描述了求解线性代数问题中重要的操作符和函数。下表中，A和B是矩阵，x和b是向量，k是标量。</p>
+
+<table class="datalist">
+<caption>矩阵代数的R函数和操作符</caption>
+<tr>
+    <th>操作符或函数</th><th>描述</th>
+</tr>
+<tr>
+    <td>+ -<code> *</code> / ^</td><td>对应元素相加、相减、相乘、相除、求幂</td>
+</tr>
+<tr>
+    <td>A <code>%*%</code> B</td><td>矩阵相乘</td>
+</tr>
+<tr>
+    <td>A <code>%o%</code> B</td><td>矩阵的外积。<code>AB'</code></td>
+</tr>
+<tr>
+    <td>cbind(A, B, &#8230;)</td><td>横向组合矩阵或向量</td>
+</tr>
+<tr>
+    <td>col(A)</td><td>求A的Choleski因子。如果<code>R <- chol(A)</code>，则<code>chol(A)</code>包含上三角因子，并有<code>R'R=A</code></td>
+</tr>
+<tr>
+    <td>colMeans(A)</td><td>返回一个向量，包含A每列的均值</td>
+</tr>
+<tr>
+    <td>crossprod(A)</td><td><code>A'A</code></td>
+</tr>
+<tr>
+    <td>crossprod(A,B)&nbsp;&nbsp;&nbsp;&nbsp;</td><td><code>A'B</code></td>
+</tr>
+<tr>
+    <td>colSums(A)</td><td>返回一个向量，包含A每列的和</td>
+</tr>
+<tr>
+    <td>diag(A)</td><td>返回一个向量，包含主对角线元素</td>
+</tr>
+<tr>
+    <td>diag(x)</td><td>以x为主对角线元素创建对角矩阵</td>
+</tr>
+<tr>
+    <td>diag(k)</td><td>如果k是标量，则创建一个k &times; k的单位矩阵</td>
+</tr>
+<tr>
+    <td>eigen(A)</td><td>A的特征值和特征向量。如果<code>y <- eigen(A)</code>，则<br />
+    <code>y$val</code>是A的特征值，<code>y$vec</code>是A的特征向量
+    </td>
+</tr>
+<tr>
+    <td>ginv(A)</td><td>A的Moore-Penrose广义逆。（需要MASS包）</td>
+</tr>
+<tr>
+    <td>qr(A)</td><td>A的QR分解。如果<code>y <- qr(A)</code>，则<br />
+    <code>y$qr</code>有一个包含分解值的上三角矩阵和一个包含分解值信息的下三角矩阵，<code>y$rank</code>是A的秩，<code>y$qraux</code>是包含Q其他信息的向量，<code>y$pivot</code>包含旋转策略的信息。
+    </td>
+</tr>
+<tr>
+    <td>rbind(A, B, &#8230;)</td><td>纵向组合矩阵或向量</td>
+</tr>
+<tr>
+    <td>rowMeans(A)</td><td>返回一个向量，包含A每行的均值</td>
+</tr>
+<tr>
+    <td>rowSums(A)</td><td>返回一个向量，包含A每行的和</td>
+</tr>
+<tr>
+    <td>solve(A)</td><td>求A的逆，其中A是方阵</td>
+</tr>
+<tr>
+    <td>solve(A, b)</td><td>解出方程b=Ax里的向量x</td>
+</tr>
+<tr>
+    <td>svd(A)</td><td>A的奇异值分解。如果<code>y <- svd(A)<code>，则<br />
+    <code>y$d</code>是包含A的奇异值的向量，矩阵<code>y$u</code>的列向量包含A的左奇异值向量，矩阵<code>y$v</code>的列向量包含A的右奇异值向量。
+    </td>
+</tr>
+<tr>
+    <td>t(A)</td><td>求A的转置</td>
+</tr>
+</table>
 
 
+<p>还有一些用户贡献的包专门用于矩阵代数。<em>matlab</em> 包封装了类似MATLAB语言的矩阵操作函数和变量。这些函数可以帮助用户将MATLAB程序移植到R语言代码。<a href="http://mathesaurus.sourceforge.net/octave-r.html">http://mathesaurus.sourceforge.net/octave-r.html</a>上有一份很有用的清单可以帮助你将MATLAB语句转化为R语句。</p>
 
-<article>
-  
-<h1><a href="/cn/blog/2012/01/09/customizing-the-startup-environment/">定制R启动环境</a></h1>
-<time datetime="2012-01-09T22:16:00+08:00" pubdate><span class='month'>Jan</span> <span class='day'>09</span> <span class='year'>2012</span></time>
+<p><em>Matrix</em>包提供的函数使R可以处理高密度矩阵或稀疏矩阵。它提供了对BLAS（Basic Linear Algebra Subroutines）、Lapack（dense matrix）、TAUCS（sparse matrix）和UMFPACK（sparse matrix）的高效调用。</p>
 
-
-</article>
-
-
-
-<article>
-  
-<h1><a href="/cn/blog/2012/01/07/theming-and-customization/">为Octopress修改主题和自定义样式</a></h1>
-<time datetime="2012-01-07T21:16:00+08:00" pubdate><span class='month'>Jan</span> <span class='day'>07</span> <span class='year'>2012</span></time>
-
-
-</article>
-
-
-
-<article>
-  
-<h1><a href="/cn/blog/2012/01/06/updating-an-r-installation/">如何升级R</a></h1>
-<time datetime="2012-01-06T17:12:00+08:00" pubdate><span class='month'>Jan</span> <span class='day'>06</span> <span class='year'>2012</span></time>
-
-
-</article>
-
-
-
-<article>
-  
-<h1><a href="/cn/blog/2012/01/01/working-with-large-datasets/">用R处理大数据集</a></h1>
-<time datetime="2012-01-01T15:36:00+08:00" pubdate><span class='month'>Jan</span> <span class='day'>01</span> <span class='year'>2012</span></time>
-
-
-</article>
-
-
-
-  
-  <h2>2011</h2>
-
-<article>
-  
-<h1><a href="/cn/blog/2011/12/26/octopress-on-windows/">Windows下安装Octopress</a></h1>
-<time datetime="2011-12-26T15:36:00+08:00" pubdate><span class='month'>Dec</span> <span class='day'>26</span> <span class='year'>2011</span></time>
-
-
-</article>
-
-
-
-<article>
-  
-<h1><a href="/cn/blog/2011/12/26/github-pages-domain-2/">再谈github页面域名绑定</a></h1>
-<time datetime="2011-12-26T14:56:00+08:00" pubdate><span class='month'>Dec</span> <span class='day'>26</span> <span class='year'>2011</span></time>
-
-
-</article>
-
-
-
-<article>
-  
-<h1><a href="/cn/blog/2011/12/15/building-static-sites-with-jekyll/">【译文】用Jekyll构建静态网站</a></h1>
-<time datetime="2011-12-15T17:36:00+08:00" pubdate><span class='month'>Dec</span> <span class='day'>15</span> <span class='year'>2011</span></time>
-
-
-</article>
-
-
-
-<article>
-  
-<h1><a href="/cn/blog/2011/12/04/github-pages-domain/">浅谈github页面域名绑定</a></h1>
-<time datetime="2011-12-04T10:36:00+08:00" pubdate><span class='month'>Dec</span> <span class='day'>04</span> <span class='year'>2011</span></time>
-
-
-</article>
-
-
-
-<article>
-  
-<h1><a href="/cn/blog/2011/12/03/hello-octopress/">你好！octopress</a></h1>
-<time datetime="2011-12-03T10:36:00+08:00" pubdate><span class='month'>Dec</span> <span class='day'>03</span> <span class='year'>2011</span></time>
-
-
-</article>
-
-
-
-<article>
-  
-<h1><a href="/cn/blog/2011/11/12/use-jekyll-template/">使用现有的jekyll模板</a></h1>
-<time datetime="2011-11-12T15:36:00+08:00" pubdate><span class='month'>Nov</span> <span class='day'>12</span> <span class='year'>2011</span></time>
-
-
-</article>
-
-
-
-<article>
-  
-<h1><a href="/cn/blog/2011/11/12/study-plan/">学习计划</a></h1>
-<time datetime="2011-11-12T14:36:00+08:00" pubdate><span class='month'>Nov</span> <span class='day'>12</span> <span class='year'>2011</span></time>
-
-
-</article>
-
+<p>最后，<em>matrixStats</em> 包提供了对矩阵的行和列的操作方法，例如计数、求和、中心趋势、离差（dispersion）等。每一个函数都进过了优化，使得可以高速高校地运行。</p>
 </div>
 
+
+  <footer>
+    <p class="meta">
+      
   
+
+<span class="byline author vcard">Posted by <span class="fn">ypchen</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-01-10T14:00:00+08:00" pubdate data-updated="true">Jan 10<span>th</span>, 2012</time>
+      
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  
+  
+  
+	<!-- JiaThis Button BEGIN -->
+	<div id="ckepop">
+		<span class="jiathis_txt">分享到： </span>
+		<a class="jiathis_button_tools_1"></a>
+		<a class="jiathis_button_tools_2"></a>
+		<a class="jiathis_button_tools_3"></a>
+		<a class="jiathis_button_tools_4"></a>
+		<a href="http://www.jiathis.com/share?uid=1558027" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank">更多</a>
+		<a class="jiathis_counter_style"></a>
+	</div>
+	<script type="text/javascript">var jiathis_config = {data_track_clickback:true};</script>
+	<script type="text/javascript" src="http://v2.jiathis.com/code/jia.js?uid=1558027" charset="utf-8"></script>
+	<!-- JiaThis Button END -->
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/cn/blog/2012/01/09/customizing-the-startup-environment/" title="Previous Post: 定制R启动环境">&laquo; 定制R启动环境</a>
+      
+      
+    </p>
+  </footer>
 </article>
+
+  <section>
+    <h1>评论</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
 
 </div>
 
@@ -324,7 +365,10 @@ Jan 01 2012 2011 &hellip;">
       var disqus_shortname = 'ypchencn';
       
         
-        var disqus_script = 'count.js';
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://chen.yanping.me/cn/blog/2012/01/10/matrix-algebra-in-r/';
+        var disqus_url = 'http://chen.yanping.me/cn/blog/2012/01/10/matrix-algebra-in-r/';
+        var disqus_script = 'embed.js';
       
     (function () {
       var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
