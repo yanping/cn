@@ -9,7 +9,7 @@
   <meta name="author" content="ypchen">
 
   
-  <meta name="description" content="原文地址 http://net.tutsplus.com/tutorials/other/building-static-sites-with-jekyll/ 功能五花八门的CMS（内容管理系统）有时候并不是必需的，你只需要创建一个轻量级的静态网站&#8230; &hellip;">
+  <meta name="description" content="之前我写过一篇浅谈github页面域名绑定，现在一直困扰我的问题终于解决了。 假设你的用户名是username，要绑定一个二级域名的话，那么不管是user page还是project page，除了在github的版本库里添加CNAME文件，还要在DNS &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -74,6 +74,62 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/cn/blog/2011/12/26/github-pages-domain-2/">再谈github页面域名绑定</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-12-26T14:56:00+08:00" pubdate data-updated="true">Dec 26<span>th</span>, 2011</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>之前我写过一篇<a href="http://chen.yanping.me/cn/blog/2011/12/04/github-pages-domain/" target="_blank">浅谈github页面域名绑定</a>，现在一直困扰我的问题终于解决了。</p>
+
+<p>假设你的用户名是<code>username</code>，要绑定一个二级域名的话，那么不管是user page还是project page，除了在github的版本库里添加CNAME文件，还要在DNS record里增加相应的CNAME记录指向<code>username.github.com</code>。注意这里的表述，指向的地址在两种情况下都是一样的。</p>
+
+<p>如果要绑定顶级域名，就建立A记录，指向<code>207.97.227.245</code>。</p>
+
+<p>经过这样的操作，你想绑定几个域名都可以了。</p>
+
+<h2>域名跳转的问题</h2>
+
+<p><del>当你访问<code>username.github.com</code>这个地址时，Github会自动转到绑定的域名，但是当你访问<code>http://username.github.com/repo-name</code>这样的网址，虽然可以显示网页，但是地址不会自动转。</del></p>
+
+<p><del>可以用.htaccess文件来实现跳转，在repo代码库根目录下创建.htaccess文件</del></p>
+
+<p><span class="warning">
+本文域名跳转部分有误，请看<a href="http://chen.yanping.me/cn/blog/2012/02/06/github-pages-domain-3/" target="_blank">三谈github页面域名绑定</a>
+</span>
+</p>
+
+
+
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -366,6 +422,10 @@ github pages的<a target="_blank" href="http://pages.github.com/">官方主页</
   <ul id="recent_posts" class="none-left-margin">
     
       <li class="post">
+        <a href="/cn/blog/2012/02/06/github-pages-domain-3/">三谈github页面域名绑定：域名跳转</a>
+      </li>
+    
+      <li class="post">
         <a href="/cn/blog/2012/01/10/matrix-algebra-in-r/">R的矩阵代数</a>
       </li>
     
@@ -389,10 +449,6 @@ github pages的<a target="_blank" href="http://pages.github.com/">官方主页</
         <a href="/cn/blog/2011/12/26/octopress-on-windows/">Windows下安装Octopress</a>
       </li>
     
-      <li class="post">
-        <a href="/cn/blog/2011/12/26/github-pages-domain-2/">再谈github页面域名绑定</a>
-      </li>
-    
   </ul>
 </section>
 <section id="comment_sidebar">
@@ -401,36 +457,6 @@ github pages的<a target="_blank" href="http://pages.github.com/">官方主页</
 <script type="text/javascript" src="http://ypchencn.disqus.com/recent_comments_widget.js?num_items=5&hide_avatars=0&avatar_size=32&excerpt_length=20"></script><a href="http://disqus.com/">Powered by Disqus</a>
 
 </section>
-
-<section>
-  <h1>Github代码库</h1>
-  <ul id="gh_repos" class="none-left-margin">
-    <li class="loading">更新状态&#8230;</li>
-  </ul>
-  
-  <a href="https://github.com/yanping">@yanping</a> on Github
-  
-  <script type="text/javascript">
-    $.domReady(function(){
-        if (!window.jXHR){
-            var jxhr = document.createElement('script');
-            jxhr.type = 'text/javascript';
-            jxhr.src = '/javascripts/libs/jXHR.js';
-            var s = document.getElementsByTagName('script')[0];
-            s.parentNode.insertBefore(jxhr, s);
-        }
-
-        github.showRepos({
-            user: 'yanping',
-            count: 0,
-            skip_forks: true,
-            target: '#gh_repos'
-        });
-    });
-  </script>
-  <script src="/cn/javascripts/github.js" type="text/javascript"> </script>
-</section>
-
 <section id="blogroll">
 <h1>友情链接</h1>
 <ul  style="padding-left:0">

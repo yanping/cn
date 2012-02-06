@@ -110,18 +110,14 @@
 
 <h2>域名跳转的问题</h2>
 
-<p>当你访问<code>username.github.com</code>这个地址时，Github会自动转到绑定的域名，但是当你访问<code>http://username.github.com/repo-name</code>这样的网址，虽然可以显示网页，但是地址不会自动转。</p>
+<p><del>当你访问<code>username.github.com</code>这个地址时，Github会自动转到绑定的域名，但是当你访问<code>http://username.github.com/repo-name</code>这样的网址，虽然可以显示网页，但是地址不会自动转。</del></p>
 
-<p>可以用.htaccess文件来实现跳转，在repo代码库根目录下创建.htaccess文件，内容是：</p>
+<p><del>可以用.htaccess文件来实现跳转，在repo代码库根目录下创建.htaccess文件</del></p>
 
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>RewriteEngine on
-</span><span class='line'>RewriteCond %{HTTP_HOST} ^ruc\.github\.com\/stat$ [OR]
-</span><span class='line'>RewriteCond %{HTTP_HOST} ^www\.quantr\.net\/stat$
-</span><span class='line'>RewriteRule ^/?$ "http\:\/\/stat\.quantr\.net" [R=301,L]</span></code></pre></td></tr></table></div></figure>
+<p><span class="warning">
+本文域名跳转部分有误，请看<a href="http://chen.yanping.me/cn/blog/2012/02/06/github-pages-domain-3/" target="_blank">三谈github页面域名绑定</a>
+</span>
+</p>
 
 
 
@@ -201,6 +197,10 @@
   <ul id="recent_posts" class="none-left-margin">
     
       <li class="post">
+        <a href="/cn/blog/2012/02/06/github-pages-domain-3/">三谈github页面域名绑定：域名跳转</a>
+      </li>
+    
+      <li class="post">
         <a href="/cn/blog/2012/01/10/matrix-algebra-in-r/">R的矩阵代数</a>
       </li>
     
@@ -222,10 +222,6 @@
     
       <li class="post">
         <a href="/cn/blog/2011/12/26/octopress-on-windows/">Windows下安装Octopress</a>
-      </li>
-    
-      <li class="post">
-        <a href="/cn/blog/2011/12/26/github-pages-domain-2/">再谈github页面域名绑定</a>
       </li>
     
   </ul>

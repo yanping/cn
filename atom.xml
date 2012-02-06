@@ -4,7 +4,7 @@
   <title><![CDATA[雁起平沙的网络日志]]></title>
   <link href="http://chen.yanping.me/cn/atom.xml" rel="self"/>
   <link href="http://chen.yanping.me/cn/"/>
-  <updated>2012-01-11T20:50:33+08:00</updated>
+  <updated>2012-02-06T13:20:19+08:00</updated>
   <id>http://chen.yanping.me/cn/</id>
   <author>
     <name><![CDATA[ypchen]]></name>
@@ -12,6 +12,58 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[三谈github页面域名绑定：域名跳转]]></title>
+    <link href="http://chen.yanping.me/cn/blog/2012/02/06/github-pages-domain-3/"/>
+    <updated>2012-02-06T14:56:00+08:00</updated>
+    <id>http://chen.yanping.me/cn/blog/2012/02/06/github-pages-domain-3</id>
+    <content type="html"><![CDATA[<p class="info">
+之前我写过<a href="http://chen.yanping.me/cn/blog/2011/12/04/github-pages-domain/" target="_blank">浅谈github页面域名绑定</a>和<a href="http://chen.yanping.me/cn/blog/2011/12/26/github-pages-domain-2/" target="_blank">再谈github页面域名绑定</a>，在后文提到的域名跳转方法是错的。本文提供了一种正确的方法。
+</p>
+
+
+<h2>为什么要跳转域名</h2>
+
+<p>假设github上的用户名是<em>username</em>，创建代码库名为username.github.com的代码库，在master分支下建立github页面，设置好域名为<em>mydomain.com</em>，则用http://username.github.com访问页面github会自动跳转到http://mydomain.com。</p>
+
+<p>但是如果在已经设置了username.github.com域名之后，把项目代码库repo的gh-pages分支下的网站设置域名<em>mydomain2.com</em>，用http://username.github.com/repo访问的时候只会自动跳转到http://mydomain.com/repo，不会跳转到http://mydomain2.com 。虽然http://mydomain.com/repo的形式也可以访问，但是用于网页地址里相对路径的不同，造成很多资源（比如css和js文件）无法访问，网页变得面目全非。</p>
+
+<h2>用javascript实现域名跳转</h2>
+
+<p>原来我以为用.htaccess文件可以实现网址跳转，后来发现当初跳转成功是因为浏览器缓存了解析的域名，给github发信咨询，得到的回复是github现在还不支持.htaccess，以后可能会考虑把这个功能加上。</p>
+
+<p>我也考虑过用下面的代码实现转址</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='html'><span class='line'><span class="nt">&lt;meta</span> <span class="na">http-equiv=</span><span class="s">&quot;refresh&quot;</span> <span class="na">content=</span><span class="s">&quot;0&quot;</span><span class="err">;</span> <span class="na">url=</span><span class="s">&quot;http://mydomain2.com&quot;</span><span class="nt">&gt;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>但是，问题是这样跳转后其实还是转到了自己这个网页，只不过换了个地址。这样这段代码会反复执行，在firefox和chrome下没有感觉，但是在IE下就很明显了。</p>
+
+<p>我想到了用javascript来检测网页的地址，然后跳转到目标地址。只需要将将下面的代码放到<code>&lt;head&gt;</code>和<code>&lt;/head&gt;</code>之间，注意把网址替换成自己的。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class='html'><span class='line'><span class="nt">&lt;script </span><span class="na">language=</span><span class="s">&quot;javascript&quot;</span> <span class="na">type=</span><span class="s">&quot;text/javascript&quot;</span><span class="nt">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">if</span> <span class="p">(</span><span class="nx">location</span><span class="p">.</span><span class="nx">href</span> <span class="o">==</span> <span class="s2">&quot;http://chen.yanping.me/art/&quot;</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>  <span class="nb">window</span><span class="p">.</span><span class="nx">location</span><span class="p">.</span><span class="nx">replace</span><span class="p">(</span><span class="s2">&quot;http://art.yanping.me/&quot;</span><span class="p">);</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="nt">&lt;/script&gt;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>注意：域名末尾的<code>/</code>一定要有，我之前就因为没发现这点，所以才浪费了很长时间。</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[R的矩阵代数]]></title>
@@ -548,15 +600,47 @@ _layout.scss     # Override settings for base/_layout.scss to change the layout
 
 <ol>
 <li>如果有自定义的配置文件<strong>Rprofile.site</strong>，就把它保存到R之外。</li>
-<li>启动当前版本的R，运行下面的命令
- <script src="https://gist.github.com/1569225.js?file=save-old-installed-packages.r"></script>
-其中<em>path</em>是R的安装目录。</li>
-<li>下载并安装最新版的R。</li>
-<li>如果你保存了原来的<strong>Rprofile.site</strong>文件，把它复制到新的安装目录中。</li>
-<li>启动新版的R，然后运行下面的命令 <br/>
- <script src="https://gist.github.com/1569241.js?file=install-new-packages.r"></script></li>
-<li>删除旧的安装（可选）</li>
+<li>启动当前版本的R，运行下面的命令</li>
 </ol>
+
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='r'><span class='line'>    oldip <span class="o">&lt;-</span> installed.packages<span class="p">()[</span> <span class="p">,</span><span class="m">1</span><span class="p">]</span>
+</span><span class='line'>  save<span class="p">(</span>oldip<span class="p">,</span> file<span class="o">=</span><span class="s">&quot;path/installedPackages.Rdata&quot;</span><span class="p">)</span>
+</span><span class='line'>  
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>其中<em>path</em>是R的安装目录。</p>
+
+<ol start="3">
+    <li> 下载并安装最新版的R。</li>
+    <li> 如果你保存了原来的**Rprofile.site**文件，把它复制到新的安装目录中。</li>
+    <li>启动新版的R，然后运行下面的命令  
+    
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='r'><span class='line'>    load<span class="p">(</span><span class="s">&quot;path/installedPackages.Rdata&quot;</span><span class="p">)</span>
+</span><span class='line'>  newip <span class="o">&lt;-</span> installed.packages<span class="p">()[,</span><span class="m">1</span><span class="p">]</span>
+</span><span class='line'>  <span class="kr">for</span><span class="p">(</span>i in setdiff<span class="p">(</span>oldip<span class="p">,</span> newip<span class="p">))</span>
+</span><span class='line'>      install.packages<span class="p">(</span>i<span class="p">)</span>
+</span><span class='line'>  
+</span></code></pre></td></tr></table></div></figure>
+
+    </li>
+</ol>
+
+
+<ol start="6">
+    <li>删除旧的安装（可选）</li>
+</ol>
+
+
 
 
 <p><span class="warning">
@@ -756,18 +840,14 @@ _layout.scss     # Override settings for base/_layout.scss to change the layout
 
 <h2>域名跳转的问题</h2>
 
-<p>当你访问<code>username.github.com</code>这个地址时，Github会自动转到绑定的域名，但是当你访问<code>http://username.github.com/repo-name</code>这样的网址，虽然可以显示网页，但是地址不会自动转。</p>
+<p><del>当你访问<code>username.github.com</code>这个地址时，Github会自动转到绑定的域名，但是当你访问<code>http://username.github.com/repo-name</code>这样的网址，虽然可以显示网页，但是地址不会自动转。</del></p>
 
-<p>可以用.htaccess文件来实现跳转，在repo代码库根目录下创建.htaccess文件，内容是：</p>
+<p><del>可以用.htaccess文件来实现跳转，在repo代码库根目录下创建.htaccess文件</del></p>
 
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>RewriteEngine on
-</span><span class='line'>RewriteCond %{HTTP_HOST} ^ruc\.github\.com\/stat$ [OR]
-</span><span class='line'>RewriteCond %{HTTP_HOST} ^www\.quantr\.net\/stat$
-</span><span class='line'>RewriteRule ^/?$ "http\:\/\/stat\.quantr\.net" [R=301,L]</span></code></pre></td></tr></table></div></figure>
+<p><span class="warning">
+本文域名跳转部分有误，请看<a href="http://chen.yanping.me/cn/blog/2012/02/06/github-pages-domain-3/" target="_blank">三谈github页面域名绑定</a>
+</span>
+</p>
 
 
 
