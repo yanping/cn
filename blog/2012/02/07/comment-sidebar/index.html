@@ -5,11 +5,11 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>如何升级R - 雁起平沙的网络日志</title>
+  <title>给博客侧边栏添加近期评论 - 雁起平沙的网络日志</title>
   <meta name="author" content="ypchen">
 
   
-  <meta name="description" content="本文翻译自R in Action的附录H，如果对该书感兴趣，请自行购买或去图书馆阅读。 R的函数update.packages()可以下载和升级安装的包，但是没有相应的函数升级R本身。如果你想把R从4.1.0版升级到5.1.1版，那你必须有点创造性。（实际上作者写书的时候R的版本还只是2.13. &hellip;">
+  <meta name="description" content="在我翻译的为Octopress修改主题和自定义样式一文后面，Eric Lau问我如何在博客侧边栏显示近期评论。本文就是针对这一问题的简短教程。 第一步：在disqus.com获取代码 登录到disqus.com，选择评论所在的网站，进入Admin，选择Tools，在code中，是Extra &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -18,7 +18,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://chen.yanping.me/cn/blog/2012/01/06/updating-an-r-installation">
+  <link rel="canonical" href="http://chen.yanping.me/cn/blog/2012/02/07/comment-sidebar">
   <link href="/cn/favicon.png" rel="icon">
   <link href="/cn/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <script src="/cn/javascripts/modernizr-2.0.js"></script>
@@ -77,7 +77,7 @@
   
   <header>
     
-      <h1 class="entry-title">如何升级R</h1>
+      <h1 class="entry-title">给博客侧边栏添加近期评论</h1>
     
     
       <p class="meta">
@@ -93,79 +93,70 @@
   
 
 
-<time datetime="2012-01-06T17:12:00+08:00" pubdate data-updated="true">Jan 6<span>th</span>, 2012</time>
+<time datetime="2012-02-07T14:56:00+08:00" pubdate data-updated="true">Feb 7<span>th</span>, 2012</time>
         
       </p>
     
   </header>
 
 
-<div class="entry-content"><p><span class="info">
-本文翻译自<a href="http://www.manning.com/kabacoff/" target="_blank">R in Action</a>的附录H，如果对该书感兴趣，请自行购买或去图书馆阅读。
-</span>
+<div class="entry-content"><p class="info">
+在我翻译的<a href="http://chen.yanping.me/cn/blog/2012/01/07/theming-and-customization/" target="_blank">为Octopress修改主题和自定义样式</a>一文后面，Eric Lau问我如何在博客侧边栏显示近期评论。本文就是针对这一问题的简短教程。
 </p>
 
 
-<p>R的函数<code>update.packages()</code>可以下载和升级安装的包，但是没有相应的函数升级R本身。如果你想把R从4.1.0版升级到5.1.1版，那你必须有点创造性。（实际上作者写书的时候R的版本还只是2.13.0，但是他说想这本书在若干年后仍然不显得过时）</p>
+<h2>第一步：在disqus.com获取代码</h2>
 
-<p>从CRAN（<a href="http://cran.r-project.org/bin">http://cran.r-project.org/bin</a>）下载并安装最新版的R相当简单。但是想在新安装时保留之前的个性化设置（比如之前安装的包）就复杂了。在我现在的安装中，安装了248个包。我实在是不想把这些包的名字写下来，然后在下次升级R的时候手动重装它们。</p>
+<p>登录到disqus.com，选择评论所在的网站，进入Admin，选择Tools，在code中，是<strong>Extra Widgets</strong>的代码，提供了几种Widgets插件，分别是Combination（组合式）、Recent Comments（近期评论）、 Popular Threads（热门话题）、Top Commenters（最近评论人）。该工具可以根据用户设置的参数生成代码。</p>
 
-<p>关于如何方便简洁高效地升级R，网上有很多这方面的讨论。下面描述的方法既不简洁，也不高效，但是我发现它可以用在任何平台（Windows，Mac以及Linux）。</p>
+<p><img src="/cn/images/blog/12-02-07/tools-setting.png"></p>
 
-<!--more-->
+<h2>第二步：把代码添加到octopress</h2>
 
+<p>按照<a href="http://chen.yanping.me/cn/blog/2012/01/07/theming-and-customization/" target="_blank">为Octopress修改主题和自定义样式</a>一文的描述，在sidebar里添加一个section，比如叫做recent_comments.html，代码如下：</p>
 
-<p><code>installed.packages()</code>函数用来保存一份已安装包的列表到R目录之外。然后利用这个列表和<code>install.packges()</code>函数来下载和安装最新的包到新安装的R中。下面是步骤：</p>
-
-<ol>
-<li>如果有自定义的配置文件<strong>Rprofile.site</strong>，就把它保存到R之外。</li>
-<li>启动当前版本的R，运行下面的命令</li>
-</ol>
-
-
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class='r'><span class='line'>    oldip <span class="o">&lt;-</span> installed.packages<span class="p">()[</span> <span class="p">,</span><span class="m">1</span><span class="p">]</span>
-</span><span class='line'>  save<span class="p">(</span>oldip<span class="p">,</span> file<span class="o">=</span><span class="s">&quot;path/installedPackages.Rdata&quot;</span><span class="p">)</span>
-</span><span class='line'>  
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>其中<em>path</em>是R的安装目录。</p>
-
-<ol start="3">
-    <li> 下载并安装最新版的R。</li>
-    <li> 如果你保存了原来的**Rprofile.site**文件，把它复制到新的安装目录中。</li>
-    <li>启动新版的R，然后运行下面的命令  
-    
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><figcaption><span>recent_comments.html (../source/_includes/custom/asides/recent_comments.html) </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
 <span class='line-number'>5</span>
-</pre></td><td class='code'><pre><code class='r'><span class='line'>    load<span class="p">(</span><span class="s">&quot;path/installedPackages.Rdata&quot;</span><span class="p">)</span>
-</span><span class='line'>  newip <span class="o">&lt;-</span> installed.packages<span class="p">()[,</span><span class="m">1</span><span class="p">]</span>
-</span><span class='line'>  <span class="kr">for</span><span class="p">(</span>i in setdiff<span class="p">(</span>oldip<span class="p">,</span> newip<span class="p">))</span>
-</span><span class='line'>      install.packages<span class="p">(</span>i<span class="p">)</span>
-</span><span class='line'>  
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='html'><span class='line'><span class="nt">&lt;section</span> <span class="na">id=</span><span class="s">&quot;comment_sidebar&quot;</span><span class="nt">&gt;</span>
+</span><span class='line'><span class="nt">&lt;h1&gt;</span>近期评论<span class="nt">&lt;/h1&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="nt">&lt;script </span><span class="na">type=</span><span class="s">&quot;text/javascript&quot;</span> <span class="na">src=</span><span class="s">&quot;http://ypchencn.disqus.com/recent_comments_widget.js?num_items=5&amp;hide_avatars=0&amp;avatar_size=32&amp;excerpt_length=20&quot;</span><span class="nt">&gt;&lt;/script&gt;&lt;a</span> <span class="na">href=</span><span class="s">&quot;http://disqus.com/&quot;</span><span class="nt">&gt;</span>Powered by Disqus<span class="nt">&lt;/a&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="nt">&lt;/section&gt;</span>
 </span></code></pre></td></tr></table></div></figure>
 
-    </li>
-</ol>
 
+<h2>第三步：修改_config.yml</h2>
 
-<ol start="6">
-    <li>删除旧的安装（可选）</li>
-</ol>
+<p>按照<a href="http://chen.yanping.me/cn/blog/2012/01/07/theming-and-customization/" target="_blank">为Octopress修改主题和自定义样式</a>一文的描述，修改_config.yml，以决定评论插件出现的位置。</p>
 
-
-
-
-<p><span class="warning">
-这种方法只能安装从CRAN能获取到的包。其他途径获取的包要单独安装。
-</span>
-</p>
+<figure class='code'><figcaption><span>Sidebar configuration (_config.yml) </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+</pre></td><td class='code'><pre><code class='yaml'><span class='line'><span class="c1"># list each of the sidebar modules you want to include, in the order you want them to appear.</span>
+</span><span class='line'><span class="c1"># To add custom asides, create files in /source/_includes/custom/asides/ and add them to the list like &#39;custom/asides/custom_aside_name.html&#39;</span>
+</span><span class='line'><span class="l-Scalar-Plain">default_asides</span><span class="p-Indicator">:</span>     <span class="p-Indicator">[</span><span class="nv">asides/recent_posts.html</span><span class="p-Indicator">,</span> <span class="nv">custom/asides/recent_comments.html</span><span class="p-Indicator">,</span> <span class="nv">custom/asides/blogroll.html</span><span class="p-Indicator">,</span><span class="nv">custom/asides/weibo.html</span><span class="p-Indicator">,</span> <span class="nv">custom/asides/copyleft.html</span><span class="p-Indicator">,</span><span class="nv">custom/asides/feed.html</span><span class="p-Indicator">]</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1"># Each layout uses the default asides, but they can have their own asides instead. Simply uncomment the lines below</span>
+</span><span class='line'><span class="c1"># and add an array with the asides you want to use.</span>
+</span><span class='line'>
+</span><span class='line'><span class="l-Scalar-Plain">blog_index_asides</span><span class="p-Indicator">:</span>  <span class="p-Indicator">[</span><span class="nv">custom/asides/about.html</span><span class="p-Indicator">,</span> <span class="nv">asides/recent_posts.html</span><span class="p-Indicator">,</span> <span class="nv">custom/asides/recent_comments.html</span><span class="p-Indicator">,</span> <span class="nv">custom/asides/blogroll.html</span><span class="p-Indicator">,</span> <span class="nv">custom/asides/weibo.html</span><span class="p-Indicator">,</span> <span class="nv">custom/asides/copyleft.html</span><span class="p-Indicator">,</span> <span class="nv">custom/asides/feed.html</span><span class="p-Indicator">]</span>
+</span><span class='line'><span class="l-Scalar-Plain">post_asides</span><span class="p-Indicator">:</span>        <span class="p-Indicator">[</span><span class="nv">asides/recent_posts.html</span><span class="p-Indicator">,</span> <span class="nv">custom/asides/recent_comments.html</span><span class="p-Indicator">,</span> <span class="nv">custom/asides/blogroll.html</span><span class="p-Indicator">,</span> <span class="nv">custom/asides/weibo.html</span><span class="p-Indicator">,</span> <span class="nv">custom/asides/copyleft.html</span><span class="p-Indicator">,</span> <span class="nv">custom/asides/feed.html</span><span class="p-Indicator">]</span>
+</span><span class='line'><span class="c1"># page_asides:</span>
+</span></code></pre></td></tr></table></div></figure>
 
 
 
@@ -191,7 +182,7 @@
   
 
 
-<time datetime="2012-01-06T17:12:00+08:00" pubdate data-updated="true">Jan 6<span>th</span>, 2012</time>
+<time datetime="2012-02-07T14:56:00+08:00" pubdate data-updated="true">Feb 7<span>th</span>, 2012</time>
       
 
 
@@ -221,10 +212,8 @@
     
     <p class="meta">
       
-        <a class="basic-alignment left" href="/cn/blog/2012/01/01/working-with-large-datasets/" title="Previous Post: 用R处理大数据集">&laquo; 用R处理大数据集</a>
+        <a class="basic-alignment left" href="/cn/blog/2012/02/06/github-pages-domain-3/" title="Previous Post: 三谈github页面域名绑定：域名跳转">&laquo; 三谈github页面域名绑定：域名跳转</a>
       
-      
-        <a class="basic-alignment right" href="/cn/blog/2012/01/07/theming-and-customization/" title="next Post: 为Octopress修改主题和自定义样式">为Octopress修改主题和自定义样式 &raquo;</a>
       
     </p>
   </footer>
@@ -343,8 +332,8 @@
       
         
         // var disqus_developer = 1;
-        var disqus_identifier = 'http://chen.yanping.me/cn/blog/2012/01/06/updating-an-r-installation/';
-        var disqus_url = 'http://chen.yanping.me/cn/blog/2012/01/06/updating-an-r-installation/';
+        var disqus_identifier = 'http://chen.yanping.me/cn/blog/2012/02/07/comment-sidebar/';
+        var disqus_url = 'http://chen.yanping.me/cn/blog/2012/02/07/comment-sidebar/';
         var disqus_script = 'embed.js';
       
     (function () {

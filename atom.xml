@@ -4,7 +4,7 @@
   <title><![CDATA[雁起平沙的网络日志]]></title>
   <link href="http://chen.yanping.me/cn/atom.xml" rel="self"/>
   <link href="http://chen.yanping.me/cn/"/>
-  <updated>2012-02-06T13:20:19+08:00</updated>
+  <updated>2012-02-07T12:45:54+08:00</updated>
   <id>http://chen.yanping.me/cn/</id>
   <author>
     <name><![CDATA[ypchen]]></name>
@@ -12,6 +12,74 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[给博客侧边栏添加近期评论]]></title>
+    <link href="http://chen.yanping.me/cn/blog/2012/02/07/comment-sidebar/"/>
+    <updated>2012-02-07T14:56:00+08:00</updated>
+    <id>http://chen.yanping.me/cn/blog/2012/02/07/comment-sidebar</id>
+    <content type="html"><![CDATA[<p class="info">
+在我翻译的<a href="http://chen.yanping.me/cn/blog/2012/01/07/theming-and-customization/" target="_blank">为Octopress修改主题和自定义样式</a>一文后面，Eric Lau问我如何在博客侧边栏显示近期评论。本文就是针对这一问题的简短教程。
+</p>
+
+
+<h2>第一步：在disqus.com获取代码</h2>
+
+<p>登录到disqus.com，选择评论所在的网站，进入Admin，选择Tools，在code中，是<strong>Extra Widgets</strong>的代码，提供了几种Widgets插件，分别是Combination（组合式）、Recent Comments（近期评论）、 Popular Threads（热门话题）、Top Commenters（最近评论人）。该工具可以根据用户设置的参数生成代码。</p>
+
+<p><img src="http://chen.yanping.me/cn/images/blog/12-02-07/tools-setting.png"></p>
+
+<h2>第二步：把代码添加到octopress</h2>
+
+<p>按照<a href="http://chen.yanping.me/cn/blog/2012/01/07/theming-and-customization/" target="_blank">为Octopress修改主题和自定义样式</a>一文的描述，在sidebar里添加一个section，比如叫做recent_comments.html，代码如下：</p>
+
+<figure class='code'><figcaption><span>recent_comments.html (../source/_includes/custom/asides/recent_comments.html) </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='html'><span class='line'><span class="nt">&lt;section</span> <span class="na">id=</span><span class="s">&quot;comment_sidebar&quot;</span><span class="nt">&gt;</span>
+</span><span class='line'><span class="nt">&lt;h1&gt;</span>近期评论<span class="nt">&lt;/h1&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="nt">&lt;script </span><span class="na">type=</span><span class="s">&quot;text/javascript&quot;</span> <span class="na">src=</span><span class="s">&quot;http://ypchencn.disqus.com/recent_comments_widget.js?num_items=5&amp;hide_avatars=0&amp;avatar_size=32&amp;excerpt_length=20&quot;</span><span class="nt">&gt;&lt;/script&gt;&lt;a</span> <span class="na">href=</span><span class="s">&quot;http://disqus.com/&quot;</span><span class="nt">&gt;</span>Powered by Disqus<span class="nt">&lt;/a&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="nt">&lt;/section&gt;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>第三步：修改_config.yml</h2>
+
+<p>按照<a href="http://chen.yanping.me/cn/blog/2012/01/07/theming-and-customization/" target="_blank">为Octopress修改主题和自定义样式</a>一文的描述，修改_config.yml，以决定评论插件出现的位置。</p>
+
+<figure class='code'><figcaption><span>Sidebar configuration (_config.yml) </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+</pre></td><td class='code'><pre><code class='yaml'><span class='line'><span class="c1"># list each of the sidebar modules you want to include, in the order you want them to appear.</span>
+</span><span class='line'><span class="c1"># To add custom asides, create files in /source/_includes/custom/asides/ and add them to the list like &#39;custom/asides/custom_aside_name.html&#39;</span>
+</span><span class='line'><span class="l-Scalar-Plain">default_asides</span><span class="p-Indicator">:</span>     <span class="p-Indicator">[</span><span class="nv">asides/recent_posts.html</span><span class="p-Indicator">,</span> <span class="nv">custom/asides/recent_comments.html</span><span class="p-Indicator">,</span> <span class="nv">custom/asides/blogroll.html</span><span class="p-Indicator">,</span><span class="nv">custom/asides/weibo.html</span><span class="p-Indicator">,</span> <span class="nv">custom/asides/copyleft.html</span><span class="p-Indicator">,</span><span class="nv">custom/asides/feed.html</span><span class="p-Indicator">]</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1"># Each layout uses the default asides, but they can have their own asides instead. Simply uncomment the lines below</span>
+</span><span class='line'><span class="c1"># and add an array with the asides you want to use.</span>
+</span><span class='line'>
+</span><span class='line'><span class="l-Scalar-Plain">blog_index_asides</span><span class="p-Indicator">:</span>  <span class="p-Indicator">[</span><span class="nv">custom/asides/about.html</span><span class="p-Indicator">,</span> <span class="nv">asides/recent_posts.html</span><span class="p-Indicator">,</span> <span class="nv">custom/asides/recent_comments.html</span><span class="p-Indicator">,</span> <span class="nv">custom/asides/blogroll.html</span><span class="p-Indicator">,</span> <span class="nv">custom/asides/weibo.html</span><span class="p-Indicator">,</span> <span class="nv">custom/asides/copyleft.html</span><span class="p-Indicator">,</span> <span class="nv">custom/asides/feed.html</span><span class="p-Indicator">]</span>
+</span><span class='line'><span class="l-Scalar-Plain">post_asides</span><span class="p-Indicator">:</span>        <span class="p-Indicator">[</span><span class="nv">asides/recent_posts.html</span><span class="p-Indicator">,</span> <span class="nv">custom/asides/recent_comments.html</span><span class="p-Indicator">,</span> <span class="nv">custom/asides/blogroll.html</span><span class="p-Indicator">,</span> <span class="nv">custom/asides/weibo.html</span><span class="p-Indicator">,</span> <span class="nv">custom/asides/copyleft.html</span><span class="p-Indicator">,</span> <span class="nv">custom/asides/feed.html</span><span class="p-Indicator">]</span>
+</span><span class='line'><span class="c1"># page_asides:</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[三谈github页面域名绑定：域名跳转]]></title>
