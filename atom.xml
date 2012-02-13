@@ -4,7 +4,7 @@
   <title><![CDATA[雁起平沙的网络日志]]></title>
   <link href="http://chen.yanping.me/cn/atom.xml" rel="self"/>
   <link href="http://chen.yanping.me/cn/"/>
-  <updated>2012-02-07T12:45:54+08:00</updated>
+  <updated>2012-02-13T11:33:50+08:00</updated>
   <id>http://chen.yanping.me/cn/</id>
   <author>
     <name><![CDATA[ypchen]]></name>
@@ -95,7 +95,7 @@
 
 <p>假设github上的用户名是<em>username</em>，创建代码库名为username.github.com的代码库，在master分支下建立github页面，设置好域名为<em>mydomain.com</em>，则用http://username.github.com访问页面github会自动跳转到http://mydomain.com。</p>
 
-<p>但是如果在已经设置了username.github.com域名之后，把项目代码库repo的gh-pages分支下的网站设置域名<em>mydomain2.com</em>，用http://username.github.com/repo访问的时候只会自动跳转到http://mydomain.com/repo，不会跳转到http://mydomain2.com 。虽然http://mydomain.com/repo的形式也可以访问，但是用于网页地址里相对路径的不同，造成很多资源（比如css和js文件）无法访问，网页变得面目全非。</p>
+<p>但是如果在已经设置了username.github.com域名之后，把项目代码库repo的gh-pages分支下的网站设置域名<em>mydomain2.com</em>，用http://username.github.com/repo访问的时候只会自动跳转到http://mydomain.com/repo，不会跳转到http://mydomain2.com 。虽然http://mydomain.com/repo的形式也可以访问，但是用于网页地址里相对路径的不同，造成很多资源（比如css和js文件）无法访问，网页变得面目全非，例如<a href="http://hsatac.github.com/octo/">http://hsatac.github.com/octo/</a>，它实际绑定的域名应该是<a href="http://blog.hsatac.net/">http://blog.hsatac.net/</a>，前者不能正常显示。</p>
 
 <h2>用javascript实现域名跳转</h2>
 
@@ -104,7 +104,7 @@
 <p>我也考虑过用下面的代码实现转址</p>
 
 <figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='html'><span class='line'><span class="nt">&lt;meta</span> <span class="na">http-equiv=</span><span class="s">&quot;refresh&quot;</span> <span class="na">content=</span><span class="s">&quot;0&quot;</span><span class="err">;</span> <span class="na">url=</span><span class="s">&quot;http://mydomain2.com&quot;</span><span class="nt">&gt;</span>
+</pre></td><td class='code'><pre><code class='html'><span class='line'><span class="nt">&lt;meta</span> <span class="na">http-equiv=</span><span class="s">&quot;refresh&quot;</span> <span class="na">content=</span><span class="s">&quot;0; url=http://mydomain2.com&quot;</span><span class="nt">&gt;</span>
 </span></code></pre></td></tr></table></div></figure>
 
 
@@ -889,6 +889,13 @@ _layout.scss     # Override settings for base/_layout.scss to change the layout
 <li>我所在的并不是技术公司，相反，那是个文人聚集的地方  [<a id="fn_2_1" href="#back_2_1">↩</a>]</li>
 <li>关于在windows下搭建ruby环境，请看他的<a href="http://www.yangzhiping.com/tech/happy-ruby-ps1-windows.html">文章</a> [<a id="fn_2_2" href="#back_2_2">↩</a>]</li>
 </ol>
+
+
+<p class="warning">
+有人反映在win7下找不到`.bash_profile`文件，新建这个也没用。我暂时也没有win7的测试环境，论坛上有人提出了解决方法，更多的讨论请看<a href="http://ruby-taiwan.org/topics/46">http://ruby-taiwan.org/topics/46</a> 。
+</p>
+
+
 
 ]]></content>
   </entry>
