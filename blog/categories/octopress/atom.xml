@@ -4,7 +4,7 @@
   <title><![CDATA[分类： octopress | 雁起平沙的网络日志]]></title>
   <link href="http://chen.yanping.me/cn/blog/categories/octopress/atom.xml" rel="self"/>
   <link href="http://chen.yanping.me/cn/"/>
-  <updated>2012-02-26T15:37:45+08:00</updated>
+  <updated>2012-02-26T18:00:33+08:00</updated>
   <id>http://chen.yanping.me/cn/</id>
   <author>
     <name><![CDATA[ypchen]]></name>
@@ -431,7 +431,7 @@ source "http://ruby.taobao.org/"
 
 
 <p class="warning">
-有人反映在win7下找不到`.bash_profile`文件，新建这个也没用。我暂时也没有win7的测试环境，论坛上有人提出了解决方法，更多的讨论请看<a href="http://ruby-taiwan.org/topics/46">http://ruby-taiwan.org/topics/46</a> 。
+有人反映在win7下找不到<code>.bash_profile</code>文件，新建这个也没用。我暂时也没有win7的测试环境，论坛上有人提出了解决方法，更多的讨论请看<a href="http://ruby-taiwan.org/topics/46">http://ruby-taiwan.org/topics/46</a> 。
 </p>
 
 
