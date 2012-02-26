@@ -5,11 +5,11 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>再谈github页面域名绑定 - 雁起平沙的网络日志</title>
+  <title>分类 - 雁起平沙的网络日志</title>
   <meta name="author" content="ypchen">
 
   
-  <meta name="description" content="之前我写过一篇浅谈github页面域名绑定，现在一直困扰我的问题终于解决了。 假设你的用户名是username，要绑定一个二级域名的话，那么不管是user page还是project page，除了在github的版本库里添加CNAME文件，还要在DNS &hellip;">
+  <meta name="description" content="分类 Github (4) Jekyll (4) Octopress (4) R (3) R语言 (1) 近期文章 给博客侧边栏添加近期评论 三谈github页面域名绑定：域名跳转 R的矩阵代数 定制R启动环境 为Octopress修改主题和自定义样式 如何升级R 用R处理大数据集 分类 &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -18,7 +18,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://chen.yanping.me/cn/blog/2011/12/26/github-pages-domain-2">
+  <link rel="canonical" href="http://chen.yanping.me/cn/blog/categories">
   <link href="/cn/favicon.png" rel="icon">
   <link href="/cn/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <script src="/cn/javascripts/modernizr-2.0.js"></script>
@@ -75,126 +75,29 @@
   <div id="main">
     <div id="content">
       <div>
-<article class="hentry" role="article">
+<article role="article">
   
   <header>
-    
-      <h1 class="entry-title">再谈github页面域名绑定</h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2011-12-26T14:56:00+08:00" pubdate data-updated="true">Dec 26<span>th</span>, 2011</time>
-        
-      </p>
+    <h1 class="entry-title">分类</h1>
     
   </header>
-
-
-<div class="entry-content"><p>之前我写过一篇<a href="http://chen.yanping.me/cn/blog/2011/12/04/github-pages-domain/" target="_blank">浅谈github页面域名绑定</a>，现在一直困扰我的问题终于解决了。</p>
-
-<p>假设你的用户名是<code>username</code>，要绑定一个二级域名的话，那么不管是user page还是project page，除了在github的版本库里添加CNAME文件，还要在DNS record里增加相应的CNAME记录指向<code>username.github.com</code>。注意这里的表述，指向的地址在两种情况下都是一样的。</p>
-
-<p>如果要绑定顶级域名，就建立A记录，指向<code>207.97.227.245</code>。</p>
-
-<p>经过这样的操作，你想绑定几个域名都可以了。</p>
-
-<h2>域名跳转的问题</h2>
-
-<p><del>当你访问<code>username.github.com</code>这个地址时，Github会自动转到绑定的域名，但是当你访问<code>http://username.github.com/repo-name</code>这样的网址，虽然可以显示网页，但是地址不会自动转。</del></p>
-
-<p><del>可以用.htaccess文件来实现跳转，在repo代码库根目录下创建.htaccess文件</del></p>
-
-<p><span class="warning">
-本文域名跳转部分有误，请看<a href="http://chen.yanping.me/cn/blog/2012/02/06/github-pages-domain-3/" target="_blank">三谈github页面域名绑定</a>
-</span>
-</p>
-
-
-
-</div>
-
-
-  <footer>
-    <p class="meta">
-      
   
+  
+<section>
 
-<span class="byline author vcard">Posted by <span class="fn">ypchen</span></span>
-
-      
-
-
-
-
-
+<ul>
+  <li><a href='/cn/blog/categories/github'>Github (4)</a></li>
+  <li><a href='/cn/blog/categories/jekyll'>Jekyll (4)</a></li>
+  <li><a href='/cn/blog/categories/octopress'>Octopress (4)</a></li>
+  <li><a href='/cn/blog/categories/r'>R (3)</a></li>
+  <li><a href='/cn/blog/categories/r语言'>R语言 (1)</a></li>
+</ul>
+</section>
 
 
 
   
-
-
-<time datetime="2011-12-26T14:56:00+08:00" pubdate data-updated="true">Dec 26<span>th</span>, 2011</time>
-      
-
-<span class="categories">
-  
-    <a class='category' href='/cn/blog/categories/github/'>github</a>, <a class='category' href='/cn/blog/categories/jekyll/'>jekyll</a>
-  
-</span>
-
-
-    </p>
-    
-      <div class="sharing">
-  
-  
-  
-  
-	<!-- JiaThis Button BEGIN -->
-	<div id="ckepop">
-		<span class="jiathis_txt">分享到： </span>
-		<a class="jiathis_button_tools_1"></a>
-		<a class="jiathis_button_tools_2"></a>
-		<a class="jiathis_button_tools_3"></a>
-		<a class="jiathis_button_tools_4"></a>
-		<a href="http://www.jiathis.com/share?uid=1558027" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank">更多</a>
-		<a class="jiathis_counter_style"></a>
-	</div>
-	<script type="text/javascript">var jiathis_config = {data_track_clickback:true};</script>
-	<script type="text/javascript" src="http://v2.jiathis.com/code/jia.js?uid=1558027" charset="utf-8"></script>
-	<!-- JiaThis Button END -->
-  
-</div>
-
-    
-    <p class="meta">
-      
-        <a class="basic-alignment left" href="/cn/blog/2011/12/15/building-static-sites-with-jekyll/" title="Previous Post: 【译文】用Jekyll构建静态网站">&laquo; 【译文】用Jekyll构建静态网站</a>
-      
-      
-        <a class="basic-alignment right" href="/cn/blog/2011/12/26/octopress-on-windows/" title="next Post: Windows下安装Octopress">Windows下安装Octopress &raquo;</a>
-      
-    </p>
-  </footer>
 </article>
-
-  <section>
-    <h1>评论</h1>
-    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-</div>
-  </section>
 
 </div>
 
@@ -308,10 +211,7 @@
       var disqus_shortname = 'ypchencn';
       
         
-        // var disqus_developer = 1;
-        var disqus_identifier = 'http://chen.yanping.me/cn/blog/2011/12/26/github-pages-domain-2/';
-        var disqus_url = 'http://chen.yanping.me/cn/blog/2011/12/26/github-pages-domain-2/';
-        var disqus_script = 'embed.js';
+        var disqus_script = 'count.js';
       
     (function () {
       var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
