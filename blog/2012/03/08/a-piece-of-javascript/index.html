@@ -5,12 +5,15 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>定制R启动环境 - 雁起平沙的网络日志</title>
+  <title>一段有用的javascript代码 - 雁起平沙的网络日志</title>
   <meta name="author" content="ypchen">
 
   
-  <meta name="description" content="本文翻译自R in Action的附录B，如果对该书感兴趣，请自行购买或去图书馆阅读。
-R导论的10.8也是讲定制环境的。 程序员最喜欢做的事之一是定制启动环境，好让程序按照他们喜欢方式工作。定制启动环境可以让你设置R的选项、指定工作目录、加载常用的包、加载用户自己写的函数、 &hellip;">
+  <meta name="description" content="有没有发现网速不给力的时候disqus评论框加载很慢？菜鸟安装不上pygments，要实现语法高亮肿么办？用markdown写的文章链接都是原页面打开的有木有啊？我在BeiYuu的博客里发现了一段js代码，正好可以解决上面的三个问题。代码如下： 1
+2
+3
+4
+&lt;div id=&quot; &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -19,7 +22,7 @@ R导论的10.8也是讲定制环境的。 程序员最喜欢做的事之一是�
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://chen.yanping.me/cn/blog/2012/01/09/customizing-the-startup-environment">
+  <link rel="canonical" href="http://chen.yanping.me/cn/blog/2012/03/08/a-piece-of-javascript">
   <link href="/cn/favicon.png" rel="icon">
   <link href="/cn/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <script src="/cn/javascripts/modernizr-2.0.js"></script>
@@ -80,7 +83,7 @@ R导论的10.8也是讲定制环境的。 程序员最喜欢做的事之一是�
   
   <header>
     
-      <h1 class="entry-title">定制R启动环境</h1>
+      <h1 class="entry-title">一段有用的javascript代码</h1>
     
     
       <p class="meta">
@@ -96,7 +99,7 @@ R导论的10.8也是讲定制环境的。 程序员最喜欢做的事之一是�
   
 
 
-<time datetime="2012-01-09T22:16:00+08:00" pubdate data-updated="true">Jan 9<span>th</span>, 2012</time>
+<time datetime="2012-03-08T14:30:00+08:00" pubdate data-updated="true">Mar 8<span>th</span>, 2012</time>
         
          | <a href="#disqus_thread">评论</a>
         
@@ -105,25 +108,22 @@ R导论的10.8也是讲定制环境的。 程序员最喜欢做的事之一是�
   </header>
 
 
-<div class="entry-content"><p class="info">
-本文翻译自<a href="http://www.manning.com/kabacoff/" target="_blank">R in Action</a>的附录B，如果对该书感兴趣，请自行购买或去图书馆阅读。<br />
-R导论的10.8也是讲定制环境的。
-</p>
+<div class="entry-content"><p>有没有发现网速不给力的时候disqus评论框加载很慢？菜鸟安装不上pygments，要实现语法高亮肿么办？用markdown写的文章链接都是原页面打开的有木有啊？我在<a href="http://beiyuu.com" target="_blank">BeiYuu</a>的博客里发现了一段js代码，正好可以解决上面的三个问题。代码如下：</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='html'><span class='line'><span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">&quot;disqus_container&quot;</span><span class="nt">&gt;</span>
+</span><span class='line'>    <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">&quot;#&quot;</span> <span class="na">class=</span><span class="s">&quot;comment&quot;</span> <span class="na">onclick=</span><span class="s">&quot;return false;&quot;</span><span class="nt">&gt;</span>点击查看评论<span class="nt">&lt;/a&gt;</span>
+</span><span class='line'>    <span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">&quot;disqus_thread&quot;</span><span class="nt">&gt;&lt;/div&gt;</span>
+</span><span class='line'><span class="nt">&lt;/div&gt;</span>
+</span></code></pre></td></tr></table></div></figure>
 
 
-<p>程序员最喜欢做的事之一是定制启动环境，好让程序按照他们喜欢方式工作。定制启动环境可以让你设置R的选项、指定工作目录、加载常用的包、加载用户自己写的函数、设置CRAN下载网址以及其它操作。</p>
+<p>上面这段html用来代替你原来的disqus评论框的代码，页面加载的时候只看到一个“点击查看评论”的链接。</p>
 
-<p>你可以通过编辑位置位置初始化文件（Rprofile.site）或者目录初始化文件（.Rprofile）来定制R环境。这两个是纯文本文件，包含启动时要执行的R代码。</p>
-
-<!--more-->
-
-
-<p>在启动的时候，R会从<em>R_HOME</em>/etc这个目录寻找Rprofile.site来调用，其中<em>R_HOME</em>是环境变量。然后R会在当前工作目录寻找.Rprofile文件来调用。如果R没有找到这个文件，就会在用户的主目录寻找。你可以用<code>Sys.getenv("R_HOME")</code>、<code>Sys.getenv("HOME")</code>和<code>getwd()</code>分别查看<em>R_HOME</em>、<em>HOME</em>以及当前工作目录。</p>
-
-<p>你可以在这些文件里放两个特殊的函数，<code>.First()</code>函数在启动R会话的时候执行，<code>.Last()</code>函数在结束会话的时候执行。Rprofile.site文件的例子如下：</p>
-
-<figure class='code'><figcaption><span>Sample Rprofile.site file   </span></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -153,54 +153,46 @@ R导论的10.8也是讲定制环境的。
 <span class='line-number'>28</span>
 <span class='line-number'>29</span>
 <span class='line-number'>30</span>
-<span class='line-number'>31</span>
-<span class='line-number'>32</span>
-</pre></td><td class='code'><pre><code class='r'><span class='line'><span class="c1"># 设置常用选项</span>
-</span><span class='line'>options<span class="p">(</span>papersize<span class="o">=</span><span class="s">&quot;a4&quot;</span><span class="p">)</span>
-</span><span class='line'>options<span class="p">(</span>editor<span class="o">=</span><span class="s">&quot;notepad&quot;</span><span class="p">)</span>
-</span><span class='line'>options<span class="p">(</span>pager<span class="o">=</span><span class="s">&quot;internal&quot;</span><span class="p">)</span>
-</span><span class='line'>options<span class="p">(</span>tab.width <span class="o">=</span> <span class="m">2</span><span class="p">)</span>
-</span><span class='line'>options<span class="p">(</span>width <span class="o">=</span> <span class="m">130</span><span class="p">)</span>
-</span><span class='line'>options<span class="p">(</span>graphics.record<span class="o">=</span><span class="kc">TRUE</span><span class="p">)</span>
-</span><span class='line'>options<span class="p">(</span>show.signif.stars<span class="o">=</span><span class="kc">FALSE</span><span class="p">)</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="o">&lt;</span><span class="nx">script</span> <span class="nx">type</span><span class="o">=</span><span class="s2">&quot;text/javascript&quot;</span><span class="o">&gt;</span>
+</span><span class='line'>    <span class="nx">BYB</span><span class="p">.</span><span class="nx">readyFunction</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(){</span>
+</span><span class='line'>        <span class="nx">$</span><span class="p">(</span><span class="nb">document</span><span class="p">).</span><span class="nx">ready</span><span class="p">(</span><span class="kd">function</span><span class="p">(){</span>
+</span><span class='line'>            <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;pre&#39;</span><span class="p">).</span><span class="nx">addClass</span><span class="p">(</span><span class="s1">&#39;prettyprint linenums&#39;</span><span class="p">)</span> <span class="c1">//添加Google code Hight需要的class</span>
+</span><span class='line'>          
+</span><span class='line'>          <span class="c1">// 加载评论框</span>
+</span><span class='line'>            <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#disqus_container .comment&#39;</span><span class="p">).</span><span class="nx">on</span><span class="p">(</span><span class="s1">&#39;click&#39;</span><span class="p">,</span><span class="kd">function</span><span class="p">(){</span>
+</span><span class='line'>                <span class="nx">$</span><span class="p">(</span><span class="k">this</span><span class="p">).</span><span class="nx">html</span><span class="p">(</span><span class="s1">&#39;加载中...&#39;</span><span class="p">);</span>
+</span><span class='line'>                <span class="kd">var</span> <span class="nx">disqus_shortname</span> <span class="o">=</span> <span class="s1">&#39;disqus_name&#39;</span><span class="p">;</span>   <span class="c1">// 注意把disqus_name修改成自己网站的disqus名</span>
+</span><span class='line'>                <span class="kd">var</span> <span class="nx">that</span> <span class="o">=</span> <span class="k">this</span><span class="p">;</span>
+</span><span class='line'>                <span class="nx">BYB</span><span class="p">.</span><span class="nx">includeScript</span><span class="p">(</span><span class="s1">&#39;http://&#39;</span> <span class="o">+</span> <span class="nx">disqus_shortname</span> <span class="o">+</span> <span class="s1">&#39;.disqus.com/embed.js&#39;</span><span class="p">,</span><span class="kd">function</span><span class="p">(){</span><span class="nx">$</span><span class="p">(</span><span class="nx">that</span><span class="p">).</span><span class="nx">remove</span><span class="p">()});</span>
+</span><span class='line'>            <span class="p">});</span>
 </span><span class='line'>
-</span><span class='line'><span class="c1"># 设置R交互提示信息</span>
-</span><span class='line'>options<span class="p">(</span>prompt<span class="o">=</span><span class="s">&quot;&gt; &quot;</span><span class="p">)</span>
-</span><span class='line'>options<span class="p">(</span>continue<span class="o">=</span><span class="s">&quot;+ &quot;</span><span class="p">)</span>
-</span><span class='line'>
-</span><span class='line'><span class="m">.</span>libPaths<span class="p">(</span><span class="s">&quot;C:/my_R_library&quot;</span><span class="p">)</span> <span class="c1"># 设置包的本地库（library）路径</span>
-</span><span class='line'>
-</span><span class='line'><span class="c1"># 设置CRAN镜像默认地址</span>
-</span><span class='line'>local<span class="p">({</span>r <span class="o">&lt;-</span> getOption<span class="p">(</span><span class="s">&quot;repos&quot;</span><span class="p">)</span>
-</span><span class='line'>     r<span class="p">[</span><span class="s">&quot;CRAN&quot;</span><span class="p">]</span> <span class="o">&lt;-</span> <span class="s">&quot;http://cran.case.edu/&quot;</span>
-</span><span class='line'>     options<span class="p">(</span>repos<span class="o">=</span>r<span class="p">)})</span>
-</span><span class='line'>
-</span><span class='line'><span class="c1"># 启动函数</span>
-</span><span class='line'><span class="m">.</span>First <span class="o">&lt;-</span> <span class="kr">function</span><span class="p">(){</span>
-</span><span class='line'> library<span class="p">(</span>lattice<span class="p">)</span>
-</span><span class='line'> library<span class="p">(</span>Hmisc<span class="p">)</span>
-</span><span class='line'> source<span class="p">(</span><span class="s">&quot;C:/mydir/myfunctions.R&quot;</span><span class="p">)</span>
-</span><span class='line'> cat<span class="p">(</span><span class="s">&quot;\nWelcome at&quot;</span><span class="p">,</span> date<span class="p">(),</span> <span class="s">&quot;\n&quot;</span><span class="p">)</span>
-</span><span class='line'><span class="p">}</span>
-</span><span class='line'>
-</span><span class='line'><span class="c1"># 会话结束函数</span>
-</span><span class='line'><span class="m">.</span>Last <span class="o">&lt;-</span> <span class="kr">function</span><span class="p">(){</span>
-</span><span class='line'> cat<span class="p">(</span><span class="s">&quot;\nGoodbye at &quot;</span><span class="p">,</span> date<span class="p">(),</span> <span class="s">&quot;\n&quot;</span><span class="p">)</span>
-</span><span class='line'><span class="p">}</span>
+</span><span class='line'>          <span class="c1">// 这段代码是用来提取文章中链接到其他网站的链接</span>
+</span><span class='line'>          <span class="c1">// 然后给这写链接加上外链的样式，并且修改为在新窗口打开(target=_blank)</span>
+</span><span class='line'>            <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;.entry a&#39;</span><span class="p">).</span><span class="nx">each</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">index</span><span class="p">,</span><span class="nx">element</span><span class="p">){</span>
+</span><span class='line'>                <span class="kd">var</span> <span class="nx">href</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="k">this</span><span class="p">).</span><span class="nx">attr</span><span class="p">(</span><span class="s1">&#39;href&#39;</span><span class="p">);</span>
+</span><span class='line'>                <span class="k">if</span><span class="p">(</span><span class="nx">href</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span><span class="s1">&#39;#&#39;</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">){</span>
+</span><span class='line'>                <span class="p">}</span><span class="k">else</span> <span class="k">if</span> <span class="p">(</span> <span class="nx">href</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span> <span class="o">||</span> <span class="nx">href</span><span class="p">.</span><span class="nx">toLowerCase</span><span class="p">().</span><span class="nx">indexOf</span><span class="p">(</span><span class="s1">&#39;beiyuu.com&#39;</span><span class="p">)</span><span class="o">&gt;-</span><span class="mi">1</span> <span class="p">){</span>
+</span><span class='line'>                <span class="p">}</span><span class="k">else</span><span class="p">{</span>
+</span><span class='line'>                    <span class="nx">$</span><span class="p">(</span><span class="k">this</span><span class="p">).</span><span class="nx">attr</span><span class="p">(</span><span class="s1">&#39;target&#39;</span><span class="p">,</span><span class="s1">&#39;_blank&#39;</span><span class="p">);</span>
+</span><span class='line'>                    <span class="nx">$</span><span class="p">(</span><span class="k">this</span><span class="p">).</span><span class="nx">addClass</span><span class="p">(</span><span class="s1">&#39;external&#39;</span><span class="p">);</span>
+</span><span class='line'>                <span class="p">}</span>
+</span><span class='line'>            <span class="p">});</span>
+</span><span class='line'>          
+</span><span class='line'>          <span class="c1">// 导入Prettify的javascript</span>
+</span><span class='line'>            <span class="nx">BYB</span><span class="p">.</span><span class="nx">includeScript</span><span class="p">(</span><span class="s1">&#39;/js/prettify/prettify.js&#39;</span><span class="p">,</span><span class="kd">function</span><span class="p">(){</span><span class="nx">prettyPrint</span><span class="p">()});</span>
+</span><span class='line'>        <span class="p">});</span>
+</span><span class='line'>    <span class="p">};</span>
+</span><span class='line'><span class="o">&lt;</span><span class="err">/script&gt;</span>
 </span></code></pre></td></tr></table></div></figure>
 
 
-<p>关于这个文件，你需要注意以下几点：</p>
+<p>他是用Google Code Prettify来实现语法高亮，使用也比较方便，只需要在<code>&lt;pre&gt;</code>的标签上加入prettyprint即可。当初我在windows下安装pygments也是折腾了很久也没成功，如果你跟我一样是菜鸟，还是尽量别往这坑里跳了，用Prettify或者gist吧，没必要再去学怎么使用python。</p>
 
-<ul>
-<li>设置.libPaths值允许你在R的安装目录之外创建包的本地库。这再升级时很有用，可以保留之前安装的包。</li>
-<li>设置CRAN镜像网站可以让你在使用<code>install.packages()</code>命令时不用每次都选择。</li>
-<li><code>.First()</code>函数是一个很好的地方，来加载你常用的包，运行常用的用户编写的函数。</li>
-<li><code>.Last()</code>函数一个很好的地方做清理活动，包括保存命令历史、程序输出和数据文件。</li>
-</ul>
+<p>以上代码都是BeiYuu针对自己网站的样式写的，看官如果要用的话，请修改相应的样式名称。</p>
 
+<h3>参考资料</h3>
 
-<p>还有其他定制启动环境的方式，包括使用命令行选项和环境变量。查看<code>help(Startup)</code>以及R导论的附录B（<a href="http://cran.r-project.org/doc/manuals/R-intro.pdf">http://cran.r-project.org/doc/manuals/R-intro.pdf</a>，中文版地址<a href="http://cran.r-project.org/doc/contrib/Ding-R-intro_cn.pdf">http://cran.r-project.org/doc/contrib/Ding-R-intro_cn.pdf</a>）获取更多细节。</p>
+<p>BeiYuu写的建github博客的教程 <a href="http://beiyuu.com/github-pages/">http://beiyuu.com/github-pages/</a></p>
 </div>
 
 
@@ -223,14 +215,14 @@ R导论的10.8也是讲定制环境的。
   
 
 
-<time datetime="2012-01-09T22:16:00+08:00" pubdate data-updated="true">Jan 9<span>th</span>, 2012</time>
+<time datetime="2012-03-08T14:30:00+08:00" pubdate data-updated="true">Mar 8<span>th</span>, 2012</time>
       
 
 
 <span class="categories">
 	归类于：
   
-    <a class='category' href='/cn/blog/categories/r语言/'>R语言</a>
+    <a class='category' href='/cn/blog/categories/javascript/'>javascript</a>
   
 </span>
 
@@ -261,10 +253,8 @@ R导论的10.8也是讲定制环境的。
     
     <p class="meta">
       
-        <a class="basic-alignment left" href="/cn/blog/2012/01/07/theming-and-customization/" title="Previous Post: 为Octopress修改主题和自定义样式">&laquo; 为Octopress修改主题和自定义样式</a>
+        <a class="basic-alignment left" href="/cn/blog/2012/02/07/comment-sidebar/" title="Previous Post: 给博客侧边栏添加近期评论">&laquo; 给博客侧边栏添加近期评论</a>
       
-      
-        <a class="basic-alignment right" href="/cn/blog/2012/01/10/matrix-algebra-in-r/" title="next Post: R的矩阵代数">R的矩阵代数 &raquo;</a>
       
     </p>
   </footer>
@@ -389,8 +379,8 @@ R导论的10.8也是讲定制环境的。
       
         
         // var disqus_developer = 1;
-        var disqus_identifier = 'http://chen.yanping.me/cn/blog/2012/01/09/customizing-the-startup-environment/';
-        var disqus_url = 'http://chen.yanping.me/cn/blog/2012/01/09/customizing-the-startup-environment/';
+        var disqus_identifier = 'http://chen.yanping.me/cn/blog/2012/03/08/a-piece-of-javascript/';
+        var disqus_url = 'http://chen.yanping.me/cn/blog/2012/03/08/a-piece-of-javascript/';
         var disqus_script = 'embed.js';
       
     (function () {
