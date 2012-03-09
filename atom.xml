@@ -4,7 +4,7 @@
   <title><![CDATA[雁起平沙的网络日志]]></title>
   <link href="http://chen.yanping.me/cn/atom.xml" rel="self"/>
   <link href="http://chen.yanping.me/cn/"/>
-  <updated>2012-03-08T14:54:33+08:00</updated>
+  <updated>2012-03-10T01:47:41+08:00</updated>
   <id>http://chen.yanping.me/cn/</id>
   <author>
     <name><![CDATA[ypchen]]></name>
@@ -20,89 +20,87 @@
     <id>http://chen.yanping.me/cn/blog/2012/03/08/a-piece-of-javascript</id>
     <content type="html"><![CDATA[<p>有没有发现网速不给力的时候disqus评论框加载很慢？菜鸟安装不上pygments，要实现语法高亮肿么办？用markdown写的文章链接都是原页面打开的有木有啊？我在<a href="http://beiyuu.com" target="_blank">BeiYuu</a>的博客里发现了一段js代码，正好可以解决上面的三个问题。代码如下：</p>
 
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-</pre></td><td class='code'><pre><code class='html'><span class='line'><span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">&quot;disqus_container&quot;</span><span class="nt">&gt;</span>
-</span><span class='line'>    <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">&quot;#&quot;</span> <span class="na">class=</span><span class="s">&quot;comment&quot;</span> <span class="na">onclick=</span><span class="s">&quot;return false;&quot;</span><span class="nt">&gt;</span>点击查看评论<span class="nt">&lt;/a&gt;</span>
-</span><span class='line'>    <span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">&quot;disqus_thread&quot;</span><span class="nt">&gt;&lt;/div&gt;</span>
-</span><span class='line'><span class="nt">&lt;/div&gt;</span>
-</span></code></pre></td></tr></table></div></figure>
-
+<div class="bogus-wrapper"><notextile><figure class="code"> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+</pre></td><td class="code"><pre><code class="html"><span class="line"><span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">&quot;disqus_container&quot;</span><span class="nt">&gt;</span>
+</span><span class="line">    <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">&quot;#&quot;</span> <span class="na">class=</span><span class="s">&quot;comment&quot;</span> <span class="na">onclick=</span><span class="s">&quot;return false;&quot;</span><span class="nt">&gt;</span>点击查看评论<span class="nt">&lt;/a&gt;</span>
+</span><span class="line">    <span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">&quot;disqus_thread&quot;</span><span class="nt">&gt;&lt;/div&gt;</span>
+</span><span class="line"><span class="nt">&lt;/div&gt;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
 
 <p>上面这段html用来代替你原来的disqus评论框的代码，页面加载的时候只看到一个“点击查看评论”的链接。</p>
 
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-<span class='line-number'>21</span>
-<span class='line-number'>22</span>
-<span class='line-number'>23</span>
-<span class='line-number'>24</span>
-<span class='line-number'>25</span>
-<span class='line-number'>26</span>
-<span class='line-number'>27</span>
-<span class='line-number'>28</span>
-<span class='line-number'>29</span>
-<span class='line-number'>30</span>
-</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="o">&lt;</span><span class="nx">script</span> <span class="nx">type</span><span class="o">=</span><span class="s2">&quot;text/javascript&quot;</span><span class="o">&gt;</span>
-</span><span class='line'>    <span class="nx">BYB</span><span class="p">.</span><span class="nx">readyFunction</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(){</span>
-</span><span class='line'>        <span class="nx">$</span><span class="p">(</span><span class="nb">document</span><span class="p">).</span><span class="nx">ready</span><span class="p">(</span><span class="kd">function</span><span class="p">(){</span>
-</span><span class='line'>            <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;pre&#39;</span><span class="p">).</span><span class="nx">addClass</span><span class="p">(</span><span class="s1">&#39;prettyprint linenums&#39;</span><span class="p">)</span> <span class="c1">//添加Google code Hight需要的class</span>
-</span><span class='line'>          
-</span><span class='line'>          <span class="c1">// 加载评论框</span>
-</span><span class='line'>            <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#disqus_container .comment&#39;</span><span class="p">).</span><span class="nx">on</span><span class="p">(</span><span class="s1">&#39;click&#39;</span><span class="p">,</span><span class="kd">function</span><span class="p">(){</span>
-</span><span class='line'>                <span class="nx">$</span><span class="p">(</span><span class="k">this</span><span class="p">).</span><span class="nx">html</span><span class="p">(</span><span class="s1">&#39;加载中...&#39;</span><span class="p">);</span>
-</span><span class='line'>                <span class="kd">var</span> <span class="nx">disqus_shortname</span> <span class="o">=</span> <span class="s1">&#39;disqus_name&#39;</span><span class="p">;</span>   <span class="c1">// 注意把disqus_name修改成自己网站的disqus名</span>
-</span><span class='line'>                <span class="kd">var</span> <span class="nx">that</span> <span class="o">=</span> <span class="k">this</span><span class="p">;</span>
-</span><span class='line'>                <span class="nx">BYB</span><span class="p">.</span><span class="nx">includeScript</span><span class="p">(</span><span class="s1">&#39;http://&#39;</span> <span class="o">+</span> <span class="nx">disqus_shortname</span> <span class="o">+</span> <span class="s1">&#39;.disqus.com/embed.js&#39;</span><span class="p">,</span><span class="kd">function</span><span class="p">(){</span><span class="nx">$</span><span class="p">(</span><span class="nx">that</span><span class="p">).</span><span class="nx">remove</span><span class="p">()});</span>
-</span><span class='line'>            <span class="p">});</span>
-</span><span class='line'>
-</span><span class='line'>          <span class="c1">// 这段代码是用来提取文章中链接到其他网站的链接</span>
-</span><span class='line'>          <span class="c1">// 然后给这写链接加上外链的样式，并且修改为在新窗口打开(target=_blank)</span>
-</span><span class='line'>            <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;.entry a&#39;</span><span class="p">).</span><span class="nx">each</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">index</span><span class="p">,</span><span class="nx">element</span><span class="p">){</span>
-</span><span class='line'>                <span class="kd">var</span> <span class="nx">href</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="k">this</span><span class="p">).</span><span class="nx">attr</span><span class="p">(</span><span class="s1">&#39;href&#39;</span><span class="p">);</span>
-</span><span class='line'>                <span class="k">if</span><span class="p">(</span><span class="nx">href</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span><span class="s1">&#39;#&#39;</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">){</span>
-</span><span class='line'>                <span class="p">}</span><span class="k">else</span> <span class="k">if</span> <span class="p">(</span> <span class="nx">href</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span> <span class="o">||</span> <span class="nx">href</span><span class="p">.</span><span class="nx">toLowerCase</span><span class="p">().</span><span class="nx">indexOf</span><span class="p">(</span><span class="s1">&#39;beiyuu.com&#39;</span><span class="p">)</span><span class="o">&gt;-</span><span class="mi">1</span> <span class="p">){</span>
-</span><span class='line'>                <span class="p">}</span><span class="k">else</span><span class="p">{</span>
-</span><span class='line'>                    <span class="nx">$</span><span class="p">(</span><span class="k">this</span><span class="p">).</span><span class="nx">attr</span><span class="p">(</span><span class="s1">&#39;target&#39;</span><span class="p">,</span><span class="s1">&#39;_blank&#39;</span><span class="p">);</span>
-</span><span class='line'>                    <span class="nx">$</span><span class="p">(</span><span class="k">this</span><span class="p">).</span><span class="nx">addClass</span><span class="p">(</span><span class="s1">&#39;external&#39;</span><span class="p">);</span>
-</span><span class='line'>                <span class="p">}</span>
-</span><span class='line'>            <span class="p">});</span>
-</span><span class='line'>          
-</span><span class='line'>          <span class="c1">// 导入Prettify的javascript</span>
-</span><span class='line'>            <span class="nx">BYB</span><span class="p">.</span><span class="nx">includeScript</span><span class="p">(</span><span class="s1">&#39;/js/prettify/prettify.js&#39;</span><span class="p">,</span><span class="kd">function</span><span class="p">(){</span><span class="nx">prettyPrint</span><span class="p">()});</span>
-</span><span class='line'>        <span class="p">});</span>
-</span><span class='line'>    <span class="p">};</span>
-</span><span class='line'><span class="o">&lt;</span><span class="err">/script&gt;</span>
-</span></code></pre></td></tr></table></div></figure>
-
+<div class="bogus-wrapper"><notextile><figure class="code"> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+<span class="line-number">7</span>
+<span class="line-number">8</span>
+<span class="line-number">9</span>
+<span class="line-number">10</span>
+<span class="line-number">11</span>
+<span class="line-number">12</span>
+<span class="line-number">13</span>
+<span class="line-number">14</span>
+<span class="line-number">15</span>
+<span class="line-number">16</span>
+<span class="line-number">17</span>
+<span class="line-number">18</span>
+<span class="line-number">19</span>
+<span class="line-number">20</span>
+<span class="line-number">21</span>
+<span class="line-number">22</span>
+<span class="line-number">23</span>
+<span class="line-number">24</span>
+<span class="line-number">25</span>
+<span class="line-number">26</span>
+<span class="line-number">27</span>
+<span class="line-number">28</span>
+<span class="line-number">29</span>
+<span class="line-number">30</span>
+</pre></td><td class="code"><pre><code class="javascript"><span class="line"><span class="o">&lt;</span><span class="nx">script</span> <span class="nx">type</span><span class="o">=</span><span class="s2">&quot;text/javascript&quot;</span><span class="o">&gt;</span>
+</span><span class="line">    <span class="nx">BYB</span><span class="p">.</span><span class="nx">readyFunction</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(){</span>
+</span><span class="line">        <span class="nx">$</span><span class="p">(</span><span class="nb">document</span><span class="p">).</span><span class="nx">ready</span><span class="p">(</span><span class="kd">function</span><span class="p">(){</span>
+</span><span class="line">            <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;pre&#39;</span><span class="p">).</span><span class="nx">addClass</span><span class="p">(</span><span class="s1">&#39;prettyprint linenums&#39;</span><span class="p">)</span> <span class="c1">//添加Google code Hight需要的class</span>
+</span><span class="line">			
+</span><span class="line">			<span class="c1">// 加载评论框</span>
+</span><span class="line">            <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#disqus_container .comment&#39;</span><span class="p">).</span><span class="nx">on</span><span class="p">(</span><span class="s1">&#39;click&#39;</span><span class="p">,</span><span class="kd">function</span><span class="p">(){</span>
+</span><span class="line">                <span class="nx">$</span><span class="p">(</span><span class="k">this</span><span class="p">).</span><span class="nx">html</span><span class="p">(</span><span class="s1">&#39;加载中...&#39;</span><span class="p">);</span>
+</span><span class="line">                <span class="kd">var</span> <span class="nx">disqus_shortname</span> <span class="o">=</span> <span class="s1">&#39;disqus_name&#39;</span><span class="p">;</span>   <span class="c1">// 注意把disqus_name修改成自己网站的disqus名</span>
+</span><span class="line">                <span class="kd">var</span> <span class="nx">that</span> <span class="o">=</span> <span class="k">this</span><span class="p">;</span>
+</span><span class="line">                <span class="nx">BYB</span><span class="p">.</span><span class="nx">includeScript</span><span class="p">(</span><span class="s1">&#39;http://&#39;</span> <span class="o">+</span> <span class="nx">disqus_shortname</span> <span class="o">+</span> <span class="s1">&#39;.disqus.com/embed.js&#39;</span><span class="p">,</span><span class="kd">function</span><span class="p">(){</span><span class="nx">$</span><span class="p">(</span><span class="nx">that</span><span class="p">).</span><span class="nx">remove</span><span class="p">()});</span>
+</span><span class="line">            <span class="p">});</span>
+</span><span class="line">
+</span><span class="line">			<span class="c1">// 这段代码是用来提取文章中链接到其他网站的链接</span>
+</span><span class="line">			<span class="c1">// 然后给这写链接加上外链的样式，并且修改为在新窗口打开(target=_blank)</span>
+</span><span class="line">            <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;.entry a&#39;</span><span class="p">).</span><span class="nx">each</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">index</span><span class="p">,</span><span class="nx">element</span><span class="p">){</span>
+</span><span class="line">                <span class="kd">var</span> <span class="nx">href</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="k">this</span><span class="p">).</span><span class="nx">attr</span><span class="p">(</span><span class="s1">&#39;href&#39;</span><span class="p">);</span>
+</span><span class="line">                <span class="k">if</span><span class="p">(</span><span class="nx">href</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span><span class="s1">&#39;#&#39;</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">){</span>
+</span><span class="line">                <span class="p">}</span><span class="k">else</span> <span class="k">if</span> <span class="p">(</span> <span class="nx">href</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span> <span class="o">||</span> <span class="nx">href</span><span class="p">.</span><span class="nx">toLowerCase</span><span class="p">().</span><span class="nx">indexOf</span><span class="p">(</span><span class="s1">&#39;beiyuu.com&#39;</span><span class="p">)</span><span class="o">&gt;-</span><span class="mi">1</span> <span class="p">){</span>
+</span><span class="line">                <span class="p">}</span><span class="k">else</span><span class="p">{</span>
+</span><span class="line">                    <span class="nx">$</span><span class="p">(</span><span class="k">this</span><span class="p">).</span><span class="nx">attr</span><span class="p">(</span><span class="s1">&#39;target&#39;</span><span class="p">,</span><span class="s1">&#39;_blank&#39;</span><span class="p">);</span>
+</span><span class="line">                    <span class="nx">$</span><span class="p">(</span><span class="k">this</span><span class="p">).</span><span class="nx">addClass</span><span class="p">(</span><span class="s1">&#39;external&#39;</span><span class="p">);</span>
+</span><span class="line">                <span class="p">}</span>
+</span><span class="line">            <span class="p">});</span>
+</span><span class="line">			
+</span><span class="line">			<span class="c1">// 导入Prettify的javascript</span>
+</span><span class="line">            <span class="nx">BYB</span><span class="p">.</span><span class="nx">includeScript</span><span class="p">(</span><span class="s1">&#39;/js/prettify/prettify.js&#39;</span><span class="p">,</span><span class="kd">function</span><span class="p">(){</span><span class="nx">prettyPrint</span><span class="p">()});</span>
+</span><span class="line">        <span class="p">});</span>
+</span><span class="line">    <span class="p">};</span>
+</span><span class="line"><span class="o">&lt;</span><span class="err">/script&gt;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
 
 <p>他是用Google Code Prettify来实现语法高亮，使用也比较方便，只需要在<code>&lt;pre&gt;</code>的标签上加入prettyprint即可。当初我在windows下安装pygments也是折腾了很久也没成功，如果你跟我一样是菜鸟，还是尽量别往这坑里跳了，用Prettify或者gist吧，没必要再去学怎么使用python。</p>
 
 <p>以上代码都是BeiYuu针对自己网站的样式写的，看官如果要用的话，请修改相应的样式名称。</p>
 
-<h3>参考资料</h3>
-
+<h3 id="section">参考资料</h3>
 <p>BeiYuu写的建github博客的教程 <a href="http://beiyuu.com/github-pages/">http://beiyuu.com/github-pages/</a></p>
+
 ]]></content>
   </entry>
   
@@ -115,61 +113,54 @@
 在我翻译的<a href="http://chen.yanping.me/cn/blog/2012/01/07/theming-and-customization/" target="_blank">为Octopress修改主题和自定义样式</a>一文后面，Eric Lau问我如何在博客侧边栏显示近期评论。本文就是针对这一问题的简短教程。
 </p>
 
-
-<h2>第一步：在disqus.com获取代码</h2>
-
+<h2 id="disquscom">第一步：在disqus.com获取代码</h2>
 <p>登录到disqus.com，选择评论所在的网站，进入Admin，选择Tools，在code中，是<strong>Extra Widgets</strong>的代码，提供了几种Widgets插件，分别是Combination（组合式）、Recent Comments（近期评论）、 Popular Threads（热门话题）、Top Commenters（最近评论人）。该工具可以根据用户设置的参数生成代码。</p>
 
-<p><img src="http://chen.yanping.me/cn/images/blog/12-02-07/tools-setting.png"></p>
+<p><img src="http://chen.yanping.me/cn/images/blog/12-02-07/tools-setting.png" /> </p>
 
-<h2>第二步：把代码添加到octopress</h2>
-
+<h2 id="octopress">第二步：把代码添加到octopress</h2>
 <p>按照<a href="http://chen.yanping.me/cn/blog/2012/01/07/theming-and-customization/" target="_blank">为Octopress修改主题和自定义样式</a>一文的描述，在sidebar里添加一个section，比如叫做recent_comments.html，代码如下：</p>
 
-<figure class='code'><figcaption><span>recent_comments.html (../source/_includes/custom/asides/recent_comments.html) </span></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-</pre></td><td class='code'><pre><code class='html'><span class='line'><span class="nt">&lt;section</span> <span class="na">id=</span><span class="s">&quot;comment_sidebar&quot;</span><span class="nt">&gt;</span>
-</span><span class='line'><span class="nt">&lt;h1&gt;</span>近期评论<span class="nt">&lt;/h1&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="nt">&lt;script </span><span class="na">type=</span><span class="s">&quot;text/javascript&quot;</span> <span class="na">src=</span><span class="s">&quot;http://ypchencn.disqus.com/recent_comments_widget.js?num_items=5&amp;hide_avatars=0&amp;avatar_size=32&amp;excerpt_length=20&quot;</span><span class="nt">&gt;&lt;/script&gt;&lt;a</span> <span class="na">href=</span><span class="s">&quot;http://disqus.com/&quot;</span><span class="nt">&gt;</span>Powered by Disqus<span class="nt">&lt;/a&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="nt">&lt;/section&gt;</span>
-</span></code></pre></td></tr></table></div></figure>
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span>recent_comments.html (../source/_includes/custom/asides/recent_comments.html) </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+</pre></td><td class="code"><pre><code class="html"><span class="line"><span class="nt">&lt;section</span> <span class="na">id=</span><span class="s">&quot;comment_sidebar&quot;</span><span class="nt">&gt;</span>
+</span><span class="line"><span class="nt">&lt;h1&gt;</span>近期评论<span class="nt">&lt;/h1&gt;</span>
+</span><span class="line">
+</span><span class="line"><span class="nt">&lt;script </span><span class="na">type=</span><span class="s">&quot;text/javascript&quot;</span> <span class="na">src=</span><span class="s">&quot;http://ypchencn.disqus.com/recent_comments_widget.js?num_items=5&amp;hide_avatars=0&amp;avatar_size=32&amp;excerpt_length=20&quot;</span><span class="nt">&gt;&lt;/script&gt;&lt;a</span> <span class="na">href=</span><span class="s">&quot;http://disqus.com/&quot;</span><span class="nt">&gt;</span>Powered by Disqus<span class="nt">&lt;/a&gt;</span>
+</span><span class="line">
+</span><span class="line"><span class="nt">&lt;/section&gt;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
 
-
-<h2>第三步：修改_config.yml</h2>
-
+<h2 id="configyml">第三步：修改_config.yml</h2>
 <p>按照<a href="http://chen.yanping.me/cn/blog/2012/01/07/theming-and-customization/" target="_blank">为Octopress修改主题和自定义样式</a>一文的描述，修改_config.yml，以决定评论插件出现的位置。</p>
 
-<figure class='code'><figcaption><span>Sidebar configuration (_config.yml) </span></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-</pre></td><td class='code'><pre><code class='yaml'><span class='line'><span class="c1"># list each of the sidebar modules you want to include, in the order you want them to appear.</span>
-</span><span class='line'><span class="c1"># To add custom asides, create files in /source/_includes/custom/asides/ and add them to the list like &#39;custom/asides/custom_aside_name.html&#39;</span>
-</span><span class='line'><span class="l-Scalar-Plain">default_asides</span><span class="p-Indicator">:</span>     <span class="p-Indicator">[</span><span class="nv">asides/recent_posts.html</span><span class="p-Indicator">,</span> <span class="nv">custom/asides/recent_comments.html</span><span class="p-Indicator">,</span> <span class="nv">custom/asides/blogroll.html</span><span class="p-Indicator">,</span><span class="nv">custom/asides/weibo.html</span><span class="p-Indicator">,</span> <span class="nv">custom/asides/copyleft.html</span><span class="p-Indicator">,</span><span class="nv">custom/asides/feed.html</span><span class="p-Indicator">]</span>
-</span><span class='line'>
-</span><span class='line'><span class="c1"># Each layout uses the default asides, but they can have their own asides instead. Simply uncomment the lines below</span>
-</span><span class='line'><span class="c1"># and add an array with the asides you want to use.</span>
-</span><span class='line'>
-</span><span class='line'><span class="l-Scalar-Plain">blog_index_asides</span><span class="p-Indicator">:</span>  <span class="p-Indicator">[</span><span class="nv">custom/asides/about.html</span><span class="p-Indicator">,</span> <span class="nv">asides/recent_posts.html</span><span class="p-Indicator">,</span> <span class="nv">custom/asides/recent_comments.html</span><span class="p-Indicator">,</span> <span class="nv">custom/asides/blogroll.html</span><span class="p-Indicator">,</span> <span class="nv">custom/asides/weibo.html</span><span class="p-Indicator">,</span> <span class="nv">custom/asides/copyleft.html</span><span class="p-Indicator">,</span> <span class="nv">custom/asides/feed.html</span><span class="p-Indicator">]</span>
-</span><span class='line'><span class="l-Scalar-Plain">post_asides</span><span class="p-Indicator">:</span>        <span class="p-Indicator">[</span><span class="nv">asides/recent_posts.html</span><span class="p-Indicator">,</span> <span class="nv">custom/asides/recent_comments.html</span><span class="p-Indicator">,</span> <span class="nv">custom/asides/blogroll.html</span><span class="p-Indicator">,</span> <span class="nv">custom/asides/weibo.html</span><span class="p-Indicator">,</span> <span class="nv">custom/asides/copyleft.html</span><span class="p-Indicator">,</span> <span class="nv">custom/asides/feed.html</span><span class="p-Indicator">]</span>
-</span><span class='line'><span class="c1"># page_asides:</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span>Sidebar configuration (_config.yml) </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+<span class="line-number">7</span>
+<span class="line-number">8</span>
+<span class="line-number">9</span>
+<span class="line-number">10</span>
+</pre></td><td class="code"><pre><code class="yaml"><span class="line"><span class="c1"># list each of the sidebar modules you want to include, in the order you want them to appear.</span>
+</span><span class="line"><span class="c1"># To add custom asides, create files in /source/_includes/custom/asides/ and add them to the list like &#39;custom/asides/custom_aside_name.html&#39;</span>
+</span><span class="line"><span class="l-Scalar-Plain">default_asides</span><span class="p-Indicator">:</span>     <span class="p-Indicator">[</span><span class="nv">asides/recent_posts.html</span><span class="p-Indicator">,</span> <span class="nv">custom/asides/recent_comments.html</span><span class="p-Indicator">,</span> <span class="nv">custom/asides/blogroll.html</span><span class="p-Indicator">,</span><span class="nv">custom/asides/weibo.html</span><span class="p-Indicator">,</span> <span class="nv">custom/asides/copyleft.html</span><span class="p-Indicator">,</span><span class="nv">custom/asides/feed.html</span><span class="p-Indicator">]</span>
+</span><span class="line">
+</span><span class="line"><span class="c1"># Each layout uses the default asides, but they can have their own asides instead. Simply uncomment the lines below</span>
+</span><span class="line"><span class="c1"># and add an array with the asides you want to use.</span>
+</span><span class="line">
+</span><span class="line"><span class="l-Scalar-Plain">blog_index_asides</span><span class="p-Indicator">:</span>  <span class="p-Indicator">[</span><span class="nv">custom/asides/about.html</span><span class="p-Indicator">,</span> <span class="nv">asides/recent_posts.html</span><span class="p-Indicator">,</span> <span class="nv">custom/asides/recent_comments.html</span><span class="p-Indicator">,</span> <span class="nv">custom/asides/blogroll.html</span><span class="p-Indicator">,</span> <span class="nv">custom/asides/weibo.html</span><span class="p-Indicator">,</span> <span class="nv">custom/asides/copyleft.html</span><span class="p-Indicator">,</span> <span class="nv">custom/asides/feed.html</span><span class="p-Indicator">]</span>
+</span><span class="line"><span class="l-Scalar-Plain">post_asides</span><span class="p-Indicator">:</span>        <span class="p-Indicator">[</span><span class="nv">asides/recent_posts.html</span><span class="p-Indicator">,</span> <span class="nv">custom/asides/recent_comments.html</span><span class="p-Indicator">,</span> <span class="nv">custom/asides/blogroll.html</span><span class="p-Indicator">,</span> <span class="nv">custom/asides/weibo.html</span><span class="p-Indicator">,</span> <span class="nv">custom/asides/copyleft.html</span><span class="p-Indicator">,</span> <span class="nv">custom/asides/feed.html</span><span class="p-Indicator">]</span>
+</span><span class="line"><span class="c1"># page_asides:</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
 
 ]]></content>
   </entry>
@@ -183,46 +174,39 @@
 之前我写过<a href="http://chen.yanping.me/cn/blog/2011/12/04/github-pages-domain/" target="_blank">浅谈github页面域名绑定</a>和<a href="http://chen.yanping.me/cn/blog/2011/12/26/github-pages-domain-2/" target="_blank">再谈github页面域名绑定</a>，在后文提到的域名跳转方法是错的。本文提供了一种正确的方法。
 </p>
 
+<h2 id="section">为什么要跳转域名</h2>
+<p>假设github上的用户名是_username<em>，创建代码库名为username.github.com的代码库，在master分支下建立github页面，设置好域名为_mydomain.com</em>，则用http://username.github.com访问页面github会自动跳转到http://mydomain.com。</p>
 
-<h2>为什么要跳转域名</h2>
+<p>但是如果在已经设置了username.github.com域名之后，把项目代码库repo的gh-pages分支下的网站设置域名_mydomain2.com_，用http://username.github.com/repo访问的时候只会自动跳转到http://mydomain.com/repo，不会跳转到http://mydomain2.com 。虽然http://mydomain.com/repo的形式也可以访问，但是用于网页地址里相对路径的不同，造成很多资源（比如css和js文件）无法访问，网页变得面目全非，例如<a href="http://hsatac.github.com/octo/">http://hsatac.github.com/octo/</a>，它实际绑定的域名应该是<a href="http://blog.hsatac.net/">http://blog.hsatac.net/</a>，前者不能正常显示。</p>
 
-<p>假设github上的用户名是<em>username</em>，创建代码库名为username.github.com的代码库，在master分支下建立github页面，设置好域名为<em>mydomain.com</em>，则用http://username.github.com访问页面github会自动跳转到http://mydomain.com。</p>
-
-<p>但是如果在已经设置了username.github.com域名之后，把项目代码库repo的gh-pages分支下的网站设置域名<em>mydomain2.com</em>，用http://username.github.com/repo访问的时候只会自动跳转到http://mydomain.com/repo，不会跳转到http://mydomain2.com 。虽然http://mydomain.com/repo的形式也可以访问，但是用于网页地址里相对路径的不同，造成很多资源（比如css和js文件）无法访问，网页变得面目全非，例如<a href="http://hsatac.github.com/octo/">http://hsatac.github.com/octo/</a>，它实际绑定的域名应该是<a href="http://blog.hsatac.net/">http://blog.hsatac.net/</a>，前者不能正常显示。</p>
-
-<h2>用javascript实现域名跳转</h2>
-
+<h2 id="javascript">用javascript实现域名跳转</h2>
 <p>原来我以为用.htaccess文件可以实现网址跳转，后来发现当初跳转成功是因为浏览器缓存了解析的域名，给github发信咨询，得到的回复是github现在还不支持.htaccess，以后可能会考虑把这个功能加上。</p>
 
-<p>我也考虑过用下面的代码实现转址</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='html'><span class='line'><span class="nt">&lt;meta</span> <span class="na">http-equiv=</span><span class="s">&quot;refresh&quot;</span> <span class="na">content=</span><span class="s">&quot;0; url=http://mydomain2.com&quot;</span><span class="nt">&gt;</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>但是，问题是这样跳转后其实还是转到了自己这个网页，只不过换了个地址。这样这段代码会反复执行，在firefox和chrome下没有感觉，但是在IE下就很明显了。</p>
+<p>我也考虑过用下面的代码实现转址
+&lt;div class=&#8217;bogus-wrapper&#8217;&gt;<notextile><figure class="code">&lt;figcaption&gt;<span />&lt;/figcaption&gt;&lt;div class=&#8221;highlight&#8221;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#8221;gutter&#8221;&gt;&lt;pre class=&#8221;line-numbers&#8221;&gt;<span class="line-number">1</span>
+&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#8217;code&#8217;&gt;&lt;pre&gt;<code class="html"><span class="line"><span class="nt">&lt;meta</span> <span class="na">http-equiv=</span><span class="s">&quot;refresh&quot;</span> <span class="na">content=</span><span class="s">&quot;0; url=http://mydomain2.com&quot;</span><span class="nt">&gt;</span>
+</span></code>&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/div&gt;</figure></notextile>&lt;/div&gt;
+但是，问题是这样跳转后其实还是转到了自己这个网页，只不过换了个地址。这样这段代码会反复执行，在firefox和chrome下没有感觉，但是在IE下就很明显了。</p>
 
 <p>我想到了用javascript来检测网页的地址，然后跳转到目标地址。只需要将将下面的代码放到<code>&lt;head&gt;</code>和<code>&lt;/head&gt;</code>之间，注意把网址替换成自己的。</p>
 
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-</pre></td><td class='code'><pre><code class='html'><span class='line'><span class="nt">&lt;script </span><span class="na">language=</span><span class="s">&quot;javascript&quot;</span> <span class="na">type=</span><span class="s">&quot;text/javascript&quot;</span><span class="nt">&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="k">if</span> <span class="p">(</span><span class="nx">location</span><span class="p">.</span><span class="nx">href</span> <span class="o">==</span> <span class="s2">&quot;http://chen.yanping.me/art/&quot;</span><span class="p">)</span> <span class="p">{</span>
-</span><span class='line'>  <span class="nb">window</span><span class="p">.</span><span class="nx">location</span><span class="p">.</span><span class="nx">replace</span><span class="p">(</span><span class="s2">&quot;http://art.yanping.me/&quot;</span><span class="p">);</span>
-</span><span class='line'><span class="p">}</span>
-</span><span class='line'>
-</span><span class='line'><span class="nt">&lt;/script&gt;</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span /></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+<span class="line-number">7</span>
+</pre></td><td class="code"><pre><code class="html"><span class="line"><span class="nt">&lt;script </span><span class="na">language=</span><span class="s">&quot;javascript&quot;</span> <span class="na">type=</span><span class="s">&quot;text/javascript&quot;</span><span class="nt">&gt;</span>
+</span><span class="line">
+</span><span class="line"><span class="k">if</span> <span class="p">(</span><span class="nx">location</span><span class="p">.</span><span class="nx">href</span> <span class="o">==</span> <span class="s2">&quot;http://chen.yanping.me/art/&quot;</span><span class="p">)</span> <span class="p">{</span>
+</span><span class="line">	<span class="nb">window</span><span class="p">.</span><span class="nx">location</span><span class="p">.</span><span class="nx">replace</span><span class="p">(</span><span class="s2">&quot;http://art.yanping.me/&quot;</span><span class="p">);</span>
+</span><span class="line"><span class="p">}</span>
+</span><span class="line">
+</span><span class="line"><span class="nt">&lt;/script&gt;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
 <p>注意：域名末尾的<code>/</code>一定要有，我之前就因为没发现这点，所以才浪费了很长时间。</p>
+
 ]]></content>
   </entry>
   
@@ -236,94 +220,92 @@
 更多的例子请看<a href="http://yishuo.org/2011/08/matrix-operations/">http://yishuo.org/2011/08/matrix-operations/</a>
 </p>
 
-
 <p>书中描述的很多函数都是在矩阵上的操作。矩阵的处理根植于R语言底层。下表描述了求解线性代数问题中重要的操作符和函数。下表中，A和B是矩阵，x和b是向量，k是标量。</p>
 
 <table class="datalist">
 <caption>矩阵代数的R函数和操作符</caption>
 <tr>
-    <th>操作符或函数</th><th>描述</th>
+	<th>操作符或函数</th><th>描述</th>
 </tr>
 <tr>
-    <td>+ -<code> *</code> / ^</td><td>对应元素相加、相减、相乘、相除、求幂</td>
+	<td>+ -<code> *</code> / ^</td><td>对应元素相加、相减、相乘、相除、求幂</td>
 </tr>
 <tr>
-    <td>A <code>%*%</code> B</td><td>矩阵相乘</td>
+	<td>A <code>%*%</code> B</td><td>矩阵相乘</td>
 </tr>
 <tr>
-    <td>A <code>%o%</code> B</td><td>矩阵的外积。<code>AB'</code></td>
+	<td>A <code>%o%</code> B</td><td>矩阵的外积。<code>AB'</code></td>
 </tr>
 <tr>
-    <td>cbind(A, B, &#8230;)</td><td>横向组合矩阵或向量</td>
+	<td>cbind(A, B, &#8230;)</td><td>横向组合矩阵或向量</td>
 </tr>
 <tr>
-    <td>col(A)</td><td>求A的Choleski因子。如果<code>R <- chol(A)</code>，则<code>chol(A)</code>包含上三角因子，并有<code>R'R=A</code></td>
+	<td>col(A)</td><td>求A的Choleski因子。如果<code>R &lt;- chol(A)</code>，则<code>chol(A)</code>包含上三角因子，并有<code>R'R=A</code></td>
 </tr>
 <tr>
-    <td>colMeans(A)</td><td>返回一个向量，包含A每列的均值</td>
+	<td>colMeans(A)</td><td>返回一个向量，包含A每列的均值</td>
 </tr>
 <tr>
-    <td>crossprod(A)</td><td><code>A'A</code></td>
+	<td>crossprod(A)</td><td><code>A'A</code></td>
 </tr>
 <tr>
-    <td>crossprod(A,B)&nbsp;&nbsp;&nbsp;&nbsp;</td><td><code>A'B</code></td>
+	<td>crossprod(A,B)&nbsp;&nbsp;&nbsp;&nbsp;</td><td><code>A'B</code></td>
 </tr>
 <tr>
-    <td>colSums(A)</td><td>返回一个向量，包含A每列的和</td>
+	<td>colSums(A)</td><td>返回一个向量，包含A每列的和</td>
 </tr>
 <tr>
-    <td>diag(A)</td><td>返回一个向量，包含主对角线元素</td>
+	<td>diag(A)</td><td>返回一个向量，包含主对角线元素</td>
 </tr>
 <tr>
-    <td>diag(x)</td><td>以x为主对角线元素创建对角矩阵</td>
+	<td>diag(x)</td><td>以x为主对角线元素创建对角矩阵</td>
 </tr>
 <tr>
-    <td>diag(k)</td><td>如果k是标量，则创建一个k &times; k的单位矩阵</td>
+	<td>diag(k)</td><td>如果k是标量，则创建一个k &times; k的单位矩阵</td>
 </tr>
 <tr>
-    <td>eigen(A)</td><td>A的特征值和特征向量。如果<code>y <- eigen(A)</code>，则<br />
-    <code>y$val</code>是A的特征值，<code>y$vec</code>是A的特征向量
-    </td>
+	<td>eigen(A)</td><td>A的特征值和特征向量。如果<code>y &lt;- eigen(A)</code>，则<br />
+	<code>y$val</code>是A的特征值，<code>y$vec</code>是A的特征向量
+	</td>
 </tr>
 <tr>
-    <td>ginv(A)</td><td>A的Moore-Penrose广义逆。（需要MASS包）</td>
+	<td>ginv(A)</td><td>A的Moore-Penrose广义逆。（需要MASS包）</td>
 </tr>
 <tr>
-    <td>qr(A)</td><td>A的QR分解。如果<code>y <- qr(A)</code>，则<br />
-    <code>y$qr</code>有一个包含分解值的上三角矩阵和一个包含分解值信息的下三角矩阵，<code>y$rank</code>是A的秩，<code>y$qraux</code>是包含Q其他信息的向量，<code>y$pivot</code>包含旋转策略的信息。
-    </td>
+	<td>qr(A)</td><td>A的QR分解。如果<code>y &lt;- qr(A)</code>，则<br />
+	<code>y$qr</code>有一个包含分解值的上三角矩阵和一个包含分解值信息的下三角矩阵，<code>y$rank</code>是A的秩，<code>y$qraux</code>是包含Q其他信息的向量，<code>y$pivot</code>包含旋转策略的信息。
+	</td>
 </tr>
 <tr>
-    <td>rbind(A, B, &#8230;)</td><td>纵向组合矩阵或向量</td>
+	<td>rbind(A, B, &#8230;)</td><td>纵向组合矩阵或向量</td>
 </tr>
 <tr>
-    <td>rowMeans(A)</td><td>返回一个向量，包含A每行的均值</td>
+	<td>rowMeans(A)</td><td>返回一个向量，包含A每行的均值</td>
 </tr>
 <tr>
-    <td>rowSums(A)</td><td>返回一个向量，包含A每行的和</td>
+	<td>rowSums(A)</td><td>返回一个向量，包含A每行的和</td>
 </tr>
 <tr>
-    <td>solve(A)</td><td>求A的逆，其中A是方阵</td>
+	<td>solve(A)</td><td>求A的逆，其中A是方阵</td>
 </tr>
 <tr>
-    <td>solve(A, b)</td><td>解出方程b=Ax里的向量x</td>
+	<td>solve(A, b)</td><td>解出方程b=Ax里的向量x</td>
 </tr>
+
 <tr>
-    <td>svd(A)</td><td>A的奇异值分解。如果<code>y <- svd(A)<code>，则<br />
-    <code>y$d</code>是包含A的奇异值的向量，矩阵<code>y$u</code>的列向量包含A的左奇异值向量，矩阵<code>y$v</code>的列向量包含A的右奇异值向量。
-    </td>
-</tr>
+	<td>svd(A)</td><td>A的奇异值分解。如果<code>y &lt;- svd(A)</code>，则	<code>y$d</code>是包含A的奇异值的向量，矩阵<code>y$u</code>的列向量包含A的左奇异值向量，矩阵<code>y$v</code>的列向量包含A的右奇异值向量。</td></tr>
+
 <tr>
-    <td>t(A)</td><td>求A的转置</td>
+	<td>t(A)</td><td>求A的转置</td>
 </tr>
 </table>
 
-
 <p>还有一些用户贡献的包专门用于矩阵代数。<em>matlab</em> 包封装了类似MATLAB语言的矩阵操作函数和变量。这些函数可以帮助用户将MATLAB程序移植到R语言代码。<a href="http://mathesaurus.sourceforge.net/octave-r.html">http://mathesaurus.sourceforge.net/octave-r.html</a>上有一份很有用的清单可以帮助你将MATLAB语句转化为R语句。</p>
 
-<p><em>Matrix</em>包提供的函数使R可以处理高密度矩阵或稀疏矩阵。它提供了对BLAS（Basic Linear Algebra Subroutines）、Lapack（dense matrix）、TAUCS（sparse matrix）和UMFPACK（sparse matrix）的高效调用。</p>
+<p>_Matrix_包提供的函数使R可以处理高密度矩阵或稀疏矩阵。它提供了对BLAS（Basic Linear Algebra Subroutines）、Lapack（dense matrix）、TAUCS（sparse matrix）和UMFPACK（sparse matrix）的高效调用。</p>
 
 <p>最后，<em>matrixStats</em> 包提供了对矩阵的行和列的操作方法，例如计数、求和、中心趋势、离差（dispersion）等。每一个函数都进过了优化，使得可以高速高效地运行。</p>
+
 ]]></content>
   </entry>
   
@@ -337,97 +319,94 @@
 R导论的10.8也是讲定制环境的。
 </p>
 
-
 <p>程序员最喜欢做的事之一是定制启动环境，好让程序按照他们喜欢方式工作。定制启动环境可以让你设置R的选项、指定工作目录、加载常用的包、加载用户自己写的函数、设置CRAN下载网址以及其它操作。</p>
 
 <p>你可以通过编辑位置位置初始化文件（Rprofile.site）或者目录初始化文件（.Rprofile）来定制R环境。这两个是纯文本文件，包含启动时要执行的R代码。</p>
 
 <!--more-->
 
-
-<p>在启动的时候，R会从<em>R_HOME</em>/etc这个目录寻找Rprofile.site来调用，其中<em>R_HOME</em>是环境变量。然后R会在当前工作目录寻找.Rprofile文件来调用。如果R没有找到这个文件，就会在用户的主目录寻找。你可以用<code>Sys.getenv("R_HOME")</code>、<code>Sys.getenv("HOME")</code>和<code>getwd()</code>分别查看<em>R_HOME</em>、<em>HOME</em>以及当前工作目录。</p>
+<p>在启动的时候，R会从_R_HOME<em>/etc这个目录寻找Rprofile.site来调用，其中_R_HOME_是环境变量。然后R会在当前工作目录寻找.Rprofile文件来调用。如果R没有找到这个文件，就会在用户的主目录寻找。你可以用<code>Sys.getenv("R_HOME")</code>、<code>Sys.getenv("HOME")</code>和<code>getwd()</code>分别查看_R_HOME</em>、_HOME_以及当前工作目录。</p>
 
 <p>你可以在这些文件里放两个特殊的函数，<code>.First()</code>函数在启动R会话的时候执行，<code>.Last()</code>函数在结束会话的时候执行。Rprofile.site文件的例子如下：</p>
 
-<figure class='code'><figcaption><span>Sample Rprofile.site file   </span></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-<span class='line-number'>21</span>
-<span class='line-number'>22</span>
-<span class='line-number'>23</span>
-<span class='line-number'>24</span>
-<span class='line-number'>25</span>
-<span class='line-number'>26</span>
-<span class='line-number'>27</span>
-<span class='line-number'>28</span>
-<span class='line-number'>29</span>
-<span class='line-number'>30</span>
-<span class='line-number'>31</span>
-<span class='line-number'>32</span>
-</pre></td><td class='code'><pre><code class='r'><span class='line'><span class="c1"># 设置常用选项</span>
-</span><span class='line'>options<span class="p">(</span>papersize<span class="o">=</span><span class="s">&quot;a4&quot;</span><span class="p">)</span>
-</span><span class='line'>options<span class="p">(</span>editor<span class="o">=</span><span class="s">&quot;notepad&quot;</span><span class="p">)</span>
-</span><span class='line'>options<span class="p">(</span>pager<span class="o">=</span><span class="s">&quot;internal&quot;</span><span class="p">)</span>
-</span><span class='line'>options<span class="p">(</span>tab.width <span class="o">=</span> <span class="m">2</span><span class="p">)</span>
-</span><span class='line'>options<span class="p">(</span>width <span class="o">=</span> <span class="m">130</span><span class="p">)</span>
-</span><span class='line'>options<span class="p">(</span>graphics.record<span class="o">=</span><span class="kc">TRUE</span><span class="p">)</span>
-</span><span class='line'>options<span class="p">(</span>show.signif.stars<span class="o">=</span><span class="kc">FALSE</span><span class="p">)</span>
-</span><span class='line'>
-</span><span class='line'><span class="c1"># 设置R交互提示信息</span>
-</span><span class='line'>options<span class="p">(</span>prompt<span class="o">=</span><span class="s">&quot;&gt; &quot;</span><span class="p">)</span>
-</span><span class='line'>options<span class="p">(</span>continue<span class="o">=</span><span class="s">&quot;+ &quot;</span><span class="p">)</span>
-</span><span class='line'>
-</span><span class='line'><span class="m">.</span>libPaths<span class="p">(</span><span class="s">&quot;C:/my_R_library&quot;</span><span class="p">)</span> <span class="c1"># 设置包的本地库（library）路径</span>
-</span><span class='line'>
-</span><span class='line'><span class="c1"># 设置CRAN镜像默认地址</span>
-</span><span class='line'>local<span class="p">({</span>r <span class="o">&lt;-</span> getOption<span class="p">(</span><span class="s">&quot;repos&quot;</span><span class="p">)</span>
-</span><span class='line'>     r<span class="p">[</span><span class="s">&quot;CRAN&quot;</span><span class="p">]</span> <span class="o">&lt;-</span> <span class="s">&quot;http://cran.case.edu/&quot;</span>
-</span><span class='line'>     options<span class="p">(</span>repos<span class="o">=</span>r<span class="p">)})</span>
-</span><span class='line'>
-</span><span class='line'><span class="c1"># 启动函数</span>
-</span><span class='line'><span class="m">.</span>First <span class="o">&lt;-</span> <span class="kr">function</span><span class="p">(){</span>
-</span><span class='line'> library<span class="p">(</span>lattice<span class="p">)</span>
-</span><span class='line'> library<span class="p">(</span>Hmisc<span class="p">)</span>
-</span><span class='line'> source<span class="p">(</span><span class="s">&quot;C:/mydir/myfunctions.R&quot;</span><span class="p">)</span>
-</span><span class='line'> cat<span class="p">(</span><span class="s">&quot;\nWelcome at&quot;</span><span class="p">,</span> date<span class="p">(),</span> <span class="s">&quot;\n&quot;</span><span class="p">)</span>
-</span><span class='line'><span class="p">}</span>
-</span><span class='line'>
-</span><span class='line'><span class="c1"># 会话结束函数</span>
-</span><span class='line'><span class="m">.</span>Last <span class="o">&lt;-</span> <span class="kr">function</span><span class="p">(){</span>
-</span><span class='line'> cat<span class="p">(</span><span class="s">&quot;\nGoodbye at &quot;</span><span class="p">,</span> date<span class="p">(),</span> <span class="s">&quot;\n&quot;</span><span class="p">)</span>
-</span><span class='line'><span class="p">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span>Sample Rprofile.site file   </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+<span class="line-number">7</span>
+<span class="line-number">8</span>
+<span class="line-number">9</span>
+<span class="line-number">10</span>
+<span class="line-number">11</span>
+<span class="line-number">12</span>
+<span class="line-number">13</span>
+<span class="line-number">14</span>
+<span class="line-number">15</span>
+<span class="line-number">16</span>
+<span class="line-number">17</span>
+<span class="line-number">18</span>
+<span class="line-number">19</span>
+<span class="line-number">20</span>
+<span class="line-number">21</span>
+<span class="line-number">22</span>
+<span class="line-number">23</span>
+<span class="line-number">24</span>
+<span class="line-number">25</span>
+<span class="line-number">26</span>
+<span class="line-number">27</span>
+<span class="line-number">28</span>
+<span class="line-number">29</span>
+<span class="line-number">30</span>
+<span class="line-number">31</span>
+<span class="line-number">32</span>
+</pre></td><td class="code"><pre><code class="r"><span class="line"><span class="c1"># 设置常用选项</span>
+</span><span class="line">options<span class="p">(</span>papersize<span class="o">=</span><span class="s">&quot;a4&quot;</span><span class="p">)</span>
+</span><span class="line">options<span class="p">(</span>editor<span class="o">=</span><span class="s">&quot;notepad&quot;</span><span class="p">)</span>
+</span><span class="line">options<span class="p">(</span>pager<span class="o">=</span><span class="s">&quot;internal&quot;</span><span class="p">)</span>
+</span><span class="line">options<span class="p">(</span>tab.width <span class="o">=</span> <span class="m">2</span><span class="p">)</span>
+</span><span class="line">options<span class="p">(</span>width <span class="o">=</span> <span class="m">130</span><span class="p">)</span>
+</span><span class="line">options<span class="p">(</span>graphics.record<span class="o">=</span><span class="kc">TRUE</span><span class="p">)</span>
+</span><span class="line">options<span class="p">(</span>show.signif.stars<span class="o">=</span><span class="kc">FALSE</span><span class="p">)</span>
+</span><span class="line">
+</span><span class="line"><span class="c1"># 设置R交互提示信息</span>
+</span><span class="line">options<span class="p">(</span>prompt<span class="o">=</span><span class="s">&quot;&gt; &quot;</span><span class="p">)</span>
+</span><span class="line">options<span class="p">(</span>continue<span class="o">=</span><span class="s">&quot;+ &quot;</span><span class="p">)</span>
+</span><span class="line">
+</span><span class="line"><span class="m">.</span>libPaths<span class="p">(</span><span class="s">&quot;C:/my_R_library&quot;</span><span class="p">)</span> <span class="c1"># 设置包的本地库（library）路径</span>
+</span><span class="line">
+</span><span class="line"><span class="c1"># 设置CRAN镜像默认地址</span>
+</span><span class="line">local<span class="p">({</span>r <span class="o">&lt;-</span> getOption<span class="p">(</span><span class="s">&quot;repos&quot;</span><span class="p">)</span>
+</span><span class="line">     r<span class="p">[</span><span class="s">&quot;CRAN&quot;</span><span class="p">]</span> <span class="o">&lt;-</span> <span class="s">&quot;http://cran.case.edu/&quot;</span>
+</span><span class="line">     options<span class="p">(</span>repos<span class="o">=</span>r<span class="p">)})</span>
+</span><span class="line">
+</span><span class="line"><span class="c1"># 启动函数</span>
+</span><span class="line"><span class="m">.</span>First <span class="o">&lt;-</span> <span class="kr">function</span><span class="p">(){</span>
+</span><span class="line"> library<span class="p">(</span>lattice<span class="p">)</span>
+</span><span class="line"> library<span class="p">(</span>Hmisc<span class="p">)</span>
+</span><span class="line"> source<span class="p">(</span><span class="s">&quot;C:/mydir/myfunctions.R&quot;</span><span class="p">)</span>
+</span><span class="line"> cat<span class="p">(</span><span class="s">&quot;\nWelcome at&quot;</span><span class="p">,</span> date<span class="p">(),</span> <span class="s">&quot;\n&quot;</span><span class="p">)</span>
+</span><span class="line"><span class="p">}</span>
+</span><span class="line">
+</span><span class="line"><span class="c1"># 会话结束函数</span>
+</span><span class="line"><span class="m">.</span>Last <span class="o">&lt;-</span> <span class="kr">function</span><span class="p">(){</span>
+</span><span class="line"> cat<span class="p">(</span><span class="s">&quot;\nGoodbye at &quot;</span><span class="p">,</span> date<span class="p">(),</span> <span class="s">&quot;\n&quot;</span><span class="p">)</span>
+</span><span class="line"><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
 
 <p>关于这个文件，你需要注意以下几点：</p>
 
 <ul>
-<li>设置.libPaths值允许你在R的安装目录之外创建包的本地库。这再升级时很有用，可以保留之前安装的包。</li>
-<li>设置CRAN镜像网站可以让你在使用<code>install.packages()</code>命令时不用每次都选择。</li>
-<li><code>.First()</code>函数是一个很好的地方，来加载你常用的包，运行常用的用户编写的函数。</li>
-<li><code>.Last()</code>函数一个很好的地方做清理活动，包括保存命令历史、程序输出和数据文件。</li>
+  <li>设置.libPaths值允许你在R的安装目录之外创建包的本地库。这再升级时很有用，可以保留之前安装的包。</li>
+  <li>设置CRAN镜像网站可以让你在使用<code>install.packages()</code>命令时不用每次都选择。</li>
+  <li><code>.First()</code>函数是一个很好的地方，来加载你常用的包，运行常用的用户编写的函数。</li>
+  <li><code>.Last()</code>函数一个很好的地方做清理活动，包括保存命令历史、程序输出和数据文件。</li>
 </ul>
 
-
 <p>还有其他定制启动环境的方式，包括使用命令行选项和环境变量。查看<code>help(Startup)</code>以及R导论的附录B（<a href="http://cran.r-project.org/doc/manuals/R-intro.pdf">http://cran.r-project.org/doc/manuals/R-intro.pdf</a>，中文版地址<a href="http://cran.r-project.org/doc/contrib/Ding-R-intro_cn.pdf">http://cran.r-project.org/doc/contrib/Ding-R-intro_cn.pdf</a>）获取更多细节。</p>
+
 ]]></content>
   </entry>
   
@@ -437,10 +416,9 @@ R导论的10.8也是讲定制环境的。
     <updated>2012-01-07T21:16:00+08:00</updated>
     <id>http://chen.yanping.me/cn/blog/2012/01/07/theming-and-customization</id>
     <content type="html"><![CDATA[<p class="info">
-本文翻译自Octopress的帮助文档<a href="http://octopress.org/docs/theme" target="_blank">Theming & Customization</a>。
+本文翻译自Octopress的帮助文档<a href="http://octopress.org/docs/theme" target="_blank">Theming &amp; Customization</a>。
 本人水平有限，不当之处请指正，欢迎留言给出修改意见。
 </p>
-
 
 <p>Octopress在 <code>.themes</code> 目录提供了一个默认主题。当你安装Octopress时，HTML和Javascripts被复制到 <code>/source</code>，Sass样式表被复制到 <code>/sass</code>。
 你可以随意修改上述文件，不过我还是设计了一些模式，来让自定制变得更简单，更新Octopress更方便。</p>
@@ -448,198 +426,173 @@ R导论的10.8也是讲定制环境的。
 <p>本文分成两部分：</p>
 
 <ol>
-<li><a href="http://chen.yanping.me/cn/blog/2012/01/07/theming-and-customization/#theme">自定义模板</a> - <em>学习如何修改HEAD，sidebar，header，navigation 以及footer</em></li>
-<li><a href="http://chen.yanping.me/cn/blog/2012/01/07/theming-and-customization/#styles">修改样式</a> - <em>学习如何修改颜色和布局，控制样式</em></li>
+  <li><a href="http://chen.yanping.me/cn/blog/2012/01/07/theming-and-customization/#theme">自定义模板</a> - <em>学习如何修改HEAD，sidebar，header，navigation 以及footer</em></li>
+  <li><a href="http://chen.yanping.me/cn/blog/2012/01/07/theming-and-customization/#styles">修改样式</a> - <em>学习如何修改颜色和布局，控制样式</em></li>
 </ol>
-
 
 <!--more-->
 
-
-
-
 <h2 id="theme" style="font-size:32px;color:red;">1. 主题</h2>
 
-
-<p>不久前发布的 Octopress 2.0版增加了 <code>source/_includes/custom</code>目录。 如果你没有这个目录， 建议 <a href="http://octopress.org/docs/updating">升级</a> Octopress，因为它真的很棒。</p>
-
-<pre><code>source/
-  _includes/    # Main layout partials
-    custom/     # &lt;- Customize head, header, navigation, footer, and sidebar here
-    asides/     # Theme sidebar partials
-    post/       # post metadata, sharing &amp; comment partials
-  _layouts/     # layouts for pages, posts &amp; category archives
-</code></pre>
+<p>不久前发布的 Octopress 2.0版增加了 <code>source/_includes/custom</code>目录。 如果你没有这个目录， 建议 <a href="http://octopress.org/docs/updating">升级</a> Octopress，因为它真的很棒。
+    source/
+      _includes/    # Main layout partials
+        custom/     # &lt;- Customize head, header, navigation, footer, and sidebar here
+        asides/     # Theme sidebar partials
+        post/       # post metadata, sharing &amp; comment partials
+      _layouts/     # layouts for pages, posts &amp; category archives</p>
 
 <h2 id="landing_page">登录页 vs. 博客主页</h2>
-
 
 <p>Octopress默认地把博客主页生成在网站的根目录下。
 如果你想把你的博客主页发布在别的位置，比如 <code>blog/index.html</code>，那么请在终端里进行下面的操作：</p>
 
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class='sh'><span class='line'>mv <span class="nb">source</span>/index.html <span class="nb">source</span>/blog/index.html
-</span><span class='line'>rake new_page<span class="o">[</span>index.html<span class="o">]</span>
-</span></code></pre></td></tr></table></div></figure>
-
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span /></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+</pre></td><td class="code"><pre><code class="sh"><span class="line">mv <span class="nb">source</span>/index.html <span class="nb">source</span>/blog/index.html
+</span><span class="line">rake new_page<span class="o">[</span>index.html<span class="o">]</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
 
 <p>当你 <a href="http://octopress.org/docs/updating">更新Octopress</a>，下一步你要更新<code>Rakefile</code> ，以保证博客主页不被修改。</p>
 
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">blog_index_dir</span> <span class="o">=</span> <span class="s1">&#39;source/blog&#39;</span>
-</span></code></pre></td></tr></table></div></figure>
-
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span /></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+</pre></td><td class="code"><pre><code class="ruby"><span class="line"><span class="n">blog_index_dir</span> <span class="o">=</span> <span class="s1">&#39;source/blog&#39;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
 
 <p>记住修改网站的导航栏（navigation），因为现在博客链接指向<code>/</code>。跳到下面<a href="#changing_navigation">修改navigation</a>这节，添加“主页”链接，更新“博客”链接指向<code>/blog/</code>。</p>
 
-<p>最后，<code>source/index.html</code> 可以成为你网站的登录页（landing page）。</p>
-
-<h2>修改 &lt;HEAD&gt;</h2>
+<p>最后，<code>source/index.html</code> 可以成为你网站的登录页（landing page）。
+## 修改 &lt;HEAD&gt;</p>
 
 <p>如果你想修改<code>&lt;HEAD&gt;</code>，请看一下 <code>/source/_includes/custom/head.html</code>。</p>
 
-<figure class='code'><figcaption><span>&lt;HEAD&gt; (source/_includes/custom/head.html) </span></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class='html'><span class='line'><span class="c">&lt;!--Fonts from Google&quot;s Web font directory at http://google.com/webfonts --&gt;</span>
-</span><span class='line'><span class="nt">&lt;link</span> <span class="na">href=</span><span class="s">&quot;http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic&quot;</span> <span class="na">rel=</span><span class="s">&quot;stylesheet&quot;</span> <span class="na">type=</span><span class="s">&quot;text/css&quot;</span><span class="nt">&gt;</span>
-</span><span class='line'><span class="nt">&lt;link</span> <span class="na">href=</span><span class="s">&quot;http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic&quot;</span> <span class="na">rel=</span><span class="s">&quot;stylesheet&quot;</span> <span class="na">type=</span><span class="s">&quot;text/css&quot;</span><span class="nt">&gt;</span>
-</span></code></pre></td></tr></table></div></figure>
-
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span>&lt;HEAD&gt; (source/_includes/custom/head.html) </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+</pre></td><td class="code"><pre><code class="html"><span class="line"><span class="c">&lt;!--Fonts from Google&quot;s Web font directory at http://google.com/webfonts --&gt;</span>
+</span><span class="line"><span class="nt">&lt;link</span> <span class="na">href=</span><span class="s">&quot;http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic&quot;</span> <span class="na">rel=</span><span class="s">&quot;stylesheet&quot;</span> <span class="na">type=</span><span class="s">&quot;text/css&quot;</span><span class="nt">&gt;</span>
+</span><span class="line"><span class="nt">&lt;link</span> <span class="na">href=</span><span class="s">&quot;http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic&quot;</span> <span class="na">rel=</span><span class="s">&quot;stylesheet&quot;</span> <span class="na">type=</span><span class="s">&quot;text/css&quot;</span><span class="nt">&gt;</span>
+</span><span class="line">
+</span><span class="line">{% include custom/mathjax.html %}
+</span></code></pre></td></tr></table></div></figure></notextile></div>
 
 <p>在这里你可以轻易地修改或移除<a href="http://google.com/webfonts">Google Webfonts</a>，插入javascripts等等。</p>
 
-<h3>修改侧边栏</h3>
-
+<h3 id="section">修改侧边栏</h3>
 <p>Octopress整合了一些<a href="http://www.octopress.org/docs/configuring/#third_party">第三方服务</a>，诸如出现在侧边栏的Twitter，Pinboard和Delicious。
 在<code>_config.yml</code>你可以重新安排它们的位置，为每种layout创建自定制的侧边栏，添加你自己的侧边栏section。</p>
 
-<figure class='code'><figcaption><span>Sidebar configuration (_config.yml) </span></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-</pre></td><td class='code'><pre><code class='yaml'><span class='line'><span class="l-Scalar-Plain">default_asides</span><span class="p-Indicator">:</span>   <span class="p-Indicator">[</span><span class="nv">asides/recent_posts.html</span><span class="p-Indicator">,</span> <span class="nv">asides/twitter.html</span><span class="p-Indicator">,</span> <span class="nv">asides/delicious.html</span><span class="p-Indicator">,</span> <span class="nv">asides/pinboard.html</span><span class="p-Indicator">]</span>
-</span><span class='line'><span class="c1"># blog_index_asides:</span>
-</span><span class='line'><span class="c1"># post_asides:</span>
-</span><span class='line'><span class="c1"># page_asides:</span>
-</span></code></pre></td></tr></table></div></figure>
-
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span>Sidebar configuration (_config.yml) </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+</pre></td><td class="code"><pre><code class="yaml"><span class="line"><span class="l-Scalar-Plain">default_asides</span><span class="p-Indicator">:</span>   <span class="p-Indicator">[</span><span class="nv">asides/recent_posts.html</span><span class="p-Indicator">,</span> <span class="nv">asides/twitter.html</span><span class="p-Indicator">,</span> <span class="nv">asides/delicious.html</span><span class="p-Indicator">,</span> <span class="nv">asides/pinboard.html</span><span class="p-Indicator">]</span>
+</span><span class="line"><span class="c1"># blog_index_asides:</span>
+</span><span class="line"><span class="c1"># post_asides:</span>
+</span><span class="line"><span class="c1"># page_asides:</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
 
 <p>如果你想在侧边栏添加新的section，就在 <code>source/_includes/custom/asides/</code>中创建新的文件。
 许多都会想在侧边栏加一个“关于我”的section，上面提到的这个目录下已经有个<code>about.html</code> 文件以供修改。内容如下：</p>
 
-<figure class='code'><figcaption><span>About Me (source/_includes/custom/asides/about.html) </span></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-</pre></td><td class='code'><pre><code class='html'><span class='line'><span class="nt">&lt;section&gt;</span>
-</span><span class='line'>  <span class="nt">&lt;h1&gt;</span>About Me<span class="nt">&lt;/h1&gt;</span>
-</span><span class='line'>  <span class="nt">&lt;p&gt;</span>A little something about me.<span class="nt">&lt;/p&gt;</span>
-</span><span class='line'><span class="nt">&lt;/section&gt;</span>
-</span></code></pre></td></tr></table></div></figure>
-
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span>About Me (source/_includes/custom/asides/about.html) </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+</pre></td><td class="code"><pre><code class="html"><span class="line"><span class="nt">&lt;section&gt;</span>
+</span><span class="line">  <span class="nt">&lt;h1&gt;</span>About Me<span class="nt">&lt;/h1&gt;</span>
+</span><span class="line">  <span class="nt">&lt;p&gt;</span>A little something about me.<span class="nt">&lt;/p&gt;</span>
+</span><span class="line"><span class="nt">&lt;/section&gt;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
 
 <p>如果你要添加section到侧边栏, 必须遵循这样的模式，要有一个<code>&lt;section&gt;</code> 代码块，并以<code>&lt;h1&gt;</code>为标题。如果想把这个section加到侧边栏里，就要编辑 <code>_config.yml</code> 把它加到asides列表里。</p>
 
-<figure class='code'><figcaption><span>Sidebar configuration (_config.yml) </span></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-</pre></td><td class='code'><pre><code class='yaml'><span class='line'><span class="l-Scalar-Plain">default_asides</span><span class="p-Indicator">:</span>     <span class="p-Indicator">[</span><span class="nv">asides/recent_posts.html</span><span class="p-Indicator">,</span> <span class="nv">asides/twitter.html</span><span class="p-Indicator">,</span> <span class="nv">asides/delicious.html</span><span class="p-Indicator">,</span> <span class="nv">asides/pinboard.html</span><span class="p-Indicator">]</span>
-</span><span class='line'><span class="l-Scalar-Plain">blog_index_asides</span><span class="p-Indicator">:</span>  <span class="p-Indicator">[</span><span class="nv">custom/asides/about.html</span><span class="p-Indicator">,</span> <span class="nv">asides/recent_posts.html</span><span class="p-Indicator">,</span> <span class="nv">asides/twitter.html</span><span class="p-Indicator">,</span> <span class="nv">asides/delicious.html</span><span class="p-Indicator">,</span> <span class="nv">asides/pinboard.html</span><span class="p-Indicator">]</span>
-</span><span class='line'><span class="l-Scalar-Plain">post_asides</span><span class="p-Indicator">:</span>        <span class="p-Indicator">[</span><span class="nv">custom/asides/about.html</span><span class="p-Indicator">,</span> <span class="nv">asides/recent_posts.html</span><span class="p-Indicator">,</span> <span class="nv">asides/twitter.html</span><span class="p-Indicator">,</span> <span class="nv">asides/delicious.html</span><span class="p-Indicator">,</span> <span class="nv">asides/pinboard.html</span><span class="p-Indicator">]</span>
-</span><span class='line'><span class="c1"># page_asides:</span>
-</span></code></pre></td></tr></table></div></figure>
-
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span>Sidebar configuration (_config.yml) </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+</pre></td><td class="code"><pre><code class="yaml"><span class="line"><span class="l-Scalar-Plain">default_asides</span><span class="p-Indicator">:</span>     <span class="p-Indicator">[</span><span class="nv">asides/recent_posts.html</span><span class="p-Indicator">,</span> <span class="nv">asides/twitter.html</span><span class="p-Indicator">,</span> <span class="nv">asides/delicious.html</span><span class="p-Indicator">,</span> <span class="nv">asides/pinboard.html</span><span class="p-Indicator">]</span>
+</span><span class="line"><span class="l-Scalar-Plain">blog_index_asides</span><span class="p-Indicator">:</span>  <span class="p-Indicator">[</span><span class="nv">custom/asides/about.html</span><span class="p-Indicator">,</span> <span class="nv">asides/recent_posts.html</span><span class="p-Indicator">,</span> <span class="nv">asides/twitter.html</span><span class="p-Indicator">,</span> <span class="nv">asides/delicious.html</span><span class="p-Indicator">,</span> <span class="nv">asides/pinboard.html</span><span class="p-Indicator">]</span>
+</span><span class="line"><span class="l-Scalar-Plain">post_asides</span><span class="p-Indicator">:</span>        <span class="p-Indicator">[</span><span class="nv">custom/asides/about.html</span><span class="p-Indicator">,</span> <span class="nv">asides/recent_posts.html</span><span class="p-Indicator">,</span> <span class="nv">asides/twitter.html</span><span class="p-Indicator">,</span> <span class="nv">asides/delicious.html</span><span class="p-Indicator">,</span> <span class="nv">asides/pinboard.html</span><span class="p-Indicator">]</span>
+</span><span class="line"><span class="c1"># page_asides:</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
 
 <p>在上面的配置文件中，我向博客主页和文章页面添加了about页。 由于<code>page_asides</code> 没有被设置, 它会从默认列表（default_asides）中继承内容。</p>
 
-<h2>修改Header, Navigation和Footer</h2>
+<h2 id="header-navigationfooter">修改Header, Navigation和Footer</h2>
 
 <p>网站的这几个部分是经常被自定制的。你可以编辑 <code>/source/_includes/custom/</code>里的每个文件，即使更新Octopress,你的修改还会保留。</p>
 
-<h3>修改Header</h3>
+<h3 id="header">修改Header</h3>
 
 <p>header的标题和子标题必须在 <code>_config.yml</code>中设置。如果你想对header做其他设置，就要编辑<code>/source/_includes/custom/header.html</code>：</p>
 
-<figure class='code'><figcaption><span>Header (source/_includes/custom/header.html) </span></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-</pre></td><td class='code'><pre><code class='html'><span class='line'><span class="nt">&lt;hgroup&gt;</span>
-</span><span class='line'>  <span class="nt">&lt;h1&gt;&lt;a</span> <span class="na">href=</span><span class="s">&quot;{{ root_url }}/&quot;</span><span class="nt">&gt;</span>{{ site.title }}<span class="nt">&lt;/a&gt;&lt;/h1&gt;</span>
-</span><span class='line'>  {% if site.subtitle %}
-</span><span class='line'>    <span class="nt">&lt;h2&gt;</span>{{ site.subtitle }}<span class="nt">&lt;/h2&gt;</span>
-</span><span class='line'>  {% endif %}
-</span><span class='line'><span class="nt">&lt;/hgroup&gt;</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span>Header (source/_includes/custom/header.html) </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+</pre></td><td class="code"><pre><code class="html"><span class="line"><span class="nt">&lt;hgroup&gt;</span>
+</span><span class="line">  <span class="nt">&lt;h1&gt;&lt;a</span> <span class="na">href=</span><span class="s">&quot;{{ root_url }}/&quot;</span><span class="nt">&gt;</span>{{ site.title }}<span class="nt">&lt;/a&gt;&lt;/h1&gt;</span>
+</span><span class="line">  {% if site.subtitle %}
+</span><span class="line">    <span class="nt">&lt;h2&gt;</span>{{ site.subtitle }}<span class="nt">&lt;/h2&gt;</span>
+</span><span class="line">  {% endif %}
+</span><span class="line"><span class="nt">&lt;/hgroup&gt;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
 
 <h3 id="changing_navigation">修改Navigation</h3>
 
-
 <p>编辑<code>/source/_includes/custom/navigation.html</code>来修改或添加链接到主导航栏，代码如下：</p>
 
-<figure class='code'><figcaption><span>Navigation (source/_includes/custom/navigation.html) </span></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-</pre></td><td class='code'><pre><code class='html'><span class='line'><span class="nt">&lt;ul</span> <span class="na">class=</span><span class="s">&quot;main-navigation&quot;</span><span class="nt">&gt;</span>
-</span><span class='line'>  <span class="nt">&lt;li&gt;&lt;a</span> <span class="na">href=</span><span class="s">&quot;{{ root_url }}/&quot;</span><span class="nt">&gt;</span>博 客<span class="nt">&lt;/a&gt;&lt;/li&gt;</span>
-</span><span class='line'>  <span class="nt">&lt;li&gt;&lt;a</span> <span class="na">href=</span><span class="s">&quot;{{ root_url }}/blog/archives&quot;</span><span class="nt">&gt;</span>归 档<span class="nt">&lt;/a&gt;&lt;/li&gt;</span>
-</span><span class='line'>  <span class="nt">&lt;li&gt;&lt;a</span> <span class="na">href=</span><span class="s">&quot;{{ root_url }}/blog/categories&quot;</span><span class="nt">&gt;</span>分 类<span class="nt">&lt;/a&gt;&lt;/li&gt;</span>
-</span><span class='line'>  <span class="nt">&lt;li&gt;&lt;a</span> <span class="na">href=</span><span class="s">&quot;{{ root_url }}/blog/about&quot;</span><span class="nt">&gt;</span>关 于<span class="nt">&lt;/a&gt;&lt;/li&gt;</span>
-</span><span class='line'><span class="nt">&lt;/ul&gt;</span>
-</span></code></pre></td></tr></table></div></figure>
-
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span>Navigation (source/_includes/custom/navigation.html) </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+</pre></td><td class="code"><pre><code class="html"><span class="line"><span class="nt">&lt;ul</span> <span class="na">class=</span><span class="s">&quot;main-navigation&quot;</span><span class="nt">&gt;</span>
+</span><span class="line">  <span class="nt">&lt;li&gt;&lt;a</span> <span class="na">href=</span><span class="s">&quot;{{ root_url }}/&quot;</span><span class="nt">&gt;</span>博 客<span class="nt">&lt;/a&gt;&lt;/li&gt;</span>
+</span><span class="line">  <span class="nt">&lt;li&gt;&lt;a</span> <span class="na">href=</span><span class="s">&quot;{{ root_url }}/blog/archives&quot;</span><span class="nt">&gt;</span>归 档<span class="nt">&lt;/a&gt;&lt;/li&gt;</span>
+</span><span class="line">  <span class="nt">&lt;li&gt;&lt;a</span> <span class="na">href=</span><span class="s">&quot;{{ root_url }}/blog/categories&quot;</span><span class="nt">&gt;</span>分 类<span class="nt">&lt;/a&gt;&lt;/li&gt;</span>
+</span><span class="line">  <span class="nt">&lt;li&gt;&lt;a</span> <span class="na">href=</span><span class="s">&quot;{{ root_url }}/blog/about&quot;</span><span class="nt">&gt;</span>关 于<span class="nt">&lt;/a&gt;&lt;/li&gt;</span>
+</span><span class="line"><span class="nt">&lt;/ul&gt;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
 
 <p>每个链接的<code>href</code>都以 <code>{{ root_url }}</code>开始 (如果网站部署到子目录里，这可以帮助Octopress采用不同的链接).
 如果你想把你的网站部署到像 <code>yoursite.com/octopress</code> 这样的子目录，你必须把它加到你添加的任何链接里。</p>
 
-<h3>修改Footer</h3>
+<h3 id="footer">修改Footer</h3>
 
 <p>你可以在<code>source/_includes/custom/footer.html</code>中修改footer，像这样：</p>
 
-<figure class='code'><figcaption><span>Footer (source/_includes/custom/footer.html) </span></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-</pre></td><td class='code'><pre><code class='html'><span class='line'><span class="nt">&lt;p&gt;</span>
-</span><span class='line'>  Copyright <span class="ni">&amp;copy;</span> {{ site.time | date: &quot;%Y&quot; }} - {{ site.author }} -
-</span><span class='line'>  <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;credit&quot;</span><span class="nt">&gt;</span>Powered by <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">&quot;http://octopress.org&quot;</span><span class="nt">&gt;</span>Octopress<span class="nt">&lt;/a&gt;&lt;/span&gt;</span>
-</span><span class='line'><span class="nt">&lt;/p&gt;</span>
-</span></code></pre></td></tr></table></div></figure>
-
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span>Footer (source/_includes/custom/footer.html) </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+</pre></td><td class="code"><pre><code class="html"><span class="line"><span class="nt">&lt;p&gt;</span>
+</span><span class="line">  Copyright <span class="ni">&amp;copy;</span> {{ site.time | date: &quot;%Y&quot; }} - {{ site.author }} -
+</span><span class="line">  <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;credit&quot;</span><span class="nt">&gt;</span>Powered by <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">&quot;http://octopress.org&quot;</span><span class="nt">&gt;</span>Octopress<span class="nt">&lt;/a&gt;&lt;/span&gt;</span>
+</span><span class="line"><span class="nt">&lt;/p&gt;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
 
 <p>你可以做任意修改，只要够酷并保留Octopress的链接就可以。</p>
 
 <h2 id="styles" style="font-size:32px;color:red;">2. 样式</h2>
 
-
-
-
 <h2 id="overriding_styles">控制样式</h2>
-
-
 <p>如果想添加或控制样式，编辑<code>sass/custom/_styles.scss</code>。样式表最后才引入， so you can override styles with the cascade.</p>
 
 <h2 id="customizing_styles">修改配色</h2>
-
-
 <p>请查看<a href="http://hslpicker.com">HSL Color Picker</a>，它可以帮助你选择颜色，是一种易用的基于网页的选色工具。</p>
 
 <pre><code># In /sass/base/
@@ -653,48 +606,44 @@ _styles.scss     # Easly Override any style (last in the cascade)
 <p>Octopress的所有颜色都是以Sass变量的形式在 <code>/sass/base/_theme.scss</code>文件中定义。
 想自定制你的配色，就要编辑<code>sass/custom/_colors.scss</code> 并在<code>sass/base/_theme.scss</code>中控制颜色。</p>
 
-<p>Octopress官方网站用的是默认的&#8217;classic&#8217;主题，颜色在自定制颜色文件中稍微做了调整。仔细看这个文件，你会看到sass代码的某些行被取消注释。</p>
+<p>Octopress官方网站用的是默认的’classic’主题，颜色在自定制颜色文件中稍微做了调整。仔细看这个文件，你会看到sass代码的某些行被取消注释。</p>
 
-<figure class='code'><figcaption><span>Custom Colors (sass/custom/_colors.scss)</span><a href='https://github.com/imathis/octopress/tree/master/.themes/classic/sass/custom/_colors.scss'>View on Github </a></figcaption> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-</pre></td><td class='code'><pre><code class='scss'><span class='line'><span class="na">$header-bg</span><span class="o">:</span> <span class="mh">#263347</span><span class="p">;</span>
-</span><span class='line'><span class="na">$subtitle-color</span><span class="o">:</span> <span class="nf">lighten</span><span class="p">(</span><span class="nv">$header-bg</span><span class="o">,</span> <span class="mi">58</span><span class="p">);</span>
-</span><span class='line'><span class="na">$nav-bg</span><span class="o">:</span> <span class="nf">desaturate</span><span class="p">(</span><span class="nf">lighten</span><span class="p">(</span><span class="mh">#8fc17a</span><span class="o">,</span> <span class="mi">18</span><span class="p">)</span><span class="o">,</span> <span class="mi">5</span><span class="p">);</span>
-</span><span class='line'><span class="na">$sidebar-bg</span><span class="o">:</span> <span class="nf">desaturate</span><span class="p">(</span><span class="mh">#eceff5</span><span class="o">,</span> <span class="mi">8</span><span class="p">);</span>
-</span><span class='line'><span class="na">$sidebar-link-color</span><span class="o">:</span> <span class="nf">saturate</span><span class="p">(</span><span class="mh">#526f9a</span><span class="o">,</span> <span class="mi">10</span><span class="p">);</span>
-</span><span class='line'><span class="na">$sidebar-link-color-hover</span><span class="o">:</span> <span class="nf">darken</span><span class="p">(</span><span class="mh">#7ab662</span><span class="o">,</span> <span class="mi">9</span><span class="p">);</span>
-</span></code></pre></td></tr></table></div></figure>
-
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span>Custom Colors (sass/custom/_colors.scss)</span><a href="https://github.com/imathis/octopress/tree/master/.themes/classic/sass/custom/_colors.scss">View on Github </a></figcaption> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+</pre></td><td class="code"><pre><code class="scss"><span class="line"><span class="na">$header-bg</span><span class="o">:</span> <span class="mh">#263347</span><span class="p">;</span>
+</span><span class="line"><span class="na">$subtitle-color</span><span class="o">:</span> <span class="nf">lighten</span><span class="p">(</span><span class="nv">$header-bg</span><span class="o">,</span> <span class="mi">58</span><span class="p">);</span>
+</span><span class="line"><span class="na">$nav-bg</span><span class="o">:</span> <span class="nf">desaturate</span><span class="p">(</span><span class="nf">lighten</span><span class="p">(</span><span class="mh">#8fc17a</span><span class="o">,</span> <span class="mi">18</span><span class="p">)</span><span class="o">,</span> <span class="mi">5</span><span class="p">);</span>
+</span><span class="line"><span class="na">$sidebar-bg</span><span class="o">:</span> <span class="nf">desaturate</span><span class="p">(</span><span class="mh">#eceff5</span><span class="o">,</span> <span class="mi">8</span><span class="p">);</span>
+</span><span class="line"><span class="na">$sidebar-link-color</span><span class="o">:</span> <span class="nf">saturate</span><span class="p">(</span><span class="mh">#526f9a</span><span class="o">,</span> <span class="mi">10</span><span class="p">);</span>
+</span><span class="line"><span class="na">$sidebar-link-color-hover</span><span class="o">:</span> <span class="nf">darken</span><span class="p">(</span><span class="mh">#7ab662</span><span class="o">,</span> <span class="mi">9</span><span class="p">);</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
 
 <p>自定制颜色文件有几项被取消注释的颜色可以用。主题文件被分成几个部分以使文件更容易阅读。请看<code>sass/base/_theme.scss</code>中关于navigation的部分。</p>
 
-<figure class='code'><figcaption><span>Navigation (sass/base/_theme.scss)</span><a href='https://github.com/imathis/octopress/tree/master/.themes/classic/sass/base/_theme.scss'>View on Github </a></figcaption> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-</pre></td><td class='code'><pre><code class='scss'><span class='line'><span class="cm">/* Navigation */</span>
-</span><span class='line'><span class="na">$nav-bg</span><span class="o">:</span> <span class="mh">#ccc</span> <span class="nv">!default</span><span class="p">;</span>
-</span><span class='line'><span class="na">$nav-color</span><span class="o">:</span> <span class="nf">darken</span><span class="p">(</span><span class="nv">$nav-bg</span><span class="o">,</span> <span class="mi">38</span><span class="p">)</span> <span class="nv">!default</span><span class="p">;</span>
-</span><span class='line'><span class="na">$nav-color-hover</span><span class="o">:</span> <span class="nf">darken</span><span class="p">(</span><span class="nv">$nav-color</span><span class="o">,</span> <span class="mi">25</span><span class="p">)</span> <span class="nv">!default</span><span class="p">;</span>
-</span><span class='line'><span class="nc">...</span>
-</span></code></pre></td></tr></table></div></figure>
-
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span>Navigation (sass/base/_theme.scss)</span><a href="https://github.com/imathis/octopress/tree/master/.themes/classic/sass/base/_theme.scss">View on Github </a></figcaption> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+</pre></td><td class="code"><pre><code class="scss"><span class="line"><span class="cm">/* Navigation */</span>
+</span><span class="line"><span class="na">$nav-bg</span><span class="o">:</span> <span class="mh">#ccc</span> <span class="nv">!default</span><span class="p">;</span>
+</span><span class="line"><span class="na">$nav-color</span><span class="o">:</span> <span class="nf">darken</span><span class="p">(</span><span class="nv">$nav-bg</span><span class="o">,</span> <span class="mi">38</span><span class="p">)</span> <span class="nv">!default</span><span class="p">;</span>
+</span><span class="line"><span class="na">$nav-color-hover</span><span class="o">:</span> <span class="nf">darken</span><span class="p">(</span><span class="nv">$nav-color</span><span class="o">,</span> <span class="mi">25</span><span class="p">)</span> <span class="nv">!default</span><span class="p">;</span>
+</span><span class="line"><span class="nc">...</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
 
 <p>The <code>!default</code> rule lets the variable be overridden if it is defined beforehand.
 is imported before the <code>_theme.scss</code> it can predefine these colors easily. There are comments to help out with this in the
 <a href="https://github.com/imathis/octopress/tree/master/.themes/classic/sass/custom/_colors.scss">source</a>.</p>
 
-<p>主题里的许多颜色是用 <a href="http://sass-lang.com/docs/yardoc/Sass/Script/Functions.html">Sass&#8217;s color functions</a>来设置的。
+<p>主题里的许多颜色是用 <a href="http://sass-lang.com/docs/yardoc/Sass/Script/Functions.html">Sass’s color functions</a>来设置的。
 你可以通过设置<code>$nav-bg</code>变量为navigation选择新的背景颜色，并且其它颜色会做相应的改变。虽然这不是很完美，但是它对大多数颜色都是合适的。</p>
 
 <h2 id="changing_layout">修改布局</h2>
-
-
 <pre><code># In /sass/base
 _layout.scss     # Responsive layouts are defined here
 
@@ -704,40 +653,40 @@ _layout.scss     # Override settings for base/_layout.scss to change the layout
 
 <p>和颜色一样， <code>/sass/base/_layout.scss</code>里的宽度像<code>$max-width: 1200px !default;</code>定义，在<code>sass/custom/_layout.scss</code>中定义它们可以很容易地自定制。下面是布局的一些默认值：</p>
 
-<figure class='code'><figcaption><span>Layout Defaults (_layout.scss)</span><a href='https://github.com/imathis/octopress/tree/master/.themes/classic/sass/base/_layout.scss'>view on Github </a></figcaption> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-</pre></td><td class='code'><pre><code class='scss'><span class='line'><span class="na">$max-width</span><span class="o">:</span> <span class="mi">1200</span><span class="kt">px</span> <span class="nv">!default</span><span class="p">;</span>
-</span><span class='line'>
-</span><span class='line'><span class="c1">// Padding used for layout margins</span>
-</span><span class='line'><span class="na">$pad-min</span><span class="o">:</span> <span class="mi">18</span><span class="kt">px</span> <span class="nv">!default</span><span class="p">;</span>
-</span><span class='line'><span class="na">$pad-narrow</span><span class="o">:</span> <span class="mi">25</span><span class="kt">px</span> <span class="nv">!default</span><span class="p">;</span>
-</span><span class='line'><span class="na">$pad-medium</span><span class="o">:</span> <span class="mi">35</span><span class="kt">px</span> <span class="nv">!default</span><span class="p">;</span>
-</span><span class='line'><span class="na">$pad-wide</span><span class="o">:</span> <span class="mi">55</span><span class="kt">px</span> <span class="nv">!default</span><span class="p">;</span>
-</span><span class='line'>
-</span><span class='line'><span class="c1">// Sidebar widths used in media queries</span>
-</span><span class='line'><span class="na">$sidebar-width-medium</span><span class="o">:</span> <span class="mi">240</span><span class="kt">px</span> <span class="nv">!default</span><span class="p">;</span>
-</span><span class='line'><span class="na">$sidebar-pad-medium</span><span class="o">:</span> <span class="mi">15</span><span class="kt">px</span> <span class="nv">!default</span><span class="p">;</span>
-</span><span class='line'><span class="na">$sidebar-pad-wide</span><span class="o">:</span> <span class="mi">20</span><span class="kt">px</span> <span class="nv">!default</span><span class="p">;</span>
-</span><span class='line'><span class="na">$sidebar-width-wide</span><span class="o">:</span> <span class="mi">300</span><span class="kt">px</span> <span class="nv">!default</span><span class="p">;</span>
-</span><span class='line'>
-</span><span class='line'><span class="na">$indented-lists</span><span class="o">:</span> <span class="n-Pseudo">false</span> <span class="nv">!default</span><span class="p">;</span>
-</span></code></pre></td></tr></table></div></figure>
-
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span>Layout Defaults (_layout.scss)</span><a href="https://github.com/imathis/octopress/tree/master/.themes/classic/sass/base/_layout.scss">view on Github </a></figcaption> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+<span class="line-number">7</span>
+<span class="line-number">8</span>
+<span class="line-number">9</span>
+<span class="line-number">10</span>
+<span class="line-number">11</span>
+<span class="line-number">12</span>
+<span class="line-number">13</span>
+<span class="line-number">14</span>
+<span class="line-number">15</span>
+</pre></td><td class="code"><pre><code class="scss"><span class="line"><span class="na">$max-width</span><span class="o">:</span> <span class="mi">1200</span><span class="kt">px</span> <span class="nv">!default</span><span class="p">;</span>
+</span><span class="line">
+</span><span class="line"><span class="c1">// Padding used for layout margins</span>
+</span><span class="line"><span class="na">$pad-min</span><span class="o">:</span> <span class="mi">18</span><span class="kt">px</span> <span class="nv">!default</span><span class="p">;</span>
+</span><span class="line"><span class="na">$pad-narrow</span><span class="o">:</span> <span class="mi">25</span><span class="kt">px</span> <span class="nv">!default</span><span class="p">;</span>
+</span><span class="line"><span class="na">$pad-medium</span><span class="o">:</span> <span class="mi">35</span><span class="kt">px</span> <span class="nv">!default</span><span class="p">;</span>
+</span><span class="line"><span class="na">$pad-wide</span><span class="o">:</span> <span class="mi">55</span><span class="kt">px</span> <span class="nv">!default</span><span class="p">;</span>
+</span><span class="line">
+</span><span class="line"><span class="c1">// Sidebar widths used in media queries</span>
+</span><span class="line"><span class="na">$sidebar-width-medium</span><span class="o">:</span> <span class="mi">240</span><span class="kt">px</span> <span class="nv">!default</span><span class="p">;</span>
+</span><span class="line"><span class="na">$sidebar-pad-medium</span><span class="o">:</span> <span class="mi">15</span><span class="kt">px</span> <span class="nv">!default</span><span class="p">;</span>
+</span><span class="line"><span class="na">$sidebar-pad-wide</span><span class="o">:</span> <span class="mi">20</span><span class="kt">px</span> <span class="nv">!default</span><span class="p">;</span>
+</span><span class="line"><span class="na">$sidebar-width-wide</span><span class="o">:</span> <span class="mi">300</span><span class="kt">px</span> <span class="nv">!default</span><span class="p">;</span>
+</span><span class="line">
+</span><span class="line"><span class="na">$indented-lists</span><span class="o">:</span> <span class="n-Pseudo">false</span> <span class="nv">!default</span><span class="p">;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
 
 <p>这些变量是用来计算相应布局的宽度和padding的。<code>$indented-lists</code> 变量允许你选择列表的样式是使用缩进还是正常的。</p>
+
 ]]></content>
   </entry>
   
@@ -750,8 +699,6 @@ _layout.scss     # Override settings for base/_layout.scss to change the layout
 本文翻译自<a href="http://www.manning.com/kabacoff/" target="_blank">R in Action</a>的附录H，如果对该书感兴趣，请自行购买或去图书馆阅读。
 </span>
 </p>
-
-
 <p>R的函数<code>update.packages()</code>可以下载和升级安装的包，但是没有相应的函数升级R本身。如果你想把R从4.1.0版升级到5.1.1版，那你必须有点创造性。（实际上作者写书的时候R的版本还只是2.13.0，但是他说想这本书在若干年后仍然不显得过时）</p>
 
 <p>从CRAN（<a href="http://cran.r-project.org/bin">http://cran.r-project.org/bin</a>）下载并安装最新版的R相当简单。但是想在新安装时保留之前的个性化设置（比如之前安装的包）就复杂了。在我现在的安装中，安装了248个包。我实在是不想把这些包的名字写下来，然后在下次升级R的时候手动重装它们。</p>
@@ -760,60 +707,50 @@ _layout.scss     # Override settings for base/_layout.scss to change the layout
 
 <!--more-->
 
-
 <p><code>installed.packages()</code>函数用来保存一份已安装包的列表到R目录之外。然后利用这个列表和<code>install.packges()</code>函数来下载和安装最新的包到新安装的R中。下面是步骤：</p>
 
 <ol>
-<li>如果有自定义的配置文件<strong>Rprofile.site</strong>，就把它保存到R之外。</li>
-<li>启动当前版本的R，运行下面的命令</li>
+  <li>如果有自定义的配置文件<strong>Rprofile.site</strong>，就把它保存到R之外。</li>
+  <li>启动当前版本的R，运行下面的命令</li>
 </ol>
 
-
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class='r'><span class='line'>    oldip <span class="o">&lt;-</span> installed.packages<span class="p">()[</span> <span class="p">,</span><span class="m">1</span><span class="p">]</span>
-</span><span class='line'>  save<span class="p">(</span>oldip<span class="p">,</span> file<span class="o">=</span><span class="s">&quot;path/installedPackages.Rdata&quot;</span><span class="p">)</span>
-</span><span class='line'>  
-</span></code></pre></td></tr></table></div></figure>
-
+<div class="bogus-wrapper"><notextile><figure class="code"> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+</pre></td><td class="code"><pre><code class="r"><span class="line">	oldip <span class="o">&lt;-</span> installed.packages<span class="p">()[</span> <span class="p">,</span><span class="m">1</span><span class="p">]</span>
+</span><span class="line">	save<span class="p">(</span>oldip<span class="p">,</span> file<span class="o">=</span><span class="s">&quot;path/installedPackages.Rdata&quot;</span><span class="p">)</span>
+</span><span class="line">	
+</span></code></pre></td></tr></table></div></figure></notextile></div>
 
 <p>其中<em>path</em>是R的安装目录。</p>
 
 <ol start="3">
-    <li> 下载并安装最新版的R。</li>
-    <li> 如果你保存了原来的**Rprofile.site**文件，把它复制到新的安装目录中。</li>
-    <li>启动新版的R，然后运行下面的命令  
-    
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-</pre></td><td class='code'><pre><code class='r'><span class='line'>    load<span class="p">(</span><span class="s">&quot;path/installedPackages.Rdata&quot;</span><span class="p">)</span>
-</span><span class='line'>  newip <span class="o">&lt;-</span> installed.packages<span class="p">()[,</span><span class="m">1</span><span class="p">]</span>
-</span><span class='line'>  <span class="kr">for</span><span class="p">(</span>i in setdiff<span class="p">(</span>oldip<span class="p">,</span> newip<span class="p">))</span>
-</span><span class='line'>      install.packages<span class="p">(</span>i<span class="p">)</span>
-</span><span class='line'>  
-</span></code></pre></td></tr></table></div></figure>
+	<li> 下载并安装最新版的R。</li>
+	<li> 如果你保存了原来的**Rprofile.site**文件，把它复制到新的安装目录中。</li>
+	<li>启动新版的R，然后运行下面的命令	
+	
+<div class="bogus-wrapper"><notextile><figure class="code"> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+</pre></td><td class="code"><pre><code class="r"><span class="line">	load<span class="p">(</span><span class="s">&quot;path/installedPackages.Rdata&quot;</span><span class="p">)</span>
+</span><span class="line">	newip <span class="o">&lt;-</span> installed.packages<span class="p">()[,</span><span class="m">1</span><span class="p">]</span>
+</span><span class="line">	<span class="kr">for</span><span class="p">(</span>i in setdiff<span class="p">(</span>oldip<span class="p">,</span> newip<span class="p">))</span>
+</span><span class="line">		install.packages<span class="p">(</span>i<span class="p">)</span>
+</span><span class="line">	
+</span></code></pre></td></tr></table></div></figure></notextile></div>
 
-    </li>
+	</li>
 </ol>
-
-
 <ol start="6">
-    <li>删除旧的安装（可选）</li>
+ 	<li>删除旧的安装（可选）</li>
 </ol>
-
-
-
 
 <p><span class="warning">
 这种方法只能安装从CRAN能获取到的包。其他途径获取的包要单独安装。
 </span>
 </p>
-
-
 
 ]]></content>
   </entry>
@@ -828,7 +765,6 @@ _layout.scss     # Override settings for base/_layout.scss to change the layout
 </span>
 </p>
 
-
 <p>R会把所有的对象读存入虚拟内存中。对我们大多数用户来说，这种设计可以提高与R相互的速度，但是当分析大数据集时，这种设计会降低程序运行速度有时还会产生跟内存相关的错误。</p>
 
 <p>内存限制主要取决于R的build版（32位还是64位），而在32位的windows下，取决于操作系统的版本。以cannot allocate vectoe of size开头的出错信息表示无法分配充足的连续内存，而以cannot allocate vector of length开头的出错信息表示超越了地址限制（address limit）。在处理大数据集时，应尽量使用64位版的R。对于各种build版，向量中的元素个数最大为2147483647（请自行?Memory）。</p>
@@ -839,81 +775,73 @@ _layout.scss     # Override settings for base/_layout.scss to change the layout
 
 <!--more-->
 
-
-<h3>高效编程</h3>
-
+<h3 id="section">高效编程</h3>
 <p>下面几条编程技巧来可以提高处理大数据集时的效率</p>
 
 <ul>
-<li>尽量向量化运算。使用R内置的函数来处理向量、矩阵和list（例如函数<code>sapply</code>，<code>lapply</code>和<code>mapply</code>），尽量避免使用循环（for和while）;</li>
-<li>使用矩阵，必要时才使用数据框，因为矩阵的开销更少；</li>
-<li>使用<code>read.table()</code>函数族把外部数据导入数据框时，尽量显式设定<code>colClasses</code>和<code>nrows</code>选项，设定<code>comment.char = ""</code>，把不需要的列设置成NULL。这样可以减少占用的内存，同时加快处理速度。将外部数据导入矩阵时，使用<code>scan()</code>函数；</li>
-<li>在处理全部数据前，用数据的子集测试程序，来优化程序，去掉bug；</li>
-<li>删除临时对象和不再用的对象。调用<code>rm(list=ls())</code>可以删除内存中的所有对象。删除指定的对象可以用<code>rm(object)</code>；</li>
-<li>在Jeromy Anglim的博客文章“R的内存管理：一些小窍门和技巧”(原文<a href="http://jeromyanglim.blogspot.com/2009/11/memory-management-in-r-few-tips-and.html">Memory Management in R: A Few Tips and Tricks </a>，被墙)中提到，使用函数<code>.ls.objects()</code>列出工作区内的对象占用的内存大小。这个函数会帮助你找到吃内存的大家伙。</li>
-<li>profile你的程序，看看在每个函数中花的时间。你可以用<code>Rprof()</code>和<code>summaryRprof()</code>函数完成这项工作。<code>system.time()</code>函数也可以帮助你。<em>profr</em> 和<em>prooftools</em> 包提供了若干函数来帮助分析profile的输出。</li>
-<li>Rcpp包可以把R对象转成C++函数（原文是The Rcpp package can be used to transfer R objects to C++ functions and back when more optimized subroutines are needed. 后半句不知怎么翻译）</li>
+  <li>尽量向量化运算。使用R内置的函数来处理向量、矩阵和list（例如函数<code>sapply</code>，<code>lapply</code>和<code>mapply</code>），尽量避免使用循环（for和while）;</li>
+  <li>使用矩阵，必要时才使用数据框，因为矩阵的开销更少；</li>
+  <li>使用<code>read.table()</code>函数族把外部数据导入数据框时，尽量显式设定<code>colClasses</code>和<code>nrows</code>选项，设定<code>comment.char = ""</code>，把不需要的列设置成NULL。这样可以减少占用的内存，同时加快处理速度。将外部数据导入矩阵时，使用<code>scan()</code>函数；</li>
+  <li>在处理全部数据前，用数据的子集测试程序，来优化程序，去掉bug；</li>
+  <li>删除临时对象和不再用的对象。调用<code>rm(list=ls())</code>可以删除内存中的所有对象。删除指定的对象可以用<code>rm(object)</code>；</li>
+  <li>在Jeromy Anglim的博客文章“R的内存管理：一些小窍门和技巧”(原文<a href="http://jeromyanglim.blogspot.com/2009/11/memory-management-in-r-few-tips-and.html">Memory Management in R: A Few Tips and Tricks </a>，被墙)中提到，使用函数<code>.ls.objects()</code>列出工作区内的对象占用的内存大小。这个函数会帮助你找到吃内存的大家伙。</li>
+  <li>profile你的程序，看看在每个函数中花的时间。你可以用<code>Rprof()</code>和<code>summaryRprof()</code>函数完成这项工作。<code>system.time()</code>函数也可以帮助你。<em>profr</em> 和_prooftools_ 包提供了若干函数来帮助分析profile的输出。</li>
+  <li>Rcpp包可以把R对象转成C++函数（原文是The Rcpp package can be used to transfer R objects to C++ functions and back when more optimized subroutines are needed. 后半句不知怎么翻译）</li>
 </ul>
-
 
 <p>处理大数据集，提高代码效率只能解决一部分问题。你也可以把数据存在外部存储并使用专门的统计分析方法。</p>
 
-<h3>把数据存储在内存之外</h3>
-
+<h3 id="section-1">把数据存储在内存之外</h3>
 <p>有几种包可以实现在内存之外存储数据。解决之道是把数据保存在外部数据库或者硬盘里的二进制文件中，然后在需要的时候部分地读取。下表描述了几种有用的包：</p>
 
 <table class="datalist">
 <tr>
-    <th><strong>包</strong></th>
-    <th><strong>描述</strong></th>
+	<th><strong>包</strong></th>
+	<th><strong>描述</strong></th>
 </tr>
 <tr>
-    <td>ff</td>
-    <td>提供了一种数据结构，保存在硬盘中，但是操作起来就如同在内存中一样</td>
+	<td>ff</td>
+	<td>提供了一种数据结构，保存在硬盘中，但是操作起来就如同在内存中一样</td>
 </tr>
 <tr>
-    <td>bigmemory</td>
-    <td>支持大规模矩阵的创建、储存、读取和操作。矩阵被分配到共享内存或内存映射的文件中（memory-mapped files）</td>
+	<td>bigmemory</td>
+	<td>支持大规模矩阵的创建、储存、读取和操作。矩阵被分配到共享内存或内存映射的文件中（memory-mapped files）</td>
 </tr>
 <tr>
-    <td>filehash</td>
-    <td>实现了简单的key-value数据库，在其中特征字符串key与存储在硬盘中的数据value相关联。</td>
+	<td>filehash</td>
+	<td>实现了简单的key-value数据库，在其中特征字符串key与存储在硬盘中的数据value相关联。</td>
 </tr>
 <tr>
-    <td>ncdf, ncdf4</td>
-    <td>Provides an interface to Unidata netCDF data files.
+	<td>ncdf, ncdf4</td>
+	<td>Provides an interface to Unidata netCDF data files.
 </td>
 </tr>
 <tr>
-    <td>RODBC, RMySQL,<br /> 
-    ROracle, <br />
-    RPostgreSQL, <br />
-    RSQLite 
-    </td>
-    <td>可以用这些包读取外部关系数据库管理系统的数据</td>
+	<td>RODBC, RMySQL,<br /> 
+	ROracle, <br />
+	RPostgreSQL, <br />
+	RSQLite 
+	</td>
+	<td>可以用这些包读取外部关系数据库管理系统的数据</td>
 </tr>
 </table>
-
-
 <p>上面的包可以帮助客服R的内存限制。除此以外，当需要在有限时间内分析大数据集时，使用专门方法也是必须的。一些有用的方法将在下面介绍。</p>
 
-<h3>分析大数据集的包</h3>
-
+<h3 id="section-2">分析大数据集的包</h3>
 <p>R提供了几种分析大数据集的包：</p>
 
 <ul>
-<li><em>biglm</em>和<em>speedglm</em>包可以针对大数据集有效地拟合线性和广义线性模型。在处理大规模数据集时，这两个包提供了类似<code>lm()</code>和<code>glm()</code>的功能。</li>
-<li>由<em>bigmemory</em>包可产生大规模矩阵，一些包可以提供分析这些大规模矩阵的函数。<em>bigannalytics</em>包提供了k-means聚类、行统计量（column statistics）和一个对<code>biglm()</code>的封装。<em>bigtabulate</em>包提供了<code>table()</code>、<code>split()</code>和<code>tapply()</code>的功能，<em>bigalgebra</em>包提供了高等线性代数的函数。</li>
-<li><em>biglars</em>包提供了最小角回归（least-angle regression）、lasso以及针对大数据集的逐步回归，数据集因太大而不能读入到内存中，这时候要配合<em>ff</em>包使用。</li>
-<li><em>Brobdingnag</em>包可以用来处理大数字（大于2&#94;1024）</li>
+  <li>_biglm_和_speedglm_包可以针对大数据集有效地拟合线性和广义线性模型。在处理大规模数据集时，这两个包提供了类似<code>lm()</code>和<code>glm()</code>的功能。</li>
+  <li>由_bigmemory_包可产生大规模矩阵，一些包可以提供分析这些大规模矩阵的函数。_bigannalytics_包提供了k-means聚类、行统计量（column statistics）和一个对<code>biglm()</code>的封装。_bigtabulate_包提供了<code>table()</code>、<code>split()</code>和<code>tapply()</code>的功能，_bigalgebra_包提供了高等线性代数的函数。</li>
+  <li>_biglars_包提供了最小角回归（least-angle regression）、lasso以及针对大数据集的逐步回归，数据集因太大而不能读入到内存中，这时候要配合_ff_包使用。</li>
+  <li>_Brobdingnag_包可以用来处理大数字（大于2^1024）</li>
 </ul>
-
 
 <p>处理从GB到TB级的数据对于任何数据都是极大的挑战。如果想查看R的更多方法，请看CRAN task View:<em>High-Performance and Parallel Computing with R</em>（<a href="http://cran.r-project.org/web/view">http://cran.r-project.org/web/view</a>）。</p>
 
-<h3>译者注</h3>
-
+<h3 id="section-3">译者注</h3>
 <p><a href="http://jliblog.com/">李舰</a>曾经在第四届R语言会议（北京会场）上做了题为《<em>R与高性能运算</em>》的报告，报告slides及代码请见<a href="http://cos.name/2011/05/4th-china-r-beijing-summary/">会议纪要</a></p>
+
 ]]></content>
   </entry>
   
@@ -932,67 +860,55 @@ _layout.scss     # Override settings for base/_layout.scss to change the layout
 
 <!--more-->
 
-
 <p>想起阳志平推荐的RailsInstaller<sup>[<a id="back_2_2" href="#fn_2_2">2</a>]</sup>，其中ruby的版本就是1.9.2，而Octopress就要求Ruby1.9.2的环境。于是打开Git Bash，按照<a href="http://octopress.org/docs/" target="_blank">官方指南</a>安装，</p>
 
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-</pre></td><td class='code'><pre><code class='sh'><span class='line'>git clone git://github.com/imathis/octopress.git octopress
-</span><span class='line'><span class="nb">cd </span>octopress    <span class="c"># If you use RVM, You&#39;ll be asked if you trust the .rvmrc file (say yes).</span>
-</span><span class='line'>ruby --version  <span class="c"># Should report Ruby 1.9.2</span>
-</span><span class='line'>gem install bundler
-</span><span class='line'>bundle install
-</span></code></pre></td></tr></table></div></figure>
-
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span /></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+</pre></td><td class="code"><pre><code class="sh"><span class="line">git clone git://github.com/imathis/octopress.git octopress
+</span><span class="line"><span class="nb">cd </span>octopress    <span class="c"># If you use RVM, You&#39;ll be asked if you trust the .rvmrc file (say yes).</span>
+</span><span class="line">ruby --version  <span class="c"># Should report Ruby 1.9.2</span>
+</span><span class="line">gem install bundler
+</span><span class="line">bundle install
+</span></code></pre></td></tr></table></div></figure></notextile></div>
 
 <p><code>bundle install</code>不成功的话可以换成<code>bundle update</code>。下一步应该运行<code>rake install</code>了，结果返回信息：</p>
 
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='sh'><span class='line'>You have already activated rake 0.9.2.2, but your Gemfile requires rake 0.9.2. Using bundle <span class="nb">exec </span>may solve this.
-</span></code></pre></td></tr></table></div></figure>
-
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span /></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+</pre></td><td class="code"><pre><code class="sh"><span class="line">You have already activated rake 0.9.2.2, but your Gemfile requires rake 0.9.2. Using bundle <span class="nb">exec </span>may solve this.
+</span></code></pre></td></tr></table></div></figure></notextile></div>
 
 <p>换成<code>bundle exec rake install</code>就行了，于是后面所有要用到rake的命令，通过都用bundle exec rake代替。嫌麻烦的话也可以在bash的配置文件里添加命令的别名。如果你windows的用户名为user，bash的配置文件在C:\Documents and Settings\user下，也可以直接在git bash下输入<code>cd ~</code>，文件名为<code>.bash_profile</code>，在文件里添加一行</p>
 
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='sh'><span class='line'><span class="nb">alias </span><span class="nv">rake</span><span class="o">=</span><span class="s1">&#39;bundle exec rake&#39;</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span /></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+</pre></td><td class="code"><pre><code class="sh"><span class="line"><span class="nb">alias </span><span class="nv">rake</span><span class="o">=</span><span class="s1">&#39;bundle exec rake&#39;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
 <p>后面都和官方指南一样。但真正用起来的时候，发现不能使用中文（请看<a href="http://ruby-taiwan.org/topics/46" target="_blank">帖子</a>）。经论坛上laoyang945点拨，字符集不兼容的问题终于解决了，只要在<code>.bash_profile</code>再加两行</p>
 
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class='sh'><span class='line'><span class="nb">export   </span><span class="nv">LC_ALL</span><span class="o">=</span>zh_CN.UTF-8
-</span><span class='line'><span class="nb">export   </span><span class="nv">LANG</span><span class="o">=</span>zh_CN.UTF-8
-</span></code></pre></td></tr></table></div></figure>
-
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span /></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+</pre></td><td class="code"><pre><code class="sh"><span class="line"><span class="nb">export   </span><span class="nv">LC_ALL</span><span class="o">=</span>zh_CN.UTF-8
+</span><span class="line"><span class="nb">export   </span><span class="nv">LANG</span><span class="o">=</span>zh_CN.UTF-8
+</span></code></pre></td></tr></table></div></figure></notextile></div>
 
 <p>另外，淘宝给我们送了一份圣诞大礼（请猛戳<a href="http://www.oschina.net/news/24321/rubygems-taobao-mirror?from=rss" target="_blank">淘宝提供RubyGems的国内镜像站点</a>），这样我可以修改下载的Octopress目录下的Gemfile文件，把第一行改成</p>
 
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">source</span> <span class="s2">&quot;http://ruby.taobao.org/&quot;</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span /></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+</pre></td><td class="code"><pre><code class="ruby"><span class="line"><span class="n">source</span> <span class="s2">&quot;http://ruby.taobao.org/&quot;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
 <p>做这样的修改后，安装速度会大大提高。</p>
 
-<h3>脚注</h3>
-
+<h3 id="section">脚注</h3>
 <ol>
-<li>我所在的并不是技术公司，相反，那是个文人聚集的地方  [<a id="fn_2_1" href="#back_2_1">↩</a>]</li>
-<li>关于在windows下搭建ruby环境，请看他的<a href="http://www.yangzhiping.com/tech/happy-ruby-ps1-windows.html">文章</a> [<a id="fn_2_2" href="#back_2_2">↩</a>]</li>
+  <li>我所在的并不是技术公司，相反，那是个文人聚集的地方  [<a id="fn_2_1" href="#back_2_1">↩</a>] </li>
+  <li>关于在windows下搭建ruby环境，请看他的<a href="http://www.yangzhiping.com/tech/happy-ruby-ps1-windows.html">文章</a> [<a id="fn_2_2" href="#back_2_2">↩</a>] </li>
 </ol>
-
 
 <p class="warning">
 有人反映在win7下找不到<code>.bash_profile</code>文件，新建这个也没用。我暂时也没有win7的测试环境，论坛上有人提出了解决方法，更多的讨论请看<a href="http://ruby-taiwan.org/topics/46">http://ruby-taiwan.org/topics/46</a> 。
 </p>
-
-
 
 ]]></content>
   </entry>
@@ -1010,8 +926,7 @@ _layout.scss     # Override settings for base/_layout.scss to change the layout
 
 <p>经过这样的操作，你想绑定几个域名都可以了。</p>
 
-<h2>域名跳转的问题</h2>
-
+<h2 id="section">域名跳转的问题</h2>
 <p><del>当你访问<code>username.github.com</code>这个地址时，Github会自动转到绑定的域名，但是当你访问<code>http://username.github.com/repo-name</code>这样的网址，虽然可以显示网页，但是地址不会自动转。</del></p>
 
 <p><del>可以用.htaccess文件来实现跳转，在repo代码库根目录下创建.htaccess文件</del></p>
@@ -1020,8 +935,6 @@ _layout.scss     # Override settings for base/_layout.scss to change the layout
 本文域名跳转部分有误，请看<a href="http://chen.yanping.me/cn/blog/2012/02/06/github-pages-domain-3/" target="_blank">三谈github页面域名绑定</a>
 </span>
 </p>
-
-
 
 ]]></content>
   </entry>
@@ -1036,49 +949,39 @@ _layout.scss     # Override settings for base/_layout.scss to change the layout
 </span>
 </p>
 
+<p>功能五花八门的CMS（内容管理系统）有时候并不是必需的，你只需要创建一个轻量级的静态网站…  当你有足够多的页面就会使复制模板文件和跨网站标记的过程变成繁琐的事。今天，我将介绍一种简单的解决方案——<a href="http://jekyllrb.com/">Jekyll</a>——使你可以轻而易举地创建小型网站。</p>
 
-<p>功能五花八门的CMS（内容管理系统）有时候并不是必需的，你只需要创建一个轻量级的静态网站&#8230;  当你有足够多的页面就会使复制模板文件和跨网站标记的过程变成繁琐的事。今天，我将介绍一种简单的解决方案——<a href="http://jekyllrb.com/">Jekyll</a>——使你可以轻而易举地创建小型网站。</p>
-
-<h2>Step 0: 遭遇Jekyll</h2>
-
+<h2 id="step-0-jekyll">Step 0: 遭遇Jekyll</h2>
 <blockquote><p>Jekyll is a simple, blog aware, static site generator.</p></blockquote>
-
-
 <p>Jekyll是一种简单的、适用于博客（blog aware）的、静态网站生成引擎。Jekyll网站的宣传语这么说。但，这究竟是什么意思呢？静态网站生成引擎是利用一整套文件生成网站的程序。正如你看到的，我们可以利用一套模板，单独生成内容文件，然后用Jekyll生成网站。“blog aware”意思是我们可以用它来创建博客，或者其他有系列文章（例如合集，英文称portfolio）发布的网站。让我们来尝试一下吧！</p>
 
 <!--more-->
 
-
-<h2>Step 1: 安装Jekyll</h2>
+<h2 id="step-1-jekyll">Step 1: 安装Jekyll</h2>
 
 <blockquote>
  <a href="http://rubygems.org/" target="_blank">查看这里</a>来获取更多关于Ruby Gems的信息.
 </blockquote>
 
-
 <p>我们从安装Jekyll开始；它是一种Ruby Gem，所以可以直接用下面的命令安装：</p>
 
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='sh'><span class='line'>gem install jekyll <span class="c">#  use &#39;sudo&#39; if your setup requires it</span>
-</span></code></pre></td></tr></table></div></figure>
-
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span /></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+</pre></td><td class="code"><pre><code class="sh"><span class="line">gem install jekyll <span class="c">#  use &#39;sudo&#39; if your setup requires it</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
 
 <p>很简单吧！如果想做更多复杂的事，就需要安装其他的包了。</p>
 
-<h2>Step 2: 创建第一个模板</h2>
-
+<h2 id="step-2-">Step 2: 创建第一个模板</h2>
 <blockquote>
 任何不以下划线开头的文件和目录都会被复制到生成的网站。
 </blockquote>
-
-
 <p>下一步，我们新建一个目录，命名为example-app作为演示用；我们打算建一个合集网站，比如，发布影集。这是个很好的例子，用来说明Jekyll的优势之处：这是个小网站，不会更新地太频繁，但是当你想改变其中一处小细节时如果一页页打开页面修改又很麻烦。</p>
 
 <p>在example-app中，建一个名为<code>_layouts</code>的目录。注意这个下划线，任何以下划线开头的文件和目录都不会成为网站的一部分。如果它们的名字Jekyll能够识别的话（比如<code>_config.yml</code>或者<code>_layouts</code>），它们的内容会被用于生成网站，但是它们的文件不会出现在网站目录下。记住这一点：任何不以下划线开头的文件和目录都会被复制到生成的网站（默认为<code>_site</code>子目录）。</p>
 
 <p>我们来创建一个layout文件。我们以包含所有元素的全局layout文件开始。在<code>_layouts</code>目录下创建名为default.html的新文件（叫什么名字无所谓），加入下面的代码：</p>
 
-<div><script src='https://gist.github.com/1481001.js?file='></script>
+<div><script src="https://gist.github.com/1481001.js?file="></script>
 <noscript><pre><code>&lt;!DOCTYPE html&gt;
 &lt;html&gt;
 &lt;head&gt;
@@ -1113,7 +1016,6 @@ _layout.scss     # Override settings for base/_layout.scss to change the layout
 &lt;/body&gt;
 &lt;/html&gt;</code></pre></noscript></div>
 
-
 <p>下面是要注意的：</p>
 
 <p>首先，Jekyll默认的是用<a href="https://github.com/shopify/liquid/wiki/liquid-for-designers">Liquid模板系统</a>。这意味着，你用Liquid能做的事，在Jekyll模板里也能做。例如，在<code>&lt;title&gt;</code>标签，我们可以用两种Liquid标记语言：<em>输出标记</em>（output markup）和<em>标签标记</em> (tag markup)。输出标记会输出文本（如果被引用的变量存在），而标签标记不会。输出标记是用双花括号分隔，而标签标记是用花括号-百分号对分隔。</p>
@@ -1122,210 +1024,205 @@ _layout.scss     # Override settings for base/_layout.scss to change the layout
 
 <p>最后，注意到我们链接的CSS文件：在你的项目根目录下创建一个CSS目录，然后把下面的代码写进styles.css文件：</p>
 
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-<span class='line-number'>21</span>
-<span class='line-number'>22</span>
-<span class='line-number'>23</span>
-<span class='line-number'>24</span>
-<span class='line-number'>25</span>
-<span class='line-number'>26</span>
-<span class='line-number'>27</span>
-<span class='line-number'>28</span>
-<span class='line-number'>29</span>
-<span class='line-number'>30</span>
-<span class='line-number'>31</span>
-<span class='line-number'>32</span>
-<span class='line-number'>33</span>
-<span class='line-number'>34</span>
-<span class='line-number'>35</span>
-<span class='line-number'>36</span>
-<span class='line-number'>37</span>
-<span class='line-number'>38</span>
-<span class='line-number'>39</span>
-<span class='line-number'>40</span>
-<span class='line-number'>41</span>
-<span class='line-number'>42</span>
-<span class='line-number'>43</span>
-<span class='line-number'>44</span>
-<span class='line-number'>45</span>
-<span class='line-number'>46</span>
-<span class='line-number'>47</span>
-<span class='line-number'>48</span>
-<span class='line-number'>49</span>
-<span class='line-number'>50</span>
-<span class='line-number'>51</span>
-<span class='line-number'>52</span>
-<span class='line-number'>53</span>
-<span class='line-number'>54</span>
-<span class='line-number'>55</span>
-<span class='line-number'>56</span>
-<span class='line-number'>57</span>
-<span class='line-number'>58</span>
-<span class='line-number'>59</span>
-<span class='line-number'>60</span>
-<span class='line-number'>61</span>
-<span class='line-number'>62</span>
-<span class='line-number'>63</span>
-<span class='line-number'>64</span>
-<span class='line-number'>65</span>
-<span class='line-number'>66</span>
-<span class='line-number'>67</span>
-<span class='line-number'>68</span>
-<span class='line-number'>69</span>
-<span class='line-number'>70</span>
-<span class='line-number'>71</span>
-<span class='line-number'>72</span>
-<span class='line-number'>73</span>
-<span class='line-number'>74</span>
-</pre></td><td class='code'><pre><code class='css'><span class='line'><span class="nt">body</span> <span class="p">{</span>
-</span><span class='line'>  <span class="k">font</span><span class="o">:</span> <span class="m">16px</span><span class="o">/</span><span class="m">1</span><span class="o">.</span><span class="m">5</span> <span class="n">verdana</span><span class="o">,</span> <span class="n">helvetica</span><span class="o">-</span><span class="n">neue</span><span class="o">,</span> <span class="n">helvetica</span><span class="o">,</span> <span class="n">arial</span><span class="o">,</span> <span class="n">san</span><span class="o">-</span><span class="k">serif</span><span class="p">;</span>
-</span><span class='line'>  <span class="k">background</span><span class="o">:</span> <span class="nb">black</span><span class="p">;</span>
-</span><span class='line'>  <span class="k">color</span><span class="o">:</span> <span class="m">#ececec</span><span class="p">;</span>
-</span><span class='line'>  <span class="k">padding</span><span class="o">:</span> <span class="m">0</span><span class="p">;</span>
-</span><span class='line'>  <span class="k">margin</span><span class="o">:</span> <span class="m">0</span><span class="p">;</span>
-</span><span class='line'><span class="p">}</span>
-</span><span class='line'><span class="nt">ul</span> <span class="p">{</span>
-</span><span class='line'>  <span class="k">margin</span><span class="o">:</span> <span class="m">0</span><span class="p">;</span>
-</span><span class='line'>  <span class="k">padding</span><span class="o">:</span> <span class="m">0</span><span class="p">;</span>
-</span><span class='line'><span class="p">}</span>
-</span><span class='line'><span class="nt">a</span> <span class="p">{</span>
-</span><span class='line'>  <span class="k">color</span><span class="o">:</span> <span class="m">#ccc</span><span class="p">;</span>
-</span><span class='line'>  <span class="n">rubyt</span><span class="o">-</span><span class="n">decoration</span><span class="o">:</span> <span class="k">none</span><span class="p">;</span>
-</span><span class='line'><span class="p">}</span>
-</span><span class='line'>
-</span><span class='line'><span class="nt">a</span><span class="nd">:hover</span> <span class="p">{</span>
-</span><span class='line'>  <span class="k">color</span><span class="o">:</span> <span class="m">#ececec</span><span class="p">;</span>
-</span><span class='line'>  <span class="n">rubyt</span><span class="o">-</span><span class="n">decoration</span><span class="o">:</span> <span class="k">underline</span><span class="p">;</span>
-</span><span class='line'><span class="p">}</span>
-</span><span class='line'>
-</span><span class='line'><span class="nf">#main</span> <span class="p">{</span>
-</span><span class='line'>  <span class="k">width</span><span class="o">:</span> <span class="m">960px</span><span class="p">;</span>
-</span><span class='line'>  <span class="k">margin</span><span class="o">:</span> <span class="m">0</span> <span class="k">auto</span><span class="p">;</span>
-</span><span class='line'>  <span class="k">background</span><span class="o">:</span> <span class="n">rgba</span><span class="p">(</span><span class="m">255</span><span class="o">,</span> <span class="m">255</span><span class="o">,</span> <span class="m">255</span><span class="o">,</span> <span class="m">0</span><span class="o">.</span><span class="m">4</span><span class="p">);</span>
-</span><span class='line'><span class="p">}</span>
-</span><span class='line'><span class="nt">header</span> <span class="p">{</span>
-</span><span class='line'>  <span class="k">padding</span><span class="o">:</span> <span class="m">0</span> <span class="m">10px</span><span class="p">;</span>
-</span><span class='line'>  <span class="k">overflow</span><span class="o">:</span> <span class="k">hidden</span><span class="p">;</span>
-</span><span class='line'><span class="p">}</span>
-</span><span class='line'><span class="nt">h1</span> <span class="p">{</span>
-</span><span class='line'>  <span class="k">margin</span><span class="o">:</span> <span class="m">0</span><span class="p">;</span>
-</span><span class='line'><span class="p">}</span>
-</span><span class='line'>
-</span><span class='line'><span class="nt">nav</span> <span class="nt">ul</span><span class="o">,</span> <span class="nt">ul</span><span class="nc">.entries</span> <span class="p">{</span>
-</span><span class='line'>  <span class="k">list-style-type</span><span class="o">:</span> <span class="k">none</span><span class="p">;</span>
-</span><span class='line'><span class="p">}</span>
-</span><span class='line'><span class="nt">nav</span> <span class="nt">li</span> <span class="nt">a</span> <span class="p">{</span>
-</span><span class='line'>  <span class="k">float</span><span class="o">:</span> <span class="k">left</span><span class="p">;</span>
-</span><span class='line'>  <span class="k">margin</span><span class="o">:</span> <span class="m">5px</span><span class="p">;</span>
-</span><span class='line'><span class="p">}</span>
-</span><span class='line'><span class="nc">.content</span> <span class="p">{</span>
-</span><span class='line'>  <span class="k">padding</span><span class="o">:</span> <span class="m">10px</span><span class="p">;</span>
-</span><span class='line'><span class="p">}</span>
-</span><span class='line'>
-</span><span class='line'><span class="nt">ul</span><span class="nc">.entries</span> <span class="nt">li</span> <span class="p">{</span>
-</span><span class='line'>  <span class="k">position</span><span class="o">:</span> <span class="k">relative</span><span class="p">;</span>
-</span><span class='line'>  <span class="k">margin</span><span class="o">:</span> <span class="m">20px</span> <span class="k">auto</span><span class="p">;</span>
-</span><span class='line'>  <span class="k">padding</span><span class="o">:</span> <span class="m">20px</span><span class="p">;</span>
-</span><span class='line'>  <span class="k">background</span><span class="o">:</span> <span class="m">#ececec</span><span class="p">;</span>
-</span><span class='line'>  <span class="k">width</span><span class="o">:</span> <span class="m">600px</span><span class="p">;</span>
-</span><span class='line'><span class="p">}</span>
-</span><span class='line'>
-</span><span class='line'><span class="nt">ul</span><span class="nc">.entries</span> <span class="nt">img</span> <span class="p">{</span>
-</span><span class='line'>  <span class="k">width</span><span class="o">:</span> <span class="m">600px</span><span class="p">;</span>
-</span><span class='line'><span class="p">}</span>
-</span><span class='line'>
-</span><span class='line'><span class="nt">ul</span><span class="nc">.entries</span> <span class="nt">li</span> <span class="nt">h3</span> <span class="p">{</span>
-</span><span class='line'>  <span class="k">position</span><span class="o">:</span> <span class="k">absolute</span><span class="p">;</span>
-</span><span class='line'>  <span class="k">bottom</span><span class="o">:</span> <span class="m">-18px</span><span class="p">;</span>
-</span><span class='line'>  <span class="k">left</span><span class="o">:</span> <span class="m">17px</span><span class="p">;</span>
-</span><span class='line'>  <span class="k">font-size</span><span class="o">:</span> <span class="m">2em</span><span class="p">;</span>
-</span><span class='line'><span class="p">}</span>
-</span><span class='line'><span class="nt">ul</span><span class="nc">.entries</span> <span class="nt">a</span> <span class="p">{</span>
-</span><span class='line'>  <span class="k">color</span><span class="o">:</span> <span class="m">#ececec</span><span class="p">;</span>
-</span><span class='line'><span class="p">}</span>
-</span><span class='line'><span class="nt">ul</span><span class="nc">.entries</span> <span class="nt">a</span><span class="nd">:hover</span> <span class="p">{</span>
-</span><span class='line'>  <span class="k">color</span><span class="o">:</span> <span class="m">#fff</span><span class="p">;</span>
-</span><span class='line'><span class="p">}</span>
-</span><span class='line'>
-</span><span class='line'><span class="nt">footer</span> <span class="p">{</span>
-</span><span class='line'>  <span class="k">font-size</span><span class="o">:</span> <span class="m">0.65em</span><span class="p">;</span>
-</span><span class='line'>  <span class="n">rubyt</span><span class="o">-</span><span class="n">align</span><span class="o">:</span> <span class="k">center</span><span class="p">;</span>
-</span><span class='line'><span class="p">}</span>
-</span></code></pre></td></tr></table></div></figure>
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span /></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+<span class="line-number">7</span>
+<span class="line-number">8</span>
+<span class="line-number">9</span>
+<span class="line-number">10</span>
+<span class="line-number">11</span>
+<span class="line-number">12</span>
+<span class="line-number">13</span>
+<span class="line-number">14</span>
+<span class="line-number">15</span>
+<span class="line-number">16</span>
+<span class="line-number">17</span>
+<span class="line-number">18</span>
+<span class="line-number">19</span>
+<span class="line-number">20</span>
+<span class="line-number">21</span>
+<span class="line-number">22</span>
+<span class="line-number">23</span>
+<span class="line-number">24</span>
+<span class="line-number">25</span>
+<span class="line-number">26</span>
+<span class="line-number">27</span>
+<span class="line-number">28</span>
+<span class="line-number">29</span>
+<span class="line-number">30</span>
+<span class="line-number">31</span>
+<span class="line-number">32</span>
+<span class="line-number">33</span>
+<span class="line-number">34</span>
+<span class="line-number">35</span>
+<span class="line-number">36</span>
+<span class="line-number">37</span>
+<span class="line-number">38</span>
+<span class="line-number">39</span>
+<span class="line-number">40</span>
+<span class="line-number">41</span>
+<span class="line-number">42</span>
+<span class="line-number">43</span>
+<span class="line-number">44</span>
+<span class="line-number">45</span>
+<span class="line-number">46</span>
+<span class="line-number">47</span>
+<span class="line-number">48</span>
+<span class="line-number">49</span>
+<span class="line-number">50</span>
+<span class="line-number">51</span>
+<span class="line-number">52</span>
+<span class="line-number">53</span>
+<span class="line-number">54</span>
+<span class="line-number">55</span>
+<span class="line-number">56</span>
+<span class="line-number">57</span>
+<span class="line-number">58</span>
+<span class="line-number">59</span>
+<span class="line-number">60</span>
+<span class="line-number">61</span>
+<span class="line-number">62</span>
+<span class="line-number">63</span>
+<span class="line-number">64</span>
+<span class="line-number">65</span>
+<span class="line-number">66</span>
+<span class="line-number">67</span>
+<span class="line-number">68</span>
+<span class="line-number">69</span>
+<span class="line-number">70</span>
+<span class="line-number">71</span>
+<span class="line-number">72</span>
+<span class="line-number">73</span>
+<span class="line-number">74</span>
+</pre></td><td class="code"><pre><code class="css"><span class="line"><span class="nt">body</span> <span class="p">{</span>
+</span><span class="line">  <span class="k">font</span><span class="o">:</span> <span class="m">16px</span><span class="o">/</span><span class="m">1</span><span class="o">.</span><span class="m">5</span> <span class="n">verdana</span><span class="o">,</span> <span class="n">helvetica</span><span class="o">-</span><span class="n">neue</span><span class="o">,</span> <span class="n">helvetica</span><span class="o">,</span> <span class="n">arial</span><span class="o">,</span> <span class="n">san</span><span class="o">-</span><span class="k">serif</span><span class="p">;</span>
+</span><span class="line">  <span class="k">background</span><span class="o">:</span> <span class="nb">black</span><span class="p">;</span>
+</span><span class="line">  <span class="k">color</span><span class="o">:</span> <span class="m">#ececec</span><span class="p">;</span>
+</span><span class="line">  <span class="k">padding</span><span class="o">:</span> <span class="m">0</span><span class="p">;</span>
+</span><span class="line">  <span class="k">margin</span><span class="o">:</span> <span class="m">0</span><span class="p">;</span>
+</span><span class="line"><span class="p">}</span>
+</span><span class="line"><span class="nt">ul</span> <span class="p">{</span>
+</span><span class="line">  <span class="k">margin</span><span class="o">:</span> <span class="m">0</span><span class="p">;</span>
+</span><span class="line">  <span class="k">padding</span><span class="o">:</span> <span class="m">0</span><span class="p">;</span>
+</span><span class="line"><span class="p">}</span>
+</span><span class="line"><span class="nt">a</span> <span class="p">{</span>
+</span><span class="line">  <span class="k">color</span><span class="o">:</span> <span class="m">#ccc</span><span class="p">;</span>
+</span><span class="line">  <span class="n">rubyt</span><span class="o">-</span><span class="n">decoration</span><span class="o">:</span> <span class="k">none</span><span class="p">;</span>
+</span><span class="line"><span class="p">}</span>
+</span><span class="line">
+</span><span class="line"><span class="nt">a</span><span class="nd">:hover</span> <span class="p">{</span>
+</span><span class="line">  <span class="k">color</span><span class="o">:</span> <span class="m">#ececec</span><span class="p">;</span>
+</span><span class="line">  <span class="n">rubyt</span><span class="o">-</span><span class="n">decoration</span><span class="o">:</span> <span class="k">underline</span><span class="p">;</span>
+</span><span class="line"><span class="p">}</span>
+</span><span class="line">
+</span><span class="line"><span class="nf">#main</span> <span class="p">{</span>
+</span><span class="line">  <span class="k">width</span><span class="o">:</span> <span class="m">960px</span><span class="p">;</span>
+</span><span class="line">  <span class="k">margin</span><span class="o">:</span> <span class="m">0</span> <span class="k">auto</span><span class="p">;</span>
+</span><span class="line">  <span class="k">background</span><span class="o">:</span> <span class="n">rgba</span><span class="p">(</span><span class="m">255</span><span class="o">,</span> <span class="m">255</span><span class="o">,</span> <span class="m">255</span><span class="o">,</span> <span class="m">0</span><span class="o">.</span><span class="m">4</span><span class="p">);</span>
+</span><span class="line"><span class="p">}</span>
+</span><span class="line"><span class="nt">header</span> <span class="p">{</span>
+</span><span class="line">  <span class="k">padding</span><span class="o">:</span> <span class="m">0</span> <span class="m">10px</span><span class="p">;</span>
+</span><span class="line">  <span class="k">overflow</span><span class="o">:</span> <span class="k">hidden</span><span class="p">;</span>
+</span><span class="line"><span class="p">}</span>
+</span><span class="line"><span class="nt">h1</span> <span class="p">{</span>
+</span><span class="line">  <span class="k">margin</span><span class="o">:</span> <span class="m">0</span><span class="p">;</span>
+</span><span class="line"><span class="p">}</span>
+</span><span class="line">
+</span><span class="line"><span class="nt">nav</span> <span class="nt">ul</span><span class="o">,</span> <span class="nt">ul</span><span class="nc">.entries</span> <span class="p">{</span>
+</span><span class="line">  <span class="k">list-style-type</span><span class="o">:</span> <span class="k">none</span><span class="p">;</span>
+</span><span class="line"><span class="p">}</span>
+</span><span class="line"><span class="nt">nav</span> <span class="nt">li</span> <span class="nt">a</span> <span class="p">{</span>
+</span><span class="line">  <span class="k">float</span><span class="o">:</span> <span class="k">left</span><span class="p">;</span>
+</span><span class="line">  <span class="k">margin</span><span class="o">:</span> <span class="m">5px</span><span class="p">;</span>
+</span><span class="line"><span class="p">}</span>
+</span><span class="line"><span class="nc">.content</span> <span class="p">{</span>
+</span><span class="line">  <span class="k">padding</span><span class="o">:</span> <span class="m">10px</span><span class="p">;</span>
+</span><span class="line"><span class="p">}</span>
+</span><span class="line">
+</span><span class="line"><span class="nt">ul</span><span class="nc">.entries</span> <span class="nt">li</span> <span class="p">{</span>
+</span><span class="line">  <span class="k">position</span><span class="o">:</span> <span class="k">relative</span><span class="p">;</span>
+</span><span class="line">  <span class="k">margin</span><span class="o">:</span> <span class="m">20px</span> <span class="k">auto</span><span class="p">;</span>
+</span><span class="line">  <span class="k">padding</span><span class="o">:</span> <span class="m">20px</span><span class="p">;</span>
+</span><span class="line">  <span class="k">background</span><span class="o">:</span> <span class="m">#ececec</span><span class="p">;</span>
+</span><span class="line">  <span class="k">width</span><span class="o">:</span> <span class="m">600px</span><span class="p">;</span>
+</span><span class="line"><span class="p">}</span>
+</span><span class="line">
+</span><span class="line"><span class="nt">ul</span><span class="nc">.entries</span> <span class="nt">img</span> <span class="p">{</span>
+</span><span class="line">  <span class="k">width</span><span class="o">:</span> <span class="m">600px</span><span class="p">;</span>
+</span><span class="line"><span class="p">}</span>
+</span><span class="line">
+</span><span class="line"><span class="nt">ul</span><span class="nc">.entries</span> <span class="nt">li</span> <span class="nt">h3</span> <span class="p">{</span>
+</span><span class="line">  <span class="k">position</span><span class="o">:</span> <span class="k">absolute</span><span class="p">;</span>
+</span><span class="line">  <span class="k">bottom</span><span class="o">:</span> <span class="m">-18px</span><span class="p">;</span>
+</span><span class="line">  <span class="k">left</span><span class="o">:</span> <span class="m">17px</span><span class="p">;</span>
+</span><span class="line">  <span class="k">font-size</span><span class="o">:</span> <span class="m">2em</span><span class="p">;</span>
+</span><span class="line"><span class="p">}</span>
+</span><span class="line"><span class="nt">ul</span><span class="nc">.entries</span> <span class="nt">a</span> <span class="p">{</span>
+</span><span class="line">  <span class="k">color</span><span class="o">:</span> <span class="m">#ececec</span><span class="p">;</span>
+</span><span class="line"><span class="p">}</span>
+</span><span class="line"><span class="nt">ul</span><span class="nc">.entries</span> <span class="nt">a</span><span class="nd">:hover</span> <span class="p">{</span>
+</span><span class="line">  <span class="k">color</span><span class="o">:</span> <span class="m">#fff</span><span class="p">;</span>
+</span><span class="line"><span class="p">}</span>
+</span><span class="line">
+</span><span class="line"><span class="nt">footer</span> <span class="p">{</span>
+</span><span class="line">  <span class="k">font-size</span><span class="o">:</span> <span class="m">0.65em</span><span class="p">;</span>
+</span><span class="line">  <span class="n">rubyt</span><span class="o">-</span><span class="n">align</span><span class="o">:</span> <span class="k">center</span><span class="p">;</span>
+</span><span class="line"><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
 
-
-<p>接着，创建一个img目录，并把图片加进去，比如banner.jpg，我们一会儿要用到它。任何图片都行，只要把它的大小调整为 960px &times; 300px。</p>
+<p>接着，创建一个img目录，并把图片加进去，比如banner.jpg，我们一会儿要用到它。任何图片都行，只要把它的大小调整为 960px × 300px。</p>
 
 <p>你可能会觉得奇怪，在上面为什么我们用if语句？如果page.title变量存在的话它也不会显示啊！如果它存在，我想让它后面跟着竖线(｜)，另一种写法是这样：</p>
 
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>{{ page.title }}{% if page.title %} | {% endif %}</span></code></pre></td></tr></table></div></figure>
-
+<div class="bogus-wrapper"><notextile><figure class="code"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+</pre></td><td class="code"><pre><code class=""><span class="line">{{ page.title }}{% if page.title %} | {% endif %}</span></code></pre></td></tr></table></div></figure></notextile></div>
 
 <p>那么我们怎样使用模板？我们需要用模板创建页面。在项目的根目录，创建名为index.html的文件。内容如下：</p>
 
-<figure class='code'><figcaption><span>index.html  </span></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-</pre></td><td class='code'><pre><code class='html'><span class='line'>---
-</span><span class='line'>layout: default
-</span><span class='line'>---
-</span><span class='line'><span class="nt">&lt;section</span> <span class="na">role=</span><span class="s">&quot;banner&quot;</span><span class="nt">&gt;</span>
-</span><span class='line'>  <span class="nt">&lt;img</span> <span class="na">src=</span><span class="s">&quot;/img/banner.jpg&quot;</span> <span class="nt">/&gt;</span>
-</span><span class='line'><span class="nt">&lt;/section&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="nt">&lt;section</span> <span class="na">class=</span><span class="s">&quot;content&quot;</span><span class="nt">&gt;</span>
-</span><span class='line'>  <span class="nt">&lt;p&gt;</span>
-</span><span class='line'>  Welcome to John Doe Photography! Please, check out my <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">&quot;/portfolio/&quot;</span><span class="nt">&gt;</span>Portfolio<span class="nt">&lt;/a&gt;</span> to see my work.
-</span><span class='line'>  <span class="nt">&lt;/p&gt;</span>
-</span><span class='line'><span class="nt">&lt;/section&gt;</span>
-</span></code></pre></td></tr></table></div></figure>
-
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span>index.html  </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+<span class="line-number">7</span>
+<span class="line-number">8</span>
+<span class="line-number">9</span>
+<span class="line-number">10</span>
+<span class="line-number">11</span>
+<span class="line-number">12</span>
+</pre></td><td class="code"><pre><code class="html"><span class="line">---
+</span><span class="line">layout: default
+</span><span class="line">---
+</span><span class="line"><span class="nt">&lt;section</span> <span class="na">role=</span><span class="s">&quot;banner&quot;</span><span class="nt">&gt;</span>
+</span><span class="line">  <span class="nt">&lt;img</span> <span class="na">src=</span><span class="s">&quot;/img/banner.jpg&quot;</span> <span class="nt">/&gt;</span>
+</span><span class="line"><span class="nt">&lt;/section&gt;</span>
+</span><span class="line">
+</span><span class="line"><span class="nt">&lt;section</span> <span class="na">class=</span><span class="s">&quot;content&quot;</span><span class="nt">&gt;</span>
+</span><span class="line">  <span class="nt">&lt;p&gt;</span>
+</span><span class="line">  Welcome to John Doe Photography! Please, check out my <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">&quot;/portfolio/&quot;</span><span class="nt">&gt;</span>Portfolio<span class="nt">&lt;/a&gt;</span> to see my work.
+</span><span class="line">  <span class="nt">&lt;/p&gt;</span>
+</span><span class="line"><span class="nt">&lt;/section&gt;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
 
 <p>这是index.html的内容。注意到文件的顶部，Jekyll称之为YAML front matter。有YAML front matter的任何文件（不以下划线开头的）将会先被Jekyll处理然后才被放进<code>_site</code>目录中，如果不以YFM开头，将会被直接放进<code>_site</code>目录。在上面这个例子中，YAML front matter告诉Jekyll要用什么模板。</p>
 
 <p>然后打开终端命令行，cd进项目目录，运行jekyll。你会看到类似下面的提示：</p>
 
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-</pre></td><td class='code'><pre><code class='sh'><span class='line'>WARNING: Could not <span class="nb">read </span>configuration. Using defaults <span class="o">(</span>and options<span class="o">)</span>.
-</span><span class='line'>   No such file or directory - /Users/andrew/Desktop/example-app/_config.yml
-</span><span class='line'>Building site: /Users/andrew/Desktop/example-app -&gt; /Users/andrew/Desktop/example-app/_site
-</span><span class='line'>Successfully generated site: /Users/andrew/Desktop/example-app -&gt; /Users/andrew/Desktop/example-app/_site
-</span></code></pre></td></tr></table></div></figure>
-
-
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span /></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+</pre></td><td class="code"><pre><code class="sh"><span class="line">WARNING: Could not <span class="nb">read </span>configuration. Using defaults <span class="o">(</span>and options<span class="o">)</span>.
+</span><span class="line">   No such file or directory - /Users/andrew/Desktop/example-app/_config.yml
+</span><span class="line">Building site: /Users/andrew/Desktop/example-app -&gt; /Users/andrew/Desktop/example-app/_site
+</span><span class="line">Successfully generated site: /Users/andrew/Desktop/example-app -&gt; /Users/andrew/Desktop/example-app/_site
+</span></code></pre></td></tr></table></div></figure></notextile></div>
 <p>忽略警告，我们一会儿处理。你可以看出网站在新建的<code>_site</code>目录中被构建出来。如果你用浏览器打开 <code>_site/index.html</code>文件，你可以看到网页有错误。这是因为我们的路径（url和样式表）是以斜杠<code>/</code>开头的。这意味着我们只能以文件的形式查看。当然，你可以开启W/MAMP，但是为什么要那么麻烦呢？jekyll内置有服务器。只要运行<code>jekyll --server</code>，然后浏览localhost:4000就可以看到下面的图片：</p>
 
 <p><img src="http://d2o0t5hpnwv4c1.cloudfront.net/1064_jekyll/index.png" alt="pic1" /></p>
@@ -1334,107 +1231,95 @@ _layout.scss     # Override settings for base/_layout.scss to change the layout
 
 <p>我要提醒一点的是，是YAML front matter使得这一神奇的事发生。如果一个文件不以三个短线开头，后接一行或多行属性，再以三个短线结尾，那这个文件只会被复制到<code>_site</code>中。</p>
 
-<h2>Step 3: 创建一个合集模板</h2>
-
+<h2 id="step-3-">Step 3: 创建一个合集模板</h2>
 <p>现在我们对基础很熟悉了，那我们来创建几幅图的合集。还记得我们前面说的jekyll是“适用于博客的”吗？我们来使用blog-awareness特性：我们来做一整套的条目(portfolio entries)，而不是零散的帖子(posts)。</p>
 
 <p>帖子位于名为<code>_posts</code>目录中，创建该目录。帖子的文件名模式必须设定：year-month-day-title.ext。帖子，jekyll网站的任何文件，可以是markdown或者HTML格式。</p>
 
 <p>我们来创建几个帖子：这些实际上是我们整套的条目。</p>
 
-<figure class='code'><figcaption><span>_posts/2010-03-04-bikes.md  </span></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-</pre></td><td class='code'><pre><code class='html'><span class='line'>---
-</span><span class='line'>layout: portfolio_entry
-</span><span class='line'>image: /img/bikes.jpg
-</span><span class='line'>title: Bikes, Black and White
-</span><span class='line'>---
-</span><span class='line'>Bikes are used by almost everyone in downtown Amsterdam. These ones are chained to a bike rack.
-</span></code></pre></td></tr></table></div></figure>
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span>_posts/2010-03-04-bikes.md  </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+</pre></td><td class="code"><pre><code class="html"><span class="line">---
+</span><span class="line">layout: portfolio_entry
+</span><span class="line">image: /img/bikes.jpg
+</span><span class="line">title: Bikes, Black and White
+</span><span class="line">---
+</span><span class="line">Bikes are used by almost everyone in downtown Amsterdam. These ones are chained to a bike rack.
+</span></code></pre></td></tr></table></div></figure></notextile></div>
 
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span>_posts/2010-10-01-wing.md  </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+</pre></td><td class="code"><pre><code class="html"><span class="line">---
+</span><span class="line">layout: portfolio_entry
+</span><span class="line">title: Wing and a Prayer
+</span><span class="line">image: /img/wing.jpg
+</span><span class="line">---
+</span><span class="line">The wing of the AirBus I rode to England.
+</span></code></pre></td></tr></table></div></figure></notextile></div>
 
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span>_posts/2011-06-05-bridge.md  </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+</pre></td><td class="code"><pre><code class="html"><span class="line">---
+</span><span class="line">layout: portfolio_entry
+</span><span class="line">title: Stone Bridge
+</span><span class="line">image: /img/bridge.jpg
+</span><span class="line">---
+</span><span class="line">An old stone bridge in London.
+</span></code></pre></td></tr></table></div></figure></notextile></div>
 
-
-<figure class='code'><figcaption><span>_posts/2010-10-01-wing.md  </span></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-</pre></td><td class='code'><pre><code class='html'><span class='line'>---
-</span><span class='line'>layout: portfolio_entry
-</span><span class='line'>title: Wing and a Prayer
-</span><span class='line'>image: /img/wing.jpg
-</span><span class='line'>---
-</span><span class='line'>The wing of the AirBus I rode to England.
-</span></code></pre></td></tr></table></div></figure>
-
-
-
-
-<figure class='code'><figcaption><span>_posts/2011-06-05-bridge.md  </span></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-</pre></td><td class='code'><pre><code class='html'><span class='line'>---
-</span><span class='line'>layout: portfolio_entry
-</span><span class='line'>title: Stone Bridge
-</span><span class='line'>image: /img/bridge.jpg
-</span><span class='line'>---
-</span><span class='line'>An old stone bridge in London.
-</span></code></pre></td></tr></table></div></figure>
-
-
-
-
-<figure class='code'><figcaption><span>_posts/2011-07-09-road.md  </span></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-</pre></td><td class='code'><pre><code class='html'><span class='line'>---
-</span><span class='line'>layout: portfolio_entry
-</span><span class='line'>title: Road and Curb
-</span><span class='line'>image: /img/road.jpg
-</span><span class='line'>---
-</span><span class='line'>Bike lanes here are terribly thin.
-</span></code></pre></td></tr></table></div></figure>
-
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span>_posts/2011-07-09-road.md  </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+</pre></td><td class="code"><pre><code class="html"><span class="line">---
+</span><span class="line">layout: portfolio_entry
+</span><span class="line">title: Road and Curb
+</span><span class="line">image: /img/road.jpg
+</span><span class="line">---
+</span><span class="line">Bike lanes here are terribly thin.
+</span></code></pre></td></tr></table></div></figure></notextile></div>
 
 <p>相当简单，是吧？注意到，我们创建了一个自定义的YAML front matter域：image。这是该条目（entry）的图片地址。这样我们就可以在这个文件里构建整个条目的HTML。但是如果我们想修改怎么办？那我们必须返回到每个条目里进行修改。我们可以不用这样做，而使用portfolio_entry模板来表示它们。这个模板长什么样呢？也是相当简单：</p>
 
-<figure class='code'><figcaption><span> (portfolio_entry.html)</span> <a href='http://chen.yanping.me/cn/downloads/code/portfolio_entry.html'>download</a></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-</pre></td><td class='code'><pre><code class='html'><span class='line'>---
-</span><span class='line'>layout: default
-</span><span class='line'>---
-</span><span class='line'>
-</span><span class='line'><span class="nt">&lt;h2</span> <span class="na">class=</span><span class="s">&quot;content&quot;</span><span class="nt">&gt;</span>{{page.title}}<span class="nt">&lt;/h2&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="nt">&lt;img</span> <span class="na">src=</span><span class="s">&quot;{{ page.image }}&quot;</span> <span class="nt">/&gt;</span>
-</span><span class='line'>
-</span><span class='line'>{{ content }}
-</span></code></pre></td></tr></table></div></figure>
-
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span> (portfolio_entry.html)</span> <a href="http://chen.yanping.me/cn/downloads/code/portfolio_entry.html">download</a></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+<span class="line-number">7</span>
+<span class="line-number">8</span>
+<span class="line-number">9</span>
+</pre></td><td class="code"><pre><code class="html"><span class="line">---
+</span><span class="line">layout: default
+</span><span class="line">---
+</span><span class="line">
+</span><span class="line"><span class="nt">&lt;h2</span> <span class="na">class=</span><span class="s">&quot;content&quot;</span><span class="nt">&gt;</span>{{page.title}}<span class="nt">&lt;/h2&gt;</span>
+</span><span class="line">
+</span><span class="line"><span class="nt">&lt;img</span> <span class="na">src=</span><span class="s">&quot;{{ page.image }}&quot;</span> <span class="nt">/&gt;</span>
+</span><span class="line">
+</span><span class="line">{{ content }}
+</span></code></pre></td></tr></table></div></figure></notextile></div>
 
 <p>如果你看<a href="https://github.com/mojombo/jekyll/wiki/Template-Data">template data page</a>，你就会发现我们添加的任何自定义front matter在page里都是可用的；在这里，我们可以访问 <code>page.image</code>。我们也可以用<code>page.title</code>和<code>content</code>（后一个三短线之后的所有东西）。</p>
 
@@ -1442,7 +1327,7 @@ _layout.scss     # Override settings for base/_layout.scss to change the layout
 
 <p>帖子（文章）页面建立起来了，但是合集（portfolio）主页怎么办呢？当我写我们的默认layout里的导航栏时，我注意到我们要的是 <code>/portfolio/</code>。那么我们在根目录创建名为<code>portfolio</code>的目录，打开里面的index.html文件。</p>
 
-<div><script src='https://gist.github.com/1481016.js?file='></script>
+<div><script src="https://gist.github.com/1481016.js?file="></script>
 <noscript><pre><code>---
 layout: default
 title: Portfolio
@@ -1467,7 +1352,6 @@ title: Portfolio
   {% endfor %}
 &lt;/ul&gt;</code></pre></noscript></div>
 
-
 <p>这是我们最复杂的一块了。记住，这不是模板：这是一个“正常的”文件，但是同样可以包含Liquid标签。我们把layout设置成default，把title设定成“Portfolio”。</p>
 
 <p>注意到，在HTML文件中，我们用了Liquid的<code>for-in</code>循环。我们用<code>site.posts</code>遍历出所有帖子，然后用<code>for post in site.posts / endfor</code>遍历所有的帖子。如果你用过Wordpress，或者其他博客系统，相信你对循环的概念很熟悉。这样就完成了！正如你看到的，我们可以得到标准属性，以及我们定义的front matter（例如<code>image</code>）。</p>
@@ -1482,36 +1366,30 @@ title: Portfolio
 
 <p>现在你创建了合集，你也能看出它怎么用来创建博客。 我们来看看如何设置Jekyll的配置选项.</p>
 
-<h2>Step 4: 写配置文件</h2>
-
+<h2 id="step-4-">Step 4: 写配置文件</h2>
 <p>Jekyll有大量的选项，还好很多都有默认选项。但是如果你想改变选项，也不是很难。</p>
 
 <p>有两种方式改变选项：</p>
 
 <ul>
-<li>第一种方式，当你在命令行运行程序，你可以传递参数。我们已经看到<code>--server</code>参数，这会在生成网站后开启服务器。</li>
-<li>另一种方式，也就是我们在这里用的方法，就是在<code>_config.yml</code>文件中，每一行用<code>a key: value</code>对来设置参数，如同YAML front matter那样。Jekyll会在生成网站前寻找这个文件。</li>
+  <li>第一种方式，当你在命令行运行程序，你可以传递参数。我们已经看到<code>--server</code>参数，这会在生成网站后开启服务器。</li>
+  <li>另一种方式，也就是我们在这里用的方法，就是在<code>_config.yml</code>文件中，每一行用<code>a key: value</code>对来设置参数，如同YAML front matter那样。Jekyll会在生成网站前寻找这个文件。</li>
 </ul>
-
 
 <blockquote>
 查看<a href="https://github.com/mojombo/jekyll/wiki/Configuration" target="_blank">配置文档</a>，获取完整的选项列表。
 </blockquote>
-
-
 <p>我们来看看常用的选项有哪些：</p>
 
 <ul>
-<li>auto： 添加<code>auto: true</code>到你的配置文件来保持Jekyll运行，查看你的项目目录的改变并随时生成网站。</li>
-<li>source: 如果源文件目录不是运行Jekyll的目录，你就要用<code>source</code>选项来设置源文件目录。</li>
-<li>destination: Jekyll默认会把网站生成在<code>./_site</code>，如果你想把网站生成在别的目标，就可以永这个选项设定。</li>
-<li>permalink：permalink是你文章的路径。默认是<code>/year/month/day/title.html</code>。你也可以自定义路径。你可以用的变量有<code>:year</code>，<code>:month</code>，<code>:day</code>，<code>:title</code> 以及<code>:categories</code>。<code>:categories</code>来自front matter；其他的变量都来自文章的文件名。你可以用<code>/:year/:month/:title</code>或者<code>/:categories/:title.html</code>的形式来设置permalink。需要注意的是，如果你文章的front matter中有permalink选项，它会覆盖掉全局的默认值。</li>
-<li>exclude: 像上面所言，Jekyll会忽略以下划线开头的文件，但是，如果你有需要忽略的目录，但是又不是以下划线开头，你可以在<code>exclude</code>中设定。</li>
+  <li>auto： 添加<code>auto: true</code>到你的配置文件来保持Jekyll运行，查看你的项目目录的改变并随时生成网站。</li>
+  <li>source: 如果源文件目录不是运行Jekyll的目录，你就要用<code>source</code>选项来设置源文件目录。</li>
+  <li>destination: Jekyll默认会把网站生成在<code>./_site</code>，如果你想把网站生成在别的目标，就可以永这个选项设定。</li>
+  <li>permalink：permalink是你文章的路径。默认是<code>/year/month/day/title.html</code>。你也可以自定义路径。你可以用的变量有<code>:year</code>，<code>:month</code>，<code>:day</code>，<code>:title</code> 以及<code>:categories</code>。<code>:categories</code>来自front matter；其他的变量都来自文章的文件名。你可以用<code>/:year/:month/:title</code>或者<code>/:categories/:title.html</code>的形式来设置permalink。需要注意的是，如果你文章的front matter中有permalink选项，它会覆盖掉全局的默认值。</li>
+  <li>exclude: 像上面所言，Jekyll会忽略以下划线开头的文件，但是，如果你有需要忽略的目录，但是又不是以下划线开头，你可以在<code>exclude</code>中设定。</li>
 </ul>
 
-
-<h2>Step 5: 部署网站</h2>
-
+<h2 id="step-5-">Step 5: 部署网站</h2>
 <p>假设你已经创建的网站，希望能在网上自由浏览，该怎么做呢？</p>
 
 <p>有几种方式可以做到。当然，如果它是一个小网站你不会经常更新它，那么简单地用ftp把它上传到服务器就可以了。如果你使用共享的主机服务，这可能是你唯一的选择了。</p>
@@ -1520,56 +1398,45 @@ title: Portfolio
 
 <p><strong>译者注：</strong>也可以把网站部署在github或者heroku上。</p>
 
-<h2>Step 6: 更进一步</h2>
-
+<h2 id="step-6-">Step 6: 更进一步</h2>
 <p>下面是Jekyll的一些tip:</p>
 
 <ul>
-<li><a href="https://github.com/mojombo/jekyll/wiki/Plugins">Jekyll插件</a>允许你修改网站内容生成方式。</li>
-<li>你可以用<a href="https://github.com/Shopify/liquid/wiki">Liquid</a>做更多的事，Jekyll增加了很多<a href="https://github.com/mojombo/jekyll/wiki/Liquid-Extensions">扩展</a> 。</li>
-<li>还有很多<a href="https://github.com/mojombo/jekyll/wiki/Template-Data">模板数据</a>我们没有提及，请自行查看。</li>
+  <li><a href="https://github.com/mojombo/jekyll/wiki/Plugins">Jekyll插件</a>允许你修改网站内容生成方式。</li>
+  <li>你可以用<a href="https://github.com/Shopify/liquid/wiki">Liquid</a>做更多的事，Jekyll增加了很多<a href="https://github.com/mojombo/jekyll/wiki/Liquid-Extensions">扩展</a> 。</li>
+  <li>还有很多<a href="https://github.com/mojombo/jekyll/wiki/Template-Data">模板数据</a>我们没有提及，请自行查看。</li>
 </ul>
 
-
-<h2>结论</h2>
-
+<h2 id="section">结论</h2>
 <p>本文介绍了Jekyll——一种简单的、适用于做博客的、静态网站生成引擎。下次如果你想建一个宣传册风格的、小型展示页面，可以试试用Jekyll，如果你成功了，请在留言中告诉我。感谢您的阅读！</p>
 
-<h2>译者言</h2>
+<h2 id="section-1">译者言</h2>
 
 <p>我也是一边翻译，一边练习使用Octopress，在翻译过程中遇到了三个问题。</p>
 
-<p>第一个问题是在markdown里直接写html标签的话可能会出错。例如在step2中，我写了个&lt;title&gt;，一开始的时候没有做任何处理，结果出来的网页有错，后来我才想起来，markdown里的html语句会被直接放到最终网页里，那么我直接这么写的话，就会出现两个&lt;title&gt;，所以正确的做法是用&#96;把&lt;title&gt;括起来，或者就写<code>&amp;lt;title&amp;gt;</code>。就在我刚才编辑这段话时，又接连出现问题，这个&#96;会自动寻找最近的另一半来匹配，所以我不得不用数字实体引用来表示它。</p>
+<p>第一个问题是在markdown里直接写html标签的话可能会出错。例如在step2中，我写了个&lt;title&gt;，一开始的时候没有做任何处理，结果出来的网页有错，后来我才想起来，markdown里的html语句会被直接放到最终网页里，那么我直接这么写的话，就会出现两个&lt;title&gt;，所以正确的做法是用`把&lt;title&gt;括起来，或者就写<code>&amp;lt;title&amp;gt;</code>。就在我刚才编辑这段话时，又接连出现问题，这个`会自动寻找最近的另一半来匹配，所以我不得不用数字实体引用来表示它。</p>
 
 <p>第二个问题是当文章中引用了含有Liquid标签的代码片段时，这些代码会被jekyll渲染。一般代码是用<a href="http://octopress.org/docs/plugins/codeblock/" target="_blank">codeblock标签</a>或者用 <code>```</code>括起来（也就是Backtick Code Blocks的方式），能保持原样，还能显示语法高亮，但是当引用的代码里含有Liquid标签时就出现了混乱。为此，我也试了很久，也到<a href="http://ruby-taiwan.org/topics/74">ruby-taiwan.org</a>上发帖问了，总结起来有几种方法：</p>
 
 <ol>
-<li>用gist插件
-
-<pre><code> {% gist gist_id [filename] %}
-</code></pre>
-
-<p>这种方式比较强大，但是需要连接gist，加载页面的时候有点卡。</p></li>
-<li>用include_code插件
-
-<pre><code> {% include_code [title] [lang:language] path/to/file %}
-</code></pre>
-
-<p>上面两种方法在Octoprss的官方网站都有介绍，请看<a href="http://octopress.org/docs/blogging/code/">http://octopress.org/docs/blogging/code/</a></p></li>
-<li>用codeblock标签里嵌套raw标签，详情请看<a href="http://jimpravetz.com/blog/2011/12/inserting-liquid-syntax-into-octopress-codeblock/">http://jimpravetz.com/blog/2011/12/inserting-liquid-syntax-into-octopress-codeblock/</a>。这种方式只能帖代码，不能语法高亮。</li>
+  <li>用gist插件
+     {% gist gist_id [filename] %}
+这种方式比较强大，但是需要连接gist，加载页面的时候有点卡。</li>
+  <li>用include_code插件
+     {% include_code [title] [lang:language] path/to/file %}
+上面两种方法在Octoprss的官方网站都有介绍，请看<a href="http://octopress.org/docs/blogging/code/">http://octopress.org/docs/blogging/code/</a></li>
+  <li>用codeblock标签里嵌套raw标签，详情请看<a href="http://jimpravetz.com/blog/2011/12/inserting-liquid-syntax-into-octopress-codeblock/">http://jimpravetz.com/blog/2011/12/inserting-liquid-syntax-into-octopress-codeblock/</a>。这种方式只能帖代码，不能语法高亮。</li>
 </ol>
-
 
 <p>仔细研究一下Octopress官方网站的代码（比如<a href="https://raw.github.com/imathis/octopress/site/source/docs/plugins/codeblock/index.markdown">codeblock这节</a>），还能学到另一个技巧。在我翻译这篇文章时，几种方法都用到了，有兴趣的可以查看本文的markdown代码。</p>
 
 <p>第三个问题是CSS代码不能被着色，找到了一篇文章<a href="http://hack.sslab.co/blog/2011/11/13/octopress-upgrade-pygments/" target="_blank">《讓 Octopress 支援更多語言的程式碼區塊（更新 Pygments）》</a>，用里面的方法更新pygment就行了。需要注意的是pygments.rb的目录和那篇文章的不同，我的ubuntu11.10下为</p>
 
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='sh'><span class='line'>~/.rvm/gems/ruby-1.9.2-p290/gems/pygments.rb-0.2.4/vendor
-</span></code></pre></td></tr></table></div></figure>
-
-
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span /></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+</pre></td><td class="code"><pre><code class="sh"><span class="line">~/.rvm/gems/ruby-1.9.2-p290/gems/pygments.rb-0.2.4/vendor
+</span></code></pre></td></tr></table></div></figure></notextile></div>
 <p>后面的类似。</p>
+
 ]]></content>
   </entry>
   
@@ -1584,15 +1451,13 @@ title: Portfolio
 github pages的<a target="_blank" href="http://pages.github.com/">官方主页</a>这样说：</p>
 
 <ul>
-<li>假设你github的用户名为<strong>username</strong>，那么创建一个名为username.github.com的代码库（repository）,在这个库中上传html、CSS等静态页面文件，可以用地址 http://username.github.com来访问页面了，这个页面就是你账户的主页面（User pages）。</li>
-<li>如果你又创建了个叫<strong>repo</strong>的代码库，在它下面的gh-pages分支里上传了html、CSS等静态页面文件，那么用http://username.github.com/repo这个地址就能访问页面了。</li>
-<li>要想生成复杂点的页面，可以用<a target="_blank" href="http://github.com/mojombo/jekyll/">jekyll</a>，语法高亮用<code>pygments</code> 。</li>
-<li>要想域名绑定，在代码库的根目录下放一个CNAME文件就行了，文件里写上想要绑定的域名，然后在域名DNS管理的后台网站建立指向就行。如果想把页面绑定到二级域名，需要创建一个CNAME指向。如果要把页面绑定到顶级域名，需要创建一个A指向。不能用CNAME指向顶级域名，否则会造成冲突。</li>
+  <li>假设你github的用户名为<strong>username</strong>，那么创建一个名为username.github.com的代码库（repository）,在这个库中上传html、CSS等静态页面文件，可以用地址 http://username.github.com来访问页面了，这个页面就是你账户的主页面（User pages）。</li>
+  <li>如果你又创建了个叫<strong>repo</strong>的代码库，在它下面的gh-pages分支里上传了html、CSS等静态页面文件，那么用http://username.github.com/repo这个地址就能访问页面了。</li>
+  <li>要想生成复杂点的页面，可以用<a target="_blank" href="http://github.com/mojombo/jekyll/">jekyll</a>，语法高亮用<code>pygments</code> 。</li>
+  <li>要想域名绑定，在代码库的根目录下放一个CNAME文件就行了，文件里写上想要绑定的域名，然后在域名DNS管理的后台网站建立指向就行。如果想把页面绑定到二级域名，需要创建一个CNAME指向。如果要把页面绑定到顶级域名，需要创建一个A指向。不能用CNAME指向顶级域名，否则会造成冲突。 </li>
 </ul>
 
-
 <!--more-->
-
 
 <p>现在问题就来自上面的最后一条，当我建立了个用户页面 http://username.github.com并把它的域名绑定为顶级域名example.com之后，我账户下所有代码库页面都变成了example.com下面的二级目录。我想这可能是因为代码库页面原来的网址为http://username.github.com/repo，DNS把http://username.github.com解析成了http://example.com。请看 <a target="_blank" href="https://github.com/lmorchard">https://github.com/lmorchard</a>，他在github上有两个博客， <a target="_blank" href="http://decafbad.com/skein">http://decafbad.com/skein</a> 和 <a target="_blank" href="http://decafbad.com/blog/">http://decafbad.com/blog/ </a></p>
 
@@ -1600,39 +1465,36 @@ github pages的<a target="_blank" href="http://pages.github.com/">官方主页</
 
 <p>如果我不给用户页面绑定域名，或者干脆不创建用户页面，是不是可以给代码库页面绑定域名呢？答案是否定的，因为A指向需要提供个IP地址，CNAM需要指向个域名，而不能是http://username.github.com/repo的形式。</p>
 
-<p>如果想充分利用你的域名和子域名，我暂时能想到的就是多开几个github账户吧，关于一台电脑上多个github账户的操作，网上有现成的教程，我会在以后整理出来。</p>
+<p>如果想充分利用你的域名和子域名，我暂时能想到的就是多开几个github账户吧，关于一台电脑上多个github账户的操作，网上有现成的教程，我会在以后整理出来。 </p>
 
 <p>我也注意到github也有例外，请看<a target="_blank" href="http://gitready.com/">http://gitready.com/</a>这个网站，它在github上的代码地址是<a target="_blank" href="http://github.com/gitready/gitready/">http://github.com/gitready/gitready/</a> , 可以看到它还有别的语言版本，域名分别是<a target="_blank" href="http://de.gitready.com/">http://de.gitready.com/</a>、<a target="_blank" href="http://fr.gitready.com">http://fr.gitready.com</a> 。。。 这是怎么做到的呢？ 我注意到，它这个目录下没有master分支，是跟这个有关吗？ 目前还没有得到作者的回复，也从知晓。感兴趣的同学们来研究一下吧。</p>
 
-<h3>快速应用</h3>
-
+<h3 id="section">快速应用</h3>
 <p><code>jekyll</code>对初学者太难掌握，有人推荐使用<a target="_blank" href="http://www.octopress.org">octopress</a>、<a target="_blank" href="https://github.com/cloudhead/toto">toto</a>或者<a target="_blank" href="http://alexyoung.org/2011/07/24/pop/">pop</a>等基于Jekyll的静态博客站点生成系统<sup>[<a id="back2" href="#2">2</a>]</sup>，它很大程度上简化了用Jekyll搭建博客的过程。<del>可惜这些系统在windows下都不能顺畅使用，我也没试成功。使用Linux的同学可以试一试。</del><ins>在windows下使用Octopress的教程请看我的<a href="http://chen.yanping.me/cn/blog/2011/12/26/octopress-on-windows/" target="_blank">博客文章</a></ins>。</p>
 
-<h3>参考文章：</h3>
+<h3 id="section-1">参考文章：</h3>
 
-<p><a target="_blank" href="https://github.com/blog/272-github-pages">Github Pages </a><br/>
-<a target="_blank" href="http://ravenw.com/blog/2011/08/27/blog-with-jekyll/">基于Jekyll搭建自己的博客 </a><br/>
-<a target="_blank" href="http://blog.leezhong.com/tech/2010/08/25/make-github-as-blog-engine.html">像黑客一样写博客</a><br/>
-<a target="_blank" href="http://blog.leezhong.com/tech/2010/08/25/make-github-as-blog-engine.html">使用github作为博客引擎</a><br/>
-<a target="_blank" href="http://www.alexrothenberg.com/2011/01/27/moved-blog-to-jekyll-and-github-pages.html">Alex Rothenberg - Moved Blog to Jekyll and GitHub Pages</a><br/>
-<a target="_blank" href="http://gotgit.github.com/gotgithub">github教程《GoGitHub》</a><br/>
-<a target="_blank" href="http://www.shaoshing.com/2010/04/03/blog-engine-jekyll-vs-toto/">轻量级博客工具: Jekyll vs ToTo</a><br/>
-<a target="_blank" href="http://blog.lyhdev.com/2011/10/octopress-github-markdown.html">使用 Octopress + GitHub 免費架設部落格，以 Markdown 語法快速發表文章</a><br/>
-<a target="_blank" href="http://yavaeye.com/p/show/hello-octopress">Hello octopress</a><br/>
+<p><a target="_blank" href="https://github.com/blog/272-github-pages">Github Pages </a><br />
+<a target="_blank" href="http://ravenw.com/blog/2011/08/27/blog-with-jekyll/">基于Jekyll搭建自己的博客 </a><br />
+<a target="_blank" href="http://blog.leezhong.com/tech/2010/08/25/make-github-as-blog-engine.html">像黑客一样写博客</a><br />
+<a target="_blank" href="http://blog.leezhong.com/tech/2010/08/25/make-github-as-blog-engine.html">使用github作为博客引擎</a><br />
+<a target="_blank" href="http://www.alexrothenberg.com/2011/01/27/moved-blog-to-jekyll-and-github-pages.html">Alex Rothenberg - Moved Blog to Jekyll and GitHub Pages</a><br />
+<a target="_blank" href="http://gotgit.github.com/gotgithub">github教程《GoGitHub》</a><br />
+<a target="_blank" href="http://www.shaoshing.com/2010/04/03/blog-engine-jekyll-vs-toto/">轻量级博客工具: Jekyll vs ToTo</a><br />
+<a target="_blank" href="http://blog.lyhdev.com/2011/10/octopress-github-markdown.html">使用 Octopress + GitHub 免費架設部落格，以 Markdown 語法快速發表文章</a><br />
+<a target="_blank" href="http://yavaeye.com/p/show/hello-octopress">Hello octopress</a><br />
 <a target="_blank" href="http://lucifr.com/2011/11/23/bye-bye-wordpress-hello-octopress/">Bye-bye WordPress. Hello Octopress!</a></p>
 
-<h4>脚注：</h4>
+<h4 id="section-2">脚注：</h4>
 
 <ol>
-<li>请看他的博文<a href="http://yihui.name/cn/2011/10/back-into-the-dust/">魂归大地</a> [<a id="1" href="#back1">↩</a>]</li>
-<li>还有别的类似系统，请看<a href="http://iwantmyname.com/blog/2011/02/list-static-website-generators.html">这里</a> [ <a id="2" href="#back2">↩</a> ]</li>
+  <li>请看他的博文<a href="http://yihui.name/cn/2011/10/back-into-the-dust/">魂归大地</a> [<a id="1" href="#back1">↩</a>] </li>
+  <li>还有别的类似系统，请看<a href="http://iwantmyname.com/blog/2011/02/list-static-website-generators.html">这里</a> [ <a id="2" href="#back2">↩</a> ]</li>
 </ol>
-
 
 <p class="info">
 关于项目页面的域名绑定问题请看<a href="http://chen.yanping.me/cn/blog/2011/12/26/github-pages-domain-2/" target="_blank">再谈github页面域名绑定</a>，关于github站点的域名跳转请看<a href="http://chen.yanping.me/cn/blog/2012/02/06/github-pages-domain-3/" target="_blank">三谈github页面域名绑定</a>。
 </p>
-
 ]]></content>
   </entry>
   
@@ -1654,37 +1516,35 @@ github pages的<a target="_blank" href="http://pages.github.com/">官方主页</
 
 <p>下面的命令用于克隆和初始化别人的模板</p>
 
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>git clone https://github.com/krisb/jekyll-template.git mysite
-</span><span class='line'>cd mysite
-</span><span class='line'>rm -rf .git
-</span><span class='line'>git init
-</span><span class='line'>git add -A
-</span><span class='line'>git commit -m 'initial template based on https://github.com/krisb/jekyll-template'
-</span><span class='line'>git remote add origin git@github.com:username/reponame.git
-</span><span class='line'>git push -u origin master</span></code></pre></td></tr></table></div></figure>
-
+<div class="bogus-wrapper"><notextile><figure class="code"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+<span class="line-number">7</span>
+<span class="line-number">8</span>
+</pre></td><td class="code"><pre><code class=""><span class="line">git clone https://github.com/krisb/jekyll-template.git mysite
+</span><span class="line">cd mysite
+</span><span class="line">rm -rf .git
+</span><span class="line">git init
+</span><span class="line">git add -A
+</span><span class="line">git commit -m 'initial template based on https://github.com/krisb/jekyll-template'
+</span><span class="line">git remote add origin git@github.com:username/reponame.git
+</span><span class="line">git push -u origin master</span></code></pre></td></tr></table></div></figure></notextile></div>
 
 <p>原文地址 <a target="_blank" href="https://github.com/krisb/jekyll-template">https://github.com/krisb/jekyll-template</a></p>
 
-<h3>延伸阅读：</h3>
+<h3 id="section">延伸阅读：</h3>
 
 <ul>
-<li><a target="_blank" href="http://kyle.xlau.org/2009/08/13/blogging-like-a-hacker.html">像黑客一样写博客</a></li>
-<li><a target="_blank" href="http://blog.leezhong.com/tech/2010/08/25/make-github-as-blog-engine.html">使用github作为博客引擎</a></li>
-<li><a target="_blank" href="http://www.yangzhiping.com/tech/wordpress-to-jekyll.html">告别wordpress，拥抱jekyll</a></li>
-<li><a target="_blank" href="http://roylez.heroku.com/2010/02/04/jekyll-on-heroku.html">在heroku上用jekyll做博客</a></li>
-<li><a target="_blank" href="http://www.shaoshing.com/2010/04/03/blog-engine-jekyll-vs-toto/">轻量级博客工具: Jekyll vs ToTo</a></li>
-<li><a target="_blank" href="http://blog.miaout17.net/2011/05/08/convert-wordpress-to-jekyll-and-disqus/">將Wordpress轉移到Jekyll及Disqus</a></li>
+  <li><a target="_blank" href="http://kyle.xlau.org/2009/08/13/blogging-like-a-hacker.html">像黑客一样写博客</a></li>
+  <li><a target="_blank" href="http://blog.leezhong.com/tech/2010/08/25/make-github-as-blog-engine.html">使用github作为博客引擎</a></li>
+  <li><a target="_blank" href="http://www.yangzhiping.com/tech/wordpress-to-jekyll.html">告别wordpress，拥抱jekyll</a></li>
+  <li><a target="_blank" href="http://roylez.heroku.com/2010/02/04/jekyll-on-heroku.html">在heroku上用jekyll做博客</a></li>
+  <li><a target="_blank" href="http://www.shaoshing.com/2010/04/03/blog-engine-jekyll-vs-toto/">轻量级博客工具: Jekyll vs ToTo</a></li>
+  <li><a target="_blank" href="http://blog.miaout17.net/2011/05/08/convert-wordpress-to-jekyll-and-disqus/">將Wordpress轉移到Jekyll及Disqus</a></li>
 </ul>
-
 ]]></content>
   </entry>
   
@@ -1696,25 +1556,23 @@ github pages的<a target="_blank" href="http://pages.github.com/">官方主页</
     <content type="html"><![CDATA[<p>紧急任务</p>
 
 <ul>
-<li>Predicting Stock Market return，为11月12-13日的<a href="http://cos.name/2011/09/chinar-2011-sh/" target="_blank">第四届R语言会议上海站</a>准备的</li>
+  <li>Predicting Stock Market return，为11月12-13日的<a href="http://cos.name/2011/09/chinar-2011-sh/" target="_blank">第四届R语言会议上海站</a>准备的</li>
 </ul>
-
 
 <p>中期任务</p>
 
 <ul>
-<li>《我的第一本C++书》，对C++的全貌做一个简单了解，尤其是上学的时候学得不扎实的面向对象编程以及完全没了解的STL</li>
-<li>The mathematics of derivatives， 对衍生品定价方面的数学做一个简单复习</li>
+  <li>《我的第一本C++书》，对C++的全貌做一个简单了解，尤其是上学的时候学得不扎实的面向对象编程以及完全没了解的STL</li>
+  <li>The mathematics of derivatives， 对衍生品定价方面的数学做一个简单复习</li>
 </ul>
-
 
 <p>更远的计划</p>
 
 <ul>
-<li>C++与面向对象数值计算，进一步熟悉C++，并学习用C++做数值计算</li>
-<li>C++ design patterns and derivatives pricing，学习用C++做衍生品定价的设计模式</li>
-<li>S. E. Shreve, Stochastic calculus and Finance I&amp;II</li>
-<li>…… 前面的看完再说吧</li>
+  <li>C++与面向对象数值计算，进一步熟悉C++，并学习用C++做数值计算</li>
+  <li>C++ design patterns and derivatives pricing，学习用C++做衍生品定价的设计模式</li>
+  <li>S. E. Shreve, Stochastic calculus and Finance I&amp;II</li>
+  <li>…… 前面的看完再说吧</li>
 </ul>
 
 ]]></content>

@@ -29,20 +29,40 @@
 <link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
 <link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
 
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+
+
+
+
+
   
-  <script type="text/javascript">
-    var _gaq = _gaq || [];
-    _gaq.push(['_setAccount', 'UA-27377274-2']);
-    _gaq.push(['_trackPageview']);
-
-    (function() {
-      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-    })();
-  </script>
-
-
 </head>
 
 <body   >
@@ -114,67 +134,55 @@
 
 <!--more-->
 
-
 <p>想起阳志平推荐的RailsInstaller<sup>[<a id="back_2_2" href="#fn_2_2">2</a>]</sup>，其中ruby的版本就是1.9.2，而Octopress就要求Ruby1.9.2的环境。于是打开Git Bash，按照<a href="http://octopress.org/docs/" target="_blank">官方指南</a>安装，</p>
 
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-</pre></td><td class='code'><pre><code class='sh'><span class='line'>git clone git://github.com/imathis/octopress.git octopress
-</span><span class='line'><span class="nb">cd </span>octopress    <span class="c"># If you use RVM, You&#39;ll be asked if you trust the .rvmrc file (say yes).</span>
-</span><span class='line'>ruby --version  <span class="c"># Should report Ruby 1.9.2</span>
-</span><span class='line'>gem install bundler
-</span><span class='line'>bundle install
-</span></code></pre></td></tr></table></div></figure>
-
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span /></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+</pre></td><td class="code"><pre><code class="sh"><span class="line">git clone git://github.com/imathis/octopress.git octopress
+</span><span class="line"><span class="nb">cd </span>octopress    <span class="c"># If you use RVM, You&#39;ll be asked if you trust the .rvmrc file (say yes).</span>
+</span><span class="line">ruby --version  <span class="c"># Should report Ruby 1.9.2</span>
+</span><span class="line">gem install bundler
+</span><span class="line">bundle install
+</span></code></pre></td></tr></table></div></figure></notextile></div>
 
 <p><code>bundle install</code>不成功的话可以换成<code>bundle update</code>。下一步应该运行<code>rake install</code>了，结果返回信息：</p>
 
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='sh'><span class='line'>You have already activated rake 0.9.2.2, but your Gemfile requires rake 0.9.2. Using bundle <span class="nb">exec </span>may solve this.
-</span></code></pre></td></tr></table></div></figure>
-
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span /></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+</pre></td><td class="code"><pre><code class="sh"><span class="line">You have already activated rake 0.9.2.2, but your Gemfile requires rake 0.9.2. Using bundle <span class="nb">exec </span>may solve this.
+</span></code></pre></td></tr></table></div></figure></notextile></div>
 
 <p>换成<code>bundle exec rake install</code>就行了，于是后面所有要用到rake的命令，通过都用bundle exec rake代替。嫌麻烦的话也可以在bash的配置文件里添加命令的别名。如果你windows的用户名为user，bash的配置文件在C:\Documents and Settings\user下，也可以直接在git bash下输入<code>cd ~</code>，文件名为<code>.bash_profile</code>，在文件里添加一行</p>
 
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='sh'><span class='line'><span class="nb">alias </span><span class="nv">rake</span><span class="o">=</span><span class="s1">&#39;bundle exec rake&#39;</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span /></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+</pre></td><td class="code"><pre><code class="sh"><span class="line"><span class="nb">alias </span><span class="nv">rake</span><span class="o">=</span><span class="s1">&#39;bundle exec rake&#39;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
 <p>后面都和官方指南一样。但真正用起来的时候，发现不能使用中文（请看<a href="http://ruby-taiwan.org/topics/46" target="_blank">帖子</a>）。经论坛上laoyang945点拨，字符集不兼容的问题终于解决了，只要在<code>.bash_profile</code>再加两行</p>
 
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class='sh'><span class='line'><span class="nb">export   </span><span class="nv">LC_ALL</span><span class="o">=</span>zh_CN.UTF-8
-</span><span class='line'><span class="nb">export   </span><span class="nv">LANG</span><span class="o">=</span>zh_CN.UTF-8
-</span></code></pre></td></tr></table></div></figure>
-
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span /></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+</pre></td><td class="code"><pre><code class="sh"><span class="line"><span class="nb">export   </span><span class="nv">LC_ALL</span><span class="o">=</span>zh_CN.UTF-8
+</span><span class="line"><span class="nb">export   </span><span class="nv">LANG</span><span class="o">=</span>zh_CN.UTF-8
+</span></code></pre></td></tr></table></div></figure></notextile></div>
 
 <p>另外，淘宝给我们送了一份圣诞大礼（请猛戳<a href="http://www.oschina.net/news/24321/rubygems-taobao-mirror?from=rss" target="_blank">淘宝提供RubyGems的国内镜像站点</a>），这样我可以修改下载的Octopress目录下的Gemfile文件，把第一行改成</p>
 
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">source</span> <span class="s2">&quot;http://ruby.taobao.org/&quot;</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span /></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+</pre></td><td class="code"><pre><code class="ruby"><span class="line"><span class="n">source</span> <span class="s2">&quot;http://ruby.taobao.org/&quot;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
 <p>做这样的修改后，安装速度会大大提高。</p>
 
-<h3>脚注</h3>
-
+<h3 id="section">脚注</h3>
 <ol>
-<li>我所在的并不是技术公司，相反，那是个文人聚集的地方  [<a id="fn_2_1" href="#back_2_1">↩</a>]</li>
-<li>关于在windows下搭建ruby环境，请看他的<a href="http://www.yangzhiping.com/tech/happy-ruby-ps1-windows.html">文章</a> [<a id="fn_2_2" href="#back_2_2">↩</a>]</li>
+  <li>我所在的并不是技术公司，相反，那是个文人聚集的地方  [<a id="fn_2_1" href="#back_2_1">↩</a>] </li>
+  <li>关于在windows下搭建ruby环境，请看他的<a href="http://www.yangzhiping.com/tech/happy-ruby-ps1-windows.html">文章</a> [<a id="fn_2_2" href="#back_2_2">↩</a>] </li>
 </ol>
-
 
 <p class="warning">
 有人反映在win7下找不到<code>.bash_profile</code>文件，新建这个也没用。我暂时也没有win7的测试环境，论坛上有人提出了解决方法，更多的讨论请看<a href="http://ruby-taiwan.org/topics/46">http://ruby-taiwan.org/topics/46</a> 。
 </p>
-
-
 
 </div>
 
@@ -351,10 +359,14 @@
 
     </div>
   </div>
-  <footer role="contentinfo"><p>
+  <footer role="contentinfo">
+<p>
   Copyright &copy; 2012 - ypchen -
   <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
 </p>
+
+
+
 
 </footer>
   
@@ -382,6 +394,25 @@
 
 
 
+
+
+
+
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-27377274-2']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+<script type="text/javascript"
+   src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
 
 

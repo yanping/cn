@@ -9,8 +9,8 @@
   <meta name="author" content="ypchen">
 
   
-  <meta name="description" content="关于 资浅媒体人，不靠谱经济分析师，IT文艺小青年。
-声明：所有言论仅代表个人观点，与所在单位无关。 分类目录 Github(4) Javascript(1) Jekyll(4) Octopress(4) R语言(4) 近期文章 一段有用的javascript代码 给博客侧边栏添加近期评论 &hellip;">
+  <meta name="description" content="关于 资浅媒体人，堆文字的金融攻城师，不靠谱的经济分析师，IT文艺小青年，舞者中的程序猿。
+声明：所有言论仅代表个人观点，与所在单位无关。 分类目录 Github(4) Javascript(1) Jekyll(4) Octopress(4) R语言(4) 近期文章 &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -30,20 +30,40 @@
 <link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
 <link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
 
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+
+
+
+
+
   
-  <script type="text/javascript">
-    var _gaq = _gaq || [];
-    _gaq.push(['_setAccount', 'UA-27377274-2']);
-    _gaq.push(['_trackPageview']);
-
-    (function() {
-      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-    })();
-  </script>
-
-
 </head>
 
 <body   >
@@ -86,7 +106,7 @@
   <img class="right" src="http://art.yanping.me/images/avatar.jpg">
 
 
-<p>资浅媒体人，不靠谱经济分析师，IT文艺小青年。</p>
+<p>资浅媒体人，堆文字的金融攻城师，不靠谱的经济分析师，IT文艺小青年，舞者中的程序猿。</p>
 <p>声明：所有言论仅代表个人观点，与所在单位无关。</p>
 
   
@@ -192,10 +212,14 @@
 
     </div>
   </div>
-  <footer role="contentinfo"><p>
+  <footer role="contentinfo">
+<p>
   Copyright &copy; 2012 - ypchen -
   <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
 </p>
+
+
+
 
 </footer>
   
@@ -220,6 +244,25 @@
 
 
 
+
+
+
+
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-27377274-2']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+<script type="text/javascript"
+   src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
 
 

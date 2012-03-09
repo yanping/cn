@@ -9,7 +9,8 @@
   <meta name="author" content="ypchen">
 
   
-  <meta name="description" content="在我翻译的为Octopress修改主题和自定义样式一文后面，Eric Lau问我如何在博客侧边栏显示近期评论。本文就是针对这一问题的简短教程。 第一步：在disqus.com获取代码 登录到disqus.com，选择评论所在的网站，进入Admin，选择Tools，在code中，是Extra &hellip;">
+  <meta name="description" content="在我翻译的为Octopress修改主题和自定义样式一文后面，Eric Lau问我如何在博客侧边栏显示近期评论。本文就是针对这一问题的简短教程。 第一步：在disqus.com获取代码
+登录到disqus.com，选择评论所在的网站，进入Admin，选择Tools，在code中，是Extra &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -29,20 +30,40 @@
 <link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
 <link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
 
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+
+
+
+
+
   
-  <script type="text/javascript">
-    var _gaq = _gaq || [];
-    _gaq.push(['_setAccount', 'UA-27377274-2']);
-    _gaq.push(['_trackPageview']);
-
-    (function() {
-      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-    })();
-  </script>
-
-
 </head>
 
 <body   >
@@ -108,61 +129,54 @@
 在我翻译的<a href="http://chen.yanping.me/cn/blog/2012/01/07/theming-and-customization/" target="_blank">为Octopress修改主题和自定义样式</a>一文后面，Eric Lau问我如何在博客侧边栏显示近期评论。本文就是针对这一问题的简短教程。
 </p>
 
-
-<h2>第一步：在disqus.com获取代码</h2>
-
+<h2 id="disquscom">第一步：在disqus.com获取代码</h2>
 <p>登录到disqus.com，选择评论所在的网站，进入Admin，选择Tools，在code中，是<strong>Extra Widgets</strong>的代码，提供了几种Widgets插件，分别是Combination（组合式）、Recent Comments（近期评论）、 Popular Threads（热门话题）、Top Commenters（最近评论人）。该工具可以根据用户设置的参数生成代码。</p>
 
-<p><img src="/cn/images/blog/12-02-07/tools-setting.png"></p>
+<p><img src="/cn/images/blog/12-02-07/tools-setting.png" /> </p>
 
-<h2>第二步：把代码添加到octopress</h2>
-
+<h2 id="octopress">第二步：把代码添加到octopress</h2>
 <p>按照<a href="http://chen.yanping.me/cn/blog/2012/01/07/theming-and-customization/" target="_blank">为Octopress修改主题和自定义样式</a>一文的描述，在sidebar里添加一个section，比如叫做recent_comments.html，代码如下：</p>
 
-<figure class='code'><figcaption><span>recent_comments.html (../source/_includes/custom/asides/recent_comments.html) </span></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-</pre></td><td class='code'><pre><code class='html'><span class='line'><span class="nt">&lt;section</span> <span class="na">id=</span><span class="s">&quot;comment_sidebar&quot;</span><span class="nt">&gt;</span>
-</span><span class='line'><span class="nt">&lt;h1&gt;</span>近期评论<span class="nt">&lt;/h1&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="nt">&lt;script </span><span class="na">type=</span><span class="s">&quot;text/javascript&quot;</span> <span class="na">src=</span><span class="s">&quot;http://ypchencn.disqus.com/recent_comments_widget.js?num_items=5&amp;hide_avatars=0&amp;avatar_size=32&amp;excerpt_length=20&quot;</span><span class="nt">&gt;&lt;/script&gt;&lt;a</span> <span class="na">href=</span><span class="s">&quot;http://disqus.com/&quot;</span><span class="nt">&gt;</span>Powered by Disqus<span class="nt">&lt;/a&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="nt">&lt;/section&gt;</span>
-</span></code></pre></td></tr></table></div></figure>
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span>recent_comments.html (../source/_includes/custom/asides/recent_comments.html) </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+</pre></td><td class="code"><pre><code class="html"><span class="line"><span class="nt">&lt;section</span> <span class="na">id=</span><span class="s">&quot;comment_sidebar&quot;</span><span class="nt">&gt;</span>
+</span><span class="line"><span class="nt">&lt;h1&gt;</span>近期评论<span class="nt">&lt;/h1&gt;</span>
+</span><span class="line">
+</span><span class="line"><span class="nt">&lt;script </span><span class="na">type=</span><span class="s">&quot;text/javascript&quot;</span> <span class="na">src=</span><span class="s">&quot;http://ypchencn.disqus.com/recent_comments_widget.js?num_items=5&amp;hide_avatars=0&amp;avatar_size=32&amp;excerpt_length=20&quot;</span><span class="nt">&gt;&lt;/script&gt;&lt;a</span> <span class="na">href=</span><span class="s">&quot;http://disqus.com/&quot;</span><span class="nt">&gt;</span>Powered by Disqus<span class="nt">&lt;/a&gt;</span>
+</span><span class="line">
+</span><span class="line"><span class="nt">&lt;/section&gt;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
 
-
-<h2>第三步：修改_config.yml</h2>
-
+<h2 id="configyml">第三步：修改_config.yml</h2>
 <p>按照<a href="http://chen.yanping.me/cn/blog/2012/01/07/theming-and-customization/" target="_blank">为Octopress修改主题和自定义样式</a>一文的描述，修改_config.yml，以决定评论插件出现的位置。</p>
 
-<figure class='code'><figcaption><span>Sidebar configuration (_config.yml) </span></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-</pre></td><td class='code'><pre><code class='yaml'><span class='line'><span class="c1"># list each of the sidebar modules you want to include, in the order you want them to appear.</span>
-</span><span class='line'><span class="c1"># To add custom asides, create files in /source/_includes/custom/asides/ and add them to the list like &#39;custom/asides/custom_aside_name.html&#39;</span>
-</span><span class='line'><span class="l-Scalar-Plain">default_asides</span><span class="p-Indicator">:</span>     <span class="p-Indicator">[</span><span class="nv">asides/recent_posts.html</span><span class="p-Indicator">,</span> <span class="nv">custom/asides/recent_comments.html</span><span class="p-Indicator">,</span> <span class="nv">custom/asides/blogroll.html</span><span class="p-Indicator">,</span><span class="nv">custom/asides/weibo.html</span><span class="p-Indicator">,</span> <span class="nv">custom/asides/copyleft.html</span><span class="p-Indicator">,</span><span class="nv">custom/asides/feed.html</span><span class="p-Indicator">]</span>
-</span><span class='line'>
-</span><span class='line'><span class="c1"># Each layout uses the default asides, but they can have their own asides instead. Simply uncomment the lines below</span>
-</span><span class='line'><span class="c1"># and add an array with the asides you want to use.</span>
-</span><span class='line'>
-</span><span class='line'><span class="l-Scalar-Plain">blog_index_asides</span><span class="p-Indicator">:</span>  <span class="p-Indicator">[</span><span class="nv">custom/asides/about.html</span><span class="p-Indicator">,</span> <span class="nv">asides/recent_posts.html</span><span class="p-Indicator">,</span> <span class="nv">custom/asides/recent_comments.html</span><span class="p-Indicator">,</span> <span class="nv">custom/asides/blogroll.html</span><span class="p-Indicator">,</span> <span class="nv">custom/asides/weibo.html</span><span class="p-Indicator">,</span> <span class="nv">custom/asides/copyleft.html</span><span class="p-Indicator">,</span> <span class="nv">custom/asides/feed.html</span><span class="p-Indicator">]</span>
-</span><span class='line'><span class="l-Scalar-Plain">post_asides</span><span class="p-Indicator">:</span>        <span class="p-Indicator">[</span><span class="nv">asides/recent_posts.html</span><span class="p-Indicator">,</span> <span class="nv">custom/asides/recent_comments.html</span><span class="p-Indicator">,</span> <span class="nv">custom/asides/blogroll.html</span><span class="p-Indicator">,</span> <span class="nv">custom/asides/weibo.html</span><span class="p-Indicator">,</span> <span class="nv">custom/asides/copyleft.html</span><span class="p-Indicator">,</span> <span class="nv">custom/asides/feed.html</span><span class="p-Indicator">]</span>
-</span><span class='line'><span class="c1"># page_asides:</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span>Sidebar configuration (_config.yml) </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+<span class="line-number">7</span>
+<span class="line-number">8</span>
+<span class="line-number">9</span>
+<span class="line-number">10</span>
+</pre></td><td class="code"><pre><code class="yaml"><span class="line"><span class="c1"># list each of the sidebar modules you want to include, in the order you want them to appear.</span>
+</span><span class="line"><span class="c1"># To add custom asides, create files in /source/_includes/custom/asides/ and add them to the list like &#39;custom/asides/custom_aside_name.html&#39;</span>
+</span><span class="line"><span class="l-Scalar-Plain">default_asides</span><span class="p-Indicator">:</span>     <span class="p-Indicator">[</span><span class="nv">asides/recent_posts.html</span><span class="p-Indicator">,</span> <span class="nv">custom/asides/recent_comments.html</span><span class="p-Indicator">,</span> <span class="nv">custom/asides/blogroll.html</span><span class="p-Indicator">,</span><span class="nv">custom/asides/weibo.html</span><span class="p-Indicator">,</span> <span class="nv">custom/asides/copyleft.html</span><span class="p-Indicator">,</span><span class="nv">custom/asides/feed.html</span><span class="p-Indicator">]</span>
+</span><span class="line">
+</span><span class="line"><span class="c1"># Each layout uses the default asides, but they can have their own asides instead. Simply uncomment the lines below</span>
+</span><span class="line"><span class="c1"># and add an array with the asides you want to use.</span>
+</span><span class="line">
+</span><span class="line"><span class="l-Scalar-Plain">blog_index_asides</span><span class="p-Indicator">:</span>  <span class="p-Indicator">[</span><span class="nv">custom/asides/about.html</span><span class="p-Indicator">,</span> <span class="nv">asides/recent_posts.html</span><span class="p-Indicator">,</span> <span class="nv">custom/asides/recent_comments.html</span><span class="p-Indicator">,</span> <span class="nv">custom/asides/blogroll.html</span><span class="p-Indicator">,</span> <span class="nv">custom/asides/weibo.html</span><span class="p-Indicator">,</span> <span class="nv">custom/asides/copyleft.html</span><span class="p-Indicator">,</span> <span class="nv">custom/asides/feed.html</span><span class="p-Indicator">]</span>
+</span><span class="line"><span class="l-Scalar-Plain">post_asides</span><span class="p-Indicator">:</span>        <span class="p-Indicator">[</span><span class="nv">asides/recent_posts.html</span><span class="p-Indicator">,</span> <span class="nv">custom/asides/recent_comments.html</span><span class="p-Indicator">,</span> <span class="nv">custom/asides/blogroll.html</span><span class="p-Indicator">,</span> <span class="nv">custom/asides/weibo.html</span><span class="p-Indicator">,</span> <span class="nv">custom/asides/copyleft.html</span><span class="p-Indicator">,</span> <span class="nv">custom/asides/feed.html</span><span class="p-Indicator">]</span>
+</span><span class="line"><span class="c1"># page_asides:</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
 
 </div>
 
@@ -339,10 +353,14 @@
 
     </div>
   </div>
-  <footer role="contentinfo"><p>
+  <footer role="contentinfo">
+<p>
   Copyright &copy; 2012 - ypchen -
   <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
 </p>
+
+
+
 
 </footer>
   
@@ -370,6 +388,25 @@
 
 
 
+
+
+
+
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-27377274-2']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+<script type="text/javascript"
+   src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
 
 

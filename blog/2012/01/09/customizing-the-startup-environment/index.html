@@ -30,20 +30,40 @@ R导论的10.8也是讲定制环境的。 程序员最喜欢做的事之一是�
 <link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
 <link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
 
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+
+
+
+
+
   
-  <script type="text/javascript">
-    var _gaq = _gaq || [];
-    _gaq.push(['_setAccount', 'UA-27377274-2']);
-    _gaq.push(['_trackPageview']);
-
-    (function() {
-      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-    })();
-  </script>
-
-
 </head>
 
 <body   >
@@ -110,97 +130,94 @@ R导论的10.8也是讲定制环境的。 程序员最喜欢做的事之一是�
 R导论的10.8也是讲定制环境的。
 </p>
 
-
 <p>程序员最喜欢做的事之一是定制启动环境，好让程序按照他们喜欢方式工作。定制启动环境可以让你设置R的选项、指定工作目录、加载常用的包、加载用户自己写的函数、设置CRAN下载网址以及其它操作。</p>
 
 <p>你可以通过编辑位置位置初始化文件（Rprofile.site）或者目录初始化文件（.Rprofile）来定制R环境。这两个是纯文本文件，包含启动时要执行的R代码。</p>
 
 <!--more-->
 
-
-<p>在启动的时候，R会从<em>R_HOME</em>/etc这个目录寻找Rprofile.site来调用，其中<em>R_HOME</em>是环境变量。然后R会在当前工作目录寻找.Rprofile文件来调用。如果R没有找到这个文件，就会在用户的主目录寻找。你可以用<code>Sys.getenv("R_HOME")</code>、<code>Sys.getenv("HOME")</code>和<code>getwd()</code>分别查看<em>R_HOME</em>、<em>HOME</em>以及当前工作目录。</p>
+<p>在启动的时候，R会从_R_HOME<em>/etc这个目录寻找Rprofile.site来调用，其中_R_HOME_是环境变量。然后R会在当前工作目录寻找.Rprofile文件来调用。如果R没有找到这个文件，就会在用户的主目录寻找。你可以用<code>Sys.getenv("R_HOME")</code>、<code>Sys.getenv("HOME")</code>和<code>getwd()</code>分别查看_R_HOME</em>、_HOME_以及当前工作目录。</p>
 
 <p>你可以在这些文件里放两个特殊的函数，<code>.First()</code>函数在启动R会话的时候执行，<code>.Last()</code>函数在结束会话的时候执行。Rprofile.site文件的例子如下：</p>
 
-<figure class='code'><figcaption><span>Sample Rprofile.site file   </span></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-<span class='line-number'>21</span>
-<span class='line-number'>22</span>
-<span class='line-number'>23</span>
-<span class='line-number'>24</span>
-<span class='line-number'>25</span>
-<span class='line-number'>26</span>
-<span class='line-number'>27</span>
-<span class='line-number'>28</span>
-<span class='line-number'>29</span>
-<span class='line-number'>30</span>
-<span class='line-number'>31</span>
-<span class='line-number'>32</span>
-</pre></td><td class='code'><pre><code class='r'><span class='line'><span class="c1"># 设置常用选项</span>
-</span><span class='line'>options<span class="p">(</span>papersize<span class="o">=</span><span class="s">&quot;a4&quot;</span><span class="p">)</span>
-</span><span class='line'>options<span class="p">(</span>editor<span class="o">=</span><span class="s">&quot;notepad&quot;</span><span class="p">)</span>
-</span><span class='line'>options<span class="p">(</span>pager<span class="o">=</span><span class="s">&quot;internal&quot;</span><span class="p">)</span>
-</span><span class='line'>options<span class="p">(</span>tab.width <span class="o">=</span> <span class="m">2</span><span class="p">)</span>
-</span><span class='line'>options<span class="p">(</span>width <span class="o">=</span> <span class="m">130</span><span class="p">)</span>
-</span><span class='line'>options<span class="p">(</span>graphics.record<span class="o">=</span><span class="kc">TRUE</span><span class="p">)</span>
-</span><span class='line'>options<span class="p">(</span>show.signif.stars<span class="o">=</span><span class="kc">FALSE</span><span class="p">)</span>
-</span><span class='line'>
-</span><span class='line'><span class="c1"># 设置R交互提示信息</span>
-</span><span class='line'>options<span class="p">(</span>prompt<span class="o">=</span><span class="s">&quot;&gt; &quot;</span><span class="p">)</span>
-</span><span class='line'>options<span class="p">(</span>continue<span class="o">=</span><span class="s">&quot;+ &quot;</span><span class="p">)</span>
-</span><span class='line'>
-</span><span class='line'><span class="m">.</span>libPaths<span class="p">(</span><span class="s">&quot;C:/my_R_library&quot;</span><span class="p">)</span> <span class="c1"># 设置包的本地库（library）路径</span>
-</span><span class='line'>
-</span><span class='line'><span class="c1"># 设置CRAN镜像默认地址</span>
-</span><span class='line'>local<span class="p">({</span>r <span class="o">&lt;-</span> getOption<span class="p">(</span><span class="s">&quot;repos&quot;</span><span class="p">)</span>
-</span><span class='line'>     r<span class="p">[</span><span class="s">&quot;CRAN&quot;</span><span class="p">]</span> <span class="o">&lt;-</span> <span class="s">&quot;http://cran.case.edu/&quot;</span>
-</span><span class='line'>     options<span class="p">(</span>repos<span class="o">=</span>r<span class="p">)})</span>
-</span><span class='line'>
-</span><span class='line'><span class="c1"># 启动函数</span>
-</span><span class='line'><span class="m">.</span>First <span class="o">&lt;-</span> <span class="kr">function</span><span class="p">(){</span>
-</span><span class='line'> library<span class="p">(</span>lattice<span class="p">)</span>
-</span><span class='line'> library<span class="p">(</span>Hmisc<span class="p">)</span>
-</span><span class='line'> source<span class="p">(</span><span class="s">&quot;C:/mydir/myfunctions.R&quot;</span><span class="p">)</span>
-</span><span class='line'> cat<span class="p">(</span><span class="s">&quot;\nWelcome at&quot;</span><span class="p">,</span> date<span class="p">(),</span> <span class="s">&quot;\n&quot;</span><span class="p">)</span>
-</span><span class='line'><span class="p">}</span>
-</span><span class='line'>
-</span><span class='line'><span class="c1"># 会话结束函数</span>
-</span><span class='line'><span class="m">.</span>Last <span class="o">&lt;-</span> <span class="kr">function</span><span class="p">(){</span>
-</span><span class='line'> cat<span class="p">(</span><span class="s">&quot;\nGoodbye at &quot;</span><span class="p">,</span> date<span class="p">(),</span> <span class="s">&quot;\n&quot;</span><span class="p">)</span>
-</span><span class='line'><span class="p">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span>Sample Rprofile.site file   </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+<span class="line-number">7</span>
+<span class="line-number">8</span>
+<span class="line-number">9</span>
+<span class="line-number">10</span>
+<span class="line-number">11</span>
+<span class="line-number">12</span>
+<span class="line-number">13</span>
+<span class="line-number">14</span>
+<span class="line-number">15</span>
+<span class="line-number">16</span>
+<span class="line-number">17</span>
+<span class="line-number">18</span>
+<span class="line-number">19</span>
+<span class="line-number">20</span>
+<span class="line-number">21</span>
+<span class="line-number">22</span>
+<span class="line-number">23</span>
+<span class="line-number">24</span>
+<span class="line-number">25</span>
+<span class="line-number">26</span>
+<span class="line-number">27</span>
+<span class="line-number">28</span>
+<span class="line-number">29</span>
+<span class="line-number">30</span>
+<span class="line-number">31</span>
+<span class="line-number">32</span>
+</pre></td><td class="code"><pre><code class="r"><span class="line"><span class="c1"># 设置常用选项</span>
+</span><span class="line">options<span class="p">(</span>papersize<span class="o">=</span><span class="s">&quot;a4&quot;</span><span class="p">)</span>
+</span><span class="line">options<span class="p">(</span>editor<span class="o">=</span><span class="s">&quot;notepad&quot;</span><span class="p">)</span>
+</span><span class="line">options<span class="p">(</span>pager<span class="o">=</span><span class="s">&quot;internal&quot;</span><span class="p">)</span>
+</span><span class="line">options<span class="p">(</span>tab.width <span class="o">=</span> <span class="m">2</span><span class="p">)</span>
+</span><span class="line">options<span class="p">(</span>width <span class="o">=</span> <span class="m">130</span><span class="p">)</span>
+</span><span class="line">options<span class="p">(</span>graphics.record<span class="o">=</span><span class="kc">TRUE</span><span class="p">)</span>
+</span><span class="line">options<span class="p">(</span>show.signif.stars<span class="o">=</span><span class="kc">FALSE</span><span class="p">)</span>
+</span><span class="line">
+</span><span class="line"><span class="c1"># 设置R交互提示信息</span>
+</span><span class="line">options<span class="p">(</span>prompt<span class="o">=</span><span class="s">&quot;&gt; &quot;</span><span class="p">)</span>
+</span><span class="line">options<span class="p">(</span>continue<span class="o">=</span><span class="s">&quot;+ &quot;</span><span class="p">)</span>
+</span><span class="line">
+</span><span class="line"><span class="m">.</span>libPaths<span class="p">(</span><span class="s">&quot;C:/my_R_library&quot;</span><span class="p">)</span> <span class="c1"># 设置包的本地库（library）路径</span>
+</span><span class="line">
+</span><span class="line"><span class="c1"># 设置CRAN镜像默认地址</span>
+</span><span class="line">local<span class="p">({</span>r <span class="o">&lt;-</span> getOption<span class="p">(</span><span class="s">&quot;repos&quot;</span><span class="p">)</span>
+</span><span class="line">     r<span class="p">[</span><span class="s">&quot;CRAN&quot;</span><span class="p">]</span> <span class="o">&lt;-</span> <span class="s">&quot;http://cran.case.edu/&quot;</span>
+</span><span class="line">     options<span class="p">(</span>repos<span class="o">=</span>r<span class="p">)})</span>
+</span><span class="line">
+</span><span class="line"><span class="c1"># 启动函数</span>
+</span><span class="line"><span class="m">.</span>First <span class="o">&lt;-</span> <span class="kr">function</span><span class="p">(){</span>
+</span><span class="line"> library<span class="p">(</span>lattice<span class="p">)</span>
+</span><span class="line"> library<span class="p">(</span>Hmisc<span class="p">)</span>
+</span><span class="line"> source<span class="p">(</span><span class="s">&quot;C:/mydir/myfunctions.R&quot;</span><span class="p">)</span>
+</span><span class="line"> cat<span class="p">(</span><span class="s">&quot;\nWelcome at&quot;</span><span class="p">,</span> date<span class="p">(),</span> <span class="s">&quot;\n&quot;</span><span class="p">)</span>
+</span><span class="line"><span class="p">}</span>
+</span><span class="line">
+</span><span class="line"><span class="c1"># 会话结束函数</span>
+</span><span class="line"><span class="m">.</span>Last <span class="o">&lt;-</span> <span class="kr">function</span><span class="p">(){</span>
+</span><span class="line"> cat<span class="p">(</span><span class="s">&quot;\nGoodbye at &quot;</span><span class="p">,</span> date<span class="p">(),</span> <span class="s">&quot;\n&quot;</span><span class="p">)</span>
+</span><span class="line"><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
 
 <p>关于这个文件，你需要注意以下几点：</p>
 
 <ul>
-<li>设置.libPaths值允许你在R的安装目录之外创建包的本地库。这再升级时很有用，可以保留之前安装的包。</li>
-<li>设置CRAN镜像网站可以让你在使用<code>install.packages()</code>命令时不用每次都选择。</li>
-<li><code>.First()</code>函数是一个很好的地方，来加载你常用的包，运行常用的用户编写的函数。</li>
-<li><code>.Last()</code>函数一个很好的地方做清理活动，包括保存命令历史、程序输出和数据文件。</li>
+  <li>设置.libPaths值允许你在R的安装目录之外创建包的本地库。这再升级时很有用，可以保留之前安装的包。</li>
+  <li>设置CRAN镜像网站可以让你在使用<code>install.packages()</code>命令时不用每次都选择。</li>
+  <li><code>.First()</code>函数是一个很好的地方，来加载你常用的包，运行常用的用户编写的函数。</li>
+  <li><code>.Last()</code>函数一个很好的地方做清理活动，包括保存命令历史、程序输出和数据文件。</li>
 </ul>
 
-
 <p>还有其他定制启动环境的方式，包括使用命令行选项和环境变量。查看<code>help(Startup)</code>以及R导论的附录B（<a href="http://cran.r-project.org/doc/manuals/R-intro.pdf">http://cran.r-project.org/doc/manuals/R-intro.pdf</a>，中文版地址<a href="http://cran.r-project.org/doc/contrib/Ding-R-intro_cn.pdf">http://cran.r-project.org/doc/contrib/Ding-R-intro_cn.pdf</a>）获取更多细节。</p>
+
 </div>
 
 
@@ -376,10 +393,14 @@ R导论的10.8也是讲定制环境的。
 
     </div>
   </div>
-  <footer role="contentinfo"><p>
+  <footer role="contentinfo">
+<p>
   Copyright &copy; 2012 - ypchen -
   <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
 </p>
+
+
+
 
 </footer>
   
@@ -407,6 +428,25 @@ R导论的10.8也是讲定制环境的。
 
 
 
+
+
+
+
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-27377274-2']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+<script type="text/javascript"
+   src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
 
 

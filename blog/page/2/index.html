@@ -29,20 +29,40 @@
 <link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
 <link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
 
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+
+
+
+
+
   
-  <script type="text/javascript">
-    var _gaq = _gaq || [];
-    _gaq.push(['_setAccount', 'UA-27377274-2']);
-    _gaq.push(['_trackPageview']);
-
-    (function() {
-      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-    })();
-  </script>
-
-
 </head>
 
 <body   >
@@ -111,7 +131,6 @@
 本文翻译自<a href="http://www.manning.com/kabacoff/" target="_blank">R in Action</a>的附录G，如果对该书感兴趣，请自行购买或去图书馆阅读。
 </span>
 </p>
-
 
 <p>R会把所有的对象读存入虚拟内存中。对我们大多数用户来说，这种设计可以提高与R相互的速度，但是当分析大数据集时，这种设计会降低程序运行速度有时还会产生跟内存相关的错误。</p>
 
@@ -219,8 +238,7 @@
 
 <p>经过这样的操作，你想绑定几个域名都可以了。</p>
 
-<h2>域名跳转的问题</h2>
-
+<h2 id="section">域名跳转的问题</h2>
 <p><del>当你访问<code>username.github.com</code>这个地址时，Github会自动转到绑定的域名，但是当你访问<code>http://username.github.com/repo-name</code>这样的网址，虽然可以显示网页，但是地址不会自动转。</del></p>
 
 <p><del>可以用.htaccess文件来实现跳转，在repo代码库根目录下创建.htaccess文件</del></p>
@@ -229,8 +247,6 @@
 本文域名跳转部分有误，请看<a href="http://chen.yanping.me/cn/blog/2012/02/06/github-pages-domain-3/" target="_blank">三谈github页面域名绑定</a>
 </span>
 </p>
-
-
 
 </div>
   
@@ -274,14 +290,10 @@
 </span>
 </p>
 
+<p>功能五花八门的CMS（内容管理系统）有时候并不是必需的，你只需要创建一个轻量级的静态网站…  当你有足够多的页面就会使复制模板文件和跨网站标记的过程变成繁琐的事。今天，我将介绍一种简单的解决方案——<a href="http://jekyllrb.com/">Jekyll</a>——使你可以轻而易举地创建小型网站。</p>
 
-<p>功能五花八门的CMS（内容管理系统）有时候并不是必需的，你只需要创建一个轻量级的静态网站&#8230;  当你有足够多的页面就会使复制模板文件和跨网站标记的过程变成繁琐的事。今天，我将介绍一种简单的解决方案——<a href="http://jekyllrb.com/">Jekyll</a>——使你可以轻而易举地创建小型网站。</p>
-
-<h2>Step 0: 遭遇Jekyll</h2>
-
+<h2 id="step-0-jekyll">Step 0: 遭遇Jekyll</h2>
 <blockquote><p>Jekyll is a simple, blog aware, static site generator.</p></blockquote>
-
-
 <p>Jekyll是一种简单的、适用于博客（blog aware）的、静态网站生成引擎。Jekyll网站的宣传语这么说。但，这究竟是什么意思呢？静态网站生成引擎是利用一整套文件生成网站的程序。正如你看到的，我们可以利用一套模板，单独生成内容文件，然后用Jekyll生成网站。“blog aware”意思是我们可以用它来创建博客，或者其他有系列文章（例如合集，英文称portfolio）发布的网站。让我们来尝试一下吧！</p>
 
 </div>
@@ -331,12 +343,11 @@
 github pages的<a target="_blank" href="http://pages.github.com/">官方主页</a>这样说：</p>
 
 <ul>
-<li>假设你github的用户名为<strong>username</strong>，那么创建一个名为username.github.com的代码库（repository）,在这个库中上传html、CSS等静态页面文件，可以用地址 http://username.github.com来访问页面了，这个页面就是你账户的主页面（User pages）。</li>
-<li>如果你又创建了个叫<strong>repo</strong>的代码库，在它下面的gh-pages分支里上传了html、CSS等静态页面文件，那么用http://username.github.com/repo这个地址就能访问页面了。</li>
-<li>要想生成复杂点的页面，可以用<a target="_blank" href="http://github.com/mojombo/jekyll/">jekyll</a>，语法高亮用<code>pygments</code> 。</li>
-<li>要想域名绑定，在代码库的根目录下放一个CNAME文件就行了，文件里写上想要绑定的域名，然后在域名DNS管理的后台网站建立指向就行。如果想把页面绑定到二级域名，需要创建一个CNAME指向。如果要把页面绑定到顶级域名，需要创建一个A指向。不能用CNAME指向顶级域名，否则会造成冲突。</li>
+  <li>假设你github的用户名为<strong>username</strong>，那么创建一个名为username.github.com的代码库（repository）,在这个库中上传html、CSS等静态页面文件，可以用地址 http://username.github.com来访问页面了，这个页面就是你账户的主页面（User pages）。</li>
+  <li>如果你又创建了个叫<strong>repo</strong>的代码库，在它下面的gh-pages分支里上传了html、CSS等静态页面文件，那么用http://username.github.com/repo这个地址就能访问页面了。</li>
+  <li>要想生成复杂点的页面，可以用<a target="_blank" href="http://github.com/mojombo/jekyll/">jekyll</a>，语法高亮用<code>pygments</code> 。</li>
+  <li>要想域名绑定，在代码库的根目录下放一个CNAME文件就行了，文件里写上想要绑定的域名，然后在域名DNS管理的后台网站建立指向就行。如果想把页面绑定到二级域名，需要创建一个CNAME指向。如果要把页面绑定到顶级域名，需要创建一个A指向。不能用CNAME指向顶级域名，否则会造成冲突。 </li>
 </ul>
-
 
 </div>
   
@@ -421,37 +432,35 @@ github pages的<a target="_blank" href="http://pages.github.com/">官方主页</
 
 <p>下面的命令用于克隆和初始化别人的模板</p>
 
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>git clone https://github.com/krisb/jekyll-template.git mysite
-</span><span class='line'>cd mysite
-</span><span class='line'>rm -rf .git
-</span><span class='line'>git init
-</span><span class='line'>git add -A
-</span><span class='line'>git commit -m 'initial template based on https://github.com/krisb/jekyll-template'
-</span><span class='line'>git remote add origin git@github.com:username/reponame.git
-</span><span class='line'>git push -u origin master</span></code></pre></td></tr></table></div></figure>
-
+<div class="bogus-wrapper"><notextile><figure class="code"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+<span class="line-number">7</span>
+<span class="line-number">8</span>
+</pre></td><td class="code"><pre><code class=""><span class="line">git clone https://github.com/krisb/jekyll-template.git mysite
+</span><span class="line">cd mysite
+</span><span class="line">rm -rf .git
+</span><span class="line">git init
+</span><span class="line">git add -A
+</span><span class="line">git commit -m 'initial template based on https://github.com/krisb/jekyll-template'
+</span><span class="line">git remote add origin git@github.com:username/reponame.git
+</span><span class="line">git push -u origin master</span></code></pre></td></tr></table></div></figure></notextile></div>
 
 <p>原文地址 <a target="_blank" href="https://github.com/krisb/jekyll-template">https://github.com/krisb/jekyll-template</a></p>
 
-<h3>延伸阅读：</h3>
+<h3 id="section">延伸阅读：</h3>
 
 <ul>
-<li><a target="_blank" href="http://kyle.xlau.org/2009/08/13/blogging-like-a-hacker.html">像黑客一样写博客</a></li>
-<li><a target="_blank" href="http://blog.leezhong.com/tech/2010/08/25/make-github-as-blog-engine.html">使用github作为博客引擎</a></li>
-<li><a target="_blank" href="http://www.yangzhiping.com/tech/wordpress-to-jekyll.html">告别wordpress，拥抱jekyll</a></li>
-<li><a target="_blank" href="http://roylez.heroku.com/2010/02/04/jekyll-on-heroku.html">在heroku上用jekyll做博客</a></li>
-<li><a target="_blank" href="http://www.shaoshing.com/2010/04/03/blog-engine-jekyll-vs-toto/">轻量级博客工具: Jekyll vs ToTo</a></li>
-<li><a target="_blank" href="http://blog.miaout17.net/2011/05/08/convert-wordpress-to-jekyll-and-disqus/">將Wordpress轉移到Jekyll及Disqus</a></li>
+  <li><a target="_blank" href="http://kyle.xlau.org/2009/08/13/blogging-like-a-hacker.html">像黑客一样写博客</a></li>
+  <li><a target="_blank" href="http://blog.leezhong.com/tech/2010/08/25/make-github-as-blog-engine.html">使用github作为博客引擎</a></li>
+  <li><a target="_blank" href="http://www.yangzhiping.com/tech/wordpress-to-jekyll.html">告别wordpress，拥抱jekyll</a></li>
+  <li><a target="_blank" href="http://roylez.heroku.com/2010/02/04/jekyll-on-heroku.html">在heroku上用jekyll做博客</a></li>
+  <li><a target="_blank" href="http://www.shaoshing.com/2010/04/03/blog-engine-jekyll-vs-toto/">轻量级博客工具: Jekyll vs ToTo</a></li>
+  <li><a target="_blank" href="http://blog.miaout17.net/2011/05/08/convert-wordpress-to-jekyll-and-disqus/">將Wordpress轉移到Jekyll及Disqus</a></li>
 </ul>
-
 </div>
   
   
@@ -476,10 +485,14 @@ github pages的<a target="_blank" href="http://pages.github.com/">官方主页</
  <p align="center"><img src="http://art.yanping.me/images/avatar.jpg" /></p>
 
 
-<p>资浅媒体人，不靠谱经济分析师，IT文艺小青年。<a href="/cn/blog/about" >更多介绍&#8230;</a></p>
+<p>资浅媒体人，堆文字的金融攻城师，不靠谱的经济分析师，IT文艺小青年，舞者中的程序猿。<a href="/cn/blog/about" >更多介绍&#8230;</a></p>
 <p>声明：所有言论仅代表个人观点，与所在单位无关。</p>
 	<p>本人主页为<a href="http://chen.yanping.me" target="_blank">http://chen.yanping.me</a></p>
+
+<p align="center"><a href="http://i.imgur.com/dBONa.jpg" target="_blank" title="The Certificate in Quantitative Finance (CQF) is a six-month part-time course designed for in-depth training for individuals working in, or intending to move into, derivatives, development, quantitative trading or risk management. " alt="Certificate in Quantitative Finance"><img src="/cn/images/blog/cqf.jpg" width="70%" /></a></p>
 </section>
+
+
 
 <section>
 <h1>分类目录</h1>
@@ -575,10 +588,14 @@ github pages的<a target="_blank" href="http://pages.github.com/">官方主页</
 
     </div>
   </div>
-  <footer role="contentinfo"><p>
+  <footer role="contentinfo">
+<p>
   Copyright &copy; 2012 - ypchen -
   <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
 </p>
+
+
+
 
 </footer>
   
@@ -603,6 +620,25 @@ github pages的<a target="_blank" href="http://pages.github.com/">官方主页</
 
 
 
+
+
+
+
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-27377274-2']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+<script type="text/javascript"
+   src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
 
 

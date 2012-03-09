@@ -9,8 +9,7 @@
   <meta name="author" content="ypchen">
 
   
-  <meta name="description" content="紧急任务 Predicting Stock Market return，为11月12-13日的第四届R语言会议上海站准备的 中期任务 《我的第一本C++书》，对C++的全貌做一个简单了解，尤其是上学的时候学得不扎实的面向对象编程以及完全没了解的STL
-The mathematics of &hellip;">
+  <meta name="description" content="紧急任务 Predicting Stock Market return，为11月12-13日的第四届R语言会议上海站准备的 中期任务 《我的第一本C++书》，对C++的全貌做一个简单了解，尤其是上学的时候学得不扎实的面向对象编程以及完全没了解的STL The mathematics of &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -30,20 +29,40 @@ The mathematics of &hellip;">
 <link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
 <link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
 
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+
+
+
+
+
   
-  <script type="text/javascript">
-    var _gaq = _gaq || [];
-    _gaq.push(['_setAccount', 'UA-27377274-2']);
-    _gaq.push(['_trackPageview']);
-
-    (function() {
-      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-    })();
-  </script>
-
-
 </head>
 
 <body   >
@@ -108,25 +127,23 @@ The mathematics of &hellip;">
 <div class="entry-content"><p>紧急任务</p>
 
 <ul>
-<li>Predicting Stock Market return，为11月12-13日的<a href="http://cos.name/2011/09/chinar-2011-sh/" target="_blank">第四届R语言会议上海站</a>准备的</li>
+  <li>Predicting Stock Market return，为11月12-13日的<a href="http://cos.name/2011/09/chinar-2011-sh/" target="_blank">第四届R语言会议上海站</a>准备的</li>
 </ul>
-
 
 <p>中期任务</p>
 
 <ul>
-<li>《我的第一本C++书》，对C++的全貌做一个简单了解，尤其是上学的时候学得不扎实的面向对象编程以及完全没了解的STL</li>
-<li>The mathematics of derivatives， 对衍生品定价方面的数学做一个简单复习</li>
+  <li>《我的第一本C++书》，对C++的全貌做一个简单了解，尤其是上学的时候学得不扎实的面向对象编程以及完全没了解的STL</li>
+  <li>The mathematics of derivatives， 对衍生品定价方面的数学做一个简单复习</li>
 </ul>
-
 
 <p>更远的计划</p>
 
 <ul>
-<li>C++与面向对象数值计算，进一步熟悉C++，并学习用C++做数值计算</li>
-<li>C++ design patterns and derivatives pricing，学习用C++做衍生品定价的设计模式</li>
-<li>S. E. Shreve, Stochastic calculus and Finance I&amp;II</li>
-<li>…… 前面的看完再说吧</li>
+  <li>C++与面向对象数值计算，进一步熟悉C++，并学习用C++做数值计算</li>
+  <li>C++ design patterns and derivatives pricing，学习用C++做衍生品定价的设计模式</li>
+  <li>S. E. Shreve, Stochastic calculus and Finance I&amp;II</li>
+  <li>…… 前面的看完再说吧</li>
 </ul>
 
 </div>
@@ -294,10 +311,14 @@ The mathematics of &hellip;">
 
     </div>
   </div>
-  <footer role="contentinfo"><p>
+  <footer role="contentinfo">
+<p>
   Copyright &copy; 2012 - ypchen -
   <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
 </p>
+
+
+
 
 </footer>
   
@@ -325,6 +346,25 @@ The mathematics of &hellip;">
 
 
 
+
+
+
+
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-27377274-2']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+<script type="text/javascript"
+   src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
 
 

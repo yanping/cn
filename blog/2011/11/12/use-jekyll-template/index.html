@@ -37,20 +37,40 @@ git clone https://github.com/krisb/ &hellip;">
 <link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
 <link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
 
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+
+
+
+
+
   
-  <script type="text/javascript">
-    var _gaq = _gaq || [];
-    _gaq.push(['_setAccount', 'UA-27377274-2']);
-    _gaq.push(['_trackPageview']);
-
-    (function() {
-      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-    })();
-  </script>
-
-
 </head>
 
 <body   >
@@ -116,37 +136,35 @@ git clone https://github.com/krisb/ &hellip;">
 
 <p>下面的命令用于克隆和初始化别人的模板</p>
 
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>git clone https://github.com/krisb/jekyll-template.git mysite
-</span><span class='line'>cd mysite
-</span><span class='line'>rm -rf .git
-</span><span class='line'>git init
-</span><span class='line'>git add -A
-</span><span class='line'>git commit -m 'initial template based on https://github.com/krisb/jekyll-template'
-</span><span class='line'>git remote add origin git@github.com:username/reponame.git
-</span><span class='line'>git push -u origin master</span></code></pre></td></tr></table></div></figure>
-
+<div class="bogus-wrapper"><notextile><figure class="code"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+<span class="line-number">7</span>
+<span class="line-number">8</span>
+</pre></td><td class="code"><pre><code class=""><span class="line">git clone https://github.com/krisb/jekyll-template.git mysite
+</span><span class="line">cd mysite
+</span><span class="line">rm -rf .git
+</span><span class="line">git init
+</span><span class="line">git add -A
+</span><span class="line">git commit -m 'initial template based on https://github.com/krisb/jekyll-template'
+</span><span class="line">git remote add origin git@github.com:username/reponame.git
+</span><span class="line">git push -u origin master</span></code></pre></td></tr></table></div></figure></notextile></div>
 
 <p>原文地址 <a target="_blank" href="https://github.com/krisb/jekyll-template">https://github.com/krisb/jekyll-template</a></p>
 
-<h3>延伸阅读：</h3>
+<h3 id="section">延伸阅读：</h3>
 
 <ul>
-<li><a target="_blank" href="http://kyle.xlau.org/2009/08/13/blogging-like-a-hacker.html">像黑客一样写博客</a></li>
-<li><a target="_blank" href="http://blog.leezhong.com/tech/2010/08/25/make-github-as-blog-engine.html">使用github作为博客引擎</a></li>
-<li><a target="_blank" href="http://www.yangzhiping.com/tech/wordpress-to-jekyll.html">告别wordpress，拥抱jekyll</a></li>
-<li><a target="_blank" href="http://roylez.heroku.com/2010/02/04/jekyll-on-heroku.html">在heroku上用jekyll做博客</a></li>
-<li><a target="_blank" href="http://www.shaoshing.com/2010/04/03/blog-engine-jekyll-vs-toto/">轻量级博客工具: Jekyll vs ToTo</a></li>
-<li><a target="_blank" href="http://blog.miaout17.net/2011/05/08/convert-wordpress-to-jekyll-and-disqus/">將Wordpress轉移到Jekyll及Disqus</a></li>
+  <li><a target="_blank" href="http://kyle.xlau.org/2009/08/13/blogging-like-a-hacker.html">像黑客一样写博客</a></li>
+  <li><a target="_blank" href="http://blog.leezhong.com/tech/2010/08/25/make-github-as-blog-engine.html">使用github作为博客引擎</a></li>
+  <li><a target="_blank" href="http://www.yangzhiping.com/tech/wordpress-to-jekyll.html">告别wordpress，拥抱jekyll</a></li>
+  <li><a target="_blank" href="http://roylez.heroku.com/2010/02/04/jekyll-on-heroku.html">在heroku上用jekyll做博客</a></li>
+  <li><a target="_blank" href="http://www.shaoshing.com/2010/04/03/blog-engine-jekyll-vs-toto/">轻量级博客工具: Jekyll vs ToTo</a></li>
+  <li><a target="_blank" href="http://blog.miaout17.net/2011/05/08/convert-wordpress-to-jekyll-and-disqus/">將Wordpress轉移到Jekyll及Disqus</a></li>
 </ul>
-
 </div>
 
 
@@ -322,10 +340,14 @@ git clone https://github.com/krisb/ &hellip;">
 
     </div>
   </div>
-  <footer role="contentinfo"><p>
+  <footer role="contentinfo">
+<p>
   Copyright &copy; 2012 - ypchen -
   <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
 </p>
+
+
+
 
 </footer>
   
@@ -353,6 +375,25 @@ git clone https://github.com/krisb/ &hellip;">
 
 
 
+
+
+
+
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-27377274-2']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+<script type="text/javascript"
+   src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
 
 
