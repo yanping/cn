@@ -4,7 +4,7 @@
   <title><![CDATA[分类： R语言 | 雁起平沙的网络日志]]></title>
   <link href="http://chen.yanping.me/cn/blog/categories/r语言/atom.xml" rel="self"/>
   <link href="http://chen.yanping.me/cn/"/>
-  <updated>2012-03-10T01:47:41+08:00</updated>
+  <updated>2012-03-10T02:18:03+08:00</updated>
   <id>http://chen.yanping.me/cn/</id>
   <author>
     <name><![CDATA[ypchen]]></name>
@@ -105,7 +105,7 @@
 
 <p>还有一些用户贡献的包专门用于矩阵代数。<em>matlab</em> 包封装了类似MATLAB语言的矩阵操作函数和变量。这些函数可以帮助用户将MATLAB程序移植到R语言代码。<a href="http://mathesaurus.sourceforge.net/octave-r.html">http://mathesaurus.sourceforge.net/octave-r.html</a>上有一份很有用的清单可以帮助你将MATLAB语句转化为R语句。</p>
 
-<p>_Matrix_包提供的函数使R可以处理高密度矩阵或稀疏矩阵。它提供了对BLAS（Basic Linear Algebra Subroutines）、Lapack（dense matrix）、TAUCS（sparse matrix）和UMFPACK（sparse matrix）的高效调用。</p>
+<p><em>Matrix</em> 包提供的函数使R可以处理高密度矩阵或稀疏矩阵。它提供了对BLAS（Basic Linear Algebra Subroutines）、Lapack（dense matrix）、TAUCS（sparse matrix）和UMFPACK（sparse matrix）的高效调用。</p>
 
 <p>最后，<em>matrixStats</em> 包提供了对矩阵的行和列的操作方法，例如计数、求和、中心趋势、离差（dispersion）等。每一个函数都进过了优化，使得可以高速高效地运行。</p>
 
@@ -354,16 +354,16 @@ R导论的10.8也是讲定制环境的。
 <p>R提供了几种分析大数据集的包：</p>
 
 <ul>
-  <li>_biglm_和_speedglm_包可以针对大数据集有效地拟合线性和广义线性模型。在处理大规模数据集时，这两个包提供了类似<code>lm()</code>和<code>glm()</code>的功能。</li>
-  <li>由_bigmemory_包可产生大规模矩阵，一些包可以提供分析这些大规模矩阵的函数。_bigannalytics_包提供了k-means聚类、行统计量（column statistics）和一个对<code>biglm()</code>的封装。_bigtabulate_包提供了<code>table()</code>、<code>split()</code>和<code>tapply()</code>的功能，_bigalgebra_包提供了高等线性代数的函数。</li>
-  <li>_biglars_包提供了最小角回归（least-angle regression）、lasso以及针对大数据集的逐步回归，数据集因太大而不能读入到内存中，这时候要配合_ff_包使用。</li>
-  <li>_Brobdingnag_包可以用来处理大数字（大于2^1024）</li>
+  <li><em>biglm</em> 和 <em>speedglm</em> 包可以针对大数据集有效地拟合线性和广义线性模型。在处理大规模数据集时，这两个包提供了类似<code>lm()</code>和<code>glm()</code>的功能。</li>
+  <li>由 <em>bigmemory</em> 包可产生大规模矩阵，一些包可以提供分析这些大规模矩阵的函数。<em>bigannalytics</em> 包提供了k-means聚类、行统计量（column statistics）和一个对<code>biglm()</code>的封装。<em>bigtabulate</em> 包提供了<code>table()</code>、<code>split()</code>和<code>tapply()</code>的功能，<em>bigalgebra</em> 包提供了高等线性代数的函数。</li>
+  <li><em>biglars</em> 包提供了最小角回归（least-angle regression）、lasso以及针对大数据集的逐步回归，数据集因太大而不能读入到内存中，这时候要配合_ff_ 包使用。</li>
+  <li><em>Brobdingnag</em> 包可以用来处理大数字（大于2^1024）</li>
 </ul>
 
-<p>处理从GB到TB级的数据对于任何数据都是极大的挑战。如果想查看R的更多方法，请看CRAN task View:<em>High-Performance and Parallel Computing with R</em>（<a href="http://cran.r-project.org/web/view">http://cran.r-project.org/web/view</a>）。</p>
+<p>处理从GB到TB级的数据对于任何数据都是极大的挑战。如果想查看R的更多方法，请看CRAN task View:<em>High-Performance and Parallel Computing with R</em> （<a href="http://cran.r-project.org/web/view">http://cran.r-project.org/web/view</a>）。</p>
 
 <h3 id="section-3">译者注</h3>
-<p><a href="http://jliblog.com/">李舰</a>曾经在第四届R语言会议（北京会场）上做了题为《<em>R与高性能运算</em>》的报告，报告slides及代码请见<a href="http://cos.name/2011/05/4th-china-r-beijing-summary/">会议纪要</a></p>
+<p><a href="http://jliblog.com/">李舰</a>曾经在第四届R语言会议（北京会场）上做了题为《 <em>R与高性能运算</em> 》的报告，报告slides及代码请见<a href="http://cos.name/2011/05/4th-china-r-beijing-summary/">会议纪要</a></p>
 
 ]]></content>
   </entry>

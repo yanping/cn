@@ -4,7 +4,7 @@
   <title><![CDATA[分类： github | 雁起平沙的网络日志]]></title>
   <link href="http://chen.yanping.me/cn/blog/categories/github/atom.xml" rel="self"/>
   <link href="http://chen.yanping.me/cn/"/>
-  <updated>2012-03-10T01:47:41+08:00</updated>
+  <updated>2012-03-10T02:18:03+08:00</updated>
   <id>http://chen.yanping.me/cn/</id>
   <author>
     <name><![CDATA[ypchen]]></name>
@@ -30,12 +30,13 @@
 <h2 id="javascript">用javascript实现域名跳转</h2>
 <p>原来我以为用.htaccess文件可以实现网址跳转，后来发现当初跳转成功是因为浏览器缓存了解析的域名，给github发信咨询，得到的回复是github现在还不支持.htaccess，以后可能会考虑把这个功能加上。</p>
 
-<p>我也考虑过用下面的代码实现转址
-```html
-<meta http-equiv="refresh" content="0; url=http://mydomain2.com" /></p>
+<p>我也考虑过用下面的代码实现转址</p>
 
-<p>```
-但是，问题是这样跳转后其实还是转到了自己这个网页，只不过换了个地址。这样这段代码会反复执行，在firefox和chrome下没有感觉，但是在IE下就很明显了。</p>
+<p><code>html
+&lt;meta http-equiv="refresh" content="0; url=http://mydomain2.com"&gt;
+</code></p>
+
+<p>但是，问题是这样跳转后其实还是转到了自己这个网页，只不过换了个地址。这样这段代码会反复执行，在firefox和chrome下没有感觉，但是在IE下就很明显了。</p>
 
 <p>我想到了用javascript来检测网页的地址，然后跳转到目标地址。只需要将将下面的代码放到<code>&lt;head&gt;</code>和<code>&lt;/head&gt;</code>之间，注意把网址替换成自己的。</p>
 
