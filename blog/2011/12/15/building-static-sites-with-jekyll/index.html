@@ -598,15 +598,21 @@ title: Portfolio
 
 <p>第二个问题是当文章中引用了含有Liquid标签的代码片段时，这些代码会被jekyll渲染。一般代码是用<a href="http://octopress.org/docs/plugins/codeblock/" target="_blank">codeblock标签</a>或者用 <code>```</code>括起来（也就是Backtick Code Blocks的方式），能保持原样，还能显示语法高亮，但是当引用的代码里含有Liquid标签时就出现了混乱。为此，我也试了很久，也到<a href="http://ruby-taiwan.org/topics/74">ruby-taiwan.org</a>上发帖问了，总结起来有几种方法：</p>
 
-<ol>
-  <li>用gist插件
-     {% gist gist_id [filename] %}
-这种方式比较强大，但是需要连接gist，加载页面的时候有点卡。</li>
-  <li>用include_code插件
-     {% include_code [title] [lang:language] path/to/file %}
-上面两种方法在Octoprss的官方网站都有介绍，请看<a href="http://octopress.org/docs/blogging/code/">http://octopress.org/docs/blogging/code/</a></li>
-  <li>用codeblock标签里嵌套raw标签，详情请看<a href="http://jimpravetz.com/blog/2011/12/inserting-liquid-syntax-into-octopress-codeblock/">http://jimpravetz.com/blog/2011/12/inserting-liquid-syntax-into-octopress-codeblock/</a>。这种方式只能帖代码，不能语法高亮。</li>
-</ol>
+<p>1. <strong>用gist插件</strong></p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+</pre></td><td class="code"><pre><code class=""><span class="line">{% gist gist_id [filename] %}</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<p>这种方式比较强大，但是需要连接gist，加载页面的时候有点卡。</p>
+
+<p>2. <strong>用include_code插件</strong></p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+</pre></td><td class="code"><pre><code class=""><span class="line">{% include_code [title] [lang:language] path/to/file  %}</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<p>上面两种方法在Octoprss的官方网站都有介绍，请看<a href="http://octopress.org/docs/blogging/code/">http://octopress.org/docs/blogging/code/</a></p>
+
+<p>3. <strong>用codeblock标签里嵌套raw标签</strong>，详情请看<a href="http://jimpravetz.com/blog/2011/12/inserting-liquid-syntax-into-octopress-codeblock/">http://jimpravetz.com/blog/2011/12/inserting-liquid-syntax-into-octopress-codeblock/</a>。这种方式只能帖代码，不能语法高亮。</p>
 
 <p>仔细研究一下Octopress官方网站的代码（比如<a href="https://raw.github.com/imathis/octopress/site/source/docs/plugins/codeblock/index.markdown">codeblock这节</a>），还能学到另一个技巧。在我翻译这篇文章时，几种方法都用到了，有兴趣的可以查看本文的markdown代码。</p>
 
@@ -699,12 +705,16 @@ title: Portfolio
     
 <section>
 <h1>分类目录</h1>
-<span class='categories_tag'> <a href='/cn/blog/categories/github' style='font-size: 160.0%'>Github(4)</a>  <a href='/cn/blog/categories/javascript' style='font-size: 115.0%'>Javascript(1)</a>  <a href='/cn/blog/categories/jekyll' style='font-size: 160.0%'>Jekyll(4)</a>  <a href='/cn/blog/categories/octopress' style='font-size: 160.0%'>Octopress(4)</a>  <a href='/cn/blog/categories/r语言' style='font-size: 160.0%'>R语言(4)</a> </span>
+<span class='categories_tag'> <a href='/cn/blog/categories/github' style='font-size: 148.0%'>Github(4)</a>  <a href='/cn/blog/categories/javascript' style='font-size: 112.0%'>Javascript(1)</a>  <a href='/cn/blog/categories/jekyll' style='font-size: 148.0%'>Jekyll(4)</a>  <a href='/cn/blog/categories/latex' style='font-size: 112.0%'>Latex(1)</a>  <a href='/cn/blog/categories/octopress' style='font-size: 160.0%'>Octopress(5)</a>  <a href='/cn/blog/categories/r语言' style='font-size: 148.0%'>R语言(4)</a> </span>
 </section>
 
 <section>
   <h1>近期文章</h1>
   <ul id="recent_posts" class="none-left-margin">
+    
+      <li class="post">
+        <a href="/cn/blog/2012/03/10/octopress-with-latex/">在Octopress中使用LaTeX</a>
+      </li>
     
       <li class="post">
         <a href="/cn/blog/2012/03/08/a-piece-of-javascript/">一段有用的javascript代码</a>
@@ -728,10 +738,6 @@ title: Portfolio
     
       <li class="post">
         <a href="/cn/blog/2012/01/07/theming-and-customization/">为Octopress修改主题和自定义样式</a>
-      </li>
-    
-      <li class="post">
-        <a href="/cn/blog/2012/01/06/updating-an-r-installation/">如何升级R</a>
       </li>
     
   </ul>

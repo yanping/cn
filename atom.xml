@@ -4,7 +4,7 @@
   <title><![CDATA[雁起平沙的网络日志]]></title>
   <link href="http://chen.yanping.me/cn/atom.xml" rel="self"/>
   <link href="http://chen.yanping.me/cn/"/>
-  <updated>2012-03-10T02:18:03+08:00</updated>
+  <updated>2012-03-10T12:07:44+08:00</updated>
   <id>http://chen.yanping.me/cn/</id>
   <author>
     <name><![CDATA[ypchen]]></name>
@@ -12,6 +12,177 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[在Octopress中使用LaTeX]]></title>
+    <link href="http://chen.yanping.me/cn/blog/2012/03/10/octopress-with-latex/"/>
+    <updated>2012-03-10T10:30:00+08:00</updated>
+    <id>http://chen.yanping.me/cn/blog/2012/03/10/octopress-with-latex</id>
+    <content type="html"><![CDATA[<p>这个博客的主题定位为数量金融、统计与R语言，但一直以来我都没写什么金融和统计的文章，估计很多看官都误以为我是程序猿。最初我列了个书单，计划有哪些书要读要翻译的，包括<em>Implementing Models in Quantitative Finance</em>、<em>Statistics and Data Analysis for Financial Engineering</em>和<em>Option Pricing and Estimation of Financial Models with R</em>。除了没时间开始以外，还有个原因是折腾完octopress之后也没去折腾如何在octopress中插入公式。估计ruby的程序猿很少会用到数学公式吧，对$\LaTeX$的支持很有限。</p>
+
+<p>热心网友Sinosmond推荐使用kramdown以尽量减少往markdown中插入html代码，接着我发现此物非常强大，连$\LaTeX$都支持。昨晚使用了一下，现在把心得记录于此。</p>
+
+<p>先安装kramdown包</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span /></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+</pre></td><td class="code"><pre><code class="sh"><span class="line">gem install kramdown
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<p>再把下面的代码插入<code>&lt;head&gt;</code>和<code>&lt;/head&gt;</code>标签中间，如果你使用octopress，那就是添加到<code>/source/_includes/custom/head.html</code>文件里：</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+<span class="line-number">7</span>
+<span class="line-number">8</span>
+<span class="line-number">9</span>
+<span class="line-number">10</span>
+<span class="line-number">11</span>
+<span class="line-number">12</span>
+<span class="line-number">13</span>
+<span class="line-number">14</span>
+<span class="line-number">15</span>
+<span class="line-number">16</span>
+<span class="line-number">17</span>
+<span class="line-number">18</span>
+<span class="line-number">19</span>
+<span class="line-number">20</span>
+<span class="line-number">21</span>
+<span class="line-number">22</span>
+<span class="line-number">23</span>
+<span class="line-number">24</span>
+<span class="line-number">25</span>
+<span class="line-number">26</span>
+<span class="line-number">27</span>
+<span class="line-number">28</span>
+<span class="line-number">29</span>
+<span class="line-number">30</span>
+<span class="line-number">31</span>
+</pre></td><td class="code"><pre><code class="html"><span class="line"><span class="c">&lt;!-- mathjax config similar to math.stackexchange --&gt;</span>
+</span><span class="line">
+</span><span class="line"><span class="nt">&lt;script </span><span class="na">type=</span><span class="s">&quot;text/x-mathjax-config&quot;</span><span class="nt">&gt;</span>
+</span><span class="line">  <span class="nx">MathJax</span><span class="p">.</span><span class="nx">Hub</span><span class="p">.</span><span class="nx">Config</span><span class="p">({</span>
+</span><span class="line">    <span class="nx">tex2jax</span><span class="o">:</span> <span class="p">{</span>
+</span><span class="line">      <span class="nx">inlineMath</span><span class="o">:</span> <span class="p">[</span> <span class="p">[</span><span class="s1">&#39;$&#39;</span><span class="p">,</span><span class="s1">&#39;$&#39;</span><span class="p">],</span> <span class="p">[</span><span class="s2">&quot;\\(&quot;</span><span class="p">,</span><span class="s2">&quot;\\)&quot;</span><span class="p">]</span> <span class="p">],</span>
+</span><span class="line">      <span class="nx">processEscapes</span><span class="o">:</span> <span class="kc">true</span>
+</span><span class="line">    <span class="p">}</span>
+</span><span class="line">  <span class="p">});</span>
+</span><span class="line"><span class="nt">&lt;/script&gt;</span>
+</span><span class="line">
+</span><span class="line"><span class="nt">&lt;script </span><span class="na">type=</span><span class="s">&quot;text/x-mathjax-config&quot;</span><span class="nt">&gt;</span>
+</span><span class="line">    <span class="nx">MathJax</span><span class="p">.</span><span class="nx">Hub</span><span class="p">.</span><span class="nx">Config</span><span class="p">({</span>
+</span><span class="line">      <span class="nx">tex2jax</span><span class="o">:</span> <span class="p">{</span>
+</span><span class="line">        <span class="nx">skipTags</span><span class="o">:</span> <span class="p">[</span><span class="s1">&#39;script&#39;</span><span class="p">,</span> <span class="s1">&#39;noscript&#39;</span><span class="p">,</span> <span class="s1">&#39;style&#39;</span><span class="p">,</span> <span class="s1">&#39;textarea&#39;</span><span class="p">,</span> <span class="s1">&#39;pre&#39;</span><span class="p">,</span> <span class="s1">&#39;code&#39;</span><span class="p">]</span>
+</span><span class="line">      <span class="p">}</span>
+</span><span class="line">    <span class="p">});</span>
+</span><span class="line"><span class="nt">&lt;/script&gt;</span>
+</span><span class="line">
+</span><span class="line"><span class="nt">&lt;script </span><span class="na">type=</span><span class="s">&quot;text/x-mathjax-config&quot;</span><span class="nt">&gt;</span>
+</span><span class="line">    <span class="nx">MathJax</span><span class="p">.</span><span class="nx">Hub</span><span class="p">.</span><span class="nx">Queue</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+</span><span class="line">        <span class="kd">var</span> <span class="nx">all</span> <span class="o">=</span> <span class="nx">MathJax</span><span class="p">.</span><span class="nx">Hub</span><span class="p">.</span><span class="nx">getAllJax</span><span class="p">(),</span> <span class="nx">i</span><span class="p">;</span>
+</span><span class="line">        <span class="k">for</span><span class="p">(</span><span class="nx">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">all</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span> <span class="o">+=</span> <span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+</span><span class="line">            <span class="nx">all</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">SourceElement</span><span class="p">().</span><span class="nx">parentNode</span><span class="p">.</span><span class="nx">className</span> <span class="o">+=</span> <span class="s1">&#39; has-jax&#39;</span><span class="p">;</span>
+</span><span class="line">        <span class="p">}</span>
+</span><span class="line">    <span class="p">});</span>
+</span><span class="line"><span class="nt">&lt;/script&gt;</span>
+</span><span class="line">
+</span><span class="line"><span class="nt">&lt;script </span><span class="na">type=</span><span class="s">&quot;text/javascript&quot;</span>
+</span><span class="line">   <span class="na">src=</span><span class="s">&quot;http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML&quot;</span><span class="nt">&gt;</span>
+</span><span class="line"><span class="nt">&lt;/script&gt;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<!--more-->
+
+<p>在markdown里插入下面的代码</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+<span class="line-number">7</span>
+<span class="line-number">8</span>
+<span class="line-number">9</span>
+<span class="line-number">10</span>
+<span class="line-number">11</span>
+<span class="line-number">12</span>
+<span class="line-number">13</span>
+<span class="line-number">14</span>
+<span class="line-number">15</span>
+<span class="line-number">16</span>
+</pre></td><td class="code"><pre><code class="tex"><span class="line"><span class="sb">$$</span><span class="nb" />
+</span><span class="line"><span class="nv">\begin</span><span class="nb">{align</span><span class="o">*</span><span class="nb">}</span>
+</span><span class="line"><span class="nb">  &amp; </span><span class="nv">\phi</span><span class="o">(</span><span class="nb">x,y</span><span class="o">)</span><span class="nb"> </span><span class="o">=</span><span class="nb"> </span><span class="nv">\phi</span><span class="nb"> </span><span class="nv">\left</span><span class="o">(</span><span class="nv">\sum</span><span class="nb">_{i</span><span class="o">=</span><span class="m">1</span><span class="nb">}^n x_ie_i, </span><span class="nv">\sum</span><span class="nb">_{j</span><span class="o">=</span><span class="m">1</span><span class="nb">}^n y_je_j </span><span class="nv">\right</span><span class="o">)</span><span class="nb" />
+</span><span class="line"><span class="nb">  </span><span class="o">=</span><span class="nb"> </span><span class="nv">\sum</span><span class="nb">_{i</span><span class="o">=</span><span class="m">1</span><span class="nb">}^n </span><span class="nv">\sum</span><span class="nb">_{j</span><span class="o">=</span><span class="m">1</span><span class="nb">}^n x_i y_j </span><span class="nv">\phi</span><span class="o">(</span><span class="nb">e_i, e_j</span><span class="o">)</span><span class="nb"> </span><span class="o">=</span><span class="nb"> </span><span class="nv">\\</span><span class="nb" />
+</span><span class="line"><span class="nb">  &amp; </span><span class="o">(</span><span class="nb">x_</span><span class="m">1</span><span class="nb">, </span><span class="nv">\ldots</span><span class="nb">, x_n</span><span class="o">)</span><span class="nb"> </span><span class="nv">\left</span><span class="o">(</span><span class="nb"> </span><span class="nv">\begin</span><span class="nb">{array}{ccc}</span>
+</span><span class="line"><span class="nb">      </span><span class="nv">\phi</span><span class="o">(</span><span class="nb">e_</span><span class="m">1</span><span class="nb">, e_</span><span class="m">1</span><span class="o">)</span><span class="nb"> &amp; </span><span class="nv">\cdots</span><span class="nb"> &amp; </span><span class="nv">\phi</span><span class="o">(</span><span class="nb">e_</span><span class="m">1</span><span class="nb">, e_n</span><span class="o">)</span><span class="nb"> </span><span class="nv">\\</span><span class="nb" />
+</span><span class="line"><span class="nb">      </span><span class="nv">\vdots</span><span class="nb"> &amp; </span><span class="nv">\ddots</span><span class="nb"> &amp; </span><span class="nv">\vdots</span><span class="nb"> </span><span class="nv">\\</span><span class="nb" />
+</span><span class="line"><span class="nb">      </span><span class="nv">\phi</span><span class="o">(</span><span class="nb">e_n, e_</span><span class="m">1</span><span class="o">)</span><span class="nb"> &amp; </span><span class="nv">\cdots</span><span class="nb"> &amp; </span><span class="nv">\phi</span><span class="o">(</span><span class="nb">e_n, e_n</span><span class="o">)</span><span class="nb" />
+</span><span class="line"><span class="nb">    </span><span class="nv">\end</span><span class="nb">{array} </span><span class="nv">\right</span><span class="o">)</span><span class="nb" />
+</span><span class="line"><span class="nb">  </span><span class="nv">\left</span><span class="o">(</span><span class="nb"> </span><span class="nv">\begin</span><span class="nb">{array}{c}</span>
+</span><span class="line"><span class="nb">      y_</span><span class="m">1</span><span class="nb"> </span><span class="nv">\\</span><span class="nb" />
+</span><span class="line"><span class="nb">      </span><span class="nv">\vdots</span><span class="nb"> </span><span class="nv">\\</span><span class="nb" />
+</span><span class="line"><span class="nb">      y_n</span>
+</span><span class="line"><span class="nb">    </span><span class="nv">\end</span><span class="nb">{array} </span><span class="nv">\right</span><span class="o">)</span><span class="nb" />
+</span><span class="line"><span class="nv">\end</span><span class="nb">{align</span><span class="o">*</span><span class="nb">}</span>
+</span><span class="line"><span class="s">$$</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<p>就会得到：</p>
+
+<script type="math/tex; mode=display">
+\begin{align*}
+  & \phi(x,y) = \phi \left(\sum_{i=1}^n x_ie_i, \sum_{j=1}^n y_je_j \right)
+  = \sum_{i=1}^n \sum_{j=1}^n x_i y_j \phi(e_i, e_j) = \\
+  & (x_1, \ldots, x_n) \left( \begin{array}{ccc}
+      \phi(e_1, e_1) & \cdots & \phi(e_1, e_n) \\
+      \vdots & \ddots & \vdots \\
+      \phi(e_n, e_1) & \cdots & \phi(e_n, e_n)
+    \end{array} \right)
+  \left( \begin{array}{c}
+      y_1 \\
+      \vdots \\
+      y_n
+    \end{array} \right)
+\end{align*}
+</script>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span /></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+</pre></td><td class="code"><pre><code class="tex"><span class="line">段内插入LaTeX代码是这样的：<span class="s">$</span><span class="nv">\exp</span><span class="o">(-</span><span class="nv">\frac</span><span class="nb">{x^</span><span class="m">2</span><span class="nb">}{</span><span class="m">2</span><span class="nb">}</span><span class="o">)</span><span class="s">$</span>，试试看看吧
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+<p>可以得到：</p>
+
+<p>段内插入LaTeX代码是这样的：$\exp(-\frac{x^2}{2})$，试试看看吧</p>
+
+<p>详细介绍请见 <a href="http://kramdown.rubyforge.org/syntax.html#math-blocks">http://kramdown.rubyforge.org/syntax.html#math-blocks</a></p>
+
+<h2 id="section">需要注意的问题</h2>
+<p>使用kramdown时，对markdown的语法要求似乎比用rdiscount时要严格，一些在rdiscount中支持的写法，在使用kramdown不能的得到预期的效果。</p>
+
+<p>例如下面的代码，在<code>```html</code>之前必须留一行的空行。</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span> (url-jump.html)</span> <a href="http://chen.yanping.me/cn/downloads/code/url-jump.html">download</a></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+</pre></td><td class="code"><pre><code class="html"><span class="line">```html
+</span><span class="line">	<span class="nt">&lt;meta</span> <span class="na">http-equiv=</span><span class="s">&quot;refresh&quot;</span> <span class="na">content=</span><span class="s">&quot;0; url=http://mydomain2.com&quot;</span><span class="nt">&gt;</span>
+</span><span class="line">```
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<p>再比如<code>_italic_</code>，前后必须留空格，否则不能得到斜体的效果。</p>
+
+<p>以<code>##</code>这样的形式标记的标题之后不能有空行… 这意味着我之前写过的文章还必须检查一遍。</p>
+
+<h2 id="section-1">其他功能</h2>
+<p>用kramdown可以生成脚注、表格，设置标题的id…大大弥补了markdown不足，详细信息请见<a href="http://kramdown.rubyforge.org/syntax.html">http://kramdown.rubyforge.org/syntax.html</a></p>
+
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[一段有用的javascript代码]]></title>
@@ -117,6 +288,8 @@
 <p>登录到disqus.com，选择评论所在的网站，进入Admin，选择Tools，在code中，是<strong>Extra Widgets</strong>的代码，提供了几种Widgets插件，分别是Combination（组合式）、Recent Comments（近期评论）、 Popular Threads（热门话题）、Top Commenters（最近评论人）。该工具可以根据用户设置的参数生成代码。</p>
 
 <p><img src="http://chen.yanping.me/cn/images/blog/12-02-07/tools-setting.png" /> </p>
+
+<!-- more -->
 
 <h2 id="octopress">第二步：把代码添加到octopress</h2>
 <p>按照<a href="http://chen.yanping.me/cn/blog/2012/01/07/theming-and-customization/" target="_blank">为Octopress修改主题和自定义样式</a>一文的描述，在sidebar里添加一个section，比如叫做recent_comments.html，代码如下：</p>
@@ -327,7 +500,7 @@ R导论的10.8也是讲定制环境的。
 
 <!--more-->
 
-<p>在启动的时候，R会从_R_HOME<em>/etc这个目录寻找Rprofile.site来调用，其中_R_HOME_是环境变量。然后R会在当前工作目录寻找.Rprofile文件来调用。如果R没有找到这个文件，就会在用户的主目录寻找。你可以用<code>Sys.getenv("R_HOME")</code>、<code>Sys.getenv("HOME")</code>和<code>getwd()</code>分别查看_R_HOME</em>、_HOME_以及当前工作目录。</p>
+<p>在启动的时候，R会从 <em>R_HOME</em> /etc这个目录寻找Rprofile.site来调用，其中 <em>R_HOME</em> 是环境变量。然后R会在当前工作目录寻找.Rprofile文件来调用。如果R没有找到这个文件，就会在用户的主目录寻找。你可以用<code>Sys.getenv("R_HOME")</code>、<code>Sys.getenv("HOME")</code>和<code>getwd()</code>分别查看 <em>R_HOME</em> 、<em>HOME</em> 以及当前工作目录。</p>
 
 <p>你可以在这些文件里放两个特殊的函数，<code>.First()</code>函数在启动R会话的时候执行，<code>.Last()</code>函数在结束会话的时候执行。Rprofile.site文件的例子如下：</p>
 
@@ -436,13 +609,15 @@ R导论的10.8也是讲定制环境的。
 
 <h2 id="theme" style="font-size:32px;color:red;">1. 主题</h2>
 
-<p>不久前发布的 Octopress 2.0版增加了 <code>source/_includes/custom</code>目录。 如果你没有这个目录， 建议 <a href="http://octopress.org/docs/updating">升级</a> Octopress，因为它真的很棒。
-    source/
-      _includes/    # Main layout partials
-        custom/     # &lt;- Customize head, header, navigation, footer, and sidebar here
-        asides/     # Theme sidebar partials
-        post/       # post metadata, sharing &amp; comment partials
-      _layouts/     # layouts for pages, posts &amp; category archives</p>
+<p>不久前发布的 Octopress 2.0版增加了 <code>source/_includes/custom</code>目录。 如果你没有这个目录， 建议 <a href="http://octopress.org/docs/updating">升级</a> Octopress，因为它真的很棒。</p>
+
+<pre><code>source/
+  _includes/    # Main layout partials
+    custom/     # &lt;- Customize head, header, navigation, footer, and sidebar here
+    asides/     # Theme sidebar partials
+    post/       # post metadata, sharing &amp; comment partials
+  _layouts/     # layouts for pages, posts &amp; category archives
+</code></pre>
 
 <h2 id="landing_page">登录页 vs. 博客主页</h2>
 
@@ -616,12 +791,12 @@ _styles.scss     # Easly Override any style (last in the cascade)
 <span class="line-number">4</span>
 <span class="line-number">5</span>
 <span class="line-number">6</span>
-</pre></td><td class="code"><pre><code class="scss"><span class="line"><span class="na">$header-bg</span><span class="o">:</span> <span class="mh">#263347</span><span class="p">;</span>
-</span><span class="line"><span class="na">$subtitle-color</span><span class="o">:</span> <span class="nf">lighten</span><span class="p">(</span><span class="nv">$header-bg</span><span class="o">,</span> <span class="mi">58</span><span class="p">);</span>
-</span><span class="line"><span class="na">$nav-bg</span><span class="o">:</span> <span class="nf">desaturate</span><span class="p">(</span><span class="nf">lighten</span><span class="p">(</span><span class="mh">#8fc17a</span><span class="o">,</span> <span class="mi">18</span><span class="p">)</span><span class="o">,</span> <span class="mi">5</span><span class="p">);</span>
-</span><span class="line"><span class="na">$sidebar-bg</span><span class="o">:</span> <span class="nf">desaturate</span><span class="p">(</span><span class="mh">#eceff5</span><span class="o">,</span> <span class="mi">8</span><span class="p">);</span>
-</span><span class="line"><span class="na">$sidebar-link-color</span><span class="o">:</span> <span class="nf">saturate</span><span class="p">(</span><span class="mh">#526f9a</span><span class="o">,</span> <span class="mi">10</span><span class="p">);</span>
-</span><span class="line"><span class="na">$sidebar-link-color-hover</span><span class="o">:</span> <span class="nf">darken</span><span class="p">(</span><span class="mh">#7ab662</span><span class="o">,</span> <span class="mi">9</span><span class="p">);</span>
+</pre></td><td class="code"><pre><code class="scss"><span class="line">	<span class="na">$header-bg</span><span class="o">:</span> <span class="mh">#263347</span><span class="p">;</span>
+</span><span class="line">	<span class="na">$subtitle-color</span><span class="o">:</span> <span class="nf">lighten</span><span class="p">(</span><span class="nv">$header-bg</span><span class="o">,</span> <span class="mi">58</span><span class="p">);</span>
+</span><span class="line">	<span class="na">$nav-bg</span><span class="o">:</span> <span class="nf">desaturate</span><span class="p">(</span><span class="nf">lighten</span><span class="p">(</span><span class="mh">#8fc17a</span><span class="o">,</span> <span class="mi">18</span><span class="p">)</span><span class="o">,</span> <span class="mi">5</span><span class="p">);</span>
+</span><span class="line">	<span class="na">$sidebar-bg</span><span class="o">:</span> <span class="nf">desaturate</span><span class="p">(</span><span class="mh">#eceff5</span><span class="o">,</span> <span class="mi">8</span><span class="p">);</span>
+</span><span class="line">	<span class="na">$sidebar-link-color</span><span class="o">:</span> <span class="nf">saturate</span><span class="p">(</span><span class="mh">#526f9a</span><span class="o">,</span> <span class="mi">10</span><span class="p">);</span>
+</span><span class="line">	<span class="na">$sidebar-link-color-hover</span><span class="o">:</span> <span class="nf">darken</span><span class="p">(</span><span class="mh">#7ab662</span><span class="o">,</span> <span class="mi">9</span><span class="p">);</span>
 </span></code></pre></td></tr></table></div></figure></notextile></div>
 
 <p>自定制颜色文件有几项被取消注释的颜色可以用。主题文件被分成几个部分以使文件更容易阅读。请看<code>sass/base/_theme.scss</code>中关于navigation的部分。</p>
@@ -631,11 +806,11 @@ _styles.scss     # Easly Override any style (last in the cascade)
 <span class="line-number">3</span>
 <span class="line-number">4</span>
 <span class="line-number">5</span>
-</pre></td><td class="code"><pre><code class="scss"><span class="line"><span class="cm">/* Navigation */</span>
-</span><span class="line"><span class="na">$nav-bg</span><span class="o">:</span> <span class="mh">#ccc</span> <span class="nv">!default</span><span class="p">;</span>
-</span><span class="line"><span class="na">$nav-color</span><span class="o">:</span> <span class="nf">darken</span><span class="p">(</span><span class="nv">$nav-bg</span><span class="o">,</span> <span class="mi">38</span><span class="p">)</span> <span class="nv">!default</span><span class="p">;</span>
-</span><span class="line"><span class="na">$nav-color-hover</span><span class="o">:</span> <span class="nf">darken</span><span class="p">(</span><span class="nv">$nav-color</span><span class="o">,</span> <span class="mi">25</span><span class="p">)</span> <span class="nv">!default</span><span class="p">;</span>
-</span><span class="line"><span class="nc">...</span>
+</pre></td><td class="code"><pre><code class="scss"><span class="line">	<span class="cm">/* Navigation */</span>
+</span><span class="line">	<span class="na">$nav-bg</span><span class="o">:</span> <span class="mh">#ccc</span> <span class="nv">!default</span><span class="p">;</span>
+</span><span class="line">	<span class="na">$nav-color</span><span class="o">:</span> <span class="nf">darken</span><span class="p">(</span><span class="nv">$nav-bg</span><span class="o">,</span> <span class="mi">38</span><span class="p">)</span> <span class="nv">!default</span><span class="p">;</span>
+</span><span class="line">	<span class="na">$nav-color-hover</span><span class="o">:</span> <span class="nf">darken</span><span class="p">(</span><span class="nv">$nav-color</span><span class="o">,</span> <span class="mi">25</span><span class="p">)</span> <span class="nv">!default</span><span class="p">;</span>
+</span><span class="line">	<span class="nc">...</span>
 </span></code></pre></td></tr></table></div></figure></notextile></div>
 
 <p>The <code>!default</code> rule lets the variable be overridden if it is defined beforehand.
@@ -646,6 +821,7 @@ is imported before the <code>_theme.scss</code> it can predefine these colors ea
 你可以通过设置<code>$nav-bg</code>变量为navigation选择新的背景颜色，并且其它颜色会做相应的改变。虽然这不是很完美，但是它对大多数颜色都是合适的。</p>
 
 <h2 id="changing_layout">修改布局</h2>
+
 <pre><code># In /sass/base
 _layout.scss     # Responsive layouts are defined here
 
@@ -670,21 +846,21 @@ _layout.scss     # Override settings for base/_layout.scss to change the layout
 <span class="line-number">13</span>
 <span class="line-number">14</span>
 <span class="line-number">15</span>
-</pre></td><td class="code"><pre><code class="scss"><span class="line"><span class="na">$max-width</span><span class="o">:</span> <span class="mi">1200</span><span class="kt">px</span> <span class="nv">!default</span><span class="p">;</span>
+</pre></td><td class="code"><pre><code class="scss"><span class="line">	<span class="na">$max-width</span><span class="o">:</span> <span class="mi">1200</span><span class="kt">px</span> <span class="nv">!default</span><span class="p">;</span>
 </span><span class="line">
-</span><span class="line"><span class="c1">// Padding used for layout margins</span>
-</span><span class="line"><span class="na">$pad-min</span><span class="o">:</span> <span class="mi">18</span><span class="kt">px</span> <span class="nv">!default</span><span class="p">;</span>
-</span><span class="line"><span class="na">$pad-narrow</span><span class="o">:</span> <span class="mi">25</span><span class="kt">px</span> <span class="nv">!default</span><span class="p">;</span>
-</span><span class="line"><span class="na">$pad-medium</span><span class="o">:</span> <span class="mi">35</span><span class="kt">px</span> <span class="nv">!default</span><span class="p">;</span>
-</span><span class="line"><span class="na">$pad-wide</span><span class="o">:</span> <span class="mi">55</span><span class="kt">px</span> <span class="nv">!default</span><span class="p">;</span>
+</span><span class="line">	<span class="c1">// Padding used for layout margins</span>
+</span><span class="line">	<span class="na">$pad-min</span><span class="o">:</span> <span class="mi">18</span><span class="kt">px</span> <span class="nv">!default</span><span class="p">;</span>
+</span><span class="line">	<span class="na">$pad-narrow</span><span class="o">:</span> <span class="mi">25</span><span class="kt">px</span> <span class="nv">!default</span><span class="p">;</span>
+</span><span class="line">	<span class="na">$pad-medium</span><span class="o">:</span> <span class="mi">35</span><span class="kt">px</span> <span class="nv">!default</span><span class="p">;</span>
+</span><span class="line">	<span class="na">$pad-wide</span><span class="o">:</span> <span class="mi">55</span><span class="kt">px</span> <span class="nv">!default</span><span class="p">;</span>
 </span><span class="line">
-</span><span class="line"><span class="c1">// Sidebar widths used in media queries</span>
-</span><span class="line"><span class="na">$sidebar-width-medium</span><span class="o">:</span> <span class="mi">240</span><span class="kt">px</span> <span class="nv">!default</span><span class="p">;</span>
-</span><span class="line"><span class="na">$sidebar-pad-medium</span><span class="o">:</span> <span class="mi">15</span><span class="kt">px</span> <span class="nv">!default</span><span class="p">;</span>
-</span><span class="line"><span class="na">$sidebar-pad-wide</span><span class="o">:</span> <span class="mi">20</span><span class="kt">px</span> <span class="nv">!default</span><span class="p">;</span>
-</span><span class="line"><span class="na">$sidebar-width-wide</span><span class="o">:</span> <span class="mi">300</span><span class="kt">px</span> <span class="nv">!default</span><span class="p">;</span>
+</span><span class="line">	<span class="c1">// Sidebar widths used in media queries</span>
+</span><span class="line">	<span class="na">$sidebar-width-medium</span><span class="o">:</span> <span class="mi">240</span><span class="kt">px</span> <span class="nv">!default</span><span class="p">;</span>
+</span><span class="line">	<span class="na">$sidebar-pad-medium</span><span class="o">:</span> <span class="mi">15</span><span class="kt">px</span> <span class="nv">!default</span><span class="p">;</span>
+</span><span class="line">	<span class="na">$sidebar-pad-wide</span><span class="o">:</span> <span class="mi">20</span><span class="kt">px</span> <span class="nv">!default</span><span class="p">;</span>
+</span><span class="line">	<span class="na">$sidebar-width-wide</span><span class="o">:</span> <span class="mi">300</span><span class="kt">px</span> <span class="nv">!default</span><span class="p">;</span>
 </span><span class="line">
-</span><span class="line"><span class="na">$indented-lists</span><span class="o">:</span> <span class="n-Pseudo">false</span> <span class="nv">!default</span><span class="p">;</span>
+</span><span class="line">	<span class="na">$indented-lists</span><span class="o">:</span> <span class="n-Pseudo">false</span> <span class="nv">!default</span><span class="p">;</span>
 </span></code></pre></td></tr></table></div></figure></notextile></div>
 
 <p>这些变量是用来计算相应布局的宽度和padding的。<code>$indented-lists</code> 变量允许你选择列表的样式是使用缩进还是正常的。</p>
@@ -728,7 +904,7 @@ _layout.scss     # Override settings for base/_layout.scss to change the layout
 
 <ol start="3">
 	<li> 下载并安装最新版的R。</li>
-	<li> 如果你保存了原来的**Rprofile.site**文件，把它复制到新的安装目录中。</li>
+	<li> 如果你保存了原来的<strong>Rprofile.site</strong>文件，把它复制到新的安装目录中。</li>
 	<li>启动新版的R，然后运行下面的命令	
 	
 <div class="bogus-wrapper"><notextile><figure class="code"> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
@@ -787,7 +963,7 @@ _layout.scss     # Override settings for base/_layout.scss to change the layout
   <li>在处理全部数据前，用数据的子集测试程序，来优化程序，去掉bug；</li>
   <li>删除临时对象和不再用的对象。调用<code>rm(list=ls())</code>可以删除内存中的所有对象。删除指定的对象可以用<code>rm(object)</code>；</li>
   <li>在Jeromy Anglim的博客文章“R的内存管理：一些小窍门和技巧”(原文<a href="http://jeromyanglim.blogspot.com/2009/11/memory-management-in-r-few-tips-and.html">Memory Management in R: A Few Tips and Tricks </a>，被墙)中提到，使用函数<code>.ls.objects()</code>列出工作区内的对象占用的内存大小。这个函数会帮助你找到吃内存的大家伙。</li>
-  <li>profile你的程序，看看在每个函数中花的时间。你可以用<code>Rprof()</code>和<code>summaryRprof()</code>函数完成这项工作。<code>system.time()</code>函数也可以帮助你。<em>profr</em> 和_prooftools_ 包提供了若干函数来帮助分析profile的输出。</li>
+  <li>profile你的程序，看看在每个函数中花的时间。你可以用<code>Rprof()</code>和<code>summaryRprof()</code>函数完成这项工作。<code>system.time()</code>函数也可以帮助你。<em>profr</em> 和 <em>prooftools</em> 包提供了若干函数来帮助分析profile的输出。</li>
   <li>Rcpp包可以把R对象转成C++函数（原文是The Rcpp package can be used to transfer R objects to C++ functions and back when more optimized subroutines are needed. 后半句不知怎么翻译）</li>
 </ul>
 
@@ -839,7 +1015,7 @@ _layout.scss     # Override settings for base/_layout.scss to change the layout
   <li><em>Brobdingnag</em> 包可以用来处理大数字（大于2^1024）</li>
 </ul>
 
-<p>处理从GB到TB级的数据对于任何数据都是极大的挑战。如果想查看R的更多方法，请看CRAN task View:<em>High-Performance and Parallel Computing with R</em> （<a href="http://cran.r-project.org/web/view">http://cran.r-project.org/web/view</a>）。</p>
+<p>处理从GB到TB级的数据对于任何数据都是极大的挑战。如果想查看R的更多方法，请看CRAN task View: <em>High-Performance and Parallel Computing with R</em> （<a href="http://cran.r-project.org/web/view">http://cran.r-project.org/web/view</a>）。</p>
 
 <h3 id="section-3">译者注</h3>
 <p><a href="http://jliblog.com/">李舰</a>曾经在第四届R语言会议（北京会场）上做了题为《 <em>R与高性能运算</em> 》的报告，报告slides及代码请见<a href="http://cos.name/2011/05/4th-china-r-beijing-summary/">会议纪要</a></p>
@@ -1420,15 +1596,21 @@ title: Portfolio
 
 <p>第二个问题是当文章中引用了含有Liquid标签的代码片段时，这些代码会被jekyll渲染。一般代码是用<a href="http://octopress.org/docs/plugins/codeblock/" target="_blank">codeblock标签</a>或者用 <code>```</code>括起来（也就是Backtick Code Blocks的方式），能保持原样，还能显示语法高亮，但是当引用的代码里含有Liquid标签时就出现了混乱。为此，我也试了很久，也到<a href="http://ruby-taiwan.org/topics/74">ruby-taiwan.org</a>上发帖问了，总结起来有几种方法：</p>
 
-<ol>
-  <li>用gist插件
-     {% gist gist_id [filename] %}
-这种方式比较强大，但是需要连接gist，加载页面的时候有点卡。</li>
-  <li>用include_code插件
-     {% include_code [title] [lang:language] path/to/file %}
-上面两种方法在Octoprss的官方网站都有介绍，请看<a href="http://octopress.org/docs/blogging/code/">http://octopress.org/docs/blogging/code/</a></li>
-  <li>用codeblock标签里嵌套raw标签，详情请看<a href="http://jimpravetz.com/blog/2011/12/inserting-liquid-syntax-into-octopress-codeblock/">http://jimpravetz.com/blog/2011/12/inserting-liquid-syntax-into-octopress-codeblock/</a>。这种方式只能帖代码，不能语法高亮。</li>
-</ol>
+<p>1. <strong>用gist插件</strong></p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+</pre></td><td class="code"><pre><code class=""><span class="line">{% gist gist_id [filename] %}</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<p>这种方式比较强大，但是需要连接gist，加载页面的时候有点卡。</p>
+
+<p>2. <strong>用include_code插件</strong></p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+</pre></td><td class="code"><pre><code class=""><span class="line">{% include_code [title] [lang:language] path/to/file  %}</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<p>上面两种方法在Octoprss的官方网站都有介绍，请看<a href="http://octopress.org/docs/blogging/code/">http://octopress.org/docs/blogging/code/</a></p>
+
+<p>3. <strong>用codeblock标签里嵌套raw标签</strong>，详情请看<a href="http://jimpravetz.com/blog/2011/12/inserting-liquid-syntax-into-octopress-codeblock/">http://jimpravetz.com/blog/2011/12/inserting-liquid-syntax-into-octopress-codeblock/</a>。这种方式只能帖代码，不能语法高亮。</p>
 
 <p>仔细研究一下Octopress官方网站的代码（比如<a href="https://raw.github.com/imathis/octopress/site/source/docs/plugins/codeblock/index.markdown">codeblock这节</a>），还能学到另一个技巧。在我翻译这篇文章时，几种方法都用到了，有兴趣的可以查看本文的markdown代码。</p>
 

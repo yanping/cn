@@ -18,7 +18,7 @@
     </url>
     <url>
         <loc>http://chen.yanping.me/cn/blog/2011/12/15/building-static-sites-with-jekyll/</loc>
-        <lastmod>2012-02-26T12:08:25+08:00</lastmod>
+        <lastmod>2012-03-10T11:43:21+08:00</lastmod>
     </url>
     <url>
         <loc>http://chen.yanping.me/cn/blog/2011/12/26/github-pages-domain-2/</loc>
@@ -30,19 +30,19 @@
     </url>
     <url>
         <loc>http://chen.yanping.me/cn/blog/2012/01/01/working-with-large-datasets/</loc>
-        <lastmod>2012-03-10T01:54:36+08:00</lastmod>
+        <lastmod>2012-03-10T11:33:30+08:00</lastmod>
     </url>
     <url>
         <loc>http://chen.yanping.me/cn/blog/2012/01/06/updating-an-r-installation/</loc>
-        <lastmod>2012-02-26T14:01:18+08:00</lastmod>
+        <lastmod>2012-03-10T11:31:59+08:00</lastmod>
     </url>
     <url>
         <loc>http://chen.yanping.me/cn/blog/2012/01/07/theming-and-customization/</loc>
-        <lastmod>2012-02-26T12:06:55+08:00</lastmod>
+        <lastmod>2012-03-10T11:12:32+08:00</lastmod>
     </url>
     <url>
         <loc>http://chen.yanping.me/cn/blog/2012/01/09/customizing-the-startup-environment/</loc>
-        <lastmod>2012-02-26T14:01:28+08:00</lastmod>
+        <lastmod>2012-03-10T02:19:54+08:00</lastmod>
     </url>
     <url>
         <loc>http://chen.yanping.me/cn/blog/2012/01/10/matrix-algebra-in-r/</loc>
@@ -50,27 +50,31 @@
     </url>
     <url>
         <loc>http://chen.yanping.me/cn/blog/2012/02/06/github-pages-domain-3/</loc>
-        <lastmod>2012-03-10T02:16:54+08:00</lastmod>
+        <lastmod>2012-03-10T02:21:49+08:00</lastmod>
     </url>
     <url>
         <loc>http://chen.yanping.me/cn/blog/2012/02/07/comment-sidebar/</loc>
-        <lastmod>2012-02-26T12:05:05+08:00</lastmod>
+        <lastmod>2012-03-10T11:29:22+08:00</lastmod>
     </url>
     <url>
         <loc>http://chen.yanping.me/cn/blog/2012/03/08/a-piece-of-javascript/</loc>
         <lastmod>2012-03-10T01:46:42+08:00</lastmod>
     </url>
     <url>
+        <loc>http://chen.yanping.me/cn/blog/2012/03/10/octopress-with-latex/</loc>
+        <lastmod>2012-03-10T12:05:31+08:00</lastmod>
+    </url>
+    <url>
         <loc>http://chen.yanping.me/cn/blog/categories/</loc>
-        <lastmod>2012-03-10T02:16:54+08:00</lastmod>
+        <lastmod>2012-03-10T12:05:31+08:00</lastmod>
     </url>
     <url>
         <loc>http://chen.yanping.me/cn/blog/about/</loc>
-        <lastmod>2012-03-10T02:16:54+08:00</lastmod>
+        <lastmod>2012-03-10T12:05:31+08:00</lastmod>
     </url>
     <url>
         <loc>http://chen.yanping.me/cn/blog/archives/</loc>
-        <lastmod>2012-03-10T02:16:54+08:00</lastmod>
+        <lastmod>2012-03-10T12:05:31+08:00</lastmod>
     </url>
     <url>
         <loc>http://chen.yanping.me/cn/downloads/code/portfolio_entry.html</loc>
@@ -78,6 +82,6 @@
     </url>
     <url>
         <loc>http://chen.yanping.me/cn/</loc>
-        <lastmod>2012-03-10T02:16:54+08:00</lastmod>
+        <lastmod>2012-03-10T12:05:31+08:00</lastmod>
     </url>
 </urlset>

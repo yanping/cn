@@ -144,13 +144,15 @@
 
 <h2 id="theme" style="font-size:32px;color:red;">1. 主题</h2>
 
-<p>不久前发布的 Octopress 2.0版增加了 <code>source/_includes/custom</code>目录。 如果你没有这个目录， 建议 <a href="http://octopress.org/docs/updating">升级</a> Octopress，因为它真的很棒。
-    source/
-      _includes/    # Main layout partials
-        custom/     # &lt;- Customize head, header, navigation, footer, and sidebar here
-        asides/     # Theme sidebar partials
-        post/       # post metadata, sharing &amp; comment partials
-      _layouts/     # layouts for pages, posts &amp; category archives</p>
+<p>不久前发布的 Octopress 2.0版增加了 <code>source/_includes/custom</code>目录。 如果你没有这个目录， 建议 <a href="http://octopress.org/docs/updating">升级</a> Octopress，因为它真的很棒。</p>
+
+<pre><code>source/
+  _includes/    # Main layout partials
+    custom/     # &lt;- Customize head, header, navigation, footer, and sidebar here
+    asides/     # Theme sidebar partials
+    post/       # post metadata, sharing &amp; comment partials
+  _layouts/     # layouts for pages, posts &amp; category archives
+</code></pre>
 
 <h2 id="landing_page">登录页 vs. 博客主页</h2>
 
@@ -324,12 +326,12 @@ _styles.scss     # Easly Override any style (last in the cascade)
 <span class="line-number">4</span>
 <span class="line-number">5</span>
 <span class="line-number">6</span>
-</pre></td><td class="code"><pre><code class="scss"><span class="line"><span class="na">$header-bg</span><span class="o">:</span> <span class="mh">#263347</span><span class="p">;</span>
-</span><span class="line"><span class="na">$subtitle-color</span><span class="o">:</span> <span class="nf">lighten</span><span class="p">(</span><span class="nv">$header-bg</span><span class="o">,</span> <span class="mi">58</span><span class="p">);</span>
-</span><span class="line"><span class="na">$nav-bg</span><span class="o">:</span> <span class="nf">desaturate</span><span class="p">(</span><span class="nf">lighten</span><span class="p">(</span><span class="mh">#8fc17a</span><span class="o">,</span> <span class="mi">18</span><span class="p">)</span><span class="o">,</span> <span class="mi">5</span><span class="p">);</span>
-</span><span class="line"><span class="na">$sidebar-bg</span><span class="o">:</span> <span class="nf">desaturate</span><span class="p">(</span><span class="mh">#eceff5</span><span class="o">,</span> <span class="mi">8</span><span class="p">);</span>
-</span><span class="line"><span class="na">$sidebar-link-color</span><span class="o">:</span> <span class="nf">saturate</span><span class="p">(</span><span class="mh">#526f9a</span><span class="o">,</span> <span class="mi">10</span><span class="p">);</span>
-</span><span class="line"><span class="na">$sidebar-link-color-hover</span><span class="o">:</span> <span class="nf">darken</span><span class="p">(</span><span class="mh">#7ab662</span><span class="o">,</span> <span class="mi">9</span><span class="p">);</span>
+</pre></td><td class="code"><pre><code class="scss"><span class="line">	<span class="na">$header-bg</span><span class="o">:</span> <span class="mh">#263347</span><span class="p">;</span>
+</span><span class="line">	<span class="na">$subtitle-color</span><span class="o">:</span> <span class="nf">lighten</span><span class="p">(</span><span class="nv">$header-bg</span><span class="o">,</span> <span class="mi">58</span><span class="p">);</span>
+</span><span class="line">	<span class="na">$nav-bg</span><span class="o">:</span> <span class="nf">desaturate</span><span class="p">(</span><span class="nf">lighten</span><span class="p">(</span><span class="mh">#8fc17a</span><span class="o">,</span> <span class="mi">18</span><span class="p">)</span><span class="o">,</span> <span class="mi">5</span><span class="p">);</span>
+</span><span class="line">	<span class="na">$sidebar-bg</span><span class="o">:</span> <span class="nf">desaturate</span><span class="p">(</span><span class="mh">#eceff5</span><span class="o">,</span> <span class="mi">8</span><span class="p">);</span>
+</span><span class="line">	<span class="na">$sidebar-link-color</span><span class="o">:</span> <span class="nf">saturate</span><span class="p">(</span><span class="mh">#526f9a</span><span class="o">,</span> <span class="mi">10</span><span class="p">);</span>
+</span><span class="line">	<span class="na">$sidebar-link-color-hover</span><span class="o">:</span> <span class="nf">darken</span><span class="p">(</span><span class="mh">#7ab662</span><span class="o">,</span> <span class="mi">9</span><span class="p">);</span>
 </span></code></pre></td></tr></table></div></figure></notextile></div>
 
 <p>自定制颜色文件有几项被取消注释的颜色可以用。主题文件被分成几个部分以使文件更容易阅读。请看<code>sass/base/_theme.scss</code>中关于navigation的部分。</p>
@@ -339,11 +341,11 @@ _styles.scss     # Easly Override any style (last in the cascade)
 <span class="line-number">3</span>
 <span class="line-number">4</span>
 <span class="line-number">5</span>
-</pre></td><td class="code"><pre><code class="scss"><span class="line"><span class="cm">/* Navigation */</span>
-</span><span class="line"><span class="na">$nav-bg</span><span class="o">:</span> <span class="mh">#ccc</span> <span class="nv">!default</span><span class="p">;</span>
-</span><span class="line"><span class="na">$nav-color</span><span class="o">:</span> <span class="nf">darken</span><span class="p">(</span><span class="nv">$nav-bg</span><span class="o">,</span> <span class="mi">38</span><span class="p">)</span> <span class="nv">!default</span><span class="p">;</span>
-</span><span class="line"><span class="na">$nav-color-hover</span><span class="o">:</span> <span class="nf">darken</span><span class="p">(</span><span class="nv">$nav-color</span><span class="o">,</span> <span class="mi">25</span><span class="p">)</span> <span class="nv">!default</span><span class="p">;</span>
-</span><span class="line"><span class="nc">...</span>
+</pre></td><td class="code"><pre><code class="scss"><span class="line">	<span class="cm">/* Navigation */</span>
+</span><span class="line">	<span class="na">$nav-bg</span><span class="o">:</span> <span class="mh">#ccc</span> <span class="nv">!default</span><span class="p">;</span>
+</span><span class="line">	<span class="na">$nav-color</span><span class="o">:</span> <span class="nf">darken</span><span class="p">(</span><span class="nv">$nav-bg</span><span class="o">,</span> <span class="mi">38</span><span class="p">)</span> <span class="nv">!default</span><span class="p">;</span>
+</span><span class="line">	<span class="na">$nav-color-hover</span><span class="o">:</span> <span class="nf">darken</span><span class="p">(</span><span class="nv">$nav-color</span><span class="o">,</span> <span class="mi">25</span><span class="p">)</span> <span class="nv">!default</span><span class="p">;</span>
+</span><span class="line">	<span class="nc">...</span>
 </span></code></pre></td></tr></table></div></figure></notextile></div>
 
 <p>The <code>!default</code> rule lets the variable be overridden if it is defined beforehand.
@@ -354,6 +356,7 @@ is imported before the <code>_theme.scss</code> it can predefine these colors ea
 你可以通过设置<code>$nav-bg</code>变量为navigation选择新的背景颜色，并且其它颜色会做相应的改变。虽然这不是很完美，但是它对大多数颜色都是合适的。</p>
 
 <h2 id="changing_layout">修改布局</h2>
+
 <pre><code># In /sass/base
 _layout.scss     # Responsive layouts are defined here
 
@@ -378,21 +381,21 @@ _layout.scss     # Override settings for base/_layout.scss to change the layout
 <span class="line-number">13</span>
 <span class="line-number">14</span>
 <span class="line-number">15</span>
-</pre></td><td class="code"><pre><code class="scss"><span class="line"><span class="na">$max-width</span><span class="o">:</span> <span class="mi">1200</span><span class="kt">px</span> <span class="nv">!default</span><span class="p">;</span>
+</pre></td><td class="code"><pre><code class="scss"><span class="line">	<span class="na">$max-width</span><span class="o">:</span> <span class="mi">1200</span><span class="kt">px</span> <span class="nv">!default</span><span class="p">;</span>
 </span><span class="line">
-</span><span class="line"><span class="c1">// Padding used for layout margins</span>
-</span><span class="line"><span class="na">$pad-min</span><span class="o">:</span> <span class="mi">18</span><span class="kt">px</span> <span class="nv">!default</span><span class="p">;</span>
-</span><span class="line"><span class="na">$pad-narrow</span><span class="o">:</span> <span class="mi">25</span><span class="kt">px</span> <span class="nv">!default</span><span class="p">;</span>
-</span><span class="line"><span class="na">$pad-medium</span><span class="o">:</span> <span class="mi">35</span><span class="kt">px</span> <span class="nv">!default</span><span class="p">;</span>
-</span><span class="line"><span class="na">$pad-wide</span><span class="o">:</span> <span class="mi">55</span><span class="kt">px</span> <span class="nv">!default</span><span class="p">;</span>
+</span><span class="line">	<span class="c1">// Padding used for layout margins</span>
+</span><span class="line">	<span class="na">$pad-min</span><span class="o">:</span> <span class="mi">18</span><span class="kt">px</span> <span class="nv">!default</span><span class="p">;</span>
+</span><span class="line">	<span class="na">$pad-narrow</span><span class="o">:</span> <span class="mi">25</span><span class="kt">px</span> <span class="nv">!default</span><span class="p">;</span>
+</span><span class="line">	<span class="na">$pad-medium</span><span class="o">:</span> <span class="mi">35</span><span class="kt">px</span> <span class="nv">!default</span><span class="p">;</span>
+</span><span class="line">	<span class="na">$pad-wide</span><span class="o">:</span> <span class="mi">55</span><span class="kt">px</span> <span class="nv">!default</span><span class="p">;</span>
 </span><span class="line">
-</span><span class="line"><span class="c1">// Sidebar widths used in media queries</span>
-</span><span class="line"><span class="na">$sidebar-width-medium</span><span class="o">:</span> <span class="mi">240</span><span class="kt">px</span> <span class="nv">!default</span><span class="p">;</span>
-</span><span class="line"><span class="na">$sidebar-pad-medium</span><span class="o">:</span> <span class="mi">15</span><span class="kt">px</span> <span class="nv">!default</span><span class="p">;</span>
-</span><span class="line"><span class="na">$sidebar-pad-wide</span><span class="o">:</span> <span class="mi">20</span><span class="kt">px</span> <span class="nv">!default</span><span class="p">;</span>
-</span><span class="line"><span class="na">$sidebar-width-wide</span><span class="o">:</span> <span class="mi">300</span><span class="kt">px</span> <span class="nv">!default</span><span class="p">;</span>
+</span><span class="line">	<span class="c1">// Sidebar widths used in media queries</span>
+</span><span class="line">	<span class="na">$sidebar-width-medium</span><span class="o">:</span> <span class="mi">240</span><span class="kt">px</span> <span class="nv">!default</span><span class="p">;</span>
+</span><span class="line">	<span class="na">$sidebar-pad-medium</span><span class="o">:</span> <span class="mi">15</span><span class="kt">px</span> <span class="nv">!default</span><span class="p">;</span>
+</span><span class="line">	<span class="na">$sidebar-pad-wide</span><span class="o">:</span> <span class="mi">20</span><span class="kt">px</span> <span class="nv">!default</span><span class="p">;</span>
+</span><span class="line">	<span class="na">$sidebar-width-wide</span><span class="o">:</span> <span class="mi">300</span><span class="kt">px</span> <span class="nv">!default</span><span class="p">;</span>
 </span><span class="line">
-</span><span class="line"><span class="na">$indented-lists</span><span class="o">:</span> <span class="n-Pseudo">false</span> <span class="nv">!default</span><span class="p">;</span>
+</span><span class="line">	<span class="na">$indented-lists</span><span class="o">:</span> <span class="n-Pseudo">false</span> <span class="nv">!default</span><span class="p">;</span>
 </span></code></pre></td></tr></table></div></figure></notextile></div>
 
 <p>这些变量是用来计算相应布局的宽度和padding的。<code>$indented-lists</code> 变量允许你选择列表的样式是使用缩进还是正常的。</p>
@@ -479,12 +482,16 @@ _layout.scss     # Override settings for base/_layout.scss to change the layout
     
 <section>
 <h1>分类目录</h1>
-<span class='categories_tag'> <a href='/cn/blog/categories/github' style='font-size: 160.0%'>Github(4)</a>  <a href='/cn/blog/categories/javascript' style='font-size: 115.0%'>Javascript(1)</a>  <a href='/cn/blog/categories/jekyll' style='font-size: 160.0%'>Jekyll(4)</a>  <a href='/cn/blog/categories/octopress' style='font-size: 160.0%'>Octopress(4)</a>  <a href='/cn/blog/categories/r语言' style='font-size: 160.0%'>R语言(4)</a> </span>
+<span class='categories_tag'> <a href='/cn/blog/categories/github' style='font-size: 148.0%'>Github(4)</a>  <a href='/cn/blog/categories/javascript' style='font-size: 112.0%'>Javascript(1)</a>  <a href='/cn/blog/categories/jekyll' style='font-size: 148.0%'>Jekyll(4)</a>  <a href='/cn/blog/categories/latex' style='font-size: 112.0%'>Latex(1)</a>  <a href='/cn/blog/categories/octopress' style='font-size: 160.0%'>Octopress(5)</a>  <a href='/cn/blog/categories/r语言' style='font-size: 148.0%'>R语言(4)</a> </span>
 </section>
 
 <section>
   <h1>近期文章</h1>
   <ul id="recent_posts" class="none-left-margin">
+    
+      <li class="post">
+        <a href="/cn/blog/2012/03/10/octopress-with-latex/">在Octopress中使用LaTeX</a>
+      </li>
     
       <li class="post">
         <a href="/cn/blog/2012/03/08/a-piece-of-javascript/">一段有用的javascript代码</a>
@@ -508,10 +515,6 @@ _layout.scss     # Override settings for base/_layout.scss to change the layout
     
       <li class="post">
         <a href="/cn/blog/2012/01/07/theming-and-customization/">为Octopress修改主题和自定义样式</a>
-      </li>
-    
-      <li class="post">
-        <a href="/cn/blog/2012/01/06/updating-an-r-installation/">如何升级R</a>
       </li>
     
   </ul>

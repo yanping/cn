@@ -4,7 +4,7 @@
   <title><![CDATA[分类： R语言 | 雁起平沙的网络日志]]></title>
   <link href="http://chen.yanping.me/cn/blog/categories/r语言/atom.xml" rel="self"/>
   <link href="http://chen.yanping.me/cn/"/>
-  <updated>2012-03-10T02:18:03+08:00</updated>
+  <updated>2012-03-10T12:07:44+08:00</updated>
   <id>http://chen.yanping.me/cn/</id>
   <author>
     <name><![CDATA[ypchen]]></name>
@@ -128,7 +128,7 @@ R导论的10.8也是讲定制环境的。
 
 <!--more-->
 
-<p>在启动的时候，R会从_R_HOME<em>/etc这个目录寻找Rprofile.site来调用，其中_R_HOME_是环境变量。然后R会在当前工作目录寻找.Rprofile文件来调用。如果R没有找到这个文件，就会在用户的主目录寻找。你可以用<code>Sys.getenv("R_HOME")</code>、<code>Sys.getenv("HOME")</code>和<code>getwd()</code>分别查看_R_HOME</em>、_HOME_以及当前工作目录。</p>
+<p>在启动的时候，R会从 <em>R_HOME</em> /etc这个目录寻找Rprofile.site来调用，其中 <em>R_HOME</em> 是环境变量。然后R会在当前工作目录寻找.Rprofile文件来调用。如果R没有找到这个文件，就会在用户的主目录寻找。你可以用<code>Sys.getenv("R_HOME")</code>、<code>Sys.getenv("HOME")</code>和<code>getwd()</code>分别查看 <em>R_HOME</em> 、<em>HOME</em> 以及当前工作目录。</p>
 
 <p>你可以在这些文件里放两个特殊的函数，<code>.First()</code>函数在启动R会话的时候执行，<code>.Last()</code>函数在结束会话的时候执行。Rprofile.site文件的例子如下：</p>
 
@@ -251,7 +251,7 @@ R导论的10.8也是讲定制环境的。
 
 <ol start="3">
 	<li> 下载并安装最新版的R。</li>
-	<li> 如果你保存了原来的**Rprofile.site**文件，把它复制到新的安装目录中。</li>
+	<li> 如果你保存了原来的<strong>Rprofile.site</strong>文件，把它复制到新的安装目录中。</li>
 	<li>启动新版的R，然后运行下面的命令	
 	<div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
@@ -308,7 +308,7 @@ R导论的10.8也是讲定制环境的。
   <li>在处理全部数据前，用数据的子集测试程序，来优化程序，去掉bug；</li>
   <li>删除临时对象和不再用的对象。调用<code>rm(list=ls())</code>可以删除内存中的所有对象。删除指定的对象可以用<code>rm(object)</code>；</li>
   <li>在Jeromy Anglim的博客文章“R的内存管理：一些小窍门和技巧”(原文<a href="http://jeromyanglim.blogspot.com/2009/11/memory-management-in-r-few-tips-and.html">Memory Management in R: A Few Tips and Tricks </a>，被墙)中提到，使用函数<code>.ls.objects()</code>列出工作区内的对象占用的内存大小。这个函数会帮助你找到吃内存的大家伙。</li>
-  <li>profile你的程序，看看在每个函数中花的时间。你可以用<code>Rprof()</code>和<code>summaryRprof()</code>函数完成这项工作。<code>system.time()</code>函数也可以帮助你。<em>profr</em> 和_prooftools_ 包提供了若干函数来帮助分析profile的输出。</li>
+  <li>profile你的程序，看看在每个函数中花的时间。你可以用<code>Rprof()</code>和<code>summaryRprof()</code>函数完成这项工作。<code>system.time()</code>函数也可以帮助你。<em>profr</em> 和 <em>prooftools</em> 包提供了若干函数来帮助分析profile的输出。</li>
   <li>Rcpp包可以把R对象转成C++函数（原文是The Rcpp package can be used to transfer R objects to C++ functions and back when more optimized subroutines are needed. 后半句不知怎么翻译）</li>
 </ul>
 
@@ -360,7 +360,7 @@ R导论的10.8也是讲定制环境的。
   <li><em>Brobdingnag</em> 包可以用来处理大数字（大于2^1024）</li>
 </ul>
 
-<p>处理从GB到TB级的数据对于任何数据都是极大的挑战。如果想查看R的更多方法，请看CRAN task View:<em>High-Performance and Parallel Computing with R</em> （<a href="http://cran.r-project.org/web/view">http://cran.r-project.org/web/view</a>）。</p>
+<p>处理从GB到TB级的数据对于任何数据都是极大的挑战。如果想查看R的更多方法，请看CRAN task View: <em>High-Performance and Parallel Computing with R</em> （<a href="http://cran.r-project.org/web/view">http://cran.r-project.org/web/view</a>）。</p>
 
 <h3 id="section-3">译者注</h3>
 <p><a href="http://jliblog.com/">李舰</a>曾经在第四届R语言会议（北京会场）上做了题为《 <em>R与高性能运算</em> 》的报告，报告slides及代码请见<a href="http://cos.name/2011/05/4th-china-r-beijing-summary/">会议纪要</a></p>
