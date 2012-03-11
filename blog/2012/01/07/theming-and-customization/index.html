@@ -30,16 +30,19 @@
 <link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
 <link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
 
-<!-- mathjax config similar to math.stackexchange -->
+
+	<!-- mathjax config similar to math.stackexchange -->
 
 <script type="text/x-mathjax-config">
   MathJax.Hub.Config({
     tex2jax: {
-      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      	inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+    	displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
       processEscapes: true
     }
   });
 </script>
+
 
 <script type="text/x-mathjax-config">
     MathJax.Hub.Config({
@@ -57,6 +60,7 @@
         }
     });
 </script>
+
 
 
 
@@ -184,11 +188,13 @@
 <span class="line-number">3</span>
 <span class="line-number">4</span>
 <span class="line-number">5</span>
+<span class="line-number">6</span>
 </pre></td><td class="code"><pre><code class="html"><span class="line"><span class="c">&lt;!--Fonts from Google&quot;s Web font directory at http://google.com/webfonts --&gt;</span>
 </span><span class="line"><span class="nt">&lt;link</span> <span class="na">href=</span><span class="s">&quot;http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic&quot;</span> <span class="na">rel=</span><span class="s">&quot;stylesheet&quot;</span> <span class="na">type=</span><span class="s">&quot;text/css&quot;</span><span class="nt">&gt;</span>
 </span><span class="line"><span class="nt">&lt;link</span> <span class="na">href=</span><span class="s">&quot;http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic&quot;</span> <span class="na">rel=</span><span class="s">&quot;stylesheet&quot;</span> <span class="na">type=</span><span class="s">&quot;text/css&quot;</span><span class="nt">&gt;</span>
 </span><span class="line">
-</span><span class="line">{% include custom/mathjax.html %}
+</span><span class="line">
+</span><span class="line">	{% include custom/mathjax.html %}
 </span></code></pre></td></tr></table></div></figure></notextile></div>
 
 <p>在这里你可以轻易地修改或移除<a href="http://google.com/webfonts">Google Webfonts</a>，插入javascripts等等。</p>
@@ -451,8 +457,7 @@ _layout.scss     # Override settings for base/_layout.scss to change the layout
 		<a href="http://www.jiathis.com/share?uid=1558027" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank">更多</a>
 		<a class="jiathis_counter_style"></a>
 	</div>
-	<script type="text/javascript">var jiathis_config = {data_track_clickback:true};</script>
-	<script type="text/javascript" src="http://v2.jiathis.com/code/jia.js?uid=1558027" charset="utf-8"></script>
+	
 	<!-- JiaThis Button END -->
   
 </div>
@@ -480,7 +485,7 @@ _layout.scss     # Override settings for base/_layout.scss to change the layout
 <aside class="sidebar">
   
     
-<section>
+<section id="categories_tag">
 <h1>分类目录</h1>
 <span class='categories_tag'> <a href='/cn/blog/categories/github' style='font-size: 148.0%'>Github(4)</a>  <a href='/cn/blog/categories/javascript' style='font-size: 112.0%'>Javascript(1)</a>  <a href='/cn/blog/categories/jekyll' style='font-size: 148.0%'>Jekyll(4)</a>  <a href='/cn/blog/categories/latex' style='font-size: 112.0%'>Latex(1)</a>  <a href='/cn/blog/categories/octopress' style='font-size: 160.0%'>Octopress(5)</a>  <a href='/cn/blog/categories/r语言' style='font-size: 148.0%'>R语言(4)</a> </span>
 </section>
@@ -587,6 +592,16 @@ _layout.scss     # Override settings for base/_layout.scss to change the layout
 </footer>
   
 
+<script type="text/javascript"
+   src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+
+
+
+
+
+
+
 <script type="text/javascript">
       var disqus_shortname = 'ypchencn';
       
@@ -627,8 +642,12 @@ _layout.scss     # Override settings for base/_layout.scss to change the layout
   </script>
 
 
-<script type="text/javascript"
-   src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+
+
+	<script type="text/javascript">var jiathis_config = {data_track_clickback:true};</script>
+	<script type="text/javascript" src="http://v2.jiathis.com/code/jia.js?uid=1558027" charset="utf-8"></script>
+
 
 
 

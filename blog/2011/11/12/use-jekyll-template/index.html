@@ -37,16 +37,19 @@ git clone https://github.com/krisb/ &hellip;">
 <link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
 <link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
 
-<!-- mathjax config similar to math.stackexchange -->
+
+	<!-- mathjax config similar to math.stackexchange -->
 
 <script type="text/x-mathjax-config">
   MathJax.Hub.Config({
     tex2jax: {
-      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      	inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+    	displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
       processEscapes: true
     }
   });
 </script>
+
 
 <script type="text/x-mathjax-config">
     MathJax.Hub.Config({
@@ -64,6 +67,7 @@ git clone https://github.com/krisb/ &hellip;">
         }
     });
 </script>
+
 
 
 
@@ -136,7 +140,7 @@ git clone https://github.com/krisb/ &hellip;">
 
 <p>下面的命令用于克隆和初始化别人的模板</p>
 
-<div class="bogus-wrapper"><notextile><figure class="code"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span /></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
 <span class="line-number">2</span>
 <span class="line-number">3</span>
 <span class="line-number">4</span>
@@ -144,14 +148,15 @@ git clone https://github.com/krisb/ &hellip;">
 <span class="line-number">6</span>
 <span class="line-number">7</span>
 <span class="line-number">8</span>
-</pre></td><td class="code"><pre><code class=""><span class="line">git clone https://github.com/krisb/jekyll-template.git mysite
-</span><span class="line">cd mysite
+</pre></td><td class="code"><pre><code class="sh"><span class="line">git clone https://github.com/krisb/jekyll-template.git mysite
+</span><span class="line"><span class="nb">cd </span>mysite
 </span><span class="line">rm -rf .git
 </span><span class="line">git init
 </span><span class="line">git add -A
-</span><span class="line">git commit -m 'initial template based on https://github.com/krisb/jekyll-template'
+</span><span class="line">git commit -m <span class="s1">&#39;initial template based on https://github.com/krisb/jekyll-template&#39;</span>
 </span><span class="line">git remote add origin git@github.com:username/reponame.git
-</span><span class="line">git push -u origin master</span></code></pre></td></tr></table></div></figure></notextile></div>
+</span><span class="line">git push -u origin master
+</span></code></pre></td></tr></table></div></figure></notextile></div>
 
 <p>原文地址 <a target="_blank" href="https://github.com/krisb/jekyll-template">https://github.com/krisb/jekyll-template</a></p>
 
@@ -216,8 +221,7 @@ git clone https://github.com/krisb/ &hellip;">
 		<a href="http://www.jiathis.com/share?uid=1558027" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank">更多</a>
 		<a class="jiathis_counter_style"></a>
 	</div>
-	<script type="text/javascript">var jiathis_config = {data_track_clickback:true};</script>
-	<script type="text/javascript" src="http://v2.jiathis.com/code/jia.js?uid=1558027" charset="utf-8"></script>
+	
 	<!-- JiaThis Button END -->
   
 </div>
@@ -245,7 +249,7 @@ git clone https://github.com/krisb/ &hellip;">
 <aside class="sidebar">
   
     
-<section>
+<section id="categories_tag">
 <h1>分类目录</h1>
 <span class='categories_tag'> <a href='/cn/blog/categories/github' style='font-size: 148.0%'>Github(4)</a>  <a href='/cn/blog/categories/javascript' style='font-size: 112.0%'>Javascript(1)</a>  <a href='/cn/blog/categories/jekyll' style='font-size: 148.0%'>Jekyll(4)</a>  <a href='/cn/blog/categories/latex' style='font-size: 112.0%'>Latex(1)</a>  <a href='/cn/blog/categories/octopress' style='font-size: 160.0%'>Octopress(5)</a>  <a href='/cn/blog/categories/r语言' style='font-size: 148.0%'>R语言(4)</a> </span>
 </section>
@@ -352,6 +356,16 @@ git clone https://github.com/krisb/ &hellip;">
 </footer>
   
 
+<script type="text/javascript"
+   src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+
+
+
+
+
+
+
 <script type="text/javascript">
       var disqus_shortname = 'ypchencn';
       
@@ -392,8 +406,12 @@ git clone https://github.com/krisb/ &hellip;">
   </script>
 
 
-<script type="text/javascript"
-   src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+
+
+	<script type="text/javascript">var jiathis_config = {data_track_clickback:true};</script>
+	<script type="text/javascript" src="http://v2.jiathis.com/code/jia.js?uid=1558027" charset="utf-8"></script>
+
 
 
 

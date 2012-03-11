@@ -29,16 +29,19 @@
 <link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
 <link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
 
-<!-- mathjax config similar to math.stackexchange -->
+
+	<!-- mathjax config similar to math.stackexchange -->
 
 <script type="text/x-mathjax-config">
   MathJax.Hub.Config({
     tex2jax: {
-      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      	inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+    	displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
       processEscapes: true
     }
   });
 </script>
+
 
 <script type="text/x-mathjax-config">
     MathJax.Hub.Config({
@@ -56,6 +59,7 @@
         }
     });
 </script>
+
 
 
 
@@ -124,7 +128,7 @@
   </header>
 
 
-<div class="entry-content"><p>这个博客的主题定位为数量金融、统计与R语言，但一直以来我都没写什么金融和统计的文章，估计很多看官都误以为我是程序猿。最初我列了个书单，计划有哪些书要读要翻译的，包括<em>Implementing Models in Quantitative Finance</em>、<em>Statistics and Data Analysis for Financial Engineering</em>和<em>Option Pricing and Estimation of Financial Models with R</em>。除了没时间开始以外，还有个原因是折腾完octopress之后也没去折腾如何在octopress中插入公式。估计ruby的程序猿很少会用到数学公式吧，对$\LaTeX$的支持很有限。</p>
+<div class="entry-content"><p>这个博客的主题定位为数量金融、统计与R语言，但一直以来我都没写什么金融和统计的文章，估计很多看官都误以为我是程序猿。最初我列了个书单，计划有哪些书要读要翻译的，包括<em>Implementing Models in Quantitative Finance</em>、<em>Statistics and Data Analysis for Financial Engineering</em>和<em>Option Pricing and Estimation of Financial Models with R</em>。除了没时间开始以外，还有个原因是折腾完octopress之后也没去折腾如何在octopress中插入公式。估计ruby的程序猿很少会用到数学公式吧，对$\LaTeX$的支持很有限，但是我等数学文艺青年的博客里怎能没有数学公式呢？</p>
 
 <p>热心网友Sinosmond推荐使用kramdown以尽量减少往markdown中插入html代码，接着我发现此物非常强大，连$\LaTeX$都支持。昨晚使用了一下，现在把心得记录于此。</p>
 
@@ -262,7 +266,9 @@
 </span></code></pre></td></tr></table></div></figure></notextile></div>
 <p>可以得到：</p>
 
-<p>段内插入LaTeX代码是这样的：$\exp(-\frac{x^2}{2})$，试试看看吧</p>
+<div class="showbox">
+  <p>段内插入LaTeX代码是这样的：$\exp(-\frac{x^2}{2})$，试试看看吧</p>
+</div>
 
 <p>详细介绍请见 <a href="http://kramdown.rubyforge.org/syntax.html#math-blocks">http://kramdown.rubyforge.org/syntax.html#math-blocks</a></p>
 
@@ -286,6 +292,9 @@
 
 <h2 id="section-1">其他功能</h2>
 <p>用kramdown可以生成脚注、表格，设置标题的id…大大弥补了markdown不足，详细信息请见<a href="http://kramdown.rubyforge.org/syntax.html">http://kramdown.rubyforge.org/syntax.html</a></p>
+
+<h2 id="section-2">参考资料</h2>
+<p><a href="http://steshaw.org/blog/2012/02/09/hello-mathjax/">http://steshaw.org/blog/2012/02/09/hello-mathjax/</a> 解决了右键点击公式网页消失的问题。</p>
 
 </div>
 
@@ -338,8 +347,7 @@
 		<a href="http://www.jiathis.com/share?uid=1558027" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank">更多</a>
 		<a class="jiathis_counter_style"></a>
 	</div>
-	<script type="text/javascript">var jiathis_config = {data_track_clickback:true};</script>
-	<script type="text/javascript" src="http://v2.jiathis.com/code/jia.js?uid=1558027" charset="utf-8"></script>
+	
 	<!-- JiaThis Button END -->
   
 </div>
@@ -365,7 +373,7 @@
 <aside class="sidebar">
   
     
-<section>
+<section id="categories_tag">
 <h1>分类目录</h1>
 <span class='categories_tag'> <a href='/cn/blog/categories/github' style='font-size: 148.0%'>Github(4)</a>  <a href='/cn/blog/categories/javascript' style='font-size: 112.0%'>Javascript(1)</a>  <a href='/cn/blog/categories/jekyll' style='font-size: 148.0%'>Jekyll(4)</a>  <a href='/cn/blog/categories/latex' style='font-size: 112.0%'>Latex(1)</a>  <a href='/cn/blog/categories/octopress' style='font-size: 160.0%'>Octopress(5)</a>  <a href='/cn/blog/categories/r语言' style='font-size: 148.0%'>R语言(4)</a> </span>
 </section>
@@ -472,6 +480,16 @@
 </footer>
   
 
+<script type="text/javascript"
+   src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+
+
+
+
+
+
+
 <script type="text/javascript">
       var disqus_shortname = 'ypchencn';
       
@@ -512,8 +530,12 @@
   </script>
 
 
-<script type="text/javascript"
-   src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+
+
+	<script type="text/javascript">var jiathis_config = {data_track_clickback:true};</script>
+	<script type="text/javascript" src="http://v2.jiathis.com/code/jia.js?uid=1558027" charset="utf-8"></script>
+
 
 
 

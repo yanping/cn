@@ -4,7 +4,7 @@
   <title><![CDATA[分类： R语言 | 雁起平沙的网络日志]]></title>
   <link href="http://chen.yanping.me/cn/blog/categories/r语言/atom.xml" rel="self"/>
   <link href="http://chen.yanping.me/cn/"/>
-  <updated>2012-03-10T12:07:44+08:00</updated>
+  <updated>2012-03-11T18:36:04+08:00</updated>
   <id>http://chen.yanping.me/cn/</id>
   <author>
     <name><![CDATA[ypchen]]></name>
@@ -128,7 +128,7 @@ R导论的10.8也是讲定制环境的。
 
 <!--more-->
 
-<p>在启动的时候，R会从 <em>R_HOME</em> /etc这个目录寻找Rprofile.site来调用，其中 <em>R_HOME</em> 是环境变量。然后R会在当前工作目录寻找.Rprofile文件来调用。如果R没有找到这个文件，就会在用户的主目录寻找。你可以用<code>Sys.getenv("R_HOME")</code>、<code>Sys.getenv("HOME")</code>和<code>getwd()</code>分别查看 <em>R_HOME</em> 、<em>HOME</em> 以及当前工作目录。</p>
+<p>在启动的时候，R会从<em>R_HOME</em>/etc这个目录寻找Rprofile.site来调用，其中 <em>R_HOME</em> 是环境变量。然后R会在当前工作目录寻找.Rprofile文件来调用。如果R没有找到这个文件，就会在用户的主目录寻找。你可以用<code>Sys.getenv("R_HOME")</code>、<code>Sys.getenv("HOME")</code>和<code>getwd()</code>分别查看<em>R_HOME</em> 、<em>HOME</em>以及当前工作目录。</p>
 
 <p>你可以在这些文件里放两个特殊的函数，<code>.First()</code>函数在启动R会话的时候执行，<code>.Last()</code>函数在结束会话的时候执行。Rprofile.site文件的例子如下：</p>
 
@@ -241,10 +241,8 @@ R导论的10.8也是讲定制环境的。
   <li>启动当前版本的R，运行下面的命令
  <div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
-<span class='line-number'>3</span>
 </pre></td><td class='code'><pre><code class='r'><span class='line'> oldip <span class="o">&amp;</span>lt<span class="p">;</span><span class="o">-</span> installed.packages<span class="p">()[</span> <span class="p">,</span><span class="m">1</span><span class="p">]</span>
 </span><span class='line'> save<span class="p">(</span>oldip<span class="p">,</span> file<span class="o">=</span>”path<span class="o">/</span>installedPackages.Rdata”<span class="p">)</span>
-</span><span class='line'>
 </span></code></pre></td></tr></table></div></figure></notextile></div>	
 其中<em>path</em>是R的安装目录。</li>
 </ol>
@@ -257,12 +255,10 @@ R导论的10.8也是讲定制环境的。
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
-<span class='line-number'>5</span>
 </pre></td><td class='code'><pre><code class='r'><span class='line'>	load<span class="p">(</span><span class="s">&quot;path/installedPackages.Rdata&quot;</span><span class="p">)</span>
 </span><span class='line'>	newip <span class="o">&amp;</span>lt<span class="p">;</span><span class="o">-</span> installed.packages<span class="p">()[,</span><span class="m">1</span><span class="p">]</span>
 </span><span class='line'>	<span class="kr">for</span><span class="p">(</span>i in setdiff<span class="p">(</span>oldip<span class="p">,</span> newip<span class="p">))</span>
 </span><span class='line'>		install.packages<span class="p">(</span>i<span class="p">)</span>
-</span><span class='line'>	
 </span></code></pre></td></tr></table></div></figure></notextile></div>
 	</li>
 </ol>
@@ -356,7 +352,7 @@ R导论的10.8也是讲定制环境的。
 <ul>
   <li><em>biglm</em> 和 <em>speedglm</em> 包可以针对大数据集有效地拟合线性和广义线性模型。在处理大规模数据集时，这两个包提供了类似<code>lm()</code>和<code>glm()</code>的功能。</li>
   <li>由 <em>bigmemory</em> 包可产生大规模矩阵，一些包可以提供分析这些大规模矩阵的函数。<em>bigannalytics</em> 包提供了k-means聚类、行统计量（column statistics）和一个对<code>biglm()</code>的封装。<em>bigtabulate</em> 包提供了<code>table()</code>、<code>split()</code>和<code>tapply()</code>的功能，<em>bigalgebra</em> 包提供了高等线性代数的函数。</li>
-  <li><em>biglars</em> 包提供了最小角回归（least-angle regression）、lasso以及针对大数据集的逐步回归，数据集因太大而不能读入到内存中，这时候要配合_ff_ 包使用。</li>
+  <li><em>biglars</em> 包提供了最小角回归（least-angle regression）、lasso以及针对大数据集的逐步回归，数据集因太大而不能读入到内存中，这时候要配合 <em>ff</em> 包使用。</li>
   <li><em>Brobdingnag</em> 包可以用来处理大数字（大于2^1024）</li>
 </ul>
 

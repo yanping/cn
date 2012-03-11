@@ -4,7 +4,7 @@
   <title><![CDATA[分类： github | 雁起平沙的网络日志]]></title>
   <link href="http://chen.yanping.me/cn/blog/categories/github/atom.xml" rel="self"/>
   <link href="http://chen.yanping.me/cn/"/>
-  <updated>2012-03-10T12:07:44+08:00</updated>
+  <updated>2012-03-11T18:36:04+08:00</updated>
   <id>http://chen.yanping.me/cn/</id>
   <author>
     <name><![CDATA[ypchen]]></name>
@@ -23,9 +23,11 @@
 </p>
 
 <h2 id="section">为什么要跳转域名</h2>
-<p>假设github上的用户名是_username<em>，创建代码库名为username.github.com的代码库，在master分支下建立github页面，设置好域名为_mydomain.com</em>，则用http://username.github.com访问页面github会自动跳转到http://mydomain.com。</p>
+<p>假设github上的用户名是 <em>username</em>，创建代码库名为username.github.com的代码库，在master分支下建立github页面，设置好域名为 <em>mydomain.com</em> ，则用http://username.github.com访问页面github会自动跳转到http://mydomain.com。</p>
 
-<p>但是如果在已经设置了username.github.com域名之后，把项目代码库repo的gh-pages分支下的网站设置域名_mydomain2.com_，用http://username.github.com/repo访问的时候只会自动跳转到http://mydomain.com/repo，不会跳转到http://mydomain2.com 。虽然http://mydomain.com/repo的形式也可以访问，但是用于网页地址里相对路径的不同，造成很多资源（比如css和js文件）无法访问，网页变得面目全非，例如<a href="http://hsatac.github.com/octo/">http://hsatac.github.com/octo/</a>，它实际绑定的域名应该是<a href="http://blog.hsatac.net/">http://blog.hsatac.net/</a>，前者不能正常显示。</p>
+<p>但是如果在已经设置了username.github.com域名之后，把项目代码库repo的gh-pages分支下的网站设置域名 <em>mydomain2.com</em> ，用http://username.github.com/repo访问的时候只会自动跳转到http://mydomain.com/repo，不会跳转到http://mydomain2.com 。虽然http://mydomain.com/repo的形式也可以访问，但是用于网页地址里相对路径的不同，造成很多资源（比如css和js文件）无法访问，网页变得面目全非，例如<a href="http://hsatac.github.com/octo/">http://hsatac.github.com/octo/</a>，它实际绑定的域名应该是<a href="http://blog.hsatac.net/">http://blog.hsatac.net/</a>，前者不能正常显示。</p>
+
+<!--more-->
 
 <h2 id="javascript">用javascript实现域名跳转</h2>
 <p>原来我以为用.htaccess文件可以实现网址跳转，后来发现当初跳转成功是因为浏览器缓存了解析的域名，给github发信咨询，得到的回复是github现在还不支持.htaccess，以后可能会考虑把这个功能加上。</p>
@@ -147,7 +149,7 @@ github pages的<a target="_blank" href="http://pages.github.com/">官方主页</
 
 <p>下面的命令用于克隆和初始化别人的模板</p>
 
-<p><code>
+<p><code>sh
 git clone https://github.com/krisb/jekyll-template.git mysite
 cd mysite
 rm -rf .git

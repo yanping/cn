@@ -29,16 +29,19 @@
 <link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
 <link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
 
-<!-- mathjax config similar to math.stackexchange -->
+
+	<!-- mathjax config similar to math.stackexchange -->
 
 <script type="text/x-mathjax-config">
   MathJax.Hub.Config({
     tex2jax: {
-      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      	inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+    	displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
       processEscapes: true
     }
   });
 </script>
+
 
 <script type="text/x-mathjax-config">
     MathJax.Hub.Config({
@@ -56,6 +59,7 @@
         }
     });
 </script>
+
 
 
 
@@ -197,7 +201,7 @@
 <ul>
   <li><em>biglm</em> 和 <em>speedglm</em> 包可以针对大数据集有效地拟合线性和广义线性模型。在处理大规模数据集时，这两个包提供了类似<code>lm()</code>和<code>glm()</code>的功能。</li>
   <li>由 <em>bigmemory</em> 包可产生大规模矩阵，一些包可以提供分析这些大规模矩阵的函数。<em>bigannalytics</em> 包提供了k-means聚类、行统计量（column statistics）和一个对<code>biglm()</code>的封装。<em>bigtabulate</em> 包提供了<code>table()</code>、<code>split()</code>和<code>tapply()</code>的功能，<em>bigalgebra</em> 包提供了高等线性代数的函数。</li>
-  <li><em>biglars</em> 包提供了最小角回归（least-angle regression）、lasso以及针对大数据集的逐步回归，数据集因太大而不能读入到内存中，这时候要配合_ff_ 包使用。</li>
+  <li><em>biglars</em> 包提供了最小角回归（least-angle regression）、lasso以及针对大数据集的逐步回归，数据集因太大而不能读入到内存中，这时候要配合 <em>ff</em> 包使用。</li>
   <li><em>Brobdingnag</em> 包可以用来处理大数字（大于2^1024）</li>
 </ul>
 
@@ -257,8 +261,7 @@
 		<a href="http://www.jiathis.com/share?uid=1558027" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank">更多</a>
 		<a class="jiathis_counter_style"></a>
 	</div>
-	<script type="text/javascript">var jiathis_config = {data_track_clickback:true};</script>
-	<script type="text/javascript" src="http://v2.jiathis.com/code/jia.js?uid=1558027" charset="utf-8"></script>
+	
 	<!-- JiaThis Button END -->
   
 </div>
@@ -286,7 +289,7 @@
 <aside class="sidebar">
   
     
-<section>
+<section id="categories_tag">
 <h1>分类目录</h1>
 <span class='categories_tag'> <a href='/cn/blog/categories/github' style='font-size: 148.0%'>Github(4)</a>  <a href='/cn/blog/categories/javascript' style='font-size: 112.0%'>Javascript(1)</a>  <a href='/cn/blog/categories/jekyll' style='font-size: 148.0%'>Jekyll(4)</a>  <a href='/cn/blog/categories/latex' style='font-size: 112.0%'>Latex(1)</a>  <a href='/cn/blog/categories/octopress' style='font-size: 160.0%'>Octopress(5)</a>  <a href='/cn/blog/categories/r语言' style='font-size: 148.0%'>R语言(4)</a> </span>
 </section>
@@ -393,6 +396,16 @@
 </footer>
   
 
+<script type="text/javascript"
+   src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+
+
+
+
+
+
+
 <script type="text/javascript">
       var disqus_shortname = 'ypchencn';
       
@@ -433,8 +446,12 @@
   </script>
 
 
-<script type="text/javascript"
-   src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+
+
+	<script type="text/javascript">var jiathis_config = {data_track_clickback:true};</script>
+	<script type="text/javascript" src="http://v2.jiathis.com/code/jia.js?uid=1558027" charset="utf-8"></script>
+
 
 
 

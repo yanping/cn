@@ -29,16 +29,19 @@
 <link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
 <link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
 
-<!-- mathjax config similar to math.stackexchange -->
+
+	<!-- mathjax config similar to math.stackexchange -->
 
 <script type="text/x-mathjax-config">
   MathJax.Hub.Config({
     tex2jax: {
-      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      	inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+    	displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
       processEscapes: true
     }
   });
 </script>
+
 
 <script type="text/x-mathjax-config">
     MathJax.Hub.Config({
@@ -56,6 +59,7 @@
         }
     });
 </script>
+
 
 
 
@@ -94,7 +98,9 @@
 </nav>
   <div id="main">
     <div id="content">
-      <div class="blog-index">
+       
+
+<div class="blog-index">
   
   
   
@@ -127,7 +133,7 @@
   </header>
 
 
-  <div class="entry-content"><p>这个博客的主题定位为数量金融、统计与R语言，但一直以来我都没写什么金融和统计的文章，估计很多看官都误以为我是程序猿。最初我列了个书单，计划有哪些书要读要翻译的，包括<em>Implementing Models in Quantitative Finance</em>、<em>Statistics and Data Analysis for Financial Engineering</em>和<em>Option Pricing and Estimation of Financial Models with R</em>。除了没时间开始以外，还有个原因是折腾完octopress之后也没去折腾如何在octopress中插入公式。估计ruby的程序猿很少会用到数学公式吧，对$\LaTeX$的支持很有限。</p>
+  <div class="entry-content"><p>这个博客的主题定位为数量金融、统计与R语言，但一直以来我都没写什么金融和统计的文章，估计很多看官都误以为我是程序猿。最初我列了个书单，计划有哪些书要读要翻译的，包括<em>Implementing Models in Quantitative Finance</em>、<em>Statistics and Data Analysis for Financial Engineering</em>和<em>Option Pricing and Estimation of Financial Models with R</em>。除了没时间开始以外，还有个原因是折腾完octopress之后也没去折腾如何在octopress中插入公式。估计ruby的程序猿很少会用到数学公式吧，对$\LaTeX$的支持很有限，但是我等数学文艺青年的博客里怎能没有数学公式呢？</p>
 
 <p>热心网友Sinosmond推荐使用kramdown以尽量减少往markdown中插入html代码，接着我发现此物非常强大，连$\LaTeX$都支持。昨晚使用了一下，现在把心得记录于此。</p>
 
@@ -419,42 +425,16 @@
 </p>
 
 <h2 id="section">为什么要跳转域名</h2>
-<p>假设github上的用户名是_username<em>，创建代码库名为username.github.com的代码库，在master分支下建立github页面，设置好域名为_mydomain.com</em>，则用http://username.github.com访问页面github会自动跳转到http://mydomain.com。</p>
+<p>假设github上的用户名是 <em>username</em>，创建代码库名为username.github.com的代码库，在master分支下建立github页面，设置好域名为 <em>mydomain.com</em> ，则用http://username.github.com访问页面github会自动跳转到http://mydomain.com。</p>
 
-<p>但是如果在已经设置了username.github.com域名之后，把项目代码库repo的gh-pages分支下的网站设置域名_mydomain2.com_，用http://username.github.com/repo访问的时候只会自动跳转到http://mydomain.com/repo，不会跳转到http://mydomain2.com 。虽然http://mydomain.com/repo的形式也可以访问，但是用于网页地址里相对路径的不同，造成很多资源（比如css和js文件）无法访问，网页变得面目全非，例如<a href="http://hsatac.github.com/octo/">http://hsatac.github.com/octo/</a>，它实际绑定的域名应该是<a href="http://blog.hsatac.net/">http://blog.hsatac.net/</a>，前者不能正常显示。</p>
-
-<h2 id="javascript">用javascript实现域名跳转</h2>
-<p>原来我以为用.htaccess文件可以实现网址跳转，后来发现当初跳转成功是因为浏览器缓存了解析的域名，给github发信咨询，得到的回复是github现在还不支持.htaccess，以后可能会考虑把这个功能加上。</p>
-
-<p>我也考虑过用下面的代码实现转址</p>
-
-<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span /></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
-</pre></td><td class="code"><pre><code class="html"><span class="line"><span class="nt">&lt;meta</span> <span class="na">http-equiv=</span><span class="s">&quot;refresh&quot;</span> <span class="na">content=</span><span class="s">&quot;0; url=http://mydomain2.com&quot;</span><span class="nt">&gt;</span>
-</span></code></pre></td></tr></table></div></figure></notextile></div>
-
-<p>但是，问题是这样跳转后其实还是转到了自己这个网页，只不过换了个地址。这样这段代码会反复执行，在firefox和chrome下没有感觉，但是在IE下就很明显了。</p>
-
-<p>我想到了用javascript来检测网页的地址，然后跳转到目标地址。只需要将将下面的代码放到<code>&lt;head&gt;</code>和<code>&lt;/head&gt;</code>之间，注意把网址替换成自己的。</p>
-
-<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span /></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
-<span class="line-number">2</span>
-<span class="line-number">3</span>
-<span class="line-number">4</span>
-<span class="line-number">5</span>
-<span class="line-number">6</span>
-<span class="line-number">7</span>
-</pre></td><td class="code"><pre><code class="html"><span class="line"><span class="nt">&lt;script </span><span class="na">language=</span><span class="s">&quot;javascript&quot;</span> <span class="na">type=</span><span class="s">&quot;text/javascript&quot;</span><span class="nt">&gt;</span>
-</span><span class="line">
-</span><span class="line"><span class="k">if</span> <span class="p">(</span><span class="nx">location</span><span class="p">.</span><span class="nx">href</span> <span class="o">==</span> <span class="s2">&quot;http://chen.yanping.me/art/&quot;</span><span class="p">)</span> <span class="p">{</span>
-</span><span class="line">	<span class="nb">window</span><span class="p">.</span><span class="nx">location</span><span class="p">.</span><span class="nx">replace</span><span class="p">(</span><span class="s2">&quot;http://art.yanping.me/&quot;</span><span class="p">);</span>
-</span><span class="line"><span class="p">}</span>
-</span><span class="line">
-</span><span class="line"><span class="nt">&lt;/script&gt;</span>
-</span></code></pre></td></tr></table></div></figure></notextile></div>
-<p>注意：域名末尾的<code>/</code>一定要有，我之前就因为没发现这点，所以才浪费了很长时间。</p>
+<p>但是如果在已经设置了username.github.com域名之后，把项目代码库repo的gh-pages分支下的网站设置域名 <em>mydomain2.com</em> ，用http://username.github.com/repo访问的时候只会自动跳转到http://mydomain.com/repo，不会跳转到http://mydomain2.com 。虽然http://mydomain.com/repo的形式也可以访问，但是用于网页地址里相对路径的不同，造成很多资源（比如css和js文件）无法访问，网页变得面目全非，例如<a href="http://hsatac.github.com/octo/">http://hsatac.github.com/octo/</a>，它实际绑定的域名应该是<a href="http://blog.hsatac.net/">http://blog.hsatac.net/</a>，前者不能正常显示。</p>
 
 </div>
   
+  
+    <footer>
+      <a rel="full-article" href="/cn/blog/2012/02/06/github-pages-domain-3/">阅读全文 &rarr;</a>
+    </footer>
   
 
 
@@ -710,15 +690,14 @@ R导论的10.8也是讲定制环境的。
 
 
 <p>资浅媒体人，堆文字的金融攻城师，不靠谱的经济分析师，IT文艺小青年，舞者中的程序猿。<a href="/cn/blog/about" >更多介绍&#8230;</a></p>
-<p>声明：所有言论仅代表个人观点，与所在单位无关。</p>
-	<p>本人主页为<a href="http://chen.yanping.me" target="_blank">http://chen.yanping.me</a></p>
+<p>声明：所有言论仅代表个人观点，与所在单位无关。</p><p>本人主页为<a href="http://chen.yanping.me" target="_blank">http://chen.yanping.me</a></p>
 
 <p align="center"><a href="http://i.imgur.com/dBONa.jpg" target="_blank" title="The Certificate in Quantitative Finance (CQF) is a six-month part-time course designed for in-depth training for individuals working in, or intending to move into, derivatives, development, quantitative trading or risk management. " alt="Certificate in Quantitative Finance"><img src="/cn/images/blog/cqf.jpg" width="70%" /></a></p>
 </section>
 
 
 
-<section>
+<section id="categories_tag">
 <h1>分类目录</h1>
 <span class='categories_tag'> <a href='/cn/blog/categories/github' style='font-size: 148.0%'>Github(4)</a>  <a href='/cn/blog/categories/javascript' style='font-size: 112.0%'>Javascript(1)</a>  <a href='/cn/blog/categories/jekyll' style='font-size: 148.0%'>Jekyll(4)</a>  <a href='/cn/blog/categories/latex' style='font-size: 112.0%'>Latex(1)</a>  <a href='/cn/blog/categories/octopress' style='font-size: 160.0%'>Octopress(5)</a>  <a href='/cn/blog/categories/r语言' style='font-size: 148.0%'>R语言(4)</a> </span>
 </section>
@@ -824,6 +803,16 @@ R导论的10.8也是讲定制环境的。
 </footer>
   
 
+<script type="text/javascript"
+   src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+
+
+
+
+
+
+
 <script type="text/javascript">
       var disqus_shortname = 'ypchencn';
       
@@ -861,8 +850,12 @@ R导论的10.8也是讲定制环境的。
   </script>
 
 
-<script type="text/javascript"
-   src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+
+
+	<script type="text/javascript">var jiathis_config = {data_track_clickback:true};</script>
+	<script type="text/javascript" src="http://v2.jiathis.com/code/jia.js?uid=1558027" charset="utf-8"></script>
+
 
 
 
