@@ -9,7 +9,8 @@
   <meta name="author" content="ypchen">
 
   
-  <meta name="description" content="本文翻译自R in Action的附录H，如果对该书感兴趣，请自行购买或去图书馆阅读。 R的函数update.packages()可以下载和升级安装的包，但是没有相应的函数升级R本身。如果你想把R从4.1.0版升级到5.1.1版，那你必须有点创造性。（实际上作者写书的时候R的版本还只是2.13. &hellip;">
+  <meta name="description" content="本文翻译自R in Action的附录B，如果对该书感兴趣，请自行购买或去图书馆阅读。
+R导论的10.8也是讲定制环境的。 程序员最喜欢做的事之一是定制启动环境，好让程序按照他们喜欢方式工作。定制启动环境可以让你设置R的选项、指定工作目录、加载常用的包、加载用户自己写的函数、 &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -102,6 +103,112 @@
 
 <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/cn/blog/2012/01/09/customizing-the-startup-environment/">定制R启动环境</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-01-09T22:16:00+08:00" pubdate data-updated="true">Jan 9<span>th</span>, 2012</time>
+        
+         | <a href="/cn/blog/2012/01/09/customizing-the-startup-environment/#disqus_thread">评论</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p class="info">
+本文翻译自<a href="http://www.manning.com/kabacoff/" target="_blank">R in Action</a>的附录B，如果对该书感兴趣，请自行购买或去图书馆阅读。<br />
+R导论的10.8也是讲定制环境的。
+</p>
+
+<p>程序员最喜欢做的事之一是定制启动环境，好让程序按照他们喜欢方式工作。定制启动环境可以让你设置R的选项、指定工作目录、加载常用的包、加载用户自己写的函数、设置CRAN下载网址以及其它操作。</p>
+
+<p>你可以通过编辑位置位置初始化文件（Rprofile.site）或者目录初始化文件（.Rprofile）来定制R环境。这两个是纯文本文件，包含启动时要执行的R代码。</p>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/cn/blog/2012/01/09/customizing-the-startup-environment/">阅读全文 &rarr;</a>
+    </footer>
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/cn/blog/2012/01/07/theming-and-customization/">为Octopress修改主题和自定义样式</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-01-07T21:16:00+08:00" pubdate data-updated="true">Jan 7<span>th</span>, 2012</time>
+        
+         | <a href="/cn/blog/2012/01/07/theming-and-customization/#disqus_thread">评论</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p class="info">
+本文翻译自Octopress的帮助文档<a href="http://octopress.org/docs/theme" target="_blank">Theming &amp; Customization</a>。
+本人水平有限，不当之处请指正，欢迎留言给出修改意见。
+</p>
+
+<p>Octopress在 <code>.themes</code> 目录提供了一个默认主题。当你安装Octopress时，HTML和Javascripts被复制到 <code>/source</code>，Sass样式表被复制到 <code>/sass</code>。
+你可以随意修改上述文件，不过我还是设计了一些模式，来让自定制变得更简单，更新Octopress更方便。</p>
+
+<p>本文分成两部分：</p>
+
+<ol>
+  <li><a href="/cn/blog/2012/01/07/theming-and-customization/#theme">自定义模板</a> - <em>学习如何修改HEAD，sidebar，header，navigation 以及footer</em></li>
+  <li><a href="/cn/blog/2012/01/07/theming-and-customization/#styles">修改样式</a> - <em>学习如何修改颜色和布局，控制样式</em></li>
+</ol>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/cn/blog/2012/01/07/theming-and-customization/">阅读全文 &rarr;</a>
+    </footer>
+  
+
+
+    </article>
   
   
     <article>
@@ -364,104 +471,6 @@
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/cn/blog/2011/12/04/github-pages-domain/">浅谈github页面域名绑定</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2011-12-04T10:36:00+08:00" pubdate data-updated="true">Dec 4<span>th</span>, 2011</time>
-        
-         | <a href="/cn/blog/2011/12/04/github-pages-domain/#disqus_thread">评论</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>前段时间看到COS上的各位都有博客，也想开个博，给COS的各位管理员发邮件，向他们请教如何开个像怡轩和太云那样的博客，思喆兄说要向益辉申请空间和cos的二级域名。无奈老大太忙，迟迟没有给我分配空间和域名，只是某次提到有个叫<a target="_blank" href="http://github.com">github</a>的东西，可以在上面建网页，还可以写博客，写博客还可以不用网络哦亲，只要在本地写好，哪天有网络了就一个push过去哦亲，so fashion！<sup>[<a id="back1" href="#1">1</a>]</sup>于是我又给他写了很多邮件，向他请教如何使用该系统，结果，他还是不回复。得，自己研究吧。</p>
-
-<p>关于如何在github上创建页面本文就不讲了，文章末尾会列出参考文献，本文着重介绍github页面的域名绑定问题。
-github pages的<a target="_blank" href="http://pages.github.com/">官方主页</a>这样说：</p>
-
-<ul>
-  <li>假设你github的用户名为<strong>username</strong>，那么创建一个名为username.github.com的代码库（repository）,在这个库中上传html、CSS等静态页面文件，可以用地址 http://username.github.com来访问页面了，这个页面就是你账户的主页面（User pages）。</li>
-  <li>如果你又创建了个叫<strong>repo</strong>的代码库，在它下面的gh-pages分支里上传了html、CSS等静态页面文件，那么用http://username.github.com/repo这个地址就能访问页面了。</li>
-  <li>要想生成复杂点的页面，可以用<a target="_blank" href="http://github.com/mojombo/jekyll/">jekyll</a>，语法高亮用<code>pygments</code> 。</li>
-  <li>要想域名绑定，在代码库的根目录下放一个CNAME文件就行了，文件里写上想要绑定的域名，然后在域名DNS管理的后台网站建立指向就行。如果想把页面绑定到二级域名，需要创建一个CNAME指向。如果要把页面绑定到顶级域名，需要创建一个A指向。不能用CNAME指向顶级域名，否则会造成冲突。 </li>
-</ul>
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/cn/blog/2011/12/04/github-pages-domain/">阅读全文 &rarr;</a>
-    </footer>
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/cn/blog/2011/12/03/hello-octopress/">你好！octopress</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2011-12-03T10:36:00+08:00" pubdate data-updated="true">Dec 3<span>rd</span>, 2011</time>
-        
-         | <a href="/cn/blog/2011/12/03/hello-octopress/#disqus_thread">评论</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>第一次使用octopress，看看好不好用。
-* <a href="http://colors4.us/blog/categories/octopress/" target="_blank">Octopress博客从零开始</a>
-* <a href="http://blog.fangjian.me/posts/2011/12/18/migrate-wordpress-to-octopress/" target="_blank">从Wordpress到Octopress</a>
-* <a href="http://hychen.wuweig.org/blog/2011/12/04/octopress-source-drafts-publish-management-process/" target="_blank">关于octopress代码的管理</a>
-* <a href="http://shanewfx.github.com/blog/2012/02/16/bulid-blog-by-octopress/" target="_blank">搭Blog 学Git，windows下使用Octopress</a>
-* <a href="http://shanewfx.github.com/blog/2012/02/16/clone-blog-from-github/" target="_blank">维护Github上的博客</a>
-* <a href="http://fancyoung.com/blog/octopress-study/" target="_blank">技术博客利器——Octopress</a></p>
-
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/cn/blog/page/3/">&larr; 前一页</a>
@@ -489,12 +498,20 @@ github pages的<a target="_blank" href="http://pages.github.com/">官方主页</
 
 <section id="categories_tag">
 <h1>分类目录</h1>
-<span class='categories_tag'> <a href='/cn/blog/categories/github' style='font-size: 148.0%'>Github(4)</a>  <a href='/cn/blog/categories/javascript' style='font-size: 112.0%'>Javascript(1)</a>  <a href='/cn/blog/categories/jekyll' style='font-size: 148.0%'>Jekyll(4)</a>  <a href='/cn/blog/categories/latex' style='font-size: 112.0%'>Latex(1)</a>  <a href='/cn/blog/categories/octopress' style='font-size: 160.0%'>Octopress(5)</a>  <a href='/cn/blog/categories/r语言' style='font-size: 148.0%'>R语言(4)</a> </span>
+<span class='categories_tag'> <a href='/cn/blog/categories/github' style='font-size: 140.0%'>Github(4)</a>  <a href='/cn/blog/categories/javascript' style='font-size: 110.0%'>Javascript(1)</a>  <a href='/cn/blog/categories/jekyll' style='font-size: 140.0%'>Jekyll(4)</a>  <a href='/cn/blog/categories/latex' style='font-size: 110.0%'>Latex(1)</a>  <a href='/cn/blog/categories/markdown' style='font-size: 110.0%'>Markdown(1)</a>  <a href='/cn/blog/categories/octopress' style='font-size: 160.0%'>Octopress(6)</a>  <a href='/cn/blog/categories/r语言' style='font-size: 140.0%'>R语言(4)</a> </span>
 </section>
 
 <section>
   <h1>近期文章</h1>
   <ul id="recent_posts" class="none-left-margin">
+    
+      <li class="post">
+        <a href="/cn/blog/2012/03/13/pandoc/">黑魔法利器pandoc</a>
+      </li>
+    
+      <li class="post">
+        <a href="/cn/blog/2012/03/12/my-style-list/">我的Octopress样式表</a>
+      </li>
     
       <li class="post">
         <a href="/cn/blog/2012/03/10/octopress-with-latex/">在Octopress中使用LaTeX</a>
@@ -514,14 +531,6 @@ github pages的<a target="_blank" href="http://pages.github.com/">官方主页</
     
       <li class="post">
         <a href="/cn/blog/2012/01/10/matrix-algebra-in-r/">R的矩阵代数</a>
-      </li>
-    
-      <li class="post">
-        <a href="/cn/blog/2012/01/09/customizing-the-startup-environment/">定制R启动环境</a>
-      </li>
-    
-      <li class="post">
-        <a href="/cn/blog/2012/01/07/theming-and-customization/">为Octopress修改主题和自定义样式</a>
       </li>
     
   </ul>
@@ -592,10 +601,8 @@ github pages的<a target="_blank" href="http://pages.github.com/">官方主页</
 
 </footer>
   
-
 <script type="text/javascript"
    src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-
 
 
 

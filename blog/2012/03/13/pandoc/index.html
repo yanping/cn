@@ -5,12 +5,12 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>你好！octopress - 雁起平沙的网络日志</title>
+  <title>黑魔法利器pandoc - 雁起平沙的网络日志</title>
   <meta name="author" content="ypchen">
 
   
-  <meta name="description" content="第一次使用octopress，看看好不好用。 Octopress博客从零开始 从Wordpress到Octopress 关于octopress代码的管理 搭Blog 学Git，windows下使用Octopress 维护Github上的博客 技术博客利器——Octopress &hellip;">
-  
+  <meta name="description" content="本文简要介绍pandoc">
+  <meta name="keywords" content="pandoc, markdown">
 
   <!-- http://t.co/dKP3o1e -->
   <meta name="HandheldFriendly" content="True">
@@ -18,7 +18,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://chen.yanping.me/cn/blog/2011/12/03/hello-octopress">
+  <link rel="canonical" href="http://chen.yanping.me/cn/blog/2012/03/13/pandoc">
   <link href="/cn/favicon.png" rel="icon">
   <link href="/cn/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <script src="/cn/javascripts/modernizr-2.0.js"></script>
@@ -103,7 +103,7 @@
   
   <header>
     
-      <h1 class="entry-title">你好！octopress</h1>
+      <h1 class="entry-title">黑魔法利器pandoc</h1>
     
     
       <p class="meta">
@@ -119,7 +119,7 @@
   
 
 
-<time datetime="2011-12-03T10:36:00+08:00" pubdate data-updated="true">Dec 3<span>rd</span>, 2011</time>
+<time datetime="2012-03-13T00:30:00+08:00" pubdate data-updated="true">Mar 13<span>th</span>, 2012</time>
         
          | <a href="#disqus_thread">评论</a>
         
@@ -128,17 +128,65 @@
   </header>
 
 
-<div class="entry-content"><p>第一次使用octopress，看看好不好用。</p>
+<div class="entry-content"><h2 id="pandoc">pandoc是什么？</h2>
+
+<p>如果你需要把文件从一种标记语言格式转换到另一种格式，<a href="http://johnmacfarlane.net/pandoc" target="_blank">pandoc</a>会是你的瑞士军刀。它可以把<a href="http://daringfireball.net/projects/markdown/">markdown</a>、 <a href="http://docutils.sourceforge.net/docs/ref/rst/introduction.html">reStructuredText</a>、 <a href="http://redcloth.org/textile">textile</a>、 <a href="http://www.w3.org/TR/html40/">HTML</a>、或者<a href="http://www.latex-project.org/">LaTeX</a>转换成：</p>
 
 <ul>
-  <li><a href="http://colors4.us/blog/categories/octopress/" target="_blank">Octopress博客从零开始</a></li>
-  <li><a href="http://blog.fangjian.me/posts/2011/12/18/migrate-wordpress-to-octopress/" target="_blank">从Wordpress到Octopress</a></li>
-  <li><a href="http://hychen.wuweig.org/blog/2011/12/04/octopress-source-drafts-publish-management-process/" target="_blank">关于octopress代码的管理</a></li>
-  <li><a href="http://shanewfx.github.com/blog/2012/02/16/bulid-blog-by-octopress/" target="_blank">搭Blog 学Git，windows下使用Octopress</a></li>
-  <li><a href="http://shanewfx.github.com/blog/2012/02/16/clone-blog-from-github/" target="_blank">维护Github上的博客</a></li>
-  <li><a href="http://fancyoung.com/blog/octopress-study/" target="_blank">技术博客利器——Octopress</a></li>
-  <li><a href="http://madeye.me/2011/12/17/setup-octopress-on-windows/" target="_blank">在Cygwin中搭建Octopress环境</a></li>
-  <li><a href="http://rednaxelafx.github.com/blog/2011/09/04/test-page/" target="_blank">关于Octopress的设置</a></li>
+<li>HTML格式: XHTML, HTML5, 以及HTML幻灯片<a href="http://www.w3.org/Talks/Tools/Slidy">Slidy</a>， <a href="http://meyerweb.com/eric/tools/s5/">S5</a>，或者<a href="http://paulrouget.com/dzslides/">DZSlides</a>.</li>
+<li>文字处理软件格式： Microsoft Word <a href="http://www.microsoft.com/interop/openup/openxml/default.aspx">docx</a>, OpenOffice/LibreOffice <a href="http://en.wikipedia.org/wiki/OpenDocument">ODT</a>, <a href="http://opendocument.xml.org/">OpenDocument XML</a></li>
+<li>电子书： <a href="http://en.wikipedia.org/wiki/EPUB">EPUB</a></li>
+<li>文档格式： <a href="http://www.docbook.org/">DocBook</a>, <a href="http://www.gnu.org/software/texinfo/">GNU TexInfo</a>, <a href="http://www.gnu.org/software/groff/groff.html">Groff man</a> pages</li>
+<li>TeX格式： <a href="http://www.latex-project.org/">LaTeX</a>, <a href="http://www.pragma-ade.nl/">ConTeXt</a>, LaTeX Beamer slides</li>
+<li><a href="http://en.wikipedia.org/wiki/Portable_Document_Format">PDF</a> via LaTeX</li>
+<li>轻量级标记语言格式： <a href="http://daringfireball.net/projects/markdown/">Markdown</a>, <a href="http://docutils.sourceforge.net/docs/ref/rst/introduction.html">reStructuredText</a>, <a href="http://www.methods.co.nz/asciidoc/">AsciiDoc</a>, <a href="http://www.mediawiki.org/wiki/Help:Formatting">MediaWiki markup</a>, Emacs <a href="http://orgmode.org">Org-Mode</a>, <a href="http://redcloth.org/textile">Textile</a></li>
+</ul>
+
+<!--more-->
+
+<h2 id="section">如何安装</h2>
+<p>见<a href="http://johnmacfarlane.net/pandoc/installing.html" target="_blank">http://johnmacfarlane.net/pandoc/installing.html</a>。</p>
+
+<p>需要注意的是，我在ubuntu下用命令<code>sudo apt-get install pandoc</code>安装<a href="http://johnmacfarlane.net/pandoc" target="_blank">pandoc</a>，发现并不能编译beamer</p>
+
+<pre><code>pandoc -t beamer talk.txt -o talk.pdf
+pandoc: Unknown writer: beamer
+</code></pre>
+
+<p>后来在ubuntu的问答网站发现了<a href="http://askubuntu.com/questions/108138/pandoc-on-ubuntu-cant-use-beamer" target="_blank">答案</a></p>
+
+<pre><code>sudo apt-get autoremove pandoc
+sudo apt-get install cabal-install
+cabal update
+cabal install pandoc
+</code></pre>
+
+<p>然后再把<code>~/.cabal</code>加到路径中去，在<code>.bashrc</code>里加上一句</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span /></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+</pre></td><td class="code"><pre><code class="sh"><span class="line"><span class="nb">export </span><span class="nv">PATH</span><span class="o">=</span>/home/ypchen/.cabal/bin:<span class="nv">$PATH</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<h2 id="section-1">怎么用？</h2>
+
+<p>在官方网站的<a href="http://johnmacfarlane.net/pandoc/demos.html" target="_blank">示例</a>中找了一个例子，修改了模板文件<a href="/cn/downloads/code/2012/03/mytemplate.tex" target="_blank">mytemplate.tex</a>，使它可以支持中文，然后用下面的命令编译<a href="/cn/downloads/code/2012/03/SLIDES.md" target="_blank">SLIDES.md</a></p>
+
+<pre><code>pandoc -N --template=mytemplate.tex --variable version=1.9 SLIDES.md --latex-engine=xelatex --toc -o example14.pdf
+</code></pre>
+
+<p><a href="http://johnmacfarlane.net/pandoc/demos.html" target="_blank">示例</a>页里还有很多别的例子，其中将markdown文件转换成网页的sldes非常吸引人</p>
+
+<div class="showbox">
+  <p>pandoc -s –mathml -i -t dzslides <a href="http://johnmacfarlane.net/pandoc/demo/SLIDES" target="_blank">SLIDES</a> -o <a href="http://johnmacfarlane.net/pandoc/demo/example14a.html" target="_blank">example14a.html</a><br />
+pandoc -s –webtex -i -t slidy <a href="http://johnmacfarlane.net/pandoc/demo/SLIDES" target="_blank">SLIDES</a> -o <a href="http://johnmacfarlane.net/pandoc/demo/example14b.html" target="_blank">example14b.html</a><br />
+pandoc -s –webtex -t -t s5 <a href="http://johnmacfarlane.net/pandoc/demo/SLIDES" target="_blank">SLIDES</a> -o <a href="http://johnmacfarlane.net/pandoc/demo/example14c.html" target="_blank">example14c.html</a></p>
+</div>
+
+<p>之前益辉就给出过一个<a href="http://yihui.name/cn/2011/11/html5-slides/" target="_blank">HTML5幻灯片的例子</a>。人生苦短啊，不要把太多的时间和精力浪费在调格式上了。</p>
+
+<h3 id="section-2">参考文章</h3>
+<ul>
+  <li><a href="http://stdio.tumblr.com/lightdoc" target="_blank">http://stdio.tumblr.com/lightdoc</a></li>
 </ul>
 
 </div>
@@ -163,14 +211,14 @@
   
 
 
-<time datetime="2011-12-03T10:36:00+08:00" pubdate data-updated="true">Dec 3<span>rd</span>, 2011</time>
+<time datetime="2012-03-13T00:30:00+08:00" pubdate data-updated="true">Mar 13<span>th</span>, 2012</time>
       
 
 
 <span class="categories">
 	归类于：
   
-    <a class='category' href='/cn/blog/categories/octopress/'>octopress</a>
+    <a class='category' href='/cn/blog/categories/markdown/'>markdown</a>
   
 </span>
 
@@ -200,10 +248,8 @@
     
     <p class="meta">
       
-        <a class="basic-alignment left" href="/cn/blog/2011/11/12/use-jekyll-template/" title="Previous Post: 使用现有的jekyll模板">&laquo; 使用现有的jekyll模板</a>
+        <a class="basic-alignment left" href="/cn/blog/2012/03/12/my-style-list/" title="Previous Post: 我的Octopress样式表">&laquo; 我的Octopress样式表</a>
       
-      
-        <a class="basic-alignment right" href="/cn/blog/2011/12/04/github-pages-domain/" title="next Post: 浅谈github页面域名绑定">浅谈github页面域名绑定 &raquo;</a>
       
     </p>
   </footer>
@@ -340,8 +386,8 @@
       
         
         // var disqus_developer = 1;
-        var disqus_identifier = 'http://chen.yanping.me/cn/blog/2011/12/03/hello-octopress/';
-        var disqus_url = 'http://chen.yanping.me/cn/blog/2011/12/03/hello-octopress/';
+        var disqus_identifier = 'http://chen.yanping.me/cn/blog/2012/03/13/pandoc/';
+        var disqus_url = 'http://chen.yanping.me/cn/blog/2012/03/13/pandoc/';
         var disqus_script = 'embed.js';
       
     (function () {

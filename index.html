@@ -9,7 +9,7 @@
   <meta name="author" content="ypchen">
 
   
-  <meta name="description" content="这个博客的主题定位为数量金融、统计与R语言，但一直以来我都没写什么金融和统计的文章，估计很多看官都误以为我是程序猿。最初我列了个书单，计划有哪些书要读要翻译的，包括Implementing Models in Quantitative Finance、Statistics and Data &hellip;">
+  <meta name="description" content="pandoc是什么？ 如果你需要把文件从一种标记语言格式转换到另一种格式，pandoc会是你的瑞士军刀。它可以把markdown、 reStructuredText、 textile、 HTML、或者LaTeX转换成： HTML格式: XHTML, HTML5, 以及HTML幻灯片Slidy， &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -102,6 +102,120 @@
 
 <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/cn/blog/2012/03/13/pandoc/">黑魔法利器pandoc</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-03-13T00:30:00+08:00" pubdate data-updated="true">Mar 13<span>th</span>, 2012</time>
+        
+         | <a href="/cn/blog/2012/03/13/pandoc/#disqus_thread">评论</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h2 id="pandoc">pandoc是什么？</h2>
+
+<p>如果你需要把文件从一种标记语言格式转换到另一种格式，<a href="http://johnmacfarlane.net/pandoc" target="_blank">pandoc</a>会是你的瑞士军刀。它可以把<a href="http://daringfireball.net/projects/markdown/">markdown</a>、 <a href="http://docutils.sourceforge.net/docs/ref/rst/introduction.html">reStructuredText</a>、 <a href="http://redcloth.org/textile">textile</a>、 <a href="http://www.w3.org/TR/html40/">HTML</a>、或者<a href="http://www.latex-project.org/">LaTeX</a>转换成：</p>
+
+<ul>
+<li>HTML格式: XHTML, HTML5, 以及HTML幻灯片<a href="http://www.w3.org/Talks/Tools/Slidy">Slidy</a>， <a href="http://meyerweb.com/eric/tools/s5/">S5</a>，或者<a href="http://paulrouget.com/dzslides/">DZSlides</a>.</li>
+<li>文字处理软件格式： Microsoft Word <a href="http://www.microsoft.com/interop/openup/openxml/default.aspx">docx</a>, OpenOffice/LibreOffice <a href="http://en.wikipedia.org/wiki/OpenDocument">ODT</a>, <a href="http://opendocument.xml.org/">OpenDocument XML</a></li>
+<li>电子书： <a href="http://en.wikipedia.org/wiki/EPUB">EPUB</a></li>
+<li>文档格式： <a href="http://www.docbook.org/">DocBook</a>, <a href="http://www.gnu.org/software/texinfo/">GNU TexInfo</a>, <a href="http://www.gnu.org/software/groff/groff.html">Groff man</a> pages</li>
+<li>TeX格式： <a href="http://www.latex-project.org/">LaTeX</a>, <a href="http://www.pragma-ade.nl/">ConTeXt</a>, LaTeX Beamer slides</li>
+<li><a href="http://en.wikipedia.org/wiki/Portable_Document_Format">PDF</a> via LaTeX</li>
+<li>轻量级标记语言格式： <a href="http://daringfireball.net/projects/markdown/">Markdown</a>, <a href="http://docutils.sourceforge.net/docs/ref/rst/introduction.html">reStructuredText</a>, <a href="http://www.methods.co.nz/asciidoc/">AsciiDoc</a>, <a href="http://www.mediawiki.org/wiki/Help:Formatting">MediaWiki markup</a>, Emacs <a href="http://orgmode.org">Org-Mode</a>, <a href="http://redcloth.org/textile">Textile</a></li>
+</ul>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/cn/blog/2012/03/13/pandoc/">阅读全文 &rarr;</a>
+    </footer>
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/cn/blog/2012/03/12/my-style-list/">我的Octopress样式表</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-03-12T22:16:00+08:00" pubdate data-updated="true">Mar 12<span>th</span>, 2012</time>
+        
+         | <a href="/cn/blog/2012/03/12/my-style-list/#disqus_thread">评论</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p><code>/sass/custom/_styles.scss</code>里是用户自己定义的样式，我在博客里添加了表格、脚注、提示框等样式，本文作为备忘，博客每次更新本文会自动更新，这也是用octopress博客的好处，我不过是在博客里插入下面两段代码：</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+</pre></td><td class="code"><pre><code class=""><span class="line">{% codeblock (/sass/custom/_styles.scss) %}
+</span><span class="line">	{% render_partial ../sass/custom/_styles.scss raw%}
+</span><span class="line">{% endcodeblock %}</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+</pre></td><td class="code"><pre><code class=""><span class="line">{% codeblock (/sass/custom/_styles.scss) %}
+</span><span class="line">	{% render_partial ../sass/custom/_fonts.scss raw%}
+</span><span class="line">{% endcodeblock %}</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<p>由于本人刚刚学习CSS，所以写的东西难免幼稚，也可能有错的地方，请各位看官多提宝贵意见。</p>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/cn/blog/2012/03/12/my-style-list/">阅读全文 &rarr;</a>
+    </footer>
+  
+
+
+    </article>
   
   
     <article>
@@ -568,112 +682,6 @@
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/cn/blog/2012/01/09/customizing-the-startup-environment/">定制R启动环境</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2012-01-09T22:16:00+08:00" pubdate data-updated="true">Jan 9<span>th</span>, 2012</time>
-        
-         | <a href="/cn/blog/2012/01/09/customizing-the-startup-environment/#disqus_thread">评论</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p class="info">
-本文翻译自<a href="http://www.manning.com/kabacoff/" target="_blank">R in Action</a>的附录B，如果对该书感兴趣，请自行购买或去图书馆阅读。<br />
-R导论的10.8也是讲定制环境的。
-</p>
-
-<p>程序员最喜欢做的事之一是定制启动环境，好让程序按照他们喜欢方式工作。定制启动环境可以让你设置R的选项、指定工作目录、加载常用的包、加载用户自己写的函数、设置CRAN下载网址以及其它操作。</p>
-
-<p>你可以通过编辑位置位置初始化文件（Rprofile.site）或者目录初始化文件（.Rprofile）来定制R环境。这两个是纯文本文件，包含启动时要执行的R代码。</p>
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/cn/blog/2012/01/09/customizing-the-startup-environment/">阅读全文 &rarr;</a>
-    </footer>
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/cn/blog/2012/01/07/theming-and-customization/">为Octopress修改主题和自定义样式</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2012-01-07T21:16:00+08:00" pubdate data-updated="true">Jan 7<span>th</span>, 2012</time>
-        
-         | <a href="/cn/blog/2012/01/07/theming-and-customization/#disqus_thread">评论</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p class="info">
-本文翻译自Octopress的帮助文档<a href="http://octopress.org/docs/theme" target="_blank">Theming &amp; Customization</a>。
-本人水平有限，不当之处请指正，欢迎留言给出修改意见。
-</p>
-
-<p>Octopress在 <code>.themes</code> 目录提供了一个默认主题。当你安装Octopress时，HTML和Javascripts被复制到 <code>/source</code>，Sass样式表被复制到 <code>/sass</code>。
-你可以随意修改上述文件，不过我还是设计了一些模式，来让自定制变得更简单，更新Octopress更方便。</p>
-
-<p>本文分成两部分：</p>
-
-<ol>
-  <li><a href="/cn/blog/2012/01/07/theming-and-customization/#theme">自定义模板</a> - <em>学习如何修改HEAD，sidebar，header，navigation 以及footer</em></li>
-  <li><a href="/cn/blog/2012/01/07/theming-and-customization/#styles">修改样式</a> - <em>学习如何修改颜色和布局，控制样式</em></li>
-</ol>
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/cn/blog/2012/01/07/theming-and-customization/">阅读全文 &rarr;</a>
-    </footer>
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/cn/blog/page/2/">&larr; 前一页</a>
@@ -699,12 +707,20 @@ R导论的10.8也是讲定制环境的。
 
 <section id="categories_tag">
 <h1>分类目录</h1>
-<span class='categories_tag'> <a href='/cn/blog/categories/github' style='font-size: 148.0%'>Github(4)</a>  <a href='/cn/blog/categories/javascript' style='font-size: 112.0%'>Javascript(1)</a>  <a href='/cn/blog/categories/jekyll' style='font-size: 148.0%'>Jekyll(4)</a>  <a href='/cn/blog/categories/latex' style='font-size: 112.0%'>Latex(1)</a>  <a href='/cn/blog/categories/octopress' style='font-size: 160.0%'>Octopress(5)</a>  <a href='/cn/blog/categories/r语言' style='font-size: 148.0%'>R语言(4)</a> </span>
+<span class='categories_tag'> <a href='/cn/blog/categories/github' style='font-size: 140.0%'>Github(4)</a>  <a href='/cn/blog/categories/javascript' style='font-size: 110.0%'>Javascript(1)</a>  <a href='/cn/blog/categories/jekyll' style='font-size: 140.0%'>Jekyll(4)</a>  <a href='/cn/blog/categories/latex' style='font-size: 110.0%'>Latex(1)</a>  <a href='/cn/blog/categories/markdown' style='font-size: 110.0%'>Markdown(1)</a>  <a href='/cn/blog/categories/octopress' style='font-size: 160.0%'>Octopress(6)</a>  <a href='/cn/blog/categories/r语言' style='font-size: 140.0%'>R语言(4)</a> </span>
 </section>
 
 <section>
   <h1>近期文章</h1>
   <ul id="recent_posts" class="none-left-margin">
+    
+      <li class="post">
+        <a href="/cn/blog/2012/03/13/pandoc/">黑魔法利器pandoc</a>
+      </li>
+    
+      <li class="post">
+        <a href="/cn/blog/2012/03/12/my-style-list/">我的Octopress样式表</a>
+      </li>
     
       <li class="post">
         <a href="/cn/blog/2012/03/10/octopress-with-latex/">在Octopress中使用LaTeX</a>
@@ -724,14 +740,6 @@ R导论的10.8也是讲定制环境的。
     
       <li class="post">
         <a href="/cn/blog/2012/01/10/matrix-algebra-in-r/">R的矩阵代数</a>
-      </li>
-    
-      <li class="post">
-        <a href="/cn/blog/2012/01/09/customizing-the-startup-environment/">定制R启动环境</a>
-      </li>
-    
-      <li class="post">
-        <a href="/cn/blog/2012/01/07/theming-and-customization/">为Octopress修改主题和自定义样式</a>
       </li>
     
   </ul>
@@ -802,10 +810,8 @@ R导论的10.8也是讲定制环境的。
 
 </footer>
   
-
 <script type="text/javascript"
    src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-
 
 
 

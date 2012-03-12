@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[分类： markdown | 雁起平沙的网络日志]]></title>
+  <link href="http://chen.yanping.me/cn/blog/categories/markdown/atom.xml" rel="self"/>
+  <link href="http://chen.yanping.me/cn/"/>
+  <updated>2012-03-13T01:06:34+08:00</updated>
+  <id>http://chen.yanping.me/cn/</id>
+  <author>
+    <name><![CDATA[ypchen]]></name>
+    <email><![CDATA[chen@yanping.me]]></email>
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[黑魔法利器pandoc]]></title>
+    <link href="http://chen.yanping.me/cn/blog/2012/03/13/pandoc/"/>
+    <updated>2012-03-13T00:30:00+08:00</updated>
+    <id>http://chen.yanping.me/cn/blog/2012/03/13/pandoc</id>
+    <content type="html"><![CDATA[<h2 id="pandoc">pandoc是什么？</h2>
+
+<p>如果你需要把文件从一种标记语言格式转换到另一种格式，<a href="http://johnmacfarlane.net/pandoc" target="_blank">pandoc</a>会是你的瑞士军刀。它可以把<a href="http://daringfireball.net/projects/markdown/">markdown</a>、 <a href="http://docutils.sourceforge.net/docs/ref/rst/introduction.html">reStructuredText</a>、 <a href="http://redcloth.org/textile">textile</a>、 <a href="http://www.w3.org/TR/html40/">HTML</a>、或者<a href="http://www.latex-project.org/">LaTeX</a>转换成：</p>
+
+<ul>
+<li>HTML格式: XHTML, HTML5, 以及HTML幻灯片<a href="http://www.w3.org/Talks/Tools/Slidy">Slidy</a>， <a href="http://meyerweb.com/eric/tools/s5/">S5</a>，或者<a href="http://paulrouget.com/dzslides/">DZSlides</a>.</li>
+<li>文字处理软件格式： Microsoft Word <a href="http://www.microsoft.com/interop/openup/openxml/default.aspx">docx</a>, OpenOffice/LibreOffice <a href="http://en.wikipedia.org/wiki/OpenDocument">ODT</a>, <a href="http://opendocument.xml.org/">OpenDocument XML</a></li>
+<li>电子书： <a href="http://en.wikipedia.org/wiki/EPUB">EPUB</a></li>
+<li>文档格式： <a href="http://www.docbook.org/">DocBook</a>, <a href="http://www.gnu.org/software/texinfo/">GNU TexInfo</a>, <a href="http://www.gnu.org/software/groff/groff.html">Groff man</a> pages</li>
+<li>TeX格式： <a href="http://www.latex-project.org/">LaTeX</a>, <a href="http://www.pragma-ade.nl/">ConTeXt</a>, LaTeX Beamer slides</li>
+<li><a href="http://en.wikipedia.org/wiki/Portable_Document_Format">PDF</a> via LaTeX</li>
+<li>轻量级标记语言格式： <a href="http://daringfireball.net/projects/markdown/">Markdown</a>, <a href="http://docutils.sourceforge.net/docs/ref/rst/introduction.html">reStructuredText</a>, <a href="http://www.methods.co.nz/asciidoc/">AsciiDoc</a>, <a href="http://www.mediawiki.org/wiki/Help:Formatting">MediaWiki markup</a>, Emacs <a href="http://orgmode.org">Org-Mode</a>, <a href="http://redcloth.org/textile">Textile</a></li>
+</ul>
+
+<!--more-->
+
+<h2 id="section">如何安装</h2>
+<p>见<a href="http://johnmacfarlane.net/pandoc/installing.html" target="_blank">http://johnmacfarlane.net/pandoc/installing.html</a>。</p>
+
+<p>需要注意的是，我在ubuntu下用命令<code>sudo apt-get install pandoc</code>安装<a href="http://johnmacfarlane.net/pandoc" target="_blank">pandoc</a>，发现并不能编译beamer</p>
+
+<pre><code>pandoc -t beamer talk.txt -o talk.pdf
+pandoc: Unknown writer: beamer
+</code></pre>
+
+<p>后来在ubuntu的问答网站发现了<a href="http://askubuntu.com/questions/108138/pandoc-on-ubuntu-cant-use-beamer" target="_blank">答案</a></p>
+
+<pre><code>sudo apt-get autoremove pandoc
+sudo apt-get install cabal-install
+cabal update
+cabal install pandoc
+</code></pre>
+
+<p>然后再把<code>~/.cabal</code>加到路径中去，在<code>.bashrc</code>里加上一句</p>
+
+<p><code>sh
+export PATH=/home/ypchen/.cabal/bin:$PATH
+</code></p>
+
+<h2 id="section-1">怎么用？</h2>
+
+<p>在官方网站的<a href="http://johnmacfarlane.net/pandoc/demos.html" target="_blank">示例</a>中找了一个例子，修改了模板文件<a href="/downloads/code/2012/03/mytemplate.tex" target="_blank">mytemplate.tex</a>，使它可以支持中文，然后用下面的命令编译<a href="/downloads/code/2012/03/SLIDES.md" target="_blank">SLIDES.md</a></p>
+
+<pre><code>pandoc -N --template=mytemplate.tex --variable version=1.9 SLIDES.md --latex-engine=xelatex --toc -o example14.pdf
+</code></pre>
+
+<p><a href="http://johnmacfarlane.net/pandoc/demos.html" target="_blank">示例</a>页里还有很多别的例子，其中将markdown文件转换成网页的sldes非常吸引人</p>
+
+<div class="showbox">
+  <p>pandoc -s –mathml -i -t dzslides <a href="http://johnmacfarlane.net/pandoc/demo/SLIDES" target="_blank">SLIDES</a> -o <a href="http://johnmacfarlane.net/pandoc/demo/example14a.html" target="_blank">example14a.html</a><br />
+pandoc -s –webtex -i -t slidy <a href="http://johnmacfarlane.net/pandoc/demo/SLIDES" target="_blank">SLIDES</a> -o <a href="http://johnmacfarlane.net/pandoc/demo/example14b.html" target="_blank">example14b.html</a><br />
+pandoc -s –webtex -t -t s5 <a href="http://johnmacfarlane.net/pandoc/demo/SLIDES" target="_blank">SLIDES</a> -o <a href="http://johnmacfarlane.net/pandoc/demo/example14c.html" target="_blank">example14c.html</a></p>
+</div>
+
+<p>之前益辉就给出过一个<a href="http://yihui.name/cn/2011/11/html5-slides/" target="_blank">HTML5幻灯片的例子</a>。人生苦短啊，不要把太多的时间和精力浪费在调格式上了。</p>
+
+<h3 id="section-2">参考文章</h3>
+<ul>
+  <li><a href="http://stdio.tumblr.com/lightdoc" target="_blank">http://stdio.tumblr.com/lightdoc</a></li>
+</ul>
+
+]]></content>
+  </entry>
+  
+</feed>
