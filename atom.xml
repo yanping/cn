@@ -4,7 +4,7 @@
   <title><![CDATA[雁起平沙的网络日志]]></title>
   <link href="http://chen.yanping.me/cn/atom.xml" rel="self"/>
   <link href="http://chen.yanping.me/cn/"/>
-  <updated>2012-03-13T01:18:19+08:00</updated>
+  <updated>2012-03-13T20:22:39+08:00</updated>
   <id>http://chen.yanping.me/cn/</id>
   <author>
     <name><![CDATA[ypchen]]></name>
@@ -99,7 +99,7 @@ pandoc -s –webtex -t -t s5 <a href="http://johnmacfarlane.net/pandoc/demo/SLID
 <div class="bogus-wrapper"><notextile><figure class="code"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
 <span class="line-number">2</span>
 <span class="line-number">3</span>
-</pre></td><td class="code"><pre><code class=""><span class="line">{% codeblock (/sass/custom/_styles.scss) %}
+</pre></td><td class="code"><pre><code class=""><span class="line">{% codeblock (/sass/custom/_fonts.scss) %}
 </span><span class="line">	{% render_partial ../sass/custom/_fonts.scss raw%}
 </span><span class="line">{% endcodeblock %}</span></code></pre></td></tr></table></div></figure></notextile></div>
 
@@ -266,6 +266,7 @@ pandoc -s –webtex -t -t s5 <a href="http://johnmacfarlane.net/pandoc/demo/SLID
 <span class="line-number">154</span>
 <span class="line-number">155</span>
 <span class="line-number">156</span>
+<span class="line-number">157</span>
 </pre></td><td class="code"><pre><code class="scss"><span class="line"><span class="c1">// This File is imported last, and will override other styles in the cascade</span>
 </span><span class="line"><span class="c1">// Add styles here to make changes without digging in too much</span>
 </span><span class="line">
@@ -276,8 +277,10 @@ pandoc -s –webtex -t -t s5 <a href="http://johnmacfarlane.net/pandoc/demo/SLID
 </span><span class="line">	<span class="nt">font-family</span><span class="nd">:Arial</span><span class="o">,</span> <span class="err">楷体</span><span class="nt">_GB2312</span><span class="o">,</span> <span class="nt">sans-serif</span><span class="o">;</span>
 </span><span class="line"><span class="p">}</span>
 </span><span class="line">
-</span><span class="line"><span class="nc">.info</span><span class="p">{</span>
-</span><span class="line">	<span class="na">background</span><span class="o">:</span><span class="mh">#d5e9f6</span> <span class="sx">url(/cn/images/blog/tab_info.gif)</span> <span class="no">no-repeat</span> <span class="no">left</span> <span class="no">top</span><span class="p">;</span>
+</span><span class="line"><span class="cm">/* 提示框样式 */</span>
+</span><span class="line">
+</span><span class="line"><span class="nc">.info</span><span class="o">,</span> <span class="nc">.warning</span><span class="p">{</span>
+</span><span class="line">
 </span><span class="line">	<span class="nt">border</span><span class="nd">:none</span><span class="o">;</span>
 </span><span class="line">	<span class="nt">padding</span><span class="nd">:0</span><span class="nc">.6em</span> <span class="nt">1</span><span class="nc">.25em</span> <span class="nt">0</span><span class="nc">.6em</span> <span class="nt">48px</span><span class="o">;</span>
 </span><span class="line">	<span class="nt">margin-top</span><span class="nd">:0</span><span class="nc">.25em</span><span class="o">;</span>
@@ -289,29 +292,22 @@ pandoc -s –webtex -t -t s5 <a href="http://johnmacfarlane.net/pandoc/demo/SLID
 </span><span class="line">	<span class="nt">-webkit-box-shadow</span><span class="nd">:</span> <span class="nt">0</span> <span class="nt">4px</span> <span class="nt">4px</span> <span class="nt">rgba</span><span class="o">(</span><span class="nt">0</span><span class="o">,</span> <span class="nt">0</span><span class="o">,</span> <span class="nt">0</span><span class="o">,</span> <span class="nt">0</span><span class="nc">.3</span><span class="o">);</span>
 </span><span class="line">	<span class="nt">-moz-box-shadow</span><span class="nd">:</span> <span class="nt">0</span> <span class="nt">4px</span> <span class="nt">4px</span> <span class="nt">rgba</span><span class="o">(</span><span class="nt">0</span><span class="o">,</span> <span class="nt">0</span><span class="o">,</span> <span class="nt">0</span><span class="o">,</span> <span class="nt">0</span><span class="nc">.3</span><span class="o">);</span>
 </span><span class="line">	<span class="nt">-box-shadow</span><span class="nd">:</span> <span class="nt">0</span> <span class="nt">4px</span> <span class="nt">4px</span> <span class="nt">rgba</span><span class="o">(</span><span class="nt">0</span><span class="o">,</span> <span class="nt">0</span><span class="o">,</span> <span class="nt">0</span><span class="o">,</span> <span class="nt">0</span><span class="nc">.3</span><span class="o">);</span>
+</span><span class="line"><span class="p">}</span>
+</span><span class="line">
+</span><span class="line"><span class="nc">.info</span><span class="p">{</span>
+</span><span class="line">	<span class="na">background</span><span class="o">:</span><span class="mh">#d5e9f6</span> <span class="sx">url(/cn/images/blog/tab_info.gif)</span> <span class="no">no-repeat</span> <span class="no">left</span> <span class="no">top</span><span class="p">;</span>
 </span><span class="line"><span class="p">}</span>
 </span><span class="line">
 </span><span class="line"><span class="nc">.warning</span><span class="p">{</span>
 </span><span class="line">	<span class="na">background</span><span class="o">:</span><span class="mh">#f9d9d8</span> <span class="sx">url(/cn/images/blog/tab_red.gif)</span> <span class="no">no-repeat</span> <span class="no">left</span> <span class="no">top</span><span class="p">;</span>
-</span><span class="line">	<span class="nt">border</span><span class="nd">:none</span><span class="o">;</span>
-</span><span class="line">	<span class="nt">padding</span><span class="nd">:0</span><span class="nc">.6em</span> <span class="nt">1</span><span class="nc">.25em</span> <span class="nt">0</span><span class="nc">.6em</span> <span class="nt">48px</span><span class="o">;</span>
-</span><span class="line">	<span class="nt">margin-left</span><span class="nd">:0</span><span class="o">;</span>
-</span><span class="line">	<span class="nt">margin-top</span><span class="nd">:0</span><span class="nc">.25em</span><span class="o">;</span>
-</span><span class="line">
-</span><span class="line">	<span class="nt">-webkit-border-radius</span><span class="nd">:</span> <span class="nt">8px</span><span class="o">;</span>
-</span><span class="line">	<span class="nt">-moz-border-radius</span><span class="nd">:</span> <span class="nt">8px</span><span class="o">;</span>
-</span><span class="line">	<span class="nt">border-radius</span><span class="nd">:</span> <span class="nt">8px</span><span class="o">;</span>
-</span><span class="line">	
-</span><span class="line">	<span class="nt">-webkit-box-shadow</span><span class="nd">:</span> <span class="nt">0</span> <span class="nt">4px</span> <span class="nt">4px</span> <span class="nt">rgba</span><span class="o">(</span><span class="nt">0</span><span class="o">,</span> <span class="nt">0</span><span class="o">,</span> <span class="nt">0</span><span class="o">,</span> <span class="nt">0</span><span class="nc">.3</span><span class="o">);</span>
-</span><span class="line">	<span class="nt">-moz-box-shadow</span><span class="nd">:</span> <span class="nt">0</span> <span class="nt">4px</span> <span class="nt">4px</span> <span class="nt">rgba</span><span class="o">(</span><span class="nt">0</span><span class="o">,</span> <span class="nt">0</span><span class="o">,</span> <span class="nt">0</span><span class="o">,</span> <span class="nt">0</span><span class="nc">.3</span><span class="o">);</span>
-</span><span class="line">	<span class="nt">-box-shadow</span><span class="nd">:</span> <span class="nt">0</span> <span class="nt">4px</span> <span class="nt">4px</span> <span class="nt">rgba</span><span class="o">(</span><span class="nt">0</span><span class="o">,</span> <span class="nt">0</span><span class="o">,</span> <span class="nt">0</span><span class="o">,</span> <span class="nt">0</span><span class="nc">.3</span><span class="o">);</span>
 </span><span class="line"><span class="p">}</span>
 </span><span class="line">
 </span><span class="line">
 </span><span class="line">
+</span><span class="line"><span class="cm">/* -----表格样式----- */</span>
+</span><span class="line">
 </span><span class="line"><span class="nc">.datalist</span><span class="p">{</span>
 </span><span class="line">    <span class="na">border</span><span class="o">:</span><span class="mi">1</span><span class="kt">px</span> <span class="no">solid</span> <span class="mh">#007eff</span><span class="p">;</span>
-</span><span class="line">   <span class="nn">#</span> <span class="nt">font-family</span><span class="nd">:Arial</span><span class="o">;</span>
 </span><span class="line">    <span class="nt">border-collapse</span><span class="nd">:collapse</span><span class="o">;</span>
 </span><span class="line">	<span class="nt">margin</span><span class="nd">:</span> <span class="nt">20px</span> <span class="nt">auto</span> <span class="nt">20px</span> <span class="nt">auto</span><span class="o">;</span>
 </span><span class="line">	
@@ -343,11 +339,15 @@ pandoc -s –webtex -t -t s5 <a href="http://johnmacfarlane.net/pandoc/demo/SLID
 </span><span class="line">    <span class="na">background-color</span><span class="o">:</span><span class="mh">#c4e4fe</span><span class="p">;</span>
 </span><span class="line"><span class="p">}</span>
 </span><span class="line">
+</span><span class="line"><span class="cm">/* -------------- */</span>
+</span><span class="line">
 </span><span class="line"><span class="nc">.none-left-margin</span><span class="p">{</span>
 </span><span class="line">    <span class="na">padding-left</span><span class="o">:</span> <span class="mi">0</span><span class="p">;</span>
 </span><span class="line"><span class="p">}</span>
 </span><span class="line">
 </span><span class="line">
+</span><span class="line">
+</span><span class="line"><span class="cm">/* -----侧边栏样式----- */</span>
 </span><span class="line">
 </span><span class="line"><span class="nn">#blogroll</span> <span class="nt">a</span><span class="p">{</span>
 </span><span class="line">    <span class="nt">text-decoration</span><span class="nd">:none</span><span class="o">;</span>
@@ -368,18 +368,6 @@ pandoc -s –webtex -t -t s5 <a href="http://johnmacfarlane.net/pandoc/demo/SLID
 </span><span class="line">
 </span><span class="line"><span class="nn">#categories_tag</span> <span class="nt">a</span><span class="p">{</span>
 </span><span class="line">    <span class="nt">text-decoration</span><span class="nd">:none</span><span class="o">;</span>
-</span><span class="line">
-</span><span class="line"><span class="p">}</span>
-</span><span class="line">
-</span><span class="line"><span class="nt">pre</span> <span class="nt">code</span><span class="p">{</span>
-</span><span class="line">	<span class="na">color</span><span class="o">:</span><span class="mh">#DDD</span><span class="p">;</span>
-</span><span class="line"><span class="p">}</span>
-</span><span class="line">
-</span><span class="line"><span class="nt">div</span><span class="nc">.showbox</span><span class="p">{</span>
-</span><span class="line">	<span class="na">margin</span><span class="o">:</span> <span class="mi">15</span><span class="kt">px</span> <span class="no">auto</span> <span class="mi">15</span><span class="kt">px</span> <span class="no">auto</span><span class="p">;</span>
-</span><span class="line">	<span class="na">background-color</span><span class="o">:</span> <span class="nb">white</span><span class="p">;</span>
-</span><span class="line">	<span class="na">border</span><span class="o">:</span> <span class="no">solid</span> <span class="mi">1</span><span class="kt">px</span> <span class="nb">black</span><span class="p">;</span>
-</span><span class="line">	<span class="na">padding</span><span class="o">:</span> <span class="mi">10</span><span class="kt">px</span> <span class="mi">10</span><span class="kt">px</span> <span class="mi">5</span><span class="kt">px</span> <span class="mi">10</span><span class="kt">px</span><span class="p">;</span>
 </span><span class="line">
 </span><span class="line"><span class="p">}</span>
 </span><span class="line">
@@ -418,6 +406,20 @@ pandoc -s –webtex -t -t s5 <a href="http://johnmacfarlane.net/pandoc/demo/SLID
 </span><span class="line"><span class="p">}</span>
 </span><span class="line">
 </span><span class="line"><span class="cm">/*--- 关于脚注结束 ---*/</span>
+</span><span class="line">
+</span><span class="line">
+</span><span class="line"><span class="nt">pre</span> <span class="nt">code</span><span class="p">{</span>
+</span><span class="line">	<span class="na">color</span><span class="o">:</span><span class="mh">#DDD</span><span class="p">;</span>
+</span><span class="line"><span class="p">}</span>
+</span><span class="line">
+</span><span class="line">
+</span><span class="line"><span class="nt">div</span><span class="nc">.showbox</span><span class="p">{</span>
+</span><span class="line">	<span class="na">margin</span><span class="o">:</span> <span class="mi">15</span><span class="kt">px</span> <span class="no">auto</span> <span class="mi">15</span><span class="kt">px</span> <span class="no">auto</span><span class="p">;</span>
+</span><span class="line">	<span class="na">background-color</span><span class="o">:</span> <span class="nb">white</span><span class="p">;</span>
+</span><span class="line">	<span class="na">border</span><span class="o">:</span> <span class="no">solid</span> <span class="mi">1</span><span class="kt">px</span> <span class="nb">black</span><span class="p">;</span>
+</span><span class="line">	<span class="na">padding</span><span class="o">:</span> <span class="mi">10</span><span class="kt">px</span> <span class="mi">10</span><span class="kt">px</span> <span class="mi">5</span><span class="kt">px</span> <span class="mi">10</span><span class="kt">px</span><span class="p">;</span>
+</span><span class="line">
+</span><span class="line"><span class="p">}</span>
 </span><span class="line">
 </span><span class="line"><span class="nt">div</span><span class="nc">.sharing</span><span class="p">{</span>
 </span><span class="line">	<span class="na">margin-bottom</span><span class="o">:</span> <span class="mi">25</span><span class="kt">px</span><span class="p">;</span>
