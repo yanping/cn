@@ -9,8 +9,8 @@
   <meta name="author" content="ypchen">
 
   
-  <meta name="description" content="本文翻译自R in Action的附录B，如果对该书感兴趣，请自行购买或去图书馆阅读。
-R导论的10.8也是讲定制环境的。 程序员最喜欢做的事之一是定制启动环境，好让程序按照他们喜欢方式工作。定制启动环境可以让你设置R的选项、指定工作目录、加载常用的包、加载用户自己写的函数、 &hellip;">
+  <meta name="description" content="本文翻译自R in Action的附录E，如果对该书感兴趣，请自行购买或去图书馆阅读。
+更多的例子请看http://yishuo.org/2011/08/matrix-operations/ 书中描述的很多函数都是在矩阵上的操作。矩阵的处理根植于R语言底层。 &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -103,6 +103,134 @@ R导论的10.8也是讲定制环境的。 程序员最喜欢做的事之一是�
 
 <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/cn/blog/2012/01/10/matrix-algebra-in-r/">R的矩阵代数</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-01-10T14:00:00+08:00" pubdate data-updated="true">Jan 10<span>th</span>, 2012</time>
+        
+         | <a href="/cn/blog/2012/01/10/matrix-algebra-in-r/#disqus_thread">评论</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p class="info">
+本文翻译自<a target="_blank" href="http://www.manning.com/kabacoff/">R in Action</a>的附录E，如果对该书感兴趣，请自行购买或去图书馆阅读。<br />
+更多的例子请看<a href="http://yishuo.org/2011/08/matrix-operations/">http://yishuo.org/2011/08/matrix-operations/</a>
+</p>
+
+<p>书中描述的很多函数都是在矩阵上的操作。矩阵的处理根植于R语言底层。下表描述了求解线性代数问题中重要的操作符和函数。下表中，A和B是矩阵，x和b是向量，k是标量。</p>
+
+<table class="datalist">
+<caption>矩阵代数的R函数和操作符</caption>
+<tr>
+	<th>操作符或函数</th><th>描述</th>
+</tr>
+<tr>
+	<td>+ -<code> *</code> / ^</td><td>对应元素相加、相减、相乘、相除、求幂</td>
+</tr>
+<tr>
+	<td>A <code>%*%</code> B</td><td>矩阵相乘</td>
+</tr>
+<tr>
+	<td>A <code>%o%</code> B</td><td>矩阵的外积。<code>AB'</code></td>
+</tr>
+<tr>
+	<td>cbind(A, B, &#8230;)</td><td>横向组合矩阵或向量</td>
+</tr>
+<tr>
+	<td>col(A)</td><td>求A的Choleski因子。如果<code>R &lt;- chol(A)</code>，则<code>chol(A)</code>包含上三角因子，并有<code>R'R=A</code></td>
+</tr>
+<tr>
+	<td>colMeans(A)</td><td>返回一个向量，包含A每列的均值</td>
+</tr>
+<tr>
+	<td>crossprod(A)</td><td><code>A'A</code></td>
+</tr>
+<tr>
+	<td>crossprod(A,B)&nbsp;&nbsp;&nbsp;&nbsp;</td><td><code>A'B</code></td>
+</tr>
+<tr>
+	<td>colSums(A)</td><td>返回一个向量，包含A每列的和</td>
+</tr>
+<tr>
+	<td>diag(A)</td><td>返回一个向量，包含主对角线元素</td>
+</tr>
+<tr>
+	<td>diag(x)</td><td>以x为主对角线元素创建对角矩阵</td>
+</tr>
+<tr>
+	<td>diag(k)</td><td>如果k是标量，则创建一个k &times; k的单位矩阵</td>
+</tr>
+<tr>
+	<td>eigen(A)</td><td>A的特征值和特征向量。如果<code>y &lt;- eigen(A)</code>，则<br />
+	<code>y$val</code>是A的特征值，<code>y$vec</code>是A的特征向量
+	</td>
+</tr>
+<tr>
+	<td>ginv(A)</td><td>A的Moore-Penrose广义逆。（需要MASS包）</td>
+</tr>
+<tr>
+	<td>qr(A)</td><td>A的QR分解。如果<code>y &lt;- qr(A)</code>，则<br />
+	<code>y$qr</code>有一个包含分解值的上三角矩阵和一个包含分解值信息的下三角矩阵，<code>y$rank</code>是A的秩，<code>y$qraux</code>是包含Q其他信息的向量，<code>y$pivot</code>包含旋转策略的信息。
+	</td>
+</tr>
+<tr>
+	<td>rbind(A, B, &#8230;)</td><td>纵向组合矩阵或向量</td>
+</tr>
+<tr>
+	<td>rowMeans(A)</td><td>返回一个向量，包含A每行的均值</td>
+</tr>
+<tr>
+	<td>rowSums(A)</td><td>返回一个向量，包含A每行的和</td>
+</tr>
+<tr>
+	<td>solve(A)</td><td>求A的逆，其中A是方阵</td>
+</tr>
+<tr>
+	<td>solve(A, b)</td><td>解出方程b=Ax里的向量x</td>
+</tr>
+
+<tr>
+	<td>svd(A)</td><td>A的奇异值分解。如果<code>y &lt;- svd(A)</code>，则	<code>y$d</code>是包含A的奇异值的向量，矩阵<code>y$u</code>的列向量包含A的左奇异值向量，矩阵<code>y$v</code>的列向量包含A的右奇异值向量。</td></tr>
+
+<tr>
+	<td>t(A)</td><td>求A的转置</td>
+</tr>
+</table>
+
+<p>还有一些用户贡献的包专门用于矩阵代数。<em>matlab</em> 包封装了类似MATLAB语言的矩阵操作函数和变量。这些函数可以帮助用户将MATLAB程序移植到R语言代码。<a href="http://mathesaurus.sourceforge.net/octave-r.html">http://mathesaurus.sourceforge.net/octave-r.html</a>上有一份很有用的清单可以帮助你将MATLAB语句转化为R语句。</p>
+
+<p><em>Matrix</em> 包提供的函数使R可以处理高密度矩阵或稀疏矩阵。它提供了对BLAS（Basic Linear Algebra Subroutines）、Lapack（dense matrix）、TAUCS（sparse matrix）和UMFPACK（sparse matrix）的高效调用。</p>
+
+<p>最后，<em>matrixStats</em> 包提供了对矩阵的行和列的操作方法，例如计数、求和、中心趋势、离差（dispersion）等。每一个函数都进过了优化，使得可以高速高效地运行。</p>
+
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -419,58 +547,6 @@ R导论的10.8也是讲定制环境的。
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/cn/blog/2011/12/15/building-static-sites-with-jekyll/">【译文】用Jekyll构建静态网站</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2011-12-15T17:36:00+08:00" pubdate data-updated="true">Dec 15<span>th</span>, 2011</time>
-        
-         | <a href="/cn/blog/2011/12/15/building-static-sites-with-jekyll/#disqus_thread">评论</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p><span class="info">
-原文地址 <a href="http://net.tutsplus.com/tutorials/other/building-static-sites-with-jekyll/"> http://net.tutsplus.com/tutorials/other/building-static-sites-with-jekyll/</a>
-</span>
-</p>
-
-<p>功能五花八门的CMS（内容管理系统）有时候并不是必需的，你只需要创建一个轻量级的静态网站…  当你有足够多的页面就会使复制模板文件和跨网站标记的过程变成繁琐的事。今天，我将介绍一种简单的解决方案——<a href="http://jekyllrb.com/">Jekyll</a>——使你可以轻而易举地创建小型网站。</p>
-
-<h2 id="step-0-jekyll">Step 0: 遭遇Jekyll</h2>
-<blockquote><p>Jekyll is a simple, blog aware, static site generator.</p></blockquote>
-<p>Jekyll是一种简单的、适用于博客（blog aware）的、静态网站生成引擎。Jekyll网站的宣传语这么说。但，这究竟是什么意思呢？静态网站生成引擎是利用一整套文件生成网站的程序。正如你看到的，我们可以利用一套模板，单独生成内容文件，然后用Jekyll生成网站。“blog aware”意思是我们可以用它来创建博客，或者其他有系列文章（例如合集，英文称portfolio）发布的网站。让我们来尝试一下吧！</p>
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/cn/blog/2011/12/15/building-static-sites-with-jekyll/">阅读全文 &rarr;</a>
-    </footer>
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/cn/blog/page/3/">&larr; 前一页</a>
@@ -498,12 +574,16 @@ R导论的10.8也是讲定制环境的。
 
 <section id="categories_tag">
 <h1>分类目录</h1>
-<span class='categories_tag'> <a href='/cn/blog/categories/github' style='font-size: 140.0%'>Github(4)</a>  <a href='/cn/blog/categories/javascript' style='font-size: 110.0%'>Javascript(1)</a>  <a href='/cn/blog/categories/jekyll' style='font-size: 140.0%'>Jekyll(4)</a>  <a href='/cn/blog/categories/latex' style='font-size: 110.0%'>Latex(1)</a>  <a href='/cn/blog/categories/markdown' style='font-size: 110.0%'>Markdown(1)</a>  <a href='/cn/blog/categories/octopress' style='font-size: 160.0%'>Octopress(6)</a>  <a href='/cn/blog/categories/r语言' style='font-size: 140.0%'>R语言(4)</a> </span>
+<span class='categories_tag'> <a href='/cn/blog/categories/github' style='font-size: 150.0%'>Github(5)</a>  <a href='/cn/blog/categories/javascript' style='font-size: 110.0%'>Javascript(1)</a>  <a href='/cn/blog/categories/jekyll' style='font-size: 150.0%'>Jekyll(5)</a>  <a href='/cn/blog/categories/latex' style='font-size: 110.0%'>Latex(1)</a>  <a href='/cn/blog/categories/markdown' style='font-size: 110.0%'>Markdown(1)</a>  <a href='/cn/blog/categories/octopress' style='font-size: 160.0%'>Octopress(6)</a>  <a href='/cn/blog/categories/r语言' style='font-size: 140.0%'>R语言(4)</a> </span>
 </section>
 
 <section>
   <h1>近期文章</h1>
   <ul id="recent_posts" class="none-left-margin">
+    
+      <li class="post">
+        <a href="/cn/blog/2012/03/18/github-pages-step-by-step/">Github Pages极简教程</a>
+      </li>
     
       <li class="post">
         <a href="/cn/blog/2012/03/13/pandoc/">黑魔法利器pandoc</a>
@@ -527,10 +607,6 @@ R导论的10.8也是讲定制环境的。
     
       <li class="post">
         <a href="/cn/blog/2012/02/06/github-pages-domain-3/">三谈github页面域名绑定：域名跳转</a>
-      </li>
-    
-      <li class="post">
-        <a href="/cn/blog/2012/01/10/matrix-algebra-in-r/">R的矩阵代数</a>
       </li>
     
   </ul>

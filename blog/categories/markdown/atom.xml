@@ -4,7 +4,7 @@
   <title><![CDATA[分类： markdown | 雁起平沙的网络日志]]></title>
   <link href="http://chen.yanping.me/cn/blog/categories/markdown/atom.xml" rel="self"/>
   <link href="http://chen.yanping.me/cn/"/>
-  <updated>2012-03-13T20:22:39+08:00</updated>
+  <updated>2012-03-18T01:34:04+08:00</updated>
   <id>http://chen.yanping.me/cn/</id>
   <author>
     <name><![CDATA[ypchen]]></name>
@@ -76,7 +76,9 @@ pandoc -s –webtex -t -t s5 <a href="http://johnmacfarlane.net/pandoc/demo/SLID
 
 <h3 id="section-2">参考文章</h3>
 <ul>
-  <li><a href="http://stdio.tumblr.com/lightdoc" target="_blank">http://stdio.tumblr.com/lightdoc</a></li>
+  <li>[pandoc介绍]<a href="http://stdio.tumblr.com/lightdoc" target="_blank">http://stdio.tumblr.com/lightdoc</a></li>
+  <li>[如何用markdown写简历]<a href="http://sysadvent.blogspot.com/2011/12/day-14-write-your-resume-in-markdown.html" target="_blank">http://sysadvent.blogspot.com/2011/12/day-14-write-your-resume-in-markdown.html</a></li>
+  <li>[如何用markdown写beamer幻灯片]<a href="http://www.music.mcgill.ca/~sinclair/content/blog/using_markdown_for_beamer_presentations" target="_blank">http://www.music.mcgill.ca/~sinclair/content/blog/using_markdown_for_beamer_presentations</a></li>
 </ul>
 
 ]]></content>

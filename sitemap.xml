@@ -18,7 +18,7 @@
     </url>
     <url>
         <loc>http://chen.yanping.me/cn/blog/2011/12/15/building-static-sites-with-jekyll/</loc>
-        <lastmod>2012-03-10T11:43:21+08:00</lastmod>
+        <lastmod>2012-03-18T00:26:11+08:00</lastmod>
     </url>
     <url>
         <loc>http://chen.yanping.me/cn/blog/2011/12/26/github-pages-domain-2/</loc>
@@ -70,11 +70,15 @@
     </url>
     <url>
         <loc>http://chen.yanping.me/cn/blog/2012/03/13/pandoc/</loc>
-        <lastmod>2012-03-13T01:01:01+08:00</lastmod>
+        <lastmod>2012-03-13T23:58:39+08:00</lastmod>
+    </url>
+    <url>
+        <loc>http://chen.yanping.me/cn/blog/2012/03/18/github-pages-step-by-step/</loc>
+        <lastmod>2012-03-18T01:31:30+08:00</lastmod>
     </url>
     <url>
         <loc>http://chen.yanping.me/cn/blog/categories/</loc>
-        <lastmod>2012-03-13T01:32:28+08:00</lastmod>
+        <lastmod>2012-03-18T01:31:30+08:00</lastmod>
     </url>
     <url>
         <loc>http://chen.yanping.me/cn/blog/about/</loc>
@@ -82,7 +86,7 @@
     </url>
     <url>
         <loc>http://chen.yanping.me/cn/blog/archives/</loc>
-        <lastmod>2012-03-13T01:32:28+08:00</lastmod>
+        <lastmod>2012-03-18T01:31:30+08:00</lastmod>
     </url>
     <url>
         <loc>http://chen.yanping.me/cn/downloads/code/portfolio_entry.html</loc>
@@ -90,6 +94,6 @@
     </url>
     <url>
         <loc>http://chen.yanping.me/cn/</loc>
-        <lastmod>2012-03-13T01:32:28+08:00</lastmod>
+        <lastmod>2012-03-18T01:31:30+08:00</lastmod>
     </url>
 </urlset>

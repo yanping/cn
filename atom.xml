@@ -4,7 +4,7 @@
   <title><![CDATA[雁起平沙的网络日志]]></title>
   <link href="http://chen.yanping.me/cn/atom.xml" rel="self"/>
   <link href="http://chen.yanping.me/cn/"/>
-  <updated>2012-03-13T20:22:39+08:00</updated>
+  <updated>2012-03-18T01:34:04+08:00</updated>
   <id>http://chen.yanping.me/cn/</id>
   <author>
     <name><![CDATA[ypchen]]></name>
@@ -12,6 +12,238 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Github Pages极简教程]]></title>
+    <link href="http://chen.yanping.me/cn/blog/2012/03/18/github-pages-step-by-step/"/>
+    <updated>2012-03-18T00:30:00+08:00</updated>
+    <id>http://chen.yanping.me/cn/blog/2012/03/18/github-pages-step-by-step</id>
+    <content type="html"><![CDATA[<p>我写这篇文章的目的是帮助没有用过gihub和jekyll的童鞋尽快掌握使用流程。学习使用github网页的最好办法就是clone别人的代码，看懂他们的代码，并修改成自己喜欢的样子。这篇文章介绍了从最初安装软件到使用的过程。</p>
+
+<p>先假设读者对ruby完全没有了解，仅对html有初步的了解（<code>&lt;title&gt;</code>等标签知道是什么意思，如果懂点儿CSS更好）。基本的linux命令（<code>ls</code>、<code>cd</code>、<code>mkdir</code>、<code>rm</code>等，不会也没关系，就用到这几个命令，自己百度一下就好）。</p>
+
+<p>原则是</p>
+
+<ul>
+  <li>安装尽量少的软件</li>
+  <li>使用尽量少的命令</li>
+  <li>接触尽量少的概念</li>
+</ul>
+
+<!--more-->
+
+<p id="git"><strong>一、</strong>如果想在本地预览页面，跳过这步到<a href="#ruby">二</a>；如果不想在本地预览，则在windows下安装<a href="http://code.google.com/p/msysgit/downloads/list" target="_blank">msysgit</a>，最新版本为Git-1.7.9-preview20120201.exe，然后按照<a href="http://beiyuu.com/github-pages/#github" target="_blank">BeiYuu的博文</a>里的过程配置git和github，再到<a href="#install-jekyll">四</a></p>
+
+<p>如果你的系统是linux的，按照<a href="http://help.github.com/linux-set-up-git/" target="_blank">Git Hub官方帮助文件</a>操作，然后跳到<a href="#install-jekyll">四</a></p>
+
+<p id="ruby"><strong>二、在windows下安装ruby环境</strong>。推荐安装<a href="http://railsinstaller.org/" target="_blank">RailsInstaller</a>，里面包含了<a href="http://ruby-lang.org/" target="_blank">Ruby</a>、<a href="http://rubyonrails.org/" target="_blank">Rails</a>、<a href="http://gembundler.com/" target="_blank">Bundler</a>、<a href="http://git-scm.com/" target="_blank">Git</a>、<a href="http://sqlite.org/" target="_blank">Sqlite</a>、<a href="https://github.com/rails-sqlserver/tiny_tds" target="_blank">TinyTDS</a>、<a href="https://github.com/rails-sqlserver/activerecord-sqlserver-adapter" target="_blank">SQL Server support</a>和<a href="https://github.com/oneclick/rubyinstaller/wiki/Development-Kit" target="_blank">DevKit</a>。</p>
+
+<p>不过最近的RailsInstaller里包含的ruby版本升到了1.9.3，如果以后要使用<a href="http://www.octopress.org" target="_blank">Octopress</a>的话必须使用ruby1.9.2，建议使用以前的版本，我把以前的版本放到了<a href="http://yanping.me/files/upload/railsinstaller-2.0.1.exe" target="_blank">这里</a>。</p>
+
+<p><strong id="git-hub">三、紧接着上一步，配置git和github</strong></p>
+
+<p>在RailsInstaller安装结束时安装程序会提示是否配置Git环境，选择”是”，然后出现下面的提示</p>
+
+<p><img src="http://i.imgur.com/321mb.png" alt="git config" class="center" /></p>
+
+<p>填写github注册时的用户名和邮箱，就完成了公钥和密钥的生成，在<code>C:\Documents and Settings\用户名</code>下，有个隐藏目录名为<code>.ssh</code>，id_rsa.pub文件就是公钥，id_rsa就是密钥。</p>
+
+<p>在Github网站找到 “Account Settings” &gt; Click “SSH Keys” &gt; Click “Add SSH key”</p>
+
+<p><img src="http://help.github.com/images/ssh_key_add.jpg" alt="set-up-SSH" /></p>
+
+<p>用文本编辑器打开id_rsa.pub文件，并把里面的内容（包括空格和新行）复制出来，填到Github的账户设置的SSH设置里。</p>
+
+<p><img src="http://help.github.com/images/bootcamp/bootcamp_1_ssh.jpg" alt="set-up-SSH-2" class="center" /></p>
+
+<p>用下面的命令测试一下git是否连接正常</p>
+
+<pre><code> ssh -T git@github.com
+</code></pre>
+
+<p>这样的话给配置git和github带来极大的方便，减少了几条命令。</p>
+
+<p>想了解普通配置方法的，可进一步阅读：</p>
+
+<ul>
+  <li>Github上的<a href="http://help.github.com/set-up-git-redirect" target="_blank">帮助</a></li>
+  <li><a href="http://beiyuu.com/github-pages/#github" target="_blank">BeiYuu的博文</a></li>
+  <li><a href="http://www.pizn.me/2011/10/02/start-github-on-window.html" target="_blank">window下建立github连接</a></li>
+</ul>
+
+<p id="install-jekyll"><strong>四、安装jekyll和相关的包</strong></p>
+
+<p>稍微对配置做一下修改，把淘宝的镜像加到gem的镜像列表里</p>
+
+<pre><code>gem sources --remove http://rubygems.org/
+gem sources -a http://ruby.taobao.org/
+</code></pre>
+
+<p>然后用<code>gem sources -l</code>看看现在源列表</p>
+
+<pre><code>*** CURRENT SOURCES ***
+
+http://ruby.taobao.org
+</code></pre>
+
+<p>如果是上面这样就可以安装jekyll了</p>
+
+<pre><code>gem install jekyll
+</code></pre>
+
+<p>Jekyll需要用到directory_watcher、liquid、open4、maruku和classifier这几个包，用上面的命令可以自动安装。Jekyll默认用maruku来解析markdown语言，你也可以用别的程序来解析，比如rdiscount或kramdown，都给装上吧：</p>
+
+<pre><code>gem install rdiscount kramdown
+</code></pre>
+
+<p>以上命令涉及到<code>gem install</code>的时候，如果你用的是linux系统，就要用<code>sudo gem install</code>代替。</p>
+
+<p id="gh-pages"><strong>五、建立github pages</strong>。</p>
+
+<p>这一步是本文的重点，也是本文异于网络上其他文章的地方，我在这里用到了Github提供的Github pages generator的功能，减少了使用的命令数量，也绕开了远程代码库这个概念（省略了与git remote相关的操作，不过随着github使用的加深，这些概念也是不能避免的）</p>
+
+<ul>
+  <li>在github.com上创建代码库，比如新建一个名为example的代码库：登录到自己的Github账户，选择New repository</li>
+</ul>
+
+<p><img src="http://i.imgur.com/V4fSb.png" alt="New repository" class="center" /></p>
+
+<p><img src="http://i.imgur.com/ZOCi9.png" alt="New repository" class="center" /></p>
+
+<p><img src="http://i.imgur.com/5waH7.png" alt="New repository" class="center" /></p>
+
+<ul>
+  <li>在线生成pages: 点上图中的Admin</li>
+</ul>
+
+<p><img src="http://i.imgur.com/CCND9.png" alt="features" /> </p>
+
+<p><img src="http://i.imgur.com/gi0Ii.png" alt="Automatic GH pages generator" class="center" /></p>
+
+<p>接下来的页面可以不用填，直接点Create Page，马上会转到一个404页面，不要慌，要过一会系统才会帮你把网页生成好。如下图：</p>
+
+<p><img src="http://i.imgur.com/CcGw5.png" alt="Automatic GH pages generator" class="center" /> </p>
+
+<ul>
+  <li>
+    <p>克隆自己的代码库</p>
+
+    <pre><code>  git clone git@github.com:yanping/example.git
+</code></pre>
+  </li>
+</ul>
+
+<p>这样git会把存放在github上的代码库文件下载到本地的，生成名为example的目录。删除该目录下的index.html，这是系统生成的，不是我想要的页面，注意不要把.git目录删除，这是个隐藏目录，里面包含这个代码库的配置信息，以上的步骤都是为了得到这些配置信息且避免了使用命令。</p>
+
+<p>要注意的几点</p>
+
+<blockquote>
+  <ul>
+    <li>我的github用户名为yanping，如果我建立名为yanping.github.com的代码库，必须在master分支下的才可以看到页面。在本例中我建的是普通的项目代码库，系统自动生成的github pages是在gh-pages这个分支下的。在以上的操作中，我并没有对分支进行任何操作，都是系统自动完成的。</li>
+    <li>创建个人主页面username.github.com的步骤请看<a href="http://www.worldhello.net/gotgithub/03-project-hosting/050-homepage.html#user-homepage" target="_blank">GotGithub教程</a></li>
+    <li>git@github.com:yanping/example.git 是example的路径，它的规则是 <strong>git@github.com:用户名/代码库名.git</strong></li>
+  </ul>
+</blockquote>
+
+<ul>
+  <li>
+    <p>克隆别人的代码库。在本地另一位置，克隆别人的代码库，比如</p>
+
+    <pre><code>  git clone git@github.com:mojombo/mojombo.github.com.git
+</code></pre>
+  </li>
+</ul>
+
+<p>删掉.git目录，然后把文件都复制到自己的本地代码库example下</p>
+
+<ul>
+  <li>
+    <p>删除_post下的文件（可保留一两篇作为模板），修改example里的文件，尤其是配置信息，比如_config.yml、disqus的配置，CNAME文件等，更进一步，按照自己的喜好修改网页的布局和样式，这些都可在后期慢慢摸索。然后执行下面的操作</p>
+
+    <ul>
+      <li><code>git add .</code>表示添加当前目录下的所有文件</li>
+      <li><code>git commit -am "message"</code> 表示提交所有更改，这是提交到本地，”message” 换成自己的注释信息</li>
+      <li><code>git push</code> 把在本地的更改提交到远程服务器</li>
+    </ul>
+  </li>
+</ul>
+
+<p>要写博客的时候，在_post里新建一个markdown文件，文件名和文件里面的头部信息（学名叫YAML front matter）按照模板的格式改，编辑好内容后，再依次执行上面三条命令。</p>
+
+<p>进一步阅读:</p>
+
+<ul>
+  <li>Github Pages的<a href="http://pages.github.com/" target="_blank">官方说明文件</a></li>
+  <li><a href="http://www.pizn.me/2011/09/22/create-github-page.html" target="_blank">在github上建立pages的过程</a></li>
+  <li>关于jekyll静态网站的介绍，请看我翻译的<a href="http://chen.yanping.me/cn/blog/2011/12/15/building-static-sites-with-jekyll/" target="_blank">文章</a></li>
+</ul>
+
+<p>其他技巧：</p>
+
+<ul>
+  <li><a href="http://www.pizn.me/2012/01/16/the-seo-for-jekyll-blog.html" target="_blank">优化Jekyll站点的SEO技巧</a></li>
+  <li><a href="http://www.pizn.me/2012/02/23/use-category-plugin-for-jekyll-blog.html" target="_blank">为Jekyll博客添加category 分类</a></li>
+  <li><a href="http://www.pizn.me/2012/03/01/some-tips-for-jekyll-blog.html" target="_blank">搭建Jekyll博客的一些小技巧</a></li>
+</ul>
+
+<p id="code"><strong>六、关于代码高亮</strong>（如果你不贴代码，请跳过这步）</p>
+
+<ul>
+  <li>用js插件：<a href="http://mihai.bazon.net/projects/javascript-syntax-highlighting-engine" target="_blank">DlHightLight</a>或<a href="http://code.google.com/p/google-code-prettify/" target="_blank">Google Code Prettify</a></li>
+  <li>用<a href="https://gist.github.com/" target="_blank">gist</a>：强烈推荐菜鸟使用，省心省事，支持语言多</li>
+  <li>用pygment：要安装python以及python的包管理软件，又是个大坑，不建议菜鸟使用，尤其是使用windows的</li>
+</ul>
+
+<p id="latex"><strong>七、关于公式</strong>（如果你不贴公式，请跳过）</p>
+
+<ul>
+  <li>使用maruku来解析markdown文件，可以把LaTeX解析成图片，优点是网页加载速度快。在windows下安装复杂，且需要电脑里安装有LaTeX</li>
+  <li><a href="http://www.mathjax.org/" target="_blank">Mathjax</a>，请看我博文的<a href="http://chen.yanping.me/cn/blog/2012/03/10/octopress-with-latex/" target="_blank">介绍</a>，缺点是动态加载，速度慢。</li>
+</ul>
+
+<p id="comment"><strong>八、评论</strong></p>
+
+<p>国外的<a href="http://disqus.com" target="_blank">Disqus</a>和国内的<a href="http://uyan.cc/" target="_blank">友言</a></p>
+
+<p>其他社会化服务</p>
+
+<ul>
+  <li>分享：国内的<a href="http://jiathis.com" target="_blank">jiathis</a>和国外的<a href="http://addthis.com" target="_blank">addthis</a></li>
+  <li>图片：国内的<a href="http://www.yupoo.com/" target="_blank">yupoo</a> 、<a href="http://www.poco.cn/" target="_blank">poco</a>，国外的<a href="http://www.flickr.com/" target="_blank">Flickr</a>、<a href="http://imgur.com" target="_blank">imgur</a></li>
+</ul>
+
+<p id="domain"><strong>九、关于域名</strong></p>
+
+<p>在本地代码库里新建名为CNAME的文本文件，把域名地址放进去。假设你的域名是domain.com，可以用命令</p>
+
+<pre><code>echo 'domain.com' &gt; CNAME
+</code></pre>
+
+<p>然后</p>
+
+<pre><code>git add CNAME
+git commit -am "CNAME file added"
+git push
+</code></pre>
+
+<p>接着在自己的域名注册商那里改一下指向就行了。如果想对github域名绑定的机制有更多的了解，请看我的三篇博文:<a href="" target="_blank">文1</a>，<a href="" target="_blank">文2</a>和<a href="" target="_blank">文3</a></p>
+
+<p><strong>十、其他可供选择的模板</strong>，推荐两款比较好用的</p>
+
+<ul>
+  <li><a href="http://www.octopress.org">Octopress</a>：windows下的<a href="" target="_blank">教程1</a>、<a href="" target="_blank">教程2</a>，<a href="" target="_blank">ubuntu下的教程</a></li>
+  <li><a href="http://jekyllbootstrap.com/">Jekyll Bootstrap</a></li>
+</ul>
+
+<p><strong>十一、常犯的错误</strong></p>
+
+<ul>
+  <li>clone别人的代码库到本地后，没有把它的.git目录删除</li>
+  <li>没有把别人页面里的配置部分彻底改掉，比如disqus的配置，CNAME文件，<code>&lt;title&gt;</code>等</li>
+</ul>
+
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[黑魔法利器pandoc]]></title>
@@ -76,7 +308,9 @@ pandoc -s –webtex -t -t s5 <a href="http://johnmacfarlane.net/pandoc/demo/SLID
 
 <h3 id="section-2">参考文章</h3>
 <ul>
-  <li><a href="http://stdio.tumblr.com/lightdoc" target="_blank">http://stdio.tumblr.com/lightdoc</a></li>
+  <li>[pandoc介绍]<a href="http://stdio.tumblr.com/lightdoc" target="_blank">http://stdio.tumblr.com/lightdoc</a></li>
+  <li>[如何用markdown写简历]<a href="http://sysadvent.blogspot.com/2011/12/day-14-write-your-resume-in-markdown.html" target="_blank">http://sysadvent.blogspot.com/2011/12/day-14-write-your-resume-in-markdown.html</a></li>
+  <li>[如何用markdown写beamer幻灯片]<a href="http://www.music.mcgill.ca/~sinclair/content/blog/using_markdown_for_beamer_presentations" target="_blank">http://www.music.mcgill.ca/~sinclair/content/blog/using_markdown_for_beamer_presentations</a></li>
 </ul>
 
 ]]></content>
@@ -1566,10 +1800,7 @@ _layout.scss     # Override settings for base/_layout.scss to change the layout
     <link href="http://chen.yanping.me/cn/blog/2011/12/15/building-static-sites-with-jekyll/"/>
     <updated>2011-12-15T17:36:00+08:00</updated>
     <id>http://chen.yanping.me/cn/blog/2011/12/15/building-static-sites-with-jekyll</id>
-    <content type="html"><![CDATA[<p><span class="info">
-原文地址 <a href="http://net.tutsplus.com/tutorials/other/building-static-sites-with-jekyll/"> http://net.tutsplus.com/tutorials/other/building-static-sites-with-jekyll/</a>
-</span>
-</p>
+    <content type="html"><![CDATA[<p class="info">原文地址 <a href="http://net.tutsplus.com/tutorials/other/building-static-sites-with-jekyll/"> http://net.tutsplus.com/tutorials/other/building-static-sites-with-jekyll/</a></p>
 
 <p>功能五花八门的CMS（内容管理系统）有时候并不是必需的，你只需要创建一个轻量级的静态网站…  当你有足够多的页面就会使复制模板文件和跨网站标记的过程变成繁琐的事。今天，我将介绍一种简单的解决方案——<a href="http://jekyllrb.com/">Jekyll</a>——使你可以轻而易举地创建小型网站。</p>
 
