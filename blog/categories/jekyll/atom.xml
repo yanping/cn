@@ -4,7 +4,7 @@
   <title><![CDATA[分类： jekyll | 雁起平沙的网络日志]]></title>
   <link href="http://chen.yanping.me/cn/blog/categories/jekyll/atom.xml" rel="self"/>
   <link href="http://chen.yanping.me/cn/"/>
-  <updated>2012-03-18T01:34:04+08:00</updated>
+  <updated>2012-03-18T23:52:58+08:00</updated>
   <id>http://chen.yanping.me/cn/</id>
   <author>
     <name><![CDATA[ypchen]]></name>
@@ -22,7 +22,7 @@
 
 <p>先假设读者对ruby完全没有了解，仅对html有初步的了解（<code>&lt;title&gt;</code>等标签知道是什么意思，如果懂点儿CSS更好）。基本的linux命令（<code>ls</code>、<code>cd</code>、<code>mkdir</code>、<code>rm</code>等，不会也没关系，就用到这几个命令，自己百度一下就好）。</p>
 
-<p>原则是</p>
+<p>“极简”的原则是</p>
 
 <ul>
   <li>安装尽量少的软件</li>
@@ -30,11 +30,23 @@
   <li>接触尽量少的概念</li>
 </ul>
 
+<p>如果想了解用Github Pages写博客的理念，可以看这篇文章</p>
+
+<ul>
+  <li><a href="http://www.yangzhiping.com/tech/writing-space.html" target="_blank">《理想的写作环境：git+github+markdown+jekyll》</a></li>
+</ul>
+
 <!--more-->
+
+<p>下面开始一步步讲解Github Pages的使用流程：</p>
 
 <p id="git"><strong>一、</strong>如果想在本地预览页面，跳过这步到<a href="#ruby">二</a>；如果不想在本地预览，则在windows下安装<a href="http://code.google.com/p/msysgit/downloads/list" target="_blank">msysgit</a>，最新版本为Git-1.7.9-preview20120201.exe，然后按照<a href="http://beiyuu.com/github-pages/#github" target="_blank">BeiYuu的博文</a>里的过程配置git和github，再到<a href="#install-jekyll">四</a></p>
 
-<p>如果你的系统是linux的，按照<a href="http://help.github.com/linux-set-up-git/" target="_blank">Git Hub官方帮助文件</a>操作，然后跳到<a href="#install-jekyll">四</a></p>
+<p>如果你的系统是linux的，按照<a href="http://help.github.com/linux-set-up-git/" target="_blank">Git Hub官方帮助文件</a>操作，然后跳到<a href="#install-jekyll">四</a>。</p>
+
+<blockquote>
+  <p>如果想深入了解Git，请看<a href="http://www.kuqin.com/managetool/20110705/92113.html" target="_blank">10篇写给Git初学者的最佳教程</a>。</p>
+</blockquote>
 
 <p id="ruby"><strong>二、在windows下安装ruby环境</strong>。推荐安装<a href="http://railsinstaller.org/" target="_blank">RailsInstaller</a>，里面包含了<a href="http://ruby-lang.org/" target="_blank">Ruby</a>、<a href="http://rubyonrails.org/" target="_blank">Rails</a>、<a href="http://gembundler.com/" target="_blank">Bundler</a>、<a href="http://git-scm.com/" target="_blank">Git</a>、<a href="http://sqlite.org/" target="_blank">Sqlite</a>、<a href="https://github.com/rails-sqlserver/tiny_tds" target="_blank">TinyTDS</a>、<a href="https://github.com/rails-sqlserver/activerecord-sqlserver-adapter" target="_blank">SQL Server support</a>和<a href="https://github.com/oneclick/rubyinstaller/wiki/Development-Kit" target="_blank">DevKit</a>。</p>
 
@@ -42,7 +54,7 @@
 
 <p><strong id="git-hub">三、紧接着上一步，配置git和github</strong></p>
 
-<p>在RailsInstaller安装结束时安装程序会提示是否配置Git环境，选择”是”，然后出现下面的提示</p>
+<p>在RailsInstaller安装结束时安装程序会提示是否配置Git环境（这样的话给配置git和github带来极大的方便，又减少了几条命令）。选择”是”，然后出现下面的提示</p>
 
 <p><img src="http://i.imgur.com/321mb.png" alt="git config" class="center" /></p>
 
@@ -56,12 +68,16 @@
 
 <p><img src="http://help.github.com/images/bootcamp/bootcamp_1_ssh.jpg" alt="set-up-SSH-2" class="center" /></p>
 
+<p>在开始菜单里找到RailsInstaller –&gt; Git Bash，执行它，就打开了下面的命令窗口，以后的操作都是在这个窗口下进行的</p>
+
+<p><img src="http://i.imgur.com/jnO1n.png" alt="git-bash" class="center" /></p>
+
+<p><strong>注意</strong>: 在窗口里我们可以看到当前路径显示为<code>/c/Sites</code>，其实它表示的是<code>C:\Sites</code>，这个目录是RailsInstaller在安装的时候建的。</p>
+
 <p>用下面的命令测试一下git是否连接正常</p>
 
 <pre><code> ssh -T git@github.com
 </code></pre>
-
-<p>这样的话给配置git和github带来极大的方便，减少了几条命令。</p>
 
 <p>想了解普通配置方法的，可进一步阅读：</p>
 
@@ -170,12 +186,15 @@ http://ruby.taobao.org
 
 <p>要写博客的时候，在_post里新建一个markdown文件，文件名和文件里面的头部信息（学名叫YAML front matter）按照模板的格式改，编辑好内容后，再依次执行上面三条命令。</p>
 
+<p>如果你不熟悉markdown语法，请看<a href="http://wowubuntu.com/markdown/" target="_blank">这里</a>。</p>
+
 <p>进一步阅读:</p>
 
 <ul>
   <li>Github Pages的<a href="http://pages.github.com/" target="_blank">官方说明文件</a></li>
   <li><a href="http://www.pizn.me/2011/09/22/create-github-page.html" target="_blank">在github上建立pages的过程</a></li>
   <li>关于jekyll静态网站的介绍，请看我翻译的<a href="http://chen.yanping.me/cn/blog/2011/12/15/building-static-sites-with-jekyll/" target="_blank">文章</a></li>
+  <li><a href="http://www.soimort.org/tech-blog/2011/11/19/introduction-to-jekyll_zh.html" target="_blank">像黑客一样写博客——Jekyll入门</a></li>
 </ul>
 
 <p>其他技巧：</p>
@@ -191,13 +210,13 @@ http://ruby.taobao.org
 <ul>
   <li>用js插件：<a href="http://mihai.bazon.net/projects/javascript-syntax-highlighting-engine" target="_blank">DlHightLight</a>或<a href="http://code.google.com/p/google-code-prettify/" target="_blank">Google Code Prettify</a></li>
   <li>用<a href="https://gist.github.com/" target="_blank">gist</a>：强烈推荐菜鸟使用，省心省事，支持语言多</li>
-  <li>用pygment：要安装python以及python的包管理软件，又是个大坑，不建议菜鸟使用，尤其是使用windows的</li>
+  <li>用<a href="http://pygments.org" target="_blank">pygment</a>：要安装python以及python的包管理软件，又是个大坑，不建议菜鸟使用，尤其是使用windows的</li>
 </ul>
 
 <p id="latex"><strong>七、关于公式</strong>（如果你不贴公式，请跳过）</p>
 
 <ul>
-  <li>使用maruku来解析markdown文件，可以把LaTeX解析成图片，优点是网页加载速度快。在windows下安装复杂，且需要电脑里安装有LaTeX</li>
+  <li>使用maruku来解析markdown文件，可以把LaTeX解析成图片，优点是网页加载速度快。但是在windows下安装复杂，且需要安装有LaTeX</li>
   <li><a href="http://www.mathjax.org/" target="_blank">Mathjax</a>，请看我博文的<a href="http://chen.yanping.me/cn/blog/2012/03/10/octopress-with-latex/" target="_blank">介绍</a>，缺点是动态加载，速度慢。</li>
 </ul>
 
@@ -226,13 +245,13 @@ git commit -am "CNAME file added"
 git push
 </code></pre>
 
-<p>接着在自己的域名注册商那里改一下指向就行了。如果想对github域名绑定的机制有更多的了解，请看我的三篇博文:<a href="" target="_blank">文1</a>，<a href="" target="_blank">文2</a>和<a href="" target="_blank">文3</a></p>
+<p>接着在自己的域名注册商那里改一下指向就行了。如果想对github域名绑定的机制有更多的了解，请看我的三篇博文:<a href="http://chen.yanping.me/cn/blog/2011/12/04/github-pages-domain/" target="_blank">文1</a>，<a href="http://chen.yanping.me/cn/blog/2011/12/26/github-pages-domain-2/" target="_blank">文2</a>和<a href="http://chen.yanping.me/cn/blog/2012/02/06/github-pages-domain-3/" target="_blank">文3</a></p>
 
 <p><strong>十、其他可供选择的模板</strong>，推荐两款比较好用的</p>
 
 <ul>
-  <li><a href="http://www.octopress.org">Octopress</a>：windows下的<a href="" target="_blank">教程1</a>、<a href="" target="_blank">教程2</a>，<a href="" target="_blank">ubuntu下的教程</a></li>
-  <li><a href="http://jekyllbootstrap.com/">Jekyll Bootstrap</a></li>
+  <li><a href="http://www.octopress.org">Octopress</a>：windows下的<a href="http://sinosmond.github.com/blog/2012/03/12/install-and-deploy-octopress-to-github-on-windows7-from-scratch/" target="_blank">教程1</a>、<a href="http://tonytonyjan.heroku.com/2012/03/01/install-octopress-on-windows/" target="_blank">教程2</a>，<a href="http://www.yangzhiping.com/tech/octopress.html" target="_blank">ubuntu下的教程</a></li>
+  <li><a href="http://jekyllbootstrap.com/" target="_blank">Jekyll Bootstrap</a></li>
 </ul>
 
 <p><strong>十一、常犯的错误</strong></p>
