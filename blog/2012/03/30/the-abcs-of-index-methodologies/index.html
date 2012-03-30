@@ -5,12 +5,12 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>分类： LaTeX - 雁起平沙的网络日志</title>
+  <title>指数方法论入门 - 雁起平沙的网络日志</title>
   <meta name="author" content="ypchen">
 
   
-  <meta name="description" content="Category: LaTeX">
-  
+  <meta name="description" content="本文介绍了指数编制的基础知识">
+  <meta name="keywords" content="指数方法论">
 
   <!-- http://t.co/dKP3o1e -->
   <meta name="HandheldFriendly" content="True">
@@ -18,7 +18,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://chen.yanping.me/cnblog/categories/latex">
+  <link rel="canonical" href="http://chen.yanping.me/cn/blog/2012/03/30/the-abcs-of-index-methodologies">
   <link href="/cn/favicon.png" rel="icon">
   <link href="/cn/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <script src="/cn/javascripts/modernizr-2.0.js"></script>
@@ -99,39 +99,126 @@
   <div id="main">
     <div id="content">
       <div>
-<article role="article">
+<article class="hentry" role="article">
   
   <header>
-    <h1 class="entry-title">分类： LaTeX</h1>
+    
+      <h1 class="entry-title">指数方法论入门</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-03-30T19:50:00+08:00" pubdate data-updated="true">Mar 30<span>th</span>, 2012</time>
+        
+         | <a href="#disqus_thread">评论</a>
+        
+      </p>
     
   </header>
-  
-   
 
 
-<div id="blog-archives" class="category">
+<div class="entry-content"><p class="info">本文译自道琼斯指数公司的<a href="http://blog.djindexes.com">指数学博客</a>，原文地址：<a href="http://blog.djindexes.com/index.php/the-abcs-of-index-methodologies/">http://blog.djindexes.com/index.php/the-abcs-of-index-methodologies/</a></p>
 
+<p>如果我们研究各类市场指数，一个关键的信息来源就是指数的“方法论”。首先，这一文档解释了如何挑选股票（或其它金融工具）进入指数，以及指数是如何计算的。读完指数的方法论，你就会判断出该指数是否精准地度量你想跟踪的市场、资产、策略或者行业板块，也可以了解到该指数对你的实际应用中有多适合。</p>
 
+<p>这些方法论也可以帮助你理解任何引导机制，这些引导机制会适当地使指数在不同的市场环境中保持可靠运行。</p>
 
-  
-  <h2>2012</h2>
+<p>下面是你在阅读指数方法论时可能会遇到的术语：</p>
 
-<article>
-  
-<h1><a href="/cn/blog/2012/03/10/octopress-with-latex/">在Octopress中使用LaTeX</a></h1>
-<time datetime="2012-03-10T10:30:00+08:00" pubdate><span class='month'>Mar</span> <span class='day'>10</span> <span class='year'>2012</span></time>
+<p><strong>Universe（样本空间）</strong>：这一术语表示所有可能选入指数的证券或金融工具的集合。例如，包含所有在美国交易所上市交易的股票，或者所有发达国家的主权债务工具。样本空间的定义很宽泛，可能包含上千种证券，即使指数只包含50或者100种证券。</p>
 
-<footer>
-  <span class="categories">归类于：<a class='category' href='/cn/blog/categories/latex/'>LaTeX</a>, <a class='category' href='/cn/blog/categories/octopress/'>octopress</a></span>
-</footer>
+<p><strong>Eligibility Screens（样本筛）</strong>：样本筛允许指数提供商把样本空间缩减到可控的规模，从中去掉那些不合要求的证券。典型的样本筛从股份类别、规模、流动性或基本面等因素筛选。在有些情况下，样本筛将去掉不符指数目的的证券。其它时候，样本筛去掉使ETF或者其它指数连接产品难以复制或者复制成本很高的证券。</p>
 
+<p><strong>Selection Criteria（选样准则）</strong>：结束了筛选过程之后，指数提供商获得了一份合格候选证券的列表。有时，根据指数的目的，选样准则用来进一步精选这份列表，用来寻找“领先”股票，例如，根据规模、流动性或者基本面（虽然潜在准则几乎是无限多的）。合格的证券将会按照选样准则进行排序，排名靠前的证券会被选为指数成分（index components）。</p>
 
-</article>
+<p><strong>Weighting（加权）</strong>：这一术语表示设定指数成分相对权重的方法。最简单的情况，采用等权重加权，也就是所有的成分对指数的绩效有相等的影响。通常，权益类指数按市值加权，这样股票对指数表现的绩效与它的市值成正比，这里的市值是用股价乘以发行在外的股份数。例如，一种按市值加权的指数，同样是收益5%，市值为100亿美元的成分股对指数的影响是市值为50亿美元的成分股的两倍。其它加权方式包括价格加权和基本面加权，用成分股公司的股价或者基本面数据（例如红利或利润）来加权。</p>
+
+<p><strong>Reconstitution/Rebalancing（调整）</strong>：这个术语描述的指数提供商在何时以及如何调整指数构成和权重。这些调整会帮助指数反映市场的现状，可能是一年一次，也可能一个季度一次，也可能一个月一次，视指数的目的和用途而定。在遇到突发情况时（比如公司发生并购或破产），指数提供商也会在计划之外对指数进行调整。</p>
+
+<p>现在你们有了最基本的概念，过一段时间，我们将会发布一系列文章，更详细讲解这些概念。你们会学到如何构建指数，以及如何根据需要挑选指数。</p>
 
 </div>
 
+
+  <footer>
+    <p class="meta">
+      
   
+
+<span class="byline author vcard"><span class="fn">ypchen</span>发表于</span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-03-30T19:50:00+08:00" pubdate data-updated="true">Mar 30<span>th</span>, 2012</time>
+      
+
+
+<span class="categories">
+	归类于：
+  
+    <a class='category' href='/cn/blog/categories/指数/'>指数</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  
+  
+  
+	<!-- JiaThis Button BEGIN -->
+	<div id="ckepop">
+		<span class="jiathis_txt">分享到： </span>
+		<a class="jiathis_button_tools_1"></a>
+		<a class="jiathis_button_tools_2"></a>
+		<a class="jiathis_button_tools_3"></a>
+		<a class="jiathis_button_tools_4"></a>
+		<a href="http://www.jiathis.com/share?uid=1558027" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank">更多</a>
+		<a class="jiathis_counter_style"></a>
+	</div>
+	
+	<!-- JiaThis Button END -->
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/cn/blog/2012/03/18/github-pages-step-by-step/" title="Previous Post: Github Pages极简教程">&laquo; Github Pages极简教程</a>
+      
+      
+    </p>
+  </footer>
 </article>
+
+  <section>
+    <h1>评论</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
 
 </div>
 
@@ -276,7 +363,10 @@
       var disqus_shortname = 'ypchencn';
       
         
-        var disqus_script = 'count.js';
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://chen.yanping.me/cn/blog/2012/03/30/the-abcs-of-index-methodologies/';
+        var disqus_url = 'http://chen.yanping.me/cn/blog/2012/03/30/the-abcs-of-index-methodologies/';
+        var disqus_script = 'embed.js';
       
     (function () {
       var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;

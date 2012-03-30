@@ -4,7 +4,7 @@
   <title><![CDATA[分类： github | 雁起平沙的网络日志]]></title>
   <link href="http://chen.yanping.me/cn/blog/categories/github/atom.xml" rel="self"/>
   <link href="http://chen.yanping.me/cn/"/>
-  <updated>2012-03-18T23:52:58+08:00</updated>
+  <updated>2012-03-30T20:09:38+08:00</updated>
   <id>http://chen.yanping.me/cn/</id>
   <author>
     <name><![CDATA[ypchen]]></name>
@@ -22,7 +22,7 @@
 
 <p>先假设读者对ruby完全没有了解，仅对html有初步的了解（<code>&lt;title&gt;</code>等标签知道是什么意思，如果懂点儿CSS更好）。基本的linux命令（<code>ls</code>、<code>cd</code>、<code>mkdir</code>、<code>rm</code>等，不会也没关系，就用到这几个命令，自己百度一下就好）。</p>
 
-<p>“极简”的原则是</p>
+<p>本文标题所说的“极简”是基于下面的原则：</p>
 
 <ul>
   <li>安装尽量少的软件</li>
