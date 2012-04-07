@@ -4,7 +4,7 @@
   <title><![CDATA[分类： octopress | 雁起平沙的网络日志]]></title>
   <link href="http://chen.yanping.me/cn/blog/categories/octopress/atom.xml" rel="self"/>
   <link href="http://chen.yanping.me/cn/"/>
-  <updated>2012-03-30T20:09:38+08:00</updated>
+  <updated>2012-04-08T00:25:32+08:00</updated>
   <id>http://chen.yanping.me/cn/</id>
   <author>
     <name><![CDATA[ypchen]]></name>
@@ -389,9 +389,9 @@
     <link href="http://chen.yanping.me/cn/blog/2012/03/10/octopress-with-latex/"/>
     <updated>2012-03-10T10:30:00+08:00</updated>
     <id>http://chen.yanping.me/cn/blog/2012/03/10/octopress-with-latex</id>
-    <content type="html"><![CDATA[<p>这个博客的主题定位为数量金融、统计与R语言，但一直以来我都没写什么金融和统计的文章，估计很多看官都误以为我是程序猿。最初我列了个书单，计划有哪些书要读要翻译的，包括<em>Implementing Models in Quantitative Finance</em>、<em>Statistics and Data Analysis for Financial Engineering</em>和<em>Option Pricing and Estimation of Financial Models with R</em>。除了没时间开始以外，还有个原因是折腾完octopress之后也没去折腾如何在octopress中插入公式。估计ruby的程序猿很少会用到数学公式吧，对LaTeX的支持很有限，但是我等数学文艺青年的博客里怎能没有数学公式呢？</p>
+    <content type="html"><![CDATA[<p>这个博客的主题定位为数量金融、统计与R语言，但一直以来我都没写什么金融和统计的文章，估计很多看官都误以为我是程序猿。最初我列了个书单，计划有哪些书要读要翻译的，包括<em>Implementing Models in Quantitative Finance</em>、<em>Statistics and Data Analysis for Financial Engineering</em>和<em>Option Pricing and Estimation of Financial Models with R</em>。除了没时间开始以外，还有个原因是折腾完octopress之后也没去折腾如何在octopress中插入公式。估计ruby的程序猿很少会用到数学公式吧，对<em>LaTeX</em>的支持很有限，但是我等数学文艺青年的博客里怎能没有数学公式呢？</p>
 
-<p>热心网友Sinosmond推荐使用kramdown以尽量减少往markdown中插入html代码，接着我发现此物非常强大，连LaTeX都支持。昨晚使用了一下，现在把心得记录于此。</p>
+<p>热心网友Sinosmond推荐使用kramdown以尽量减少往markdown中插入html代码，接着我发现此物非常强大，连<em>LaTeX</em>都支持。昨晚使用了一下，现在把心得记录于此。</p>
 
 <p>先安装kramdown包</p>
 

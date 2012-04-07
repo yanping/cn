@@ -4,7 +4,7 @@
   <title><![CDATA[分类： 指数 | 雁起平沙的网络日志]]></title>
   <link href="http://chen.yanping.me/cn/blog/categories/指数/atom.xml" rel="self"/>
   <link href="http://chen.yanping.me/cn/"/>
-  <updated>2012-03-30T20:09:38+08:00</updated>
+  <updated>2012-04-08T00:25:32+08:00</updated>
   <id>http://chen.yanping.me/cn/</id>
   <author>
     <name><![CDATA[ypchen]]></name>
@@ -25,6 +25,8 @@
 <p>这些方法论也可以帮助你理解任何引导机制，这些引导机制会适当地使指数在不同的市场环境中保持可靠运行。</p>
 
 <p>下面是你在阅读指数方法论时可能会遇到的术语：</p>
+
+<!--more-->
 
 <p><strong>Universe（样本空间）</strong>：这一术语表示所有可能选入指数的证券或金融工具的集合。例如，包含所有在美国交易所上市交易的股票，或者所有发达国家的主权债务工具。样本空间的定义很宽泛，可能包含上千种证券，即使指数只包含50或者100种证券。</p>
 
