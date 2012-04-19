@@ -9,7 +9,7 @@
   <meta name="author" content="ypchen">
 
   
-  <meta name="description" content="分类目录 Github (5) Javascript (1) Jekyll (5) Latex (1) Markdown (1) Octopress (6) R语言 (4) 指数 (1) 分类目录 Github(5) Javascript(1) Jekyll(5) Latex(1) &hellip;">
+  <meta name="description" content="分类目录 Github (6) Javascript (2) Jekyll (6) Latex (1) Markdown (1) Octopress (7) R语言 (4) 指数 (1) 分类目录 Github(6) Javascript(2) Jekyll(6) Latex(1) &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -29,6 +29,7 @@
 <link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
 <link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
 
+<script src="/cn/javascripts/jquery-1.7.1.min.js" type="text/javascript"></script> 
 
 	<!-- mathjax config similar to math.stackexchange -->
 
@@ -67,6 +68,19 @@
 
 
   
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-27377274-2']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
 </head>
 
 <body   >
@@ -110,12 +124,12 @@
 <section>
 
 <ul>
-  <li><a href='/cn/blog/categories/github'>Github (5)</a></li>
-  <li><a href='/cn/blog/categories/javascript'>Javascript (1)</a></li>
-  <li><a href='/cn/blog/categories/jekyll'>Jekyll (5)</a></li>
+  <li><a href='/cn/blog/categories/github'>Github (6)</a></li>
+  <li><a href='/cn/blog/categories/javascript'>Javascript (2)</a></li>
+  <li><a href='/cn/blog/categories/jekyll'>Jekyll (6)</a></li>
   <li><a href='/cn/blog/categories/latex'>Latex (1)</a></li>
   <li><a href='/cn/blog/categories/markdown'>Markdown (1)</a></li>
-  <li><a href='/cn/blog/categories/octopress'>Octopress (6)</a></li>
+  <li><a href='/cn/blog/categories/octopress'>Octopress (7)</a></li>
   <li><a href='/cn/blog/categories/r语言'>R语言 (4)</a></li>
   <li><a href='/cn/blog/categories/指数'>指数 (1)</a></li>
 </ul>
@@ -133,12 +147,16 @@
     
 <section id="categories_tag">
 <h1>分类目录</h1>
-<span class='categories_tag'> <a href='/cn/blog/categories/github' style='font-size: 150.0%'>Github(5)</a>  <a href='/cn/blog/categories/javascript' style='font-size: 110.0%'>Javascript(1)</a>  <a href='/cn/blog/categories/jekyll' style='font-size: 150.0%'>Jekyll(5)</a>  <a href='/cn/blog/categories/latex' style='font-size: 110.0%'>Latex(1)</a>  <a href='/cn/blog/categories/markdown' style='font-size: 110.0%'>Markdown(1)</a>  <a href='/cn/blog/categories/octopress' style='font-size: 160.0%'>Octopress(6)</a>  <a href='/cn/blog/categories/r语言' style='font-size: 140.0%'>R语言(4)</a>  <a href='/cn/blog/categories/指数' style='font-size: 110.0%'>指数(1)</a> </span>
+<span class='categories_tag'> <a href='/cn/blog/categories/github' style='font-size: 151.42857142857144%'>Github(6)</a>  <a href='/cn/blog/categories/javascript' style='font-size: 117.14285714285714%'>Javascript(2)</a>  <a href='/cn/blog/categories/jekyll' style='font-size: 151.42857142857144%'>Jekyll(6)</a>  <a href='/cn/blog/categories/latex' style='font-size: 108.57142857142857%'>Latex(1)</a>  <a href='/cn/blog/categories/markdown' style='font-size: 108.57142857142857%'>Markdown(1)</a>  <a href='/cn/blog/categories/octopress' style='font-size: 160.0%'>Octopress(7)</a>  <a href='/cn/blog/categories/r语言' style='font-size: 134.28571428571428%'>R语言(4)</a>  <a href='/cn/blog/categories/指数' style='font-size: 108.57142857142857%'>指数(1)</a> </span>
 </section>
 
 <section>
-  <h1>近期文章</h1>
-  <ul id="recent_posts" class="none-left-margin">
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/cn/blog/2012/04/19/jekyll-with-json/">用jekyll生成json</a>
+      </li>
     
       <li class="post">
         <a href="/cn/blog/2012/03/30/the-abcs-of-index-methodologies/">指数方法论入门</a>
@@ -162,10 +180,6 @@
     
       <li class="post">
         <a href="/cn/blog/2012/03/08/a-piece-of-javascript/">一段有用的javascript代码</a>
-      </li>
-    
-      <li class="post">
-        <a href="/cn/blog/2012/02/07/comment-sidebar/">给博客侧边栏添加近期评论</a>
       </li>
     
   </ul>
@@ -224,25 +238,6 @@
 </aside>
 
 
-<script type="text/javascript">
-    
-        $(document).ready(function(){             
-
-            $('.entry-content a').each(function(index,element){
-                var href = $(this).attr('href');
-                if(href.indexOf('#') == 0){
-                }else if ( href.indexOf('/') == 0 || href.toLowerCase().indexOf('chen.yanping.me')>-1 ){
-                }else{
-                    $(this).attr('target','_blank');
-                    $(this).addClass('external');
-                }
-            });
-           
-        });	
-
-</script>
-
-
     </div>
   </div>
   <footer role="contentinfo">
@@ -253,17 +248,8 @@
 
 
 
-
 </footer>
   
-<script type="text/javascript"
-   src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-
-
-
-
-
-
 
 <script type="text/javascript">
       var disqus_shortname = 'ypchencn';
@@ -277,7 +263,6 @@
       (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
     }());
 </script>
-
 
 
 
@@ -309,6 +294,24 @@
 	<script type="text/javascript" src="http://v2.jiathis.com/code/jia.js?uid=1558027" charset="utf-8"></script>
 
 
+
+	<script type="text/javascript">
+    
+        $(document).ready(function(){             
+
+            $('.entry-content a').each(function(index,element){
+                var href = $(this).attr('href');
+                if(href.indexOf('#') == 0){
+                }else if ( href.indexOf('/') == 0 || href.toLowerCase().indexOf('chen.yanping.me/cn')>-1 ){
+                }else{
+                    $(this).attr('target','_blank');
+                    $(this).addClass('external');
+                }
+            });
+           
+        });	
+
+</script>
 
 
 </body>

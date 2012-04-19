@@ -4,7 +4,7 @@
   <title><![CDATA[分类： javascript | 雁起平沙的网络日志]]></title>
   <link href="http://chen.yanping.me/cn/blog/categories/javascript/atom.xml" rel="self"/>
   <link href="http://chen.yanping.me/cn/"/>
-  <updated>2012-04-08T00:25:32+08:00</updated>
+  <updated>2012-04-20T00:03:40+08:00</updated>
   <id>http://chen.yanping.me/cn/</id>
   <author>
     <name><![CDATA[ypchen]]></name>
@@ -12,6 +12,168 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[用jekyll生成json]]></title>
+    <link href="http://chen.yanping.me/cn/blog/2012/04/19/jekyll-with-json/"/>
+    <updated>2012-04-19T22:30:00+08:00</updated>
+    <id>http://chen.yanping.me/cn/blog/2012/04/19/jekyll-with-json</id>
+    <content type="html"><![CDATA[<p class="info">本文主要讨论如何用jekyll模板生成json，并以此整合在github上托管的不同网站的数据。</p>
+
+<p>从去年年底接触github和jekyll到现在已经折腾五个月了，从最初用github托管纯静态网站，到现在依照别人的网站构架修改成自己喜欢的样子，这个过程也是个不断学习的过程。</p>
+
+<p>我在github上有三个网站，一个是<a href="http://chen.yanping.me">主页</a>，一个<a href="http://chen.yanping.me/cn">技术博客</a>，最后一个是<a href="http://art.yanping.me">文艺博客</a>。现在有个问题是，这三个网站对应的是github上三个不同的代码库，如果我要在<a href="http://chen.yanping.me">主页</a>上列出另两个网站的文章列表，不能用jekyll提供的函数来做到，jekyll只能操作一个代码库的文本，不能跨代码库。我之前用的一个方法是用feedsky提供的发布脚本，效果请看<a href="http://yanping.me">http://yanping.me</a>。这样的缺点是很显然的，一是加载速度慢，二是我们没办法控制列表的格式和样式。有没有更直接的解决方法呢？</p>
+
+<!--more-->
+
+<p>我看到在很多jekyll的博客里，都能自动生成rss.xml和atom.xml，其实说白了，只要是本文文件，jekyll都能用模板操作。后来我听说了json，听说可以用jquery调用json，既然jekyll可以操作本文，那么可不可以用jekyll来生成我们规定格式的json文件呢？例如在<a href="http://chen.yanping.me/cn">技术博客</a>和<a href="http://art.yanping.me">文艺博客</a>各生成一个包含文章信息的json文件，再用jquery或ajax来调用。这里面涉及到一个是否跨域的问题，一开始我只能确定<a href="http://chen.yanping.me">主页</a>和<a href="http://chen.yanping.me/cn">技术博客</a>是同域的，可我忘了<a href="http://art.yanping.me">文艺博客</a>的真正地址是<a href="http://yanping.github.com/art">http://yanping.github.com/art</a>，或者说是<a href="http://chen.yanping.me/art">http://chen.yanping.me/art</a>，<a href="http://artn.yanping.me/">http://artn.yanping.me/</a>只不过是我后来给它绑定的域名，还特定用了javascript来限定了只能用这个域名访问，因为用前两个地址访问都显示不正常（关于这点，请看<a href="http://chen.yanping.me/cn/blog/2012/02/06/github-pages-domain-3/">这里</a>）。所以说，只要是在同一个github账户下建立的网站，它们就是同域的。</p>
+
+<h2 id="json">生成json</h2>
+
+<p>例如我在网站代码库里建立这样的json文件模板：</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>recent.json  (recent.json)</span> <a href='/downloads/code/../../recent.json'>download</a></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="o">---</span>
+</span><span class='line'><span class="nx">layout</span><span class="o">:</span> <span class="nx">nil</span>
+</span><span class='line'><span class="o">---</span>
+</span><span class='line'>
+</span><span class='line'><span class="p">[{</span><span class="o">%</span> <span class="k">for</span> <span class="nx">post</span> <span class="k">in</span> <span class="nx">site</span><span class="p">.</span><span class="nx">posts</span> <span class="nx">limit</span><span class="o">:</span><span class="mi">5</span> <span class="o">%</span><span class="p">}</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>        <span class="s2">&quot;title&quot;</span><span class="o">:</span><span class="s2">&quot;{{post.title}}&quot;</span><span class="p">,</span>
+</span><span class='line'>        <span class="s2">&quot;url&quot;</span><span class="o">:</span><span class="s2">&quot;{{site.url}}{{post.url}}&quot;</span><span class="p">,</span>
+</span><span class='line'>        <span class="s2">&quot;date&quot;</span><span class="o">:</span><span class="s2">&quot;{{post.date|date_to_string}}&quot;</span>
+</span><span class='line'>    <span class="p">}{</span><span class="o">%</span> <span class="k">if</span> <span class="nx">forloop</span><span class="p">.</span><span class="nx">last</span> <span class="o">==</span> <span class="kc">false</span> <span class="o">%</span><span class="p">},{</span><span class="o">%</span> <span class="nx">endif</span> <span class="o">%</span><span class="p">}</span>
+</span><span class='line'><span class="p">{</span><span class="o">%</span> <span class="nx">endfor</span> <span class="o">%</span><span class="p">}</span>
+</span><span class='line'><span class="p">]</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>在使用原生的jekyll时没有问题，但是在使用octopress时就出现了<a href="http://ruby-taiwan.org/topics/230">问题</a>：octopress自动把英文的双引号"变成了<code>&amp;#8220;</code>和<code>&amp;#8221;</code>，经过浏览器的解释对应的是“和”。有人提出在双引号前加<code>\</code>，在网页里的确是显示的原来的引号，但是一看代码，还是字符引用。</p>
+
+<p>昨晚想了很久，网上找资料也没找到，没办法，只好去看octopress里的代码。我可是ruby小白啊，一点都不懂，连猜带蒙终于搞定了。其实最简单粗暴的办法就是把octopress目录下<code>/plugins/octopress_filters.rb</code>里的第19行行首加<code>#</code>注释掉：</p>
+
+<p><code>ruby
+	#		RubyPants.new(input).to_html
+</code></p>
+
+<p>RubyPants这个插件就是替换引号的元凶，你可以打开它卡看看里面的注释。</p>
+
+<p>经过上面的处理后，octopress也可以正常输出json文件了，请看</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>recent.json  (recent.json)</span> <a href='/downloads/code/../../../public/cn/recent.json'>download</a></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="p">[</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>        <span class="s2">&quot;title&quot;</span><span class="o">:</span><span class="s2">&quot;用jekyll生成json&quot;</span><span class="p">,</span>
+</span><span class='line'>        <span class="s2">&quot;url&quot;</span><span class="o">:</span><span class="s2">&quot;http://chen.yanping.me/cn/blog/2012/04/19/jekyll-with-json/&quot;</span><span class="p">,</span>
+</span><span class='line'>        <span class="s2">&quot;date&quot;</span><span class="o">:</span><span class="s2">&quot;19 Apr 2012&quot;</span>
+</span><span class='line'>    <span class="p">},</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>        <span class="s2">&quot;title&quot;</span><span class="o">:</span><span class="s2">&quot;指数方法论入门&quot;</span><span class="p">,</span>
+</span><span class='line'>        <span class="s2">&quot;url&quot;</span><span class="o">:</span><span class="s2">&quot;http://chen.yanping.me/cn/blog/2012/03/30/the-abcs-of-index-methodologies/&quot;</span><span class="p">,</span>
+</span><span class='line'>        <span class="s2">&quot;date&quot;</span><span class="o">:</span><span class="s2">&quot;30 Mar 2012&quot;</span>
+</span><span class='line'>    <span class="p">},</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>        <span class="s2">&quot;title&quot;</span><span class="o">:</span><span class="s2">&quot;Github Pages极简教程&quot;</span><span class="p">,</span>
+</span><span class='line'>        <span class="s2">&quot;url&quot;</span><span class="o">:</span><span class="s2">&quot;http://chen.yanping.me/cn/blog/2012/03/18/github-pages-step-by-step/&quot;</span><span class="p">,</span>
+</span><span class='line'>        <span class="s2">&quot;date&quot;</span><span class="o">:</span><span class="s2">&quot;18 Mar 2012&quot;</span>
+</span><span class='line'>    <span class="p">},</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>        <span class="s2">&quot;title&quot;</span><span class="o">:</span><span class="s2">&quot;黑魔法利器pandoc&quot;</span><span class="p">,</span>
+</span><span class='line'>        <span class="s2">&quot;url&quot;</span><span class="o">:</span><span class="s2">&quot;http://chen.yanping.me/cn/blog/2012/03/13/pandoc/&quot;</span><span class="p">,</span>
+</span><span class='line'>        <span class="s2">&quot;date&quot;</span><span class="o">:</span><span class="s2">&quot;13 Mar 2012&quot;</span>
+</span><span class='line'>    <span class="p">},</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>        <span class="s2">&quot;title&quot;</span><span class="o">:</span><span class="s2">&quot;我的Octopress样式表&quot;</span><span class="p">,</span>
+</span><span class='line'>        <span class="s2">&quot;url&quot;</span><span class="o">:</span><span class="s2">&quot;http://chen.yanping.me/cn/blog/2012/03/12/my-style-list/&quot;</span><span class="p">,</span>
+</span><span class='line'>        <span class="s2">&quot;date&quot;</span><span class="o">:</span><span class="s2">&quot;12 Mar 2012&quot;</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="p">]</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<h2 id="json-1">调用json</h2>
+
+<p>可以用ajax或jquery来调用json文件，后者更容易一些，这里给出一个例子，效果见我的<a href="http://chen.yanping.me">主页</a></p>
+
+<p>```html
+&lt;div class="section" id="blog1-posts-list"&gt;
+		&lt;h1 id="id165"&gt;博客&lt;/h1&gt;
+		&lt;p&gt;我现在主要更新的是托管在github上的<a href="http://chen.yanping.me/cn" target="_blank">Octopress博客</a>，主要记录自己在学习过程中的心得体会。近期内容：&lt;/p&gt;</p>
+
+<pre><code>&lt;/div&gt;
+
+	&lt;script type="text/javascript"&gt;
+	$(document).ready(function() {
+		$.getJSON("/cn/recent.json",function(data){
+			var content ="&lt;ul class=\"compact recent\"&gt;";
+			$.each(data,function(i,item){
+			
+			content += "&lt;li&gt;&lt;span class=\"date\"&gt;"+ item.date + "&lt;/span&gt;&lt;a href=\""+item.url+"\"&gt;"+ item.title +"&lt;/a&gt;&lt;/li&gt;";
+			
+			});
+			
+			content +="&lt;/ul&gt;";
+			$("#blog1-posts-list").append(content);
+		});
+	});	
+&lt;/script&gt; ```
+</code></pre>
+
+<p>别忘了加载jquery脚本，在我主页里是这句：</p>
+
+<p><code>html
+&lt;script src="http://chen.yanping.me/cn/files/js/jquery-1.7.1.min.js" type="text/javascript"&gt;&lt;/script&gt; 
+</code></p>
+
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[一段有用的javascript代码]]></title>

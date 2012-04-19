@@ -9,7 +9,7 @@
   <meta name="author" content="ypchen">
 
   
-  <meta name="description" content="本文译自道琼斯指数公司的指数学博客，原文地址：http://blog.djindexes.com/index.php/the-abcs-of-index-methodologies/ 如果我们研究各类市场指数，一个关键的信息来源就是指数的“方法论”。首先，这一文档解释了如何挑选股票（或其它金融工具 &hellip;">
+  <meta name="description" content="本文主要讨论如何用jekyll模板生成json，并以此整合在github上托管的不同网站的数据。 从去年年底接触github和jekyll到现在已经折腾五个月了，从最初用github托管纯静态网站，到现在依照别人的网站构架修改成自己喜欢的样子，这个过程也是个不断学习的过程。 &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -29,6 +29,7 @@
 <link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
 <link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
 
+<script src="/cn/javascripts/jquery-1.7.1.min.js" type="text/javascript"></script> 
 
 	<!-- mathjax config similar to math.stackexchange -->
 
@@ -67,6 +68,19 @@
 
 
   
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-27377274-2']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
 </head>
 
 <body   >
@@ -98,10 +112,55 @@
 </nav>
   <div id="main">
     <div id="content">
-       
-
-<div class="blog-index">
+      <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/cn/blog/2012/04/19/jekyll-with-json/">用jekyll生成json</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-04-19T22:30:00+08:00" pubdate data-updated="true">Apr 19<span>th</span>, 2012</time>
+        
+         | <a href="/cn/blog/2012/04/19/jekyll-with-json/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p class="info">本文主要讨论如何用jekyll模板生成json，并以此整合在github上托管的不同网站的数据。</p>
+
+<p>从去年年底接触github和jekyll到现在已经折腾五个月了，从最初用github托管纯静态网站，到现在依照别人的网站构架修改成自己喜欢的样子，这个过程也是个不断学习的过程。</p>
+
+<p>我在github上有三个网站，一个是<a href="http://chen.yanping.me">主页</a>，一个<a href="http://chen.yanping.me/cn">技术博客</a>，最后一个是<a href="http://art.yanping.me">文艺博客</a>。现在有个问题是，这三个网站对应的是github上三个不同的代码库，如果我要在<a href="http://chen.yanping.me">主页</a>上列出另两个网站的文章列表，不能用jekyll提供的函数来做到，jekyll只能操作一个代码库的文本，不能跨代码库。我之前用的一个方法是用feedsky提供的发布脚本，效果请看<a href="http://yanping.me">http://yanping.me</a>。这样的缺点是很显然的，一是加载速度慢，二是我们没办法控制列表的格式和样式。有没有更直接的解决方法呢？</p>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/cn/blog/2012/04/19/jekyll-with-json/">阅读全文 &rarr;</a>
+    </footer>
+  
+
+
+    </article>
   
   
     <article>
@@ -126,7 +185,7 @@
 
 <time datetime="2012-03-30T19:50:00+08:00" pubdate data-updated="true">Mar 30<span>th</span>, 2012</time>
         
-         | <a href="/cn/blog/2012/03/30/the-abcs-of-index-methodologies/#disqus_thread">评论</a>
+         | <a href="/cn/blog/2012/03/30/the-abcs-of-index-methodologies/#disqus_thread">Comments</a>
         
       </p>
     
@@ -175,7 +234,7 @@
 
 <time datetime="2012-03-18T00:30:00+08:00" pubdate data-updated="true">Mar 18<span>th</span>, 2012</time>
         
-         | <a href="/cn/blog/2012/03/18/github-pages-step-by-step/#disqus_thread">评论</a>
+         | <a href="/cn/blog/2012/03/18/github-pages-step-by-step/#disqus_thread">Comments</a>
         
       </p>
     
@@ -234,7 +293,7 @@
 
 <time datetime="2012-03-13T00:30:00+08:00" pubdate data-updated="true">Mar 13<span>th</span>, 2012</time>
         
-         | <a href="/cn/blog/2012/03/13/pandoc/#disqus_thread">评论</a>
+         | <a href="/cn/blog/2012/03/13/pandoc/#disqus_thread">Comments</a>
         
       </p>
     
@@ -289,7 +348,7 @@
 
 <time datetime="2012-03-12T22:16:00+08:00" pubdate data-updated="true">Mar 12<span>th</span>, 2012</time>
         
-         | <a href="/cn/blog/2012/03/12/my-style-list/#disqus_thread">评论</a>
+         | <a href="/cn/blog/2012/03/12/my-style-list/#disqus_thread">Comments</a>
         
       </p>
     
@@ -350,7 +409,7 @@
 
 <time datetime="2012-03-10T10:30:00+08:00" pubdate data-updated="true">Mar 10<span>th</span>, 2012</time>
         
-         | <a href="/cn/blog/2012/03/10/octopress-with-latex/#disqus_thread">评论</a>
+         | <a href="/cn/blog/2012/03/10/octopress-with-latex/#disqus_thread">Comments</a>
         
       </p>
     
@@ -467,7 +526,7 @@
 
 <time datetime="2012-03-08T14:30:00+08:00" pubdate data-updated="true">Mar 8<span>th</span>, 2012</time>
         
-         | <a href="/cn/blog/2012/03/08/a-piece-of-javascript/#disqus_thread">评论</a>
+         | <a href="/cn/blog/2012/03/08/a-piece-of-javascript/#disqus_thread">Comments</a>
         
       </p>
     
@@ -564,61 +623,11 @@
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/cn/blog/2012/02/07/comment-sidebar/">给博客侧边栏添加近期评论</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2012-02-07T14:56:00+08:00" pubdate data-updated="true">Feb 7<span>th</span>, 2012</time>
-        
-         | <a href="/cn/blog/2012/02/07/comment-sidebar/#disqus_thread">评论</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p class="info">
-在我翻译的<a href="http://chen.yanping.me/cn/blog/2012/01/07/theming-and-customization/" target="_blank">为Octopress修改主题和自定义样式</a>一文后面，Eric Lau问我如何在博客侧边栏显示近期评论。本文就是针对这一问题的简短教程。
-</p>
-
-<h2 id="disquscom">第一步：在disqus.com获取代码</h2>
-<p>登录到disqus.com，选择评论所在的网站，进入Admin，选择Tools，在code中，是<strong>Extra Widgets</strong>的代码，提供了几种Widgets插件，分别是Combination（组合式）、Recent Comments（近期评论）、 Popular Threads（热门话题）、Top Commenters（最近评论人）。该工具可以根据用户设置的参数生成代码。</p>
-
-<p><img src="/cn/images/blog/12-02-07/tools-setting.png" /> </p>
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/cn/blog/2012/02/07/comment-sidebar/">阅读全文 &rarr;</a>
-    </footer>
-  
-
-
-    </article>
-  
   <div class="pagination">
     
-      <a class="prev" href="/cn/blog/page/2/">&larr; 前一页</a>
+      <a class="prev" href="/cn/blog/page/2/">&larr; Older</a>
     
-    <a href="/cn/blog/archives">归档</a>
+    <a href="/cn/blog/archives">Blog Archives</a>
     
   </div>
 </div>
@@ -629,7 +638,7 @@
  <p align="center"><img src="http://art.yanping.me/images/avatar.jpg" /></p>
 
 
-<p>资浅媒体人，堆文字的金融攻城师，不靠谱的经济分析师，IT文艺小青年，舞者中的程序猿。<a href="/cn/blog/about" >更多介绍&#8230;</a></p>
+<p>资浅媒体人，堆文字的金融攻城师，不靠谱的经济分析师，IT文艺小青年，舞者中的程序猿。<a href="/cn/blog/about" >更多介绍...</a></p>
 <p>声明：所有言论仅代表个人观点，与所在单位无关。</p><p>本人主页为<a href="http://chen.yanping.me" target="_blank">http://chen.yanping.me</a></p>
 
 <p align="center"><a href="http://i.imgur.com/dBONa.jpg" target="_blank" title="The Certificate in Quantitative Finance (CQF) is a six-month part-time course designed for in-depth training for individuals working in, or intending to move into, derivatives, development, quantitative trading or risk management. " alt="Certificate in Quantitative Finance"><img src="/cn/images/blog/cqf.jpg" width="70%" /></a></p>
@@ -639,12 +648,16 @@
 
 <section id="categories_tag">
 <h1>分类目录</h1>
-<span class='categories_tag'> <a href='/cn/blog/categories/github' style='font-size: 150.0%'>Github(5)</a>  <a href='/cn/blog/categories/javascript' style='font-size: 110.0%'>Javascript(1)</a>  <a href='/cn/blog/categories/jekyll' style='font-size: 150.0%'>Jekyll(5)</a>  <a href='/cn/blog/categories/latex' style='font-size: 110.0%'>Latex(1)</a>  <a href='/cn/blog/categories/markdown' style='font-size: 110.0%'>Markdown(1)</a>  <a href='/cn/blog/categories/octopress' style='font-size: 160.0%'>Octopress(6)</a>  <a href='/cn/blog/categories/r语言' style='font-size: 140.0%'>R语言(4)</a>  <a href='/cn/blog/categories/指数' style='font-size: 110.0%'>指数(1)</a> </span>
+<span class='categories_tag'> <a href='/cn/blog/categories/github' style='font-size: 151.42857142857144%'>Github(6)</a>  <a href='/cn/blog/categories/javascript' style='font-size: 117.14285714285714%'>Javascript(2)</a>  <a href='/cn/blog/categories/jekyll' style='font-size: 151.42857142857144%'>Jekyll(6)</a>  <a href='/cn/blog/categories/latex' style='font-size: 108.57142857142857%'>Latex(1)</a>  <a href='/cn/blog/categories/markdown' style='font-size: 108.57142857142857%'>Markdown(1)</a>  <a href='/cn/blog/categories/octopress' style='font-size: 160.0%'>Octopress(7)</a>  <a href='/cn/blog/categories/r语言' style='font-size: 134.28571428571428%'>R语言(4)</a>  <a href='/cn/blog/categories/指数' style='font-size: 108.57142857142857%'>指数(1)</a> </span>
 </section>
 
 <section>
-  <h1>近期文章</h1>
-  <ul id="recent_posts" class="none-left-margin">
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/cn/blog/2012/04/19/jekyll-with-json/">用jekyll生成json</a>
+      </li>
     
       <li class="post">
         <a href="/cn/blog/2012/03/30/the-abcs-of-index-methodologies/">指数方法论入门</a>
@@ -668,10 +681,6 @@
     
       <li class="post">
         <a href="/cn/blog/2012/03/08/a-piece-of-javascript/">一段有用的javascript代码</a>
-      </li>
-    
-      <li class="post">
-        <a href="/cn/blog/2012/02/07/comment-sidebar/">给博客侧边栏添加近期评论</a>
       </li>
     
   </ul>
@@ -739,17 +748,8 @@
 
 
 
-
 </footer>
   
-<script type="text/javascript"
-   src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-
-
-
-
-
-
 
 <script type="text/javascript">
       var disqus_shortname = 'ypchencn';
@@ -763,7 +763,6 @@
       (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
     }());
 </script>
-
 
 
 
@@ -795,6 +794,24 @@
 	<script type="text/javascript" src="http://v2.jiathis.com/code/jia.js?uid=1558027" charset="utf-8"></script>
 
 
+
+	<script type="text/javascript">
+    
+        $(document).ready(function(){             
+
+            $('.entry-content a').each(function(index,element){
+                var href = $(this).attr('href');
+                if(href.indexOf('#') == 0){
+                }else if ( href.indexOf('/') == 0 || href.toLowerCase().indexOf('chen.yanping.me/cn')>-1 ){
+                }else{
+                    $(this).attr('target','_blank');
+                    $(this).addClass('external');
+                }
+            });
+           
+        });	
+
+</script>
 
 
 </body>

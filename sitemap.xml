@@ -2,102 +2,110 @@
 <urlset xmlns='http://www.sitemaps.org/schemas/sitemap/0.9'>
     <url>
         <loc>http://chen.yanping.me/cn/blog/2011/11/12/study-plan/</loc>
-        <lastmod>2012-03-30T20:06:01+08:00</lastmod>
+        <lastmod>2012-04-19T21:37:02+08:00</lastmod>
     </url>
     <url>
         <loc>http://chen.yanping.me/cn/blog/2011/11/12/use-jekyll-template/</loc>
-        <lastmod>2012-03-30T20:06:01+08:00</lastmod>
+        <lastmod>2012-04-19T21:37:02+08:00</lastmod>
     </url>
     <url>
         <loc>http://chen.yanping.me/cn/blog/2011/12/03/hello-octopress/</loc>
-        <lastmod>2012-03-30T20:06:01+08:00</lastmod>
+        <lastmod>2012-04-19T21:37:02+08:00</lastmod>
     </url>
     <url>
         <loc>http://chen.yanping.me/cn/blog/2011/12/04/github-pages-domain/</loc>
-        <lastmod>2012-03-30T20:06:01+08:00</lastmod>
+        <lastmod>2012-04-19T21:37:02+08:00</lastmod>
     </url>
     <url>
         <loc>http://chen.yanping.me/cn/blog/2011/12/15/building-static-sites-with-jekyll/</loc>
-        <lastmod>2012-03-30T20:06:01+08:00</lastmod>
+        <lastmod>2012-04-19T21:37:02+08:00</lastmod>
     </url>
     <url>
         <loc>http://chen.yanping.me/cn/blog/2011/12/26/github-pages-domain-2/</loc>
-        <lastmod>2012-03-30T20:06:01+08:00</lastmod>
+        <lastmod>2012-04-19T21:37:02+08:00</lastmod>
     </url>
     <url>
         <loc>http://chen.yanping.me/cn/blog/2011/12/26/octopress-on-windows/</loc>
-        <lastmod>2012-03-30T20:06:01+08:00</lastmod>
+        <lastmod>2012-04-19T21:37:02+08:00</lastmod>
     </url>
     <url>
         <loc>http://chen.yanping.me/cn/blog/2012/01/01/working-with-large-datasets/</loc>
-        <lastmod>2012-03-30T20:06:01+08:00</lastmod>
+        <lastmod>2012-04-19T21:37:02+08:00</lastmod>
     </url>
     <url>
         <loc>http://chen.yanping.me/cn/blog/2012/01/06/updating-an-r-installation/</loc>
-        <lastmod>2012-03-30T20:06:01+08:00</lastmod>
+        <lastmod>2012-04-19T21:37:02+08:00</lastmod>
     </url>
     <url>
         <loc>http://chen.yanping.me/cn/blog/2012/01/07/theming-and-customization/</loc>
-        <lastmod>2012-03-30T20:06:01+08:00</lastmod>
+        <lastmod>2012-04-19T21:37:02+08:00</lastmod>
     </url>
     <url>
         <loc>http://chen.yanping.me/cn/blog/2012/01/09/customizing-the-startup-environment/</loc>
-        <lastmod>2012-03-30T20:06:01+08:00</lastmod>
+        <lastmod>2012-04-19T21:37:02+08:00</lastmod>
     </url>
     <url>
         <loc>http://chen.yanping.me/cn/blog/2012/01/10/matrix-algebra-in-r/</loc>
-        <lastmod>2012-03-30T20:06:01+08:00</lastmod>
+        <lastmod>2012-04-19T21:37:02+08:00</lastmod>
     </url>
     <url>
         <loc>http://chen.yanping.me/cn/blog/2012/02/06/github-pages-domain-3/</loc>
-        <lastmod>2012-03-30T20:06:01+08:00</lastmod>
+        <lastmod>2012-04-19T21:37:02+08:00</lastmod>
     </url>
     <url>
         <loc>http://chen.yanping.me/cn/blog/2012/02/07/comment-sidebar/</loc>
-        <lastmod>2012-03-30T20:06:01+08:00</lastmod>
+        <lastmod>2012-04-19T21:37:02+08:00</lastmod>
     </url>
     <url>
         <loc>http://chen.yanping.me/cn/blog/2012/03/08/a-piece-of-javascript/</loc>
-        <lastmod>2012-03-30T20:06:01+08:00</lastmod>
+        <lastmod>2012-04-19T21:37:02+08:00</lastmod>
     </url>
     <url>
         <loc>http://chen.yanping.me/cn/blog/2012/03/10/octopress-with-latex/</loc>
-        <lastmod>2012-03-30T20:15:29+08:00</lastmod>
+        <lastmod>2012-04-19T21:37:02+08:00</lastmod>
     </url>
     <url>
         <loc>http://chen.yanping.me/cn/blog/2012/03/12/my-style-list/</loc>
-        <lastmod>2012-03-30T20:06:01+08:00</lastmod>
+        <lastmod>2012-04-19T21:37:02+08:00</lastmod>
     </url>
     <url>
         <loc>http://chen.yanping.me/cn/blog/2012/03/13/pandoc/</loc>
-        <lastmod>2012-04-07T22:53:54+08:00</lastmod>
+        <lastmod>2012-04-19T21:37:02+08:00</lastmod>
     </url>
     <url>
         <loc>http://chen.yanping.me/cn/blog/2012/03/18/github-pages-step-by-step/</loc>
-        <lastmod>2012-04-08T00:16:58+08:00</lastmod>
+        <lastmod>2012-04-19T21:37:02+08:00</lastmod>
     </url>
     <url>
         <loc>http://chen.yanping.me/cn/blog/2012/03/30/the-abcs-of-index-methodologies/</loc>
-        <lastmod>2012-03-30T20:11:19+08:00</lastmod>
+        <lastmod>2012-04-19T21:37:02+08:00</lastmod>
+    </url>
+    <url>
+        <loc>http://chen.yanping.me/cn/blog/2012/04/19/jekyll-with-json/</loc>
+        <lastmod>2012-04-20T00:02:28+08:00</lastmod>
+    </url>
+    <url>
+        <loc>http://chen.yanping.me/cn/recent.json</loc>
+        <lastmod>2012-04-19T23:30:08+08:00</lastmod>
     </url>
     <url>
         <loc>http://chen.yanping.me/cn/blog/categories/</loc>
-        <lastmod>2012-04-08T00:16:58+08:00</lastmod>
+        <lastmod>2012-04-20T00:02:28+08:00</lastmod>
     </url>
     <url>
         <loc>http://chen.yanping.me/cn/blog/about/</loc>
-        <lastmod>2012-03-30T20:07:57+08:00</lastmod>
+        <lastmod>2012-04-19T21:37:02+08:00</lastmod>
     </url>
     <url>
         <loc>http://chen.yanping.me/cn/blog/archives/</loc>
-        <lastmod>2012-04-08T00:16:58+08:00</lastmod>
+        <lastmod>2012-04-20T00:02:28+08:00</lastmod>
     </url>
     <url>
         <loc>http://chen.yanping.me/cn/downloads/code/portfolio_entry.html</loc>
-        <lastmod>2011-12-18T20:36:05+08:00</lastmod>
+        <lastmod>2012-04-19T21:37:02+08:00</lastmod>
     </url>
     <url>
         <loc>http://chen.yanping.me/cn/</loc>
-        <lastmod>2012-04-08T00:16:58+08:00</lastmod>
+        <lastmod>2012-04-20T00:02:28+08:00</lastmod>
     </url>
 </urlset>

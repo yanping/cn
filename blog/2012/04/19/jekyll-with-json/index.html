@@ -1,0 +1,553 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>用jekyll生成json - 雁起平沙的网络日志</title>
+  <meta name="author" content="ypchen">
+
+  
+  <meta name="description" content="本文主要讨论如何用jekyll模板生成json，并以此整合在github上托管的不同网站的数据">
+  <meta name="keywords" content="jekyll, octopress, javascript">
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://chen.yanping.me/cn/blog/2012/04/19/jekyll-with-json">
+  <link href="/cn/favicon.png" rel="icon">
+  <link href="/cn/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/cn/javascripts/modernizr-2.0.js"></script>
+  <script src="/cn/javascripts/ender.js"></script>
+  <script src="/cn/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/cn/atom.xml" rel="alternate" title="雁起平沙的网络日志" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+<script src="/cn/javascripts/jquery-1.7.1.min.js" type="text/javascript"></script> 
+
+	<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      	inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+    	displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+      processEscapes: true
+    }
+  });
+</script>
+
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+
+
+
+
+
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-27377274-2']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/cn/">雁起平沙的网络日志</a></h1>
+  
+    <h2>数量金融与R</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/cn/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:chen.yanping.me/cn" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+<ul class="main-navigation">
+  <li><a href="/cn/">博 客</a></li>
+  <li><a href="/cn/blog/archives">归 档</a></li>
+  <li><a href="/cn/blog/categories">分 类</a></li>
+  <li><a href="/cn/blog/about">关 于</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">用jekyll生成json</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-04-19T22:30:00+08:00" pubdate data-updated="true">Apr 19<span>th</span>, 2012</time>
+        
+         | <a href="#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p class="info">本文主要讨论如何用jekyll模板生成json，并以此整合在github上托管的不同网站的数据。</p>
+
+<p>从去年年底接触github和jekyll到现在已经折腾五个月了，从最初用github托管纯静态网站，到现在依照别人的网站构架修改成自己喜欢的样子，这个过程也是个不断学习的过程。</p>
+
+<p>我在github上有三个网站，一个是<a href="http://chen.yanping.me">主页</a>，一个<a href="http://chen.yanping.me/cn">技术博客</a>，最后一个是<a href="http://art.yanping.me">文艺博客</a>。现在有个问题是，这三个网站对应的是github上三个不同的代码库，如果我要在<a href="http://chen.yanping.me">主页</a>上列出另两个网站的文章列表，不能用jekyll提供的函数来做到，jekyll只能操作一个代码库的文本，不能跨代码库。我之前用的一个方法是用feedsky提供的发布脚本，效果请看<a href="http://yanping.me">http://yanping.me</a>。这样的缺点是很显然的，一是加载速度慢，二是我们没办法控制列表的格式和样式。有没有更直接的解决方法呢？</p>
+
+<!--more-->
+
+<p>我看到在很多jekyll的博客里，都能自动生成rss.xml和atom.xml，其实说白了，只要是本文文件，jekyll都能用模板操作。后来我听说了json，听说可以用jquery调用json，既然jekyll可以操作本文，那么可不可以用jekyll来生成我们规定格式的json文件呢？例如在<a href="http://chen.yanping.me/cn">技术博客</a>和<a href="http://art.yanping.me">文艺博客</a>各生成一个包含文章信息的json文件，再用jquery或ajax来调用。这里面涉及到一个是否跨域的问题，一开始我只能确定<a href="http://chen.yanping.me">主页</a>和<a href="http://chen.yanping.me/cn">技术博客</a>是同域的，可我忘了<a href="http://art.yanping.me">文艺博客</a>的真正地址是<a href="http://yanping.github.com/art">http://yanping.github.com/art</a>，或者说是<a href="http://chen.yanping.me/art">http://chen.yanping.me/art</a>，<a href="http://artn.yanping.me/">http://artn.yanping.me/</a>只不过是我后来给它绑定的域名，还特定用了javascript来限定了只能用这个域名访问，因为用前两个地址访问都显示不正常（关于这点，请看<a href="http://chen.yanping.me/cn/blog/2012/02/06/github-pages-domain-3/">这里</a>）。所以说，只要是在同一个github账户下建立的网站，它们就是同域的。</p>
+
+<h2 id="json">生成json</h2>
+
+<p>例如我在网站代码库里建立这样的json文件模板：</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span>recent.json  (recent.json)</span> <a href="/cn/downloads/code/../../recent.json">download</a></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+<span class="line-number">7</span>
+<span class="line-number">8</span>
+<span class="line-number">9</span>
+<span class="line-number">10</span>
+<span class="line-number">11</span>
+<span class="line-number">12</span>
+</pre></td><td class="code"><pre><code class="javascript"><span class="line"><span class="o">---</span>
+</span><span class="line"><span class="nx">layout</span><span class="o">:</span> <span class="nx">nil</span>
+</span><span class="line"><span class="o">---</span>
+</span><span class="line">
+</span><span class="line"><span class="p">[{</span><span class="o">%</span> <span class="k">for</span> <span class="nx">post</span> <span class="k">in</span> <span class="nx">site</span><span class="p">.</span><span class="nx">posts</span> <span class="nx">limit</span><span class="o">:</span><span class="mi">5</span> <span class="o">%</span><span class="p">}</span>
+</span><span class="line">    <span class="p">{</span>
+</span><span class="line">        <span class="s2">&quot;title&quot;</span><span class="o">:</span><span class="s2">&quot;{{post.title}}&quot;</span><span class="p">,</span>
+</span><span class="line">        <span class="s2">&quot;url&quot;</span><span class="o">:</span><span class="s2">&quot;{{site.url}}{{post.url}}&quot;</span><span class="p">,</span>
+</span><span class="line">        <span class="s2">&quot;date&quot;</span><span class="o">:</span><span class="s2">&quot;{{post.date|date_to_string}}&quot;</span>
+</span><span class="line">    <span class="p">}{</span><span class="o">%</span> <span class="k">if</span> <span class="nx">forloop</span><span class="p">.</span><span class="nx">last</span> <span class="o">==</span> <span class="kc">false</span> <span class="o">%</span><span class="p">},{</span><span class="o">%</span> <span class="nx">endif</span> <span class="o">%</span><span class="p">}</span>
+</span><span class="line"><span class="p">{</span><span class="o">%</span> <span class="nx">endfor</span> <span class="o">%</span><span class="p">}</span>
+</span><span class="line"><span class="p">]</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<p>在使用原生的jekyll时没有问题，但是在使用octopress时就出现了<a href="http://ruby-taiwan.org/topics/230">问题</a>：octopress自动把英文的双引号"变成了<code>&amp;#8220;</code>和<code>&amp;#8221;</code>，经过浏览器的解释对应的是“和”。有人提出在双引号前加<code>\</code>，在网页里的确是显示的原来的引号，但是一看代码，还是字符引用。</p>
+
+<p>昨晚想了很久，网上找资料也没找到，没办法，只好去看octopress里的代码。我可是ruby小白啊，一点都不懂，连猜带蒙终于搞定了。其实最简单粗暴的办法就是把octopress目录下<code>/plugins/octopress_filters.rb</code>里的第19行行首加<code>#</code>注释掉：</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span /></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+</pre></td><td class="code"><pre><code class="ruby"><span class="line"><span class="c1">#		RubyPants.new(input).to_html</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<p>RubyPants这个插件就是替换引号的元凶，你可以打开它卡看看里面的注释。</p>
+
+<p>经过上面的处理后，octopress也可以正常输出json文件了，请看</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span>recent.json  (recent.json)</span> <a href="/cn/downloads/code/../../../public/cn/recent.json">download</a></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+<span class="line-number">7</span>
+<span class="line-number">8</span>
+<span class="line-number">9</span>
+<span class="line-number">10</span>
+<span class="line-number">11</span>
+<span class="line-number">12</span>
+<span class="line-number">13</span>
+<span class="line-number">14</span>
+<span class="line-number">15</span>
+<span class="line-number">16</span>
+<span class="line-number">17</span>
+<span class="line-number">18</span>
+<span class="line-number">19</span>
+<span class="line-number">20</span>
+<span class="line-number">21</span>
+<span class="line-number">22</span>
+<span class="line-number">23</span>
+<span class="line-number">24</span>
+<span class="line-number">25</span>
+<span class="line-number">26</span>
+<span class="line-number">27</span>
+<span class="line-number">28</span>
+<span class="line-number">29</span>
+<span class="line-number">30</span>
+<span class="line-number">31</span>
+<span class="line-number">32</span>
+</pre></td><td class="code"><pre><code class="javascript"><span class="line"><span class="p">[</span>
+</span><span class="line">    <span class="p">{</span>
+</span><span class="line">        <span class="s2">&quot;title&quot;</span><span class="o">:</span><span class="s2">&quot;用jekyll生成json&quot;</span><span class="p">,</span>
+</span><span class="line">        <span class="s2">&quot;url&quot;</span><span class="o">:</span><span class="s2">&quot;http://chen.yanping.me/cn/blog/2012/04/19/jekyll-with-json/&quot;</span><span class="p">,</span>
+</span><span class="line">        <span class="s2">&quot;date&quot;</span><span class="o">:</span><span class="s2">&quot;19 Apr 2012&quot;</span>
+</span><span class="line">    <span class="p">},</span>
+</span><span class="line">
+</span><span class="line">    <span class="p">{</span>
+</span><span class="line">        <span class="s2">&quot;title&quot;</span><span class="o">:</span><span class="s2">&quot;指数方法论入门&quot;</span><span class="p">,</span>
+</span><span class="line">        <span class="s2">&quot;url&quot;</span><span class="o">:</span><span class="s2">&quot;http://chen.yanping.me/cn/blog/2012/03/30/the-abcs-of-index-methodologies/&quot;</span><span class="p">,</span>
+</span><span class="line">        <span class="s2">&quot;date&quot;</span><span class="o">:</span><span class="s2">&quot;30 Mar 2012&quot;</span>
+</span><span class="line">    <span class="p">},</span>
+</span><span class="line">
+</span><span class="line">    <span class="p">{</span>
+</span><span class="line">        <span class="s2">&quot;title&quot;</span><span class="o">:</span><span class="s2">&quot;Github Pages极简教程&quot;</span><span class="p">,</span>
+</span><span class="line">        <span class="s2">&quot;url&quot;</span><span class="o">:</span><span class="s2">&quot;http://chen.yanping.me/cn/blog/2012/03/18/github-pages-step-by-step/&quot;</span><span class="p">,</span>
+</span><span class="line">        <span class="s2">&quot;date&quot;</span><span class="o">:</span><span class="s2">&quot;18 Mar 2012&quot;</span>
+</span><span class="line">    <span class="p">},</span>
+</span><span class="line">
+</span><span class="line">    <span class="p">{</span>
+</span><span class="line">        <span class="s2">&quot;title&quot;</span><span class="o">:</span><span class="s2">&quot;黑魔法利器pandoc&quot;</span><span class="p">,</span>
+</span><span class="line">        <span class="s2">&quot;url&quot;</span><span class="o">:</span><span class="s2">&quot;http://chen.yanping.me/cn/blog/2012/03/13/pandoc/&quot;</span><span class="p">,</span>
+</span><span class="line">        <span class="s2">&quot;date&quot;</span><span class="o">:</span><span class="s2">&quot;13 Mar 2012&quot;</span>
+</span><span class="line">    <span class="p">},</span>
+</span><span class="line">
+</span><span class="line">    <span class="p">{</span>
+</span><span class="line">        <span class="s2">&quot;title&quot;</span><span class="o">:</span><span class="s2">&quot;我的Octopress样式表&quot;</span><span class="p">,</span>
+</span><span class="line">        <span class="s2">&quot;url&quot;</span><span class="o">:</span><span class="s2">&quot;http://chen.yanping.me/cn/blog/2012/03/12/my-style-list/&quot;</span><span class="p">,</span>
+</span><span class="line">        <span class="s2">&quot;date&quot;</span><span class="o">:</span><span class="s2">&quot;12 Mar 2012&quot;</span>
+</span><span class="line">    <span class="p">}</span>
+</span><span class="line">
+</span><span class="line"><span class="p">]</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<h2 id="json-1">调用json</h2>
+
+<p>可以用ajax或jquery来调用json文件，后者更容易一些，这里给出一个例子，效果见我的<a href="http://chen.yanping.me">主页</a></p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span /></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+<span class="line-number">7</span>
+<span class="line-number">8</span>
+<span class="line-number">9</span>
+<span class="line-number">10</span>
+<span class="line-number">11</span>
+<span class="line-number">12</span>
+<span class="line-number">13</span>
+<span class="line-number">14</span>
+<span class="line-number">15</span>
+<span class="line-number">16</span>
+<span class="line-number">17</span>
+<span class="line-number">18</span>
+<span class="line-number">19</span>
+<span class="line-number">20</span>
+<span class="line-number">21</span>
+</pre></td><td class="code"><pre><code class="html"><span class="line"><span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;section&quot;</span> <span class="na">id=</span><span class="s">&quot;blog1-posts-list&quot;</span><span class="nt">&gt;</span>
+</span><span class="line">		<span class="nt">&lt;h1</span> <span class="na">id=</span><span class="s">&quot;id165&quot;</span><span class="nt">&gt;</span>博客<span class="nt">&lt;/h1&gt;</span>
+</span><span class="line">		<span class="nt">&lt;p&gt;</span>我现在主要更新的是托管在github上的<span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">&quot;http://chen.yanping.me/cn&quot;</span> <span class="na">target=</span><span class="s">&quot;_blank&quot;</span><span class="nt">&gt;</span>Octopress博客<span class="nt">&lt;/a&gt;</span>，主要记录自己在学习过程中的心得体会。近期内容：<span class="nt">&lt;/p&gt;</span>
+</span><span class="line">
+</span><span class="line">	<span class="nt">&lt;/div&gt;</span>
+</span><span class="line">	
+</span><span class="line">		<span class="nt">&lt;script </span><span class="na">type=</span><span class="s">&quot;text/javascript&quot;</span><span class="nt">&gt;</span>
+</span><span class="line">		<span class="nx">$</span><span class="p">(</span><span class="nb">document</span><span class="p">).</span><span class="nx">ready</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+</span><span class="line">			<span class="nx">$</span><span class="p">.</span><span class="nx">getJSON</span><span class="p">(</span><span class="s2">&quot;/cn/recent.json&quot;</span><span class="p">,</span><span class="kd">function</span><span class="p">(</span><span class="nx">data</span><span class="p">){</span>
+</span><span class="line">				<span class="kd">var</span> <span class="nx">content</span> <span class="o">=</span><span class="s2">&quot;&lt;ul class=\&quot;compact recent\&quot;&gt;&quot;</span><span class="p">;</span>
+</span><span class="line">				<span class="nx">$</span><span class="p">.</span><span class="nx">each</span><span class="p">(</span><span class="nx">data</span><span class="p">,</span><span class="kd">function</span><span class="p">(</span><span class="nx">i</span><span class="p">,</span><span class="nx">item</span><span class="p">){</span>
+</span><span class="line">				
+</span><span class="line">				<span class="nx">content</span> <span class="o">+=</span> <span class="s2">&quot;&lt;li&gt;&lt;span class=\&quot;date\&quot;&gt;&quot;</span><span class="o">+</span> <span class="nx">item</span><span class="p">.</span><span class="nx">date</span> <span class="o">+</span> <span class="s2">&quot;&lt;/span&gt;&lt;a href=\&quot;&quot;</span><span class="o">+</span><span class="nx">item</span><span class="p">.</span><span class="nx">url</span><span class="o">+</span><span class="s2">&quot;\&quot;&gt;&quot;</span><span class="o">+</span> <span class="nx">item</span><span class="p">.</span><span class="nx">title</span> <span class="o">+</span><span class="s2">&quot;&lt;/a&gt;&lt;/li&gt;&quot;</span><span class="p">;</span>
+</span><span class="line">				
+</span><span class="line">				<span class="p">});</span>
+</span><span class="line">				
+</span><span class="line">				<span class="nx">content</span> <span class="o">+=</span><span class="s2">&quot;&lt;/ul&gt;&quot;</span><span class="p">;</span>
+</span><span class="line">				<span class="nx">$</span><span class="p">(</span><span class="s2">&quot;#blog1-posts-list&quot;</span><span class="p">).</span><span class="nx">append</span><span class="p">(</span><span class="nx">content</span><span class="p">);</span>
+</span><span class="line">			<span class="p">});</span>
+</span><span class="line">		<span class="p">});</span>	
+</span><span class="line">	<span class="nt">&lt;/script&gt;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<p>别忘了加载jquery脚本，在我主页里是这句：</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span /></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+</pre></td><td class="code"><pre><code class="html"><span class="line"><span class="nt">&lt;script </span><span class="na">src=</span><span class="s">&quot;/files/js/jquery-1.7.1.min.js&quot;</span> <span class="na">type=</span><span class="s">&quot;text/javascript&quot;</span><span class="nt">&gt;&lt;/script&gt;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">ypchen</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-04-19T22:30:00+08:00" pubdate data-updated="true">Apr 19<span>th</span>, 2012</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/cn/blog/categories/github/'>github</a>, <a class='category' href='/cn/blog/categories/javascript/'>javascript</a>, <a class='category' href='/cn/blog/categories/jekyll/'>jekyll</a>, <a class='category' href='/cn/blog/categories/octopress/'>octopress</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/cn/blog/2012/03/30/the-abcs-of-index-methodologies/" title="Previous Post: 指数方法论入门">&laquo; 指数方法论入门</a>
+      
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    
+<section id="categories_tag">
+<h1>分类目录</h1>
+<span class='categories_tag'> <a href='/cn/blog/categories/github' style='font-size: 151.42857142857144%'>Github(6)</a>  <a href='/cn/blog/categories/javascript' style='font-size: 117.14285714285714%'>Javascript(2)</a>  <a href='/cn/blog/categories/jekyll' style='font-size: 151.42857142857144%'>Jekyll(6)</a>  <a href='/cn/blog/categories/latex' style='font-size: 108.57142857142857%'>Latex(1)</a>  <a href='/cn/blog/categories/markdown' style='font-size: 108.57142857142857%'>Markdown(1)</a>  <a href='/cn/blog/categories/octopress' style='font-size: 160.0%'>Octopress(7)</a>  <a href='/cn/blog/categories/r语言' style='font-size: 134.28571428571428%'>R语言(4)</a>  <a href='/cn/blog/categories/指数' style='font-size: 108.57142857142857%'>指数(1)</a> </span>
+</section>
+
+<section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/cn/blog/2012/04/19/jekyll-with-json/">用jekyll生成json</a>
+      </li>
+    
+      <li class="post">
+        <a href="/cn/blog/2012/03/30/the-abcs-of-index-methodologies/">指数方法论入门</a>
+      </li>
+    
+      <li class="post">
+        <a href="/cn/blog/2012/03/18/github-pages-step-by-step/">Github Pages极简教程</a>
+      </li>
+    
+      <li class="post">
+        <a href="/cn/blog/2012/03/13/pandoc/">黑魔法利器pandoc</a>
+      </li>
+    
+      <li class="post">
+        <a href="/cn/blog/2012/03/12/my-style-list/">我的Octopress样式表</a>
+      </li>
+    
+      <li class="post">
+        <a href="/cn/blog/2012/03/10/octopress-with-latex/">在Octopress中使用LaTeX</a>
+      </li>
+    
+      <li class="post">
+        <a href="/cn/blog/2012/03/08/a-piece-of-javascript/">一段有用的javascript代码</a>
+      </li>
+    
+  </ul>
+</section>
+<section id="comment_sidebar">
+<h1>近期评论</h1>
+
+<script type="text/javascript" src="http://ypchencn.disqus.com/recent_comments_widget.js?num_items=5&hide_avatars=0&avatar_size=32&excerpt_length=20"></script><a href="http://disqus.com/">Powered by Disqus</a>
+
+</section>
+<section id="blogroll">
+<h1>友情链接</h1>
+<ul  style="padding-left:0">
+	<li><a target="_blank" href="http://loyhome.com">丽云</a></li>
+	<li><a target="_blank" href="http://bjt.name">刘思喆</a></li>
+	<li><a target="_blank" href="http://jliblog.com">李舰</a></li>
+	<li><a target="_blank" href="http://tracy.cos.name/cn">熊熹师姐</a></li>
+	<li><a target="_blank" href="http://fan.cos.name">范建宁</a></li>
+	<li><a target="_blank" href="http://yihui.name/cn">谢益辉</a></li>
+	<li><a target="_blank" href="http://yishuo.org">邓一硕</a></li>
+	<li><a target="_blank" href="http://yixuan.cos.name/cn">邱怡轩</a></li>
+	<li><a target="_blank" href="http://taiyun.cos.name">魏太云</a></li>
+</ul>
+</section>
+
+<section>
+<iframe width="100%" height="110" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=110&fansRow=2&ptype=1&speed=300&skin=2&isTitle=1&noborder=1&isWeibo=0&isFans=0&uid=1780626537&verifier=d1d5f291&dpc=1"></iframe>
+</section>
+
+
+
+
+
+<section id="copyleft">
+<h1>版权协议</h1>
+	
+	<p align="center"> <a target="_ blank" href="http://creativecommons.org/licenses/by-nc-sa/2.5/cn/"><img src="http://i.creativecommons.org/l/by-nc-sa/2.5/cn/88x31.png" alt="Creative Commons License"/></a></p>
+	<a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/2.5/cn/">CC2.5: 知识共享署名-非商业性使用</a>
+</section>
+<section>
+<h1>Feed订阅</h1>
+<div style="text-align: center;">
+<!-- Feedsky FEED发布代码开始 -->
+<!-- FEED自动发现标记开始 -->
+<link target="_blank" rel="alternate" href="http://feed.yanping.me" type="application/rss+xml" title="RSS 2.0"/>
+<!-- FEED自动发现标记结束 -->
+<a target="_blank" href="http://feed.yanping.me"><img vspace="2" border="0" style="margin-bottom: 3px;" alt="feedsky" src="http://yanping.me/images/feed-icon.gif"/></a><br/>
+</div>
+<div style="text-align: center;">
+<a target="_blank" href="http://www.zhuaxia.com/add_channel.php?url=http://feed.yanping.me"><img vspace="2" border="0" style="margin-bottom: 3px;" alt="抓虾" src="http://yanping.me/images/icon_zhuaxia.gif"/></a><a target="_blank" href="http://www.xianguo.com/subscribe.php?url=http://feed.yanping.me"><img vspace="2" border="0" style="margin-bottom: 3px;" alt="鲜果" src="http://yanping.me/images/icon_xianguo.gif"/></a><br/>
+<a target="_blank" href="http://fusion.google.com/add?feedurl=http://feed.yanping.me"><img vspace="2" border="0" style="margin-bottom: 3px;" alt="google reader" src="http://yanping.me/images/icon_google.gif"/></a><a target="_blank" href="http://mail.qq.com/cgi-bin/feed?u=http://feed.yanping.me"><img vspace="2" border="0" style="margin-bottom: 3px;" alt="QQ邮箱" src="http://yanping.me/images/icon_qq.gif"/></a><br/>
+</div>
+<section>
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo">
+<p>
+  Copyright &copy; 2012 - ypchen -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'ypchencn';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://chen.yanping.me/cn/blog/2012/04/19/jekyll-with-json/';
+        var disqus_url = 'http://chen.yanping.me/cn/blog/2012/04/19/jekyll-with-json/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-27377274-2']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+
+
+
+	<script type="text/javascript">var jiathis_config = {data_track_clickback:true};</script>
+	<script type="text/javascript" src="http://v2.jiathis.com/code/jia.js?uid=1558027" charset="utf-8"></script>
+
+
+
+	<script type="text/javascript">
+    
+        $(document).ready(function(){             
+
+            $('.entry-content a').each(function(index,element){
+                var href = $(this).attr('href');
+                if(href.indexOf('#') == 0){
+                }else if ( href.indexOf('/') == 0 || href.toLowerCase().indexOf('chen.yanping.me/cn')>-1 ){
+                }else{
+                    $(this).attr('target','_blank');
+                    $(this).addClass('external');
+                }
+            });
+           
+        });	
+
+</script>
+
+
+</body>
+</html>
