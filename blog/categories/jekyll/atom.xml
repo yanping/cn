@@ -4,7 +4,7 @@
   <title><![CDATA[分类： jekyll | 雁起平沙的网络日志]]></title>
   <link href="http://chen.yanping.me/cn/blog/categories/jekyll/atom.xml" rel="self"/>
   <link href="http://chen.yanping.me/cn/"/>
-  <updated>2012-04-21T01:03:27+08:00</updated>
+  <updated>2012-04-21T02:20:06+08:00</updated>
   <id>http://chen.yanping.me/cn/</id>
   <author>
     <name><![CDATA[ypchen]]></name>
@@ -237,11 +237,76 @@
 
 <p>读者可以自行比较<a href="http://yanpimg.me">http://yanpimg.me</a>和<a href="http://yanping.me/json-demo">http://yanping.me/json-demo</a>的差别。</p>
 
-<h2 id="section">进一步思考</h2>
+<h2 id="section">第二种方法</h2>
+
+<p>上面讲的这种调用方式还是不够灵活，客户端不但提供数据，还限定了使用数据的方法，如果两端你都能操作那一点问题没有，但经常两端分属不同的人维护，你也没权力指挥别人做什么。有没有更好的办法呢？答案是肯定的。只要把数据格式的定义和调用数据的函数定义分开就行。</p>
+
+<p>服务端只定义json数据的形式，例如在博客<a href="https://github.com/yanping/art">https://github.com/yanping/art</a>新建posts2.js的模板：</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>—
+</span><span class='line'>layout: nil
+</span><span class='line'>—&lt;/p>
+</span><span class='line'>
+</span><span class='line'>&lt;pre>&lt;code>var post = {
+</span><span class='line'>"list":[{% for post in site.posts limit:5 %}{
+</span><span class='line'>    "title":"{{post.title}}",
+</span><span class='line'>    "url":"{{site.url}}{{post.url}}",
+</span><span class='line'>    "date":"{{post.date|date_to_string}}"
+</span><span class='line'>}{% if forloop.last == false %},{% endif %} {% endfor %}
+</span><span class='line'>
+</span><span class='line'>]};	
+</span><span class='line'>&lt;/code>&lt;/pre>
+</span><span class='line'>
+</span><span class='line'>&lt;p></span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>在客户端页面这样调用：</p>
+
+<p>```html
+	&lt;div class="section" id="blog2-posts-list"&gt;
+	&lt;p&gt;我还有个文艺点儿的<a href="http://art.yanping.me" target="_blank">博客</a>，写写跟技术无关的东西。近期内容：&lt;/p&gt;
+	&lt;/div&gt;</p>
+
+<pre><code>&lt;script src="http://art.yanping.me/posts2.js" type="text/javascript"&gt;&lt;/script&gt;
+
+&lt;!-- 下面定义数据调用方法 --&gt;
+&lt;script type="text/javascript"&gt;
+	$(document).ready(function() {
+			var content ="&lt;ul class=\"compact recent\"&gt;";
+			$.each(post.list,function(i,item){
+
+			content += "&lt;li&gt;&lt;span class=\"date\"&gt;"+ item.date + "&lt;/span&gt;&lt;a href=\""+item.url+"\"&gt;"+ item.title +"&lt;/a&gt;&lt;/li&gt;";
+
+			});
+
+			content +="&lt;/ul&gt;";
+			$("#blog2-posts-list").append(content);
+	
+	});		
+&lt;/script&gt; ```
+</code></pre>
+
+<p>我尝试了几种json数据的定义形式，<a href="http://yanping.me/json-demo/2.html">示例1</a>、<a href="http://yanping.me/json-demo/3.html">示例2</a>、<a href="http://yanping.me/json-demo/4.html">示例3</a>和<a href="http://yanping.me/json-demo/5.html">示例4</a>，只有最后一种没有办法完成调用，这是因为数据的读取和使用分别在两个<code>&lt;script&gt;</code>标签里，数据必须定义成全局变量才能在后面被引用。</p>
+
+<h2 id="section-1">进一步思考</h2>
 
 <p>在同域的情况下，服务端生成json数据，在客户端用getJSON读取json文件，我们称之为<strong>方法一</strong>，这是<a href="http://chen.yanping.me/cn/blog/2012/04/19/jekyll-with-json/">前一篇文章</a>讲的方法;在跨域的情况下，服务端生成包含json变量的js脚本，然后再在客户端链接这个外部的js脚本，这种方法我们称之为<strong>方法二</strong>。</p>
 
-<p>本文在使用<strong>方法二</strong>时，数据的形式和使用数据的方法都在服务端定义，如果服务端和客户端分别由两个人维护的话，客户端的维护者只能被动接受。幸好我们有github，github的口号是social coding，有人翻译成社会化编程，我偏向于翻译成社交编程。想想我们在facebook、人人网这样的社交网络都干些什么，我们在那上面上发布状态、上传图片，告诉朋友以及路过的陌生人我们都做了什么、心情如何、拍了什么照片，上班时大家很喜欢挂人人，刷新鲜事；而在github上，coder们晒出自己的代码，可以关注别的coder和感兴趣的项目，登录github可以看到大家的“新鲜事”：某某创建了个什么代码库、做了什么修改，你可以亲眼看到别人的项目从最初的雏形发展成一个完美的项目，可以给别人的代码留言，报告bug，也可以fork别人的代码，根据自己的喜好做修改，如果有好的主意，可以给原作者发个pull request，作者要是也同样喜欢，就会加到自己的代码里。</p>
+<p>本文在使用<strong>方法二</strong>时，如果服务端和客户端分别由两个人维护的话，客户端的维护者只能被动接受。幸好我们有github，github的口号是social coding，有人翻译成社会化编程，我偏向于翻译成社交编程。想想我们在facebook、人人网这样的社交网络都干些什么，我们在那上面上发布状态、上传图片，告诉朋友以及路过的陌生人我们都做了什么、心情如何、拍了什么照片，上班时大家很喜欢挂人人，刷新鲜事；而在github上，coder们晒出自己的代码，可以关注别的coder和感兴趣的项目，登录github可以看到大家的“新鲜事”：某某创建了个什么代码库、做了什么修改，你可以亲眼看到别人的项目从最初的雏形发展成一个完美的项目，可以给别人的代码留言，报告bug，也可以fork别人的代码，根据自己的喜好做修改，如果有好的主意，可以给原作者发个pull request，作者要是也同样喜欢，就会加到自己的代码里。</p>
 
 <p>在github上，跨域的问题不是那么难解决，我们完全可以针对自己的需求写个js脚本的模板，给博客的作者发个pull request，或者留言，没准儿哪天包含json变量的js脚本模板也会像rss.xml、atom.xml或者sitemap.xml一样变得成github博客的标配。</p>
 
