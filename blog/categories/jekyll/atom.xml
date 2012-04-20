@@ -4,7 +4,7 @@
   <title><![CDATA[分类： jekyll | 雁起平沙的网络日志]]></title>
   <link href="http://chen.yanping.me/cn/blog/categories/jekyll/atom.xml" rel="self"/>
   <link href="http://chen.yanping.me/cn/"/>
-  <updated>2012-04-20T00:03:40+08:00</updated>
+  <updated>2012-04-21T01:03:27+08:00</updated>
   <id>http://chen.yanping.me/cn/</id>
   <author>
     <name><![CDATA[ypchen]]></name>
@@ -12,6 +12,241 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[用jekyll生成包含json变量的js脚本]]></title>
+    <link href="http://chen.yanping.me/cn/blog/2012/04/20/jekyll-with-js-and-json/"/>
+    <updated>2012-04-20T23:58:00+08:00</updated>
+    <id>http://chen.yanping.me/cn/blog/2012/04/20/jekyll-with-js-and-json</id>
+    <content type="html"><![CDATA[<p class="info">本文主要讨论如何用jekyll模板生成含有json数据的javascript脚本，并以此解决跨域读取json数据的问题。</p>
+
+<p><a href="http://chen.yanping.me/cn/blog/2012/04/19/jekyll-with-json/">前一篇文章</a>提到用getJSON读取json文件，并以此动态更新页面，但只能读取同域的json文件，据说是出于安全性的考虑。</p>
+
+<p>现在问题出来了，我除了前文提到的三个网站以外，还有个<a href="http://yanping.me">主页的镜像网站</a>，它存放在美国的一位师兄的服务器上，和那三个网站肯定不同域，如果我要让它和github上的<a href="http://chen.yanping.me">主页</a>始终保持一致，又不想每次手动修改博客文章列表，也不能再使用feedsky了。因为feedsky除了慢之外，生成的列表样式也和网站风格不一致。</p>
+
+<p>别看表面上只有一行代码：</p>
+
+<p><code>html
+&lt;script src="http://feed.feedsky.com/yanping/jsout&amp;n=5&amp;e=utf8" type="text/javascript"&gt;&lt;/script&gt;	
+</code></p>
+
+<p>实际上经过了向feedsky服务器发送请求、返回数据、浏览器渲染之后的代码很臃肿，用firefox的插件firebug查看上面那行代码渲染之后的代码是如下行形式（只是个例子，等这篇文章发布以后feedsky提供的内容会改变）：</p>
+
+<p><code>html
+&lt;!-- Feedsky FEED JS发布代码开始 --&gt;
+    &lt;script src="http://feed.feedsky.com/yanping/jsout&amp;amp;n=5&amp;amp;e=utf8"&gt;
+    &lt;/script&gt;
+    &lt;div class="reader-publisher-module" id="readerpublishermodule0" style="border: 1px solid rgb(188, 204, 235); margin: 0.5em; padding: 0pt; background: rgb(255, 255, 255) none repeat scroll 0%; -moz-background-clip: -moz-initial; -moz-background-origin: -moz-initial; -moz-background-inline-policy: -moz-initial; text-align: left; text-indent: 0pt; text-decoration: none; font-weight: normal; font-family: arial,sans-serif; font-size: 10pt; -moz-border-radius-topleft: 8px; -moz-border-radius-topright: 8px; -moz-border-radius-bottomright: 8px; -moz-border-radius-bottomleft: 8px;"&gt;
+        &lt;h3 style="border-style: none none solid; border-color: -moz-use-text-color -moz-use-text-color rgb(188, 204, 235); border-width: medium medium 1px; margin: 0pt 0.5em; padding: 0.2em 0pt; background: transparent none repeat scroll 0%; -moz-background-clip: -moz-initial; -moz-background-origin: -moz-initial; -moz-background-inline-policy: -moz-initial; text-align: left; text-indent: 0pt; text-decoration: none; font-weight: normal; -moz-border-radius-topleft: 8px; -moz-border-radius-topright: 8px; -moz-border-radius-bottomright: 0pt; -moz-border-radius-bottomleft: 0pt; color: rgb(9, 9, 146);"&gt;
+            &lt;a href="http://chen.yanping.me/cn/"&gt;
+                雁起平沙的网络日志
+            &lt;/a&gt;
+        &lt;/h3&gt;
+        &lt;ul style="border: medium none ; margin: 0pt 0.5em; padding: 0.2em; background: transparent none repeat scroll 0%; overflow: hidden; -moz-background-clip: -moz-initial; -moz-background-origin: -moz-initial; -moz-background-inline-policy: -moz-initial; text-align: left; text-indent: 0pt; text-decoration: none; font-weight: normal;"&gt;
+            &lt;li style="border: medium none ; margin: 0pt; padding: 0.4em 0pt; background: transparent none repeat scroll 0%; -moz-background-clip: -moz-initial; -moz-background-origin: -moz-initial; -moz-background-inline-policy: -moz-initial; text-align: left; text-indent: 0pt; text-decoration: none; font-weight: normal; list-style-type: none;"&gt;
+                &lt;a href="http://item.feedsky.com/~feedsky/yanping/~8847833/629496870/6966477/1/item.html"
+                title="Thu, 19 Apr 2012 22:30:00 +0800:用jekyll生成json" class="i" style="border-style: none none solid; border-color: -moz-use-text-color -moz-use-text-color rgb(122, 126, 224); border-width: medium medium 1px; margin: 0pt; padding: 0pt; background: transparent none repeat scroll 0%; -moz-background-clip: -moz-initial; -moz-background-origin: -moz-initial; -moz-background-inline-policy: -moz-initial; text-align: left; text-indent: 0pt; text-decoration: none; font-weight: normal; color: rgb(16, 16, 200);"&gt;
+                    用jekyll生成json
+                &lt;/a&gt;
+            &lt;/li&gt;
+            &lt;li style="border: medium none ; margin: 0pt; padding: 0.4em 0pt; background: transparent none repeat scroll 0%; -moz-background-clip: -moz-initial; -moz-background-origin: -moz-initial; -moz-background-inline-policy: -moz-initial; text-align: left; text-indent: 0pt; text-decoration: none; font-weight: normal; list-style-type: none;"&gt;
+                &lt;a href="http://item.feedsky.com/~feedsky/yanping/~8847833/629496871/6966477/1/item.html"
+                title="Fri, 30 Mar 2012 19:50:00 +0800:指数方法论入门" class="i" style="border-style: none none solid; border-color: -moz-use-text-color -moz-use-text-color rgb(122, 126, 224); border-width: medium medium 1px; margin: 0pt; padding: 0pt; background: transparent none repeat scroll 0%; -moz-background-clip: -moz-initial; -moz-background-origin: -moz-initial; -moz-background-inline-policy: -moz-initial; text-align: left; text-indent: 0pt; text-decoration: none; font-weight: normal; color: rgb(16, 16, 200);"&gt;
+                    指数方法论入门
+                &lt;/a&gt;
+            &lt;/li&gt;
+            &lt;li style="border: medium none ; margin: 0pt; padding: 0.4em 0pt; background: transparent none repeat scroll 0%; -moz-background-clip: -moz-initial; -moz-background-origin: -moz-initial; -moz-background-inline-policy: -moz-initial; text-align: left; text-indent: 0pt; text-decoration: none; font-weight: normal; list-style-type: none;"&gt;
+                &lt;a href="http://item.feedsky.com/~feedsky/yanping/~8847833/629496872/6966477/1/item.html"
+                title="Sun, 18 Mar 2012 00:30:00 +0800:Github Pages极简教程" class="i" style="border-style: none none solid; border-color: -moz-use-text-color -moz-use-text-color rgb(122, 126, 224); border-width: medium medium 1px; margin: 0pt; padding: 0pt; background: transparent none repeat scroll 0%; -moz-background-clip: -moz-initial; -moz-background-origin: -moz-initial; -moz-background-inline-policy: -moz-initial; text-align: left; text-indent: 0pt; text-decoration: none; font-weight: normal; color: rgb(16, 16, 200);"&gt;
+                    Github Pages极简教程
+                &lt;/a&gt;
+            &lt;/li&gt;
+            &lt;li style="border: medium none ; margin: 0pt; padding: 0.4em 0pt; background: transparent none repeat scroll 0%; -moz-background-clip: -moz-initial; -moz-background-origin: -moz-initial; -moz-background-inline-policy: -moz-initial; text-align: left; text-indent: 0pt; text-decoration: none; font-weight: normal; list-style-type: none;"&gt;
+                &lt;a href="http://item.feedsky.com/~feedsky/yanping/~8847833/629496873/6966477/1/item.html"
+                title="Tue, 13 Mar 2012 00:30:00 +0800:黑魔法利器pandoc" class="i" style="border-style: none none solid; border-color: -moz-use-text-color -moz-use-text-color rgb(122, 126, 224); border-width: medium medium 1px; margin: 0pt; padding: 0pt; background: transparent none repeat scroll 0%; -moz-background-clip: -moz-initial; -moz-background-origin: -moz-initial; -moz-background-inline-policy: -moz-initial; text-align: left; text-indent: 0pt; text-decoration: none; font-weight: normal; color: rgb(16, 16, 200);"&gt;
+                    黑魔法利器pandoc
+                &lt;/a&gt;
+            &lt;/li&gt;
+            &lt;li style="border: medium none ; margin: 0pt; padding: 0.4em 0pt; background: transparent none repeat scroll 0%; -moz-background-clip: -moz-initial; -moz-background-origin: -moz-initial; -moz-background-inline-policy: -moz-initial; text-align: left; text-indent: 0pt; text-decoration: none; font-weight: normal; list-style-type: none;"&gt;
+                &lt;a href="http://item.feedsky.com/~feedsky/yanping/~8847833/629496874/6966477/1/item.html"
+                title="Mon, 12 Mar 2012 22:16:00 +0800:我的Octopress样式表" class="i" style="border-style: none none solid; border-color: -moz-use-text-color -moz-use-text-color rgb(122, 126, 224); border-width: medium medium 1px; margin: 0pt; padding: 0pt; background: transparent none repeat scroll 0%; -moz-background-clip: -moz-initial; -moz-background-origin: -moz-initial; -moz-background-inline-policy: -moz-initial; text-align: left; text-indent: 0pt; text-decoration: none; font-weight: normal; color: rgb(16, 16, 200);"&gt;
+                    我的Octopress样式表
+                &lt;/a&gt;
+            &lt;/li&gt;
+        &lt;/ul&gt;
+        &lt;div class="f" style="border-style: solid none none; border-color: rgb(188, 204, 235) -moz-use-text-color -moz-use-text-color; border-width: 1px medium medium; margin: 0pt; padding: 0.2em 8px; background: rgb(229, 236, 249) none repeat scroll 0%; -moz-background-clip: -moz-initial; -moz-background-origin: -moz-initial; -moz-background-inline-policy: -moz-initial; text-align: right; text-indent: 0pt; text-decoration: none; font-weight: normal; -moz-border-radius-topleft: 0pt; -moz-border-radius-topright: 0pt; -moz-border-radius-bottomright: 4px; -moz-border-radius-bottomleft: 4px; font-size: small; white-space: nowrap;"&gt;
+            &lt;a style="border: medium none ; margin: 0pt; padding: 0pt; background: transparent none repeat scroll 0%; -moz-background-clip: -moz-initial; -moz-background-origin: -moz-initial; -moz-background-inline-policy: -moz-initial; text-align: left; text-indent: 0pt; text-decoration: underline; font-weight: normal; color: rgb(137, 141, 233);"
+            href="http://feed.yanping.me"&gt;
+                Read in Feedsky
+            &lt;/a&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;!-- Feedsky FEED JS发布代码结束 --&gt;
+</code></p>
+
+<p>虽然不好跨域读取json数据文件，但是浏览器可以加载外部js脚本，js脚本里又可以包含json变量。</p>
+
+<p>我们称提供json数据的一端为服务端，调用json数据的一端为客户端。在服务端创建下面的js脚本模板：</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>recent.json  (posts.js)</span> <a href='/downloads/code/../../posts.js'>download</a></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="o">---</span>
+</span><span class='line'><span class="nx">layout</span><span class="o">:</span> <span class="nx">nil</span>
+</span><span class='line'><span class="o">---</span>
+</span><span class='line'>
+</span><span class='line'><span class="nx">$</span><span class="p">(</span><span class="nb">document</span><span class="p">).</span><span class="nx">ready</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+</span><span class='line'>	<span class="kd">var</span> <span class="nx">post</span> <span class="o">=</span> <span class="p">{</span>
+</span><span class='line'>	<span class="s2">&quot;list&quot;</span><span class="o">:</span><span class="p">[{</span><span class="o">%</span> <span class="k">for</span> <span class="nx">post</span> <span class="k">in</span> <span class="nx">site</span><span class="p">.</span><span class="nx">posts</span> <span class="nx">limit</span><span class="o">:</span><span class="mi">5</span> <span class="o">%</span><span class="p">}{</span>
+</span><span class='line'>		<span class="s2">&quot;title&quot;</span><span class="o">:</span><span class="s2">&quot;{{post.title}}&quot;</span><span class="p">,</span>
+</span><span class='line'>		    <span class="s2">&quot;url&quot;</span><span class="o">:</span><span class="s2">&quot;{{site.url}}{{post.url}}&quot;</span><span class="p">,</span>
+</span><span class='line'>		    <span class="s2">&quot;date&quot;</span><span class="o">:</span><span class="s2">&quot;{{post.date|date_to_string}}&quot;</span>
+</span><span class='line'>		<span class="p">}{</span><span class="o">%</span> <span class="k">if</span> <span class="nx">forloop</span><span class="p">.</span><span class="nx">last</span> <span class="o">==</span> <span class="kc">false</span> <span class="o">%</span><span class="p">},{</span><span class="o">%</span> <span class="nx">endif</span> <span class="o">%</span><span class="p">}</span>
+</span><span class='line'>	<span class="p">{</span><span class="o">%</span> <span class="nx">endfor</span> <span class="o">%</span><span class="p">}</span>
+</span><span class='line'>	<span class="p">]};</span>
+</span><span class='line'>
+</span><span class='line'>	<span class="kd">var</span> <span class="nx">content</span> <span class="o">=</span><span class="s2">&quot;&lt;ul class=\&quot;compact recent\&quot;&gt;&quot;</span><span class="p">;</span>
+</span><span class='line'>	<span class="nx">$</span><span class="p">.</span><span class="nx">each</span><span class="p">(</span><span class="nx">post</span><span class="p">.</span><span class="nx">list</span><span class="p">,</span><span class="kd">function</span><span class="p">(</span><span class="nx">i</span><span class="p">,</span><span class="nx">item</span><span class="p">){</span>
+</span><span class='line'>
+</span><span class='line'>	<span class="nx">content</span> <span class="o">+=</span> <span class="s2">&quot;&lt;li&gt;&lt;span class=\&quot;date\&quot;&gt;&quot;</span><span class="o">+</span> <span class="nx">item</span><span class="p">.</span><span class="nx">date</span> <span class="o">+</span> <span class="s2">&quot;&lt;/span&gt;&lt;a href=\&quot;&quot;</span><span class="o">+</span><span class="nx">item</span><span class="p">.</span><span class="nx">url</span><span class="o">+</span><span class="s2">&quot;\&quot;&gt;&quot;</span><span class="o">+</span> <span class="nx">item</span><span class="p">.</span><span class="nx">title</span> <span class="o">+</span><span class="s2">&quot;&lt;/a&gt;&lt;/li&gt;&quot;</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'>	<span class="p">});</span>
+</span><span class='line'>
+</span><span class='line'>	<span class="nx">content</span> <span class="o">+=</span><span class="s2">&quot;&lt;/ul&gt;&quot;</span><span class="p">;</span>
+</span><span class='line'>	<span class="nx">$</span><span class="p">(</span><span class="s2">&quot;#blog1-posts-list&quot;</span><span class="p">).</span><span class="nx">append</span><span class="p">(</span><span class="nx">content</span><span class="p">);</span>
+</span><span class='line'><span class="p">});</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>经过jekyll的处理后得到：</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>recent.json  (posts.js)</span> <a href='/downloads/code/../../../public/cn/posts.js'>download</a></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="nx">$</span><span class="p">(</span><span class="nb">document</span><span class="p">).</span><span class="nx">ready</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+</span><span class='line'>	<span class="kd">var</span> <span class="nx">post</span> <span class="o">=</span> <span class="p">{</span>
+</span><span class='line'>	<span class="s2">&quot;list&quot;</span><span class="o">:</span><span class="p">[{</span>
+</span><span class='line'>		<span class="s2">&quot;title&quot;</span><span class="o">:</span><span class="s2">&quot;用jekyll生成包含json变量的js脚本&quot;</span><span class="p">,</span>
+</span><span class='line'>		    <span class="s2">&quot;url&quot;</span><span class="o">:</span><span class="s2">&quot;http://chen.yanping.me/cn/blog/2012/04/20/jekyll-with-js-and-json/&quot;</span><span class="p">,</span>
+</span><span class='line'>		    <span class="s2">&quot;date&quot;</span><span class="o">:</span><span class="s2">&quot;20 Apr 2012&quot;</span>
+</span><span class='line'>		<span class="p">},</span>
+</span><span class='line'>	<span class="p">{</span>
+</span><span class='line'>		<span class="s2">&quot;title&quot;</span><span class="o">:</span><span class="s2">&quot;用jekyll生成json&quot;</span><span class="p">,</span>
+</span><span class='line'>		    <span class="s2">&quot;url&quot;</span><span class="o">:</span><span class="s2">&quot;http://chen.yanping.me/cn/blog/2012/04/19/jekyll-with-json/&quot;</span><span class="p">,</span>
+</span><span class='line'>		    <span class="s2">&quot;date&quot;</span><span class="o">:</span><span class="s2">&quot;19 Apr 2012&quot;</span>
+</span><span class='line'>		<span class="p">},</span>
+</span><span class='line'>	<span class="p">{</span>
+</span><span class='line'>		<span class="s2">&quot;title&quot;</span><span class="o">:</span><span class="s2">&quot;指数方法论入门&quot;</span><span class="p">,</span>
+</span><span class='line'>		    <span class="s2">&quot;url&quot;</span><span class="o">:</span><span class="s2">&quot;http://chen.yanping.me/cn/blog/2012/03/30/the-abcs-of-index-methodologies/&quot;</span><span class="p">,</span>
+</span><span class='line'>		    <span class="s2">&quot;date&quot;</span><span class="o">:</span><span class="s2">&quot;30 Mar 2012&quot;</span>
+</span><span class='line'>		<span class="p">},</span>
+</span><span class='line'>	<span class="p">{</span>
+</span><span class='line'>		<span class="s2">&quot;title&quot;</span><span class="o">:</span><span class="s2">&quot;Github Pages极简教程&quot;</span><span class="p">,</span>
+</span><span class='line'>		    <span class="s2">&quot;url&quot;</span><span class="o">:</span><span class="s2">&quot;http://chen.yanping.me/cn/blog/2012/03/18/github-pages-step-by-step/&quot;</span><span class="p">,</span>
+</span><span class='line'>		    <span class="s2">&quot;date&quot;</span><span class="o">:</span><span class="s2">&quot;18 Mar 2012&quot;</span>
+</span><span class='line'>		<span class="p">},</span>
+</span><span class='line'>	<span class="p">{</span>
+</span><span class='line'>		<span class="s2">&quot;title&quot;</span><span class="o">:</span><span class="s2">&quot;黑魔法利器pandoc&quot;</span><span class="p">,</span>
+</span><span class='line'>		    <span class="s2">&quot;url&quot;</span><span class="o">:</span><span class="s2">&quot;http://chen.yanping.me/cn/blog/2012/03/13/pandoc/&quot;</span><span class="p">,</span>
+</span><span class='line'>		    <span class="s2">&quot;date&quot;</span><span class="o">:</span><span class="s2">&quot;13 Mar 2012&quot;</span>
+</span><span class='line'>		<span class="p">}</span>
+</span><span class='line'>	
+</span><span class='line'>	<span class="p">]};</span>
+</span><span class='line'>
+</span><span class='line'>	<span class="kd">var</span> <span class="nx">content</span> <span class="o">=</span><span class="s2">&quot;&lt;ul class=\&quot;compact recent\&quot;&gt;&quot;</span><span class="p">;</span>
+</span><span class='line'>	<span class="nx">$</span><span class="p">.</span><span class="nx">each</span><span class="p">(</span><span class="nx">post</span><span class="p">.</span><span class="nx">list</span><span class="p">,</span><span class="kd">function</span><span class="p">(</span><span class="nx">i</span><span class="p">,</span><span class="nx">item</span><span class="p">){</span>
+</span><span class='line'>
+</span><span class='line'>	<span class="nx">content</span> <span class="o">+=</span> <span class="s2">&quot;&lt;li&gt;&lt;span class=\&quot;date\&quot;&gt;&quot;</span><span class="o">+</span> <span class="nx">item</span><span class="p">.</span><span class="nx">date</span> <span class="o">+</span> <span class="s2">&quot;&lt;/span&gt;&lt;a href=\&quot;&quot;</span><span class="o">+</span><span class="nx">item</span><span class="p">.</span><span class="nx">url</span><span class="o">+</span><span class="s2">&quot;\&quot;&gt;&quot;</span><span class="o">+</span> <span class="nx">item</span><span class="p">.</span><span class="nx">title</span> <span class="o">+</span><span class="s2">&quot;&lt;/a&gt;&lt;/li&gt;&quot;</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'>	<span class="p">});</span>
+</span><span class='line'>
+</span><span class='line'>	<span class="nx">content</span> <span class="o">+=</span><span class="s2">&quot;&lt;/ul&gt;&quot;</span><span class="p">;</span>
+</span><span class='line'>	<span class="nx">$</span><span class="p">(</span><span class="s2">&quot;#blog1-posts-list&quot;</span><span class="p">).</span><span class="nx">append</span><span class="p">(</span><span class="nx">content</span><span class="p">);</span>
+</span><span class='line'><span class="p">});</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>客户端页面里是这样调用的：</p>
+
+<p>```html
+	&lt;div class="section" id="blog1-posts-list"&gt;
+		&lt;h1 id="id165"&gt;博客&lt;/h1&gt;
+		&lt;p&gt;我现在主要更新的是托管在github上的<a href="http://chen.yanping.me/cn" target="_blank">Octopress博客</a>，主要记录自己在学习过程中的心得体会。近期内容：&lt;/p&gt;
+	&lt;/div&gt;</p>
+
+<pre><code>&lt;script src="http://chen.yanping.me/cn/posts.js" type="text/javascript"&gt;&lt;/script&gt; ```
+</code></pre>
+
+<p>读者可以自行比较<a href="http://yanpimg.me">http://yanpimg.me</a>和<a href="http://yanping.me/json-demo">http://yanping.me/json-demo</a>的差别。</p>
+
+<h2 id="section">进一步思考</h2>
+
+<p>在同域的情况下，服务端生成json数据，在客户端用getJSON读取json文件，我们称之为<strong>方法一</strong>，这是<a href="http://chen.yanping.me/cn/blog/2012/04/19/jekyll-with-json/">前一篇文章</a>讲的方法;在跨域的情况下，服务端生成包含json变量的js脚本，然后再在客户端链接这个外部的js脚本，这种方法我们称之为<strong>方法二</strong>。</p>
+
+<p>本文在使用<strong>方法二</strong>时，数据的形式和使用数据的方法都在服务端定义，如果服务端和客户端分别由两个人维护的话，客户端的维护者只能被动接受。幸好我们有github，github的口号是social coding，有人翻译成社会化编程，我偏向于翻译成社交编程。想想我们在facebook、人人网这样的社交网络都干些什么，我们在那上面上发布状态、上传图片，告诉朋友以及路过的陌生人我们都做了什么、心情如何、拍了什么照片，上班时大家很喜欢挂人人，刷新鲜事；而在github上，coder们晒出自己的代码，可以关注别的coder和感兴趣的项目，登录github可以看到大家的“新鲜事”：某某创建了个什么代码库、做了什么修改，你可以亲眼看到别人的项目从最初的雏形发展成一个完美的项目，可以给别人的代码留言，报告bug，也可以fork别人的代码，根据自己的喜好做修改，如果有好的主意，可以给原作者发个pull request，作者要是也同样喜欢，就会加到自己的代码里。</p>
+
+<p>在github上，跨域的问题不是那么难解决，我们完全可以针对自己的需求写个js脚本的模板，给博客的作者发个pull request，或者留言，没准儿哪天包含json变量的js脚本模板也会像rss.xml、atom.xml或者sitemap.xml一样变得成github博客的标配。</p>
+
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[用jekyll生成json]]></title>
@@ -22,7 +257,7 @@
 
 <p>从去年年底接触github和jekyll到现在已经折腾五个月了，从最初用github托管纯静态网站，到现在依照别人的网站构架修改成自己喜欢的样子，这个过程也是个不断学习的过程。</p>
 
-<p>我在github上有三个网站，一个是<a href="http://chen.yanping.me">主页</a>，一个<a href="http://chen.yanping.me/cn">技术博客</a>，最后一个是<a href="http://art.yanping.me">文艺博客</a>。现在有个问题是，这三个网站对应的是github上三个不同的代码库，如果我要在<a href="http://chen.yanping.me">主页</a>上列出另两个网站的文章列表，不能用jekyll提供的函数来做到，jekyll只能操作一个代码库的文本，不能跨代码库。我之前用的一个方法是用feedsky提供的发布脚本，效果请看<a href="http://yanping.me">http://yanping.me</a>。这样的缺点是很显然的，一是加载速度慢，二是我们没办法控制列表的格式和样式。有没有更直接的解决方法呢？</p>
+<p>我在github上有三个网站，一个是<a href="http://chen.yanping.me">主页</a>，一个<a href="http://chen.yanping.me/cn">技术博客</a>，最后一个是<a href="http://art.yanping.me">文艺博客</a>。现在有个问题是，这三个网站对应的是github上三个不同的代码库，如果我要在<a href="http://chen.yanping.me">主页</a>上列出另两个网站的文章列表，不能用jekyll提供的函数来做到，jekyll只能操作一个代码库的文本，不能跨代码库。我之前用的一个方法是用feedsky提供的发布脚本，效果请看<a href="http://yanping.me/json-demo">http://yanping.me/json-demo</a>。这样的缺点是很显然的，一是加载速度慢，二是我们没办法控制列表的格式和样式。有没有更直接的解决方法呢？</p>
 
 <!--more-->
 
@@ -106,6 +341,12 @@
 <span class='line-number'>32</span>
 </pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="p">[</span>
 </span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>        <span class="s2">&quot;title&quot;</span><span class="o">:</span><span class="s2">&quot;用jekyll生成包含json变量的js脚本&quot;</span><span class="p">,</span>
+</span><span class='line'>        <span class="s2">&quot;url&quot;</span><span class="o">:</span><span class="s2">&quot;http://chen.yanping.me/cn/blog/2012/04/20/jekyll-with-js-and-json/&quot;</span><span class="p">,</span>
+</span><span class='line'>        <span class="s2">&quot;date&quot;</span><span class="o">:</span><span class="s2">&quot;20 Apr 2012&quot;</span>
+</span><span class='line'>    <span class="p">},</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="p">{</span>
 </span><span class='line'>        <span class="s2">&quot;title&quot;</span><span class="o">:</span><span class="s2">&quot;用jekyll生成json&quot;</span><span class="p">,</span>
 </span><span class='line'>        <span class="s2">&quot;url&quot;</span><span class="o">:</span><span class="s2">&quot;http://chen.yanping.me/cn/blog/2012/04/19/jekyll-with-json/&quot;</span><span class="p">,</span>
 </span><span class='line'>        <span class="s2">&quot;date&quot;</span><span class="o">:</span><span class="s2">&quot;19 Apr 2012&quot;</span>
@@ -127,12 +368,6 @@
 </span><span class='line'>        <span class="s2">&quot;title&quot;</span><span class="o">:</span><span class="s2">&quot;黑魔法利器pandoc&quot;</span><span class="p">,</span>
 </span><span class='line'>        <span class="s2">&quot;url&quot;</span><span class="o">:</span><span class="s2">&quot;http://chen.yanping.me/cn/blog/2012/03/13/pandoc/&quot;</span><span class="p">,</span>
 </span><span class='line'>        <span class="s2">&quot;date&quot;</span><span class="o">:</span><span class="s2">&quot;13 Mar 2012&quot;</span>
-</span><span class='line'>    <span class="p">},</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="p">{</span>
-</span><span class='line'>        <span class="s2">&quot;title&quot;</span><span class="o">:</span><span class="s2">&quot;我的Octopress样式表&quot;</span><span class="p">,</span>
-</span><span class='line'>        <span class="s2">&quot;url&quot;</span><span class="o">:</span><span class="s2">&quot;http://chen.yanping.me/cn/blog/2012/03/12/my-style-list/&quot;</span><span class="p">,</span>
-</span><span class='line'>        <span class="s2">&quot;date&quot;</span><span class="o">:</span><span class="s2">&quot;12 Mar 2012&quot;</span>
 </span><span class='line'>    <span class="p">}</span>
 </span><span class='line'>
 </span><span class='line'><span class="p">]</span>
@@ -493,472 +728,6 @@ git push
 本文域名跳转部分有误，请看<a href="http://chen.yanping.me/cn/blog/2012/02/06/github-pages-domain-3/" target="_blank">三谈github页面域名绑定</a>
 </span>
 </p>
-
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[【译文】用Jekyll构建静态网站]]></title>
-    <link href="http://chen.yanping.me/cn/blog/2011/12/15/building-static-sites-with-jekyll/"/>
-    <updated>2011-12-15T17:36:00+08:00</updated>
-    <id>http://chen.yanping.me/cn/blog/2011/12/15/building-static-sites-with-jekyll</id>
-    <content type="html"><![CDATA[<p class="info">原文地址 <a href="http://net.tutsplus.com/tutorials/other/building-static-sites-with-jekyll/"> http://net.tutsplus.com/tutorials/other/building-static-sites-with-jekyll/</a></p>
-
-<p>功能五花八门的CMS（内容管理系统）有时候并不是必需的，你只需要创建一个轻量级的静态网站…  当你有足够多的页面就会使复制模板文件和跨网站标记的过程变成繁琐的事。今天，我将介绍一种简单的解决方案——<a href="http://jekyllrb.com/">Jekyll</a>——使你可以轻而易举地创建小型网站。</p>
-
-<h2 id="step-0-jekyll">Step 0: 遭遇Jekyll</h2>
-<p><blockquote><p>Jekyll is a simple, blog aware, static site generator.</p></blockquote>
-Jekyll是一种简单的、适用于博客（blog aware）的、静态网站生成引擎。Jekyll网站的宣传语这么说。但，这究竟是什么意思呢？静态网站生成引擎是利用一整套文件生成网站的程序。正如你看到的，我们可以利用一套模板，单独生成内容文件，然后用Jekyll生成网站。“blog aware”意思是我们可以用它来创建博客，或者其他有系列文章（例如合集，英文称portfolio）发布的网站。让我们来尝试一下吧！</p>
-
-<!--more-->
-
-<h2 id="step-1-jekyll">Step 1: 安装Jekyll</h2>
-
-<blockquote>
- <a href="http://rubygems.org/" target="_blank">查看这里</a>来获取更多关于Ruby Gems的信息.
-</blockquote>
-
-<p>我们从安装Jekyll开始；它是一种Ruby Gem，所以可以直接用下面的命令安装：</p>
-
-<p><code>sh
-gem install jekyll #  use 'sudo' if your setup requires it
-</code></p>
-
-<p>很简单吧！如果想做更多复杂的事，就需要安装其他的包了。</p>
-
-<h2 id="step-2-">Step 2: 创建第一个模板</h2>
-<blockquote>
-任何不以下划线开头的文件和目录都会被复制到生成的网站。
-</blockquote>
-<p>下一步，我们新建一个目录，命名为example-app作为演示用；我们打算建一个合集网站，比如，发布影集。这是个很好的例子，用来说明Jekyll的优势之处：这是个小网站，不会更新地太频繁，但是当你想改变其中一处小细节时如果一页页打开页面修改又很麻烦。</p>
-
-<p>在example-app中，建一个名为<code>_layouts</code>的目录。注意这个下划线，任何以下划线开头的文件和目录都不会成为网站的一部分。如果它们的名字Jekyll能够识别的话（比如<code>_config.yml</code>或者<code>_layouts</code>），它们的内容会被用于生成网站，但是它们的文件不会出现在网站目录下。记住这一点：任何不以下划线开头的文件和目录都会被复制到生成的网站（默认为<code>_site</code>子目录）。</p>
-
-<p>我们来创建一个layout文件。我们以包含所有元素的全局layout文件开始。在<code>_layouts</code>目录下创建名为default.html的新文件（叫什么名字无所谓），加入下面的代码：</p>
-
-<p><div><script src='https://gist.github.com/1481001.js?file='></script>
-<noscript><pre><code>&lt;!DOCTYPE html&gt;
-&lt;html&gt;
-&lt;head&gt;
-  &lt;meta charset=utf-8 /&gt;
-  &lt;title&gt; {% if page.title %} {{ page.title }} | {% endif %} John Doe, Photographer &lt;/title&gt;
-  &lt;link rel=&quot;stylesheet&quot; href=&quot;/css/styles.css&quot; /&gt;
-&lt;/head&gt;
-&lt;body&gt;
- 
-  &lt;div id=&quot;main&quot;&gt;
- 
-    &lt;header&gt;
-      &lt;h1&gt; John Doe Photograghy &lt;/h1&gt;
-    &lt;header&gt;
- 
-    &lt;nav role=&quot;navigation&quot;&gt;
-      &lt;ul&gt;
-        &lt;li&gt;&lt;a href=&quot;/&quot;&gt;Home&lt;/a&gt;&lt;/li&gt;
-        &lt;li&gt;&lt;a href=&quot;/portfolio/&quot;&gt;Portfolio&lt;/a&gt;&lt;/li&gt;
-        &lt;li&gt;&lt;a href=&quot;/about&quot;&gt;About&lt;/a&gt;&lt;/li&gt;
-        &lt;li&gt;&lt;a href=&quot;/contact&quot;&gt;Contact&lt;/a&gt;&lt;/li&gt;
-      &lt;/ul&gt;
-    &lt;/nav&gt;
- 
-    {{ content }}
- 
-    &lt;footer&gt;
-      &lt;p&gt;@copy; John Doe Photography 2011 | All Rights Reserved. &lt;/p&gt;
-    &lt;/footer&gt;
- 
-  &lt;/div&gt;
-&lt;/body&gt;
-&lt;/html&gt;</code></pre></noscript></div>
-</p>
-
-<p>下面是要注意的：</p>
-
-<p>首先，Jekyll默认的是用<a href="https://github.com/shopify/liquid/wiki/liquid-for-designers">Liquid模板系统</a>。这意味着，你用Liquid能做的事，在Jekyll模板里也能做。例如，在<code>&lt;title&gt;</code>标签，我们可以用两种Liquid标记语言：<em>输出标记</em>（output markup）和<em>标签标记</em> (tag markup)。输出标记会输出文本（如果被引用的变量存在），而标签标记不会。输出标记是用双花括号分隔，而标签标记是用花括号-百分号对分隔。</p>
-
-<p>其次，Liquid标签中诸如<code>page.title</code>和<code>content</code>等都是Jekyll提供的变量；你可以查看文档中的<a href="https://github.com/mojombo/jekyll/wiki/Template-Data">可用的模板数据</a>。我们也可以创建自定义的模板数据。</p>
-
-<p>最后，注意到我们链接的CSS文件：在你的项目根目录下创建一个CSS目录，然后把下面的代码写进styles.css文件：</p>
-
-<p>```css
-body {
-  font: 16px/1.5 verdana, helvetica-neue, helvetica, arial, san-serif;
-  background: black;
-  color: #ececec;
-  padding: 0;
-  margin: 0;
-}
-ul {
-  margin: 0;
-  padding: 0;
-}
-a {
-  color: #ccc;
-  rubyt-decoration: none;
-}</p>
-
-<p>a:hover {
-  color: #ececec;
-  rubyt-decoration: underline;
-}</p>
-
-<h1 id="main-">main {</h1>
-<p>width: 960px;
-  margin: 0 auto;
-  background: rgba(255, 255, 255, 0.4);
-}
-header {
-  padding: 0 10px;
-  overflow: hidden;
-}
-h1 {
-  margin: 0;
-}</p>
-
-<p>nav ul, ul.entries {
-  list-style-type: none;
-}
-nav li a {
-  float: left;
-  margin: 5px;
-}
-.content {
-  padding: 10px;
-}</p>
-
-<p>ul.entries li {
-  position: relative;
-  margin: 20px auto;
-  padding: 20px;
-  background: #ececec;
-  width: 600px;
-}</p>
-
-<p>ul.entries img {
-  width: 600px;
-}</p>
-
-<p>ul.entries li h3 {
-  position: absolute;
-  bottom: -18px;
-  left: 17px;
-  font-size: 2em;
-}
-ul.entries a {
-  color: #ececec;
-}
-ul.entries a:hover {
-  color: #fff;
-}</p>
-
-<p>footer {
-  font-size: 0.65em;
-  rubyt-align: center;
-}
-```</p>
-
-<p>接着，创建一个img目录，并把图片加进去，比如banner.jpg，我们一会儿要用到它。任何图片都行，只要把它的大小调整为 960px × 300px。</p>
-
-<p>你可能会觉得奇怪，在上面为什么我们用if语句？如果page.title变量存在的话它也不会显示啊！如果它存在，我想让它后面跟着竖线(｜)，另一种写法是这样：</p>
-
-<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>&lt;/p>
-</span><span class='line'>
-</span><span class='line'>&lt;table>
-</span><span class='line'>  &lt;tbody>
-</span><span class='line'>    &lt;tr>
-</span><span class='line'>      &lt;td>{{ page.title }}{% if page.title %}&lt;/td>
-</span><span class='line'>      &lt;td>{% endif %}&lt;/td>
-</span><span class='line'>    &lt;/tr>
-</span><span class='line'>  &lt;/tbody>
-</span><span class='line'>&lt;/table>
-</span><span class='line'>
-</span><span class='line'>&lt;p></span></code></pre></td></tr></table></div></figure></notextile></div></p>
-
-<p>那么我们怎样使用模板？我们需要用模板创建页面。在项目的根目录，创建名为index.html的文件。内容如下：</p>
-
-<h2 id="codeblock-indexhtml-langhtml-"><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>index.html  </span></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-</pre></td><td class='code'><pre><code class='html'><span class='line'><span class="nt">&lt;/h2&gt;</span>
-</span><span class='line'><span class="nt">&lt;p&gt;</span>layout: default
-</span><span class='line'>—
-</span><span class='line'><span class="ni">&amp;lt;</span>section role=&quot;banner&quot;<span class="ni">&amp;gt;</span>
-</span><span class='line'>  <span class="nt">&lt;img</span> <span class="na">src=</span><span class="s">&quot;http://chen.yanping.me/cn/img/banner.jpg&quot;</span> <span class="nt">/&gt;</span>
-</span><span class='line'><span class="ni">&amp;lt;</span>/section<span class="ni">&amp;gt;</span><span class="nt">&lt;/p&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="nt">&lt;section</span> <span class="na">class=</span><span class="s">&quot;content&quot;</span><span class="nt">&gt;</span>
-</span><span class='line'>  <span class="nt">&lt;p&gt;</span>
-</span><span class='line'>  Welcome to John Doe Photography! Please, check out my <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">&quot;http://chen.yanping.me/cn/portfolio/&quot;</span><span class="nt">&gt;</span>Portfolio<span class="nt">&lt;/a&gt;</span> to see my work.
-</span><span class='line'>  <span class="nt">&lt;/p&gt;</span>
-</span><span class='line'><span class="nt">&lt;/section&gt;</span>
-</span><span class='line'><span class="nt">&lt;p&gt;</span>
-</span></code></pre></td></tr></table></div></figure></notextile></div></p>
-
-<p>这是index.html的内容。注意到文件的顶部，Jekyll称之为YAML front matter。有YAML front matter的任何文件（不以下划线开头的）将会先被Jekyll处理然后才被放进<code>_site</code>目录中，如果不以YFM开头，将会被直接放进<code>_site</code>目录。在上面这个例子中，YAML front matter告诉Jekyll要用什么模板。</p>
-
-<p>然后打开终端命令行，cd进项目目录，运行jekyll。你会看到类似下面的提示：</p>
-
-<p>```sh
-WARNING: Could not read configuration. Using defaults (and options).
-   No such file or directory - /Users/andrew/Desktop/example-app/_config.yml
-Building site: /Users/andrew/Desktop/example-app -&gt; /Users/andrew/Desktop/example-app/_site
-Successfully generated site: /Users/andrew/Desktop/example-app -&gt; /Users/andrew/Desktop/example-app/_site</p>
-
-<p>```
-忽略警告，我们一会儿处理。你可以看出网站在新建的<code>_site</code>目录中被构建出来。如果你用浏览器打开 <code>_site/index.html</code>文件，你可以看到网页有错误。这是因为我们的路径（url和样式表）是以斜杠<code>/</code>开头的。这意味着我们只能以文件的形式查看。当然，你可以开启W/MAMP，但是为什么要那么麻烦呢？jekyll内置有服务器。只要运行<code>jekyll --server</code>，然后浏览localhost:4000就可以看到下面的图片：</p>
-
-<p><img src="http://d2o0t5hpnwv4c1.cloudfront.net/1064_jekyll/index.png" alt="pic1" /></p>
-
-<p>如果上面的图还不够，可以看看<code>_site/index.html</code>的代码。你可以看出我们指定的模板和我们提供的内容混合在一起。哇呜！——页面就生成了。</p>
-
-<p>我要提醒一点的是，是YAML front matter使得这一神奇的事发生。如果一个文件不以三个短线开头，后接一行或多行属性，再以三个短线结尾，那这个文件只会被复制到<code>_site</code>中。</p>
-
-<h2 id="step-3-">Step 3: 创建一个合集模板</h2>
-<p>现在我们对基础很熟悉了，那我们来创建几幅图的合集。还记得我们前面说的jekyll是“适用于博客的”吗？我们来使用blog-awareness特性：我们来做一整套的条目(portfolio entries)，而不是零散的帖子(posts)。</p>
-
-<p>帖子位于名为<code>_posts</code>目录中，创建该目录。帖子的文件名模式必须设定：year-month-day-title.ext。帖子，jekyll网站的任何文件，可以是markdown或者HTML格式。</p>
-
-<p>我们来创建几个帖子：这些实际上是我们整套的条目。</p>
-
-<h2 id="codeblock-posts2010-03-04-bikesmd-langhtml-"><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>_posts/2010-03-04-bikes.md  </span></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-</pre></td><td class='code'><pre><code class='html'><span class='line'><span class="nt">&lt;/h2&gt;</span>
-</span><span class='line'><span class="nt">&lt;p&gt;</span>layout: portfolio_entry
-</span><span class='line'>image: /img/bikes.jpg
-</span><span class='line'>title: Bikes, Black and White
-</span><span class='line'>—
-</span><span class='line'>Bikes are used by almost everyone in downtown Amsterdam. These ones are chained to a bike rack.<span class="nt">&lt;/p&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="nt">&lt;p&gt;</span>
-</span></code></pre></td></tr></table></div></figure></notextile></div></p>
-
-<h2 id="codeblock-posts2010-10-01-wingmd-langhtml-"><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>_posts/2010-10-01-wing.md  </span></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-</pre></td><td class='code'><pre><code class='html'><span class='line'><span class="nt">&lt;/h2&gt;</span>
-</span><span class='line'><span class="nt">&lt;p&gt;</span>layout: portfolio_entry
-</span><span class='line'>title: Wing and a Prayer
-</span><span class='line'>image: /img/wing.jpg
-</span><span class='line'>—
-</span><span class='line'>The wing of the AirBus I rode to England.<span class="nt">&lt;/p&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="nt">&lt;p&gt;</span>
-</span></code></pre></td></tr></table></div></figure></notextile></div></p>
-
-<h2 id="codeblock-posts2011-06-05-bridgemd-langhtml-"><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>_posts/2011-06-05-bridge.md  </span></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-</pre></td><td class='code'><pre><code class='html'><span class='line'><span class="nt">&lt;/h2&gt;</span>
-</span><span class='line'><span class="nt">&lt;p&gt;</span>layout: portfolio_entry
-</span><span class='line'>title: Stone Bridge
-</span><span class='line'>image: /img/bridge.jpg
-</span><span class='line'>—
-</span><span class='line'>An old stone bridge in London.
-</span></code></pre></td></tr></table></div></figure></notextile></div></p>
-
-<h2 id="codeblock-posts2011-07-09-roadmd-langhtml-"><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>_posts/2011-07-09-road.md  </span></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-</pre></td><td class='code'><pre><code class='html'><span class='line'><span class="nt">&lt;/h2&gt;</span>
-</span><span class='line'><span class="nt">&lt;p&gt;</span>layout: portfolio_entry
-</span><span class='line'>title: Road and Curb
-</span><span class='line'>image: /img/road.jpg
-</span><span class='line'>—
-</span><span class='line'>Bike lanes here are terribly thin.<span class="nt">&lt;/p&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="nt">&lt;p&gt;</span>
-</span></code></pre></td></tr></table></div></figure></notextile></div></p>
-
-<p>相当简单，是吧？注意到，我们创建了一个自定义的YAML front matter域：image。这是该条目（entry）的图片地址。这样我们就可以在这个文件里构建整个条目的HTML。但是如果我们想修改怎么办？那我们必须返回到每个条目里进行修改。我们可以不用这样做，而使用portfolio_entry模板来表示它们。这个模板长什么样呢？也是相当简单：</p>
-
-<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span> (portfolio_entry.html)</span> <a href='/downloads/code/portfolio_entry.html'>download</a></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-</pre></td><td class='code'><pre><code class='html'><span class='line'>---
-</span><span class='line'>layout: default
-</span><span class='line'>---
-</span><span class='line'>
-</span><span class='line'><span class="nt">&lt;h2</span> <span class="na">class=</span><span class="s">&quot;content&quot;</span><span class="nt">&gt;</span>{{page.title}}<span class="nt">&lt;/h2&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="nt">&lt;img</span> <span class="na">src=</span><span class="s">&quot;{{ page.image }}&quot;</span> <span class="nt">/&gt;</span>
-</span><span class='line'>
-</span><span class='line'>{{ content }}
-</span></code></pre></td></tr></table></div></figure></notextile></div></p>
-
-<p>如果你看<a href="https://github.com/mojombo/jekyll/wiki/Template-Data">template data page</a>，你就会发现我们添加的任何自定义front matter在page里都是可用的；在这里，我们可以访问 <code>page.image</code>。我们也可以用<code>page.title</code>和<code>content</code>（后一个三短线之后的所有东西）。</p>
-
-<p>我必须提一点的是，虽然帖子（post）的 <code>title</code>被认为在post对象中是可用的，我只在page对象中也可以用。</p>
-
-<p>帖子（文章）页面建立起来了，但是合集（portfolio）主页怎么办呢？当我写我们的默认layout里的导航栏时，我注意到我们要的是 <code>/portfolio/</code>。那么我们在根目录创建名为<code>portfolio</code>的目录，打开里面的index.html文件。</p>
-
-<p><div><script src='https://gist.github.com/1481016.js?file='></script>
-<noscript><pre><code>---
-layout: default
-title: Portfolio
----
- 
-&lt;section class=&quot;content&quot;&gt;
-  &lt;h2&gt;Portfolio&lt;/h2&gt;
- 
-  &lt;p&gt;Check out my images below!&lt;/p&gt;
-&lt;/section&gt;
- 
-&lt;ul class=&quot;entries&quot;&gt;
-  {% for post in site.posts %}
- 
-  &lt;li&gt;
-    &lt;a href=&quot;{{ post.url }}&quot;&gt;
-      &lt;img src=&quot;{{ post.image }}&quot; /&gt;
-      &lt;h3&gt;{{ post.title }}&lt;/h3&gt;
-    &lt;/a&gt;
-  &lt;/li&gt;
- 
-  {% endfor %}
-&lt;/ul&gt;</code></pre></noscript></div>
-</p>
-
-<p>这是我们最复杂的一块了。记住，这不是模板：这是一个“正常的”文件，但是同样可以包含Liquid标签。我们把layout设置成default，把title设定成“Portfolio”。</p>
-
-<p>注意到，在HTML文件中，我们用了Liquid的<code>for-in</code>循环。我们用<code>site.posts</code>遍历出所有帖子，然后用<code>for post in site.posts / endfor</code>遍历所有的帖子。如果你用过Wordpress，或者其他博客系统，相信你对循环的概念很熟悉。这样就完成了！正如你看到的，我们可以得到标准属性，以及我们定义的front matter（例如<code>image</code>）。</p>
-
-<p>现在运行<code>jekyll --server</code>来生成网站，然后浏览localhost:4000就可以看到</p>
-
-<p><img src="http://d2o0t5hpnwv4c1.cloudfront.net/1064_jekyll/portfolio.png" alt="pic2" /></p>
-
-<p>下面是条目页面:</p>
-
-<p><img src="http://d2o0t5hpnwv4c1.cloudfront.net/1064_jekyll/entry.png" alt="pic3" /></p>
-
-<p>现在你创建了合集，你也能看出它怎么用来创建博客。 我们来看看如何设置Jekyll的配置选项.</p>
-
-<h2 id="step-4-">Step 4: 写配置文件</h2>
-<p>Jekyll有大量的选项，还好很多都有默认选项。但是如果你想改变选项，也不是很难。</p>
-
-<p>有两种方式改变选项：</p>
-
-<ul>
-  <li>第一种方式，当你在命令行运行程序，你可以传递参数。我们已经看到<code>--server</code>参数，这会在生成网站后开启服务器。</li>
-  <li>另一种方式，也就是我们在这里用的方法，就是在<code>_config.yml</code>文件中，每一行用<code>a key: value</code>对来设置参数，如同YAML front matter那样。Jekyll会在生成网站前寻找这个文件。</li>
-</ul>
-
-<blockquote>
-查看<a href="https://github.com/mojombo/jekyll/wiki/Configuration" target="_blank">配置文档</a>，获取完整的选项列表。
-</blockquote>
-<p>我们来看看常用的选项有哪些：</p>
-
-<ul>
-  <li>auto： 添加<code>auto: true</code>到你的配置文件来保持Jekyll运行，查看你的项目目录的改变并随时生成网站。</li>
-  <li>source: 如果源文件目录不是运行Jekyll的目录，你就要用<code>source</code>选项来设置源文件目录。</li>
-  <li>destination: Jekyll默认会把网站生成在<code>./_site</code>，如果你想把网站生成在别的目标，就可以永这个选项设定。</li>
-  <li>permalink：permalink是你文章的路径。默认是<code>/year/month/day/title.html</code>。你也可以自定义路径。你可以用的变量有<code>:year</code>，<code>:month</code>，<code>:day</code>，<code>:title</code> 以及<code>:categories</code>。<code>:categories</code>来自front matter；其他的变量都来自文章的文件名。你可以用<code>/:year/:month/:title</code>或者<code>/:categories/:title.html</code>的形式来设置permalink。需要注意的是，如果你文章的front matter中有permalink选项，它会覆盖掉全局的默认值。</li>
-  <li>exclude: 像上面所言，Jekyll会忽略以下划线开头的文件，但是，如果你有需要忽略的目录，但是又不是以下划线开头，你可以在<code>exclude</code>中设定。</li>
-</ul>
-
-<h2 id="step-5-">Step 5: 部署网站</h2>
-<p>假设你已经创建的网站，希望能在网上自由浏览，该怎么做呢？</p>
-
-<p>有几种方式可以做到。当然，如果它是一个小网站你不会经常更新它，那么简单地用ftp把它上传到服务器就可以了。如果你使用共享的主机服务，这可能是你唯一的选择了。</p>
-
-<p>如果你有VPS或者专用的主机，你可以更自动化地运行。查看<a href="https://github.com/mojombo/jekyll/wiki/Deployment">部署的文档</a>。如果你不确定怎么做，试试使用git post-receive hook；我曾经试过，非常cool。</p>
-
-<p><strong>译者注：</strong>也可以把网站部署在github或者heroku上。</p>
-
-<h2 id="step-6-">Step 6: 更进一步</h2>
-<p>下面是Jekyll的一些tip:</p>
-
-<ul>
-  <li><a href="https://github.com/mojombo/jekyll/wiki/Plugins">Jekyll插件</a>允许你修改网站内容生成方式。</li>
-  <li>你可以用<a href="https://github.com/Shopify/liquid/wiki">Liquid</a>做更多的事，Jekyll增加了很多<a href="https://github.com/mojombo/jekyll/wiki/Liquid-Extensions">扩展</a> 。</li>
-  <li>还有很多<a href="https://github.com/mojombo/jekyll/wiki/Template-Data">模板数据</a>我们没有提及，请自行查看。</li>
-</ul>
-
-<h2 id="section">结论</h2>
-<p>本文介绍了Jekyll——一种简单的、适用于做博客的、静态网站生成引擎。下次如果你想建一个宣传册风格的、小型展示页面，可以试试用Jekyll，如果你成功了，请在留言中告诉我。感谢您的阅读！</p>
-
-<h2 id="section-1">译者言</h2>
-
-<p>我也是一边翻译，一边练习使用Octopress，在翻译过程中遇到了三个问题。</p>
-
-<p>第一个问题是在markdown里直接写html标签的话可能会出错。例如在step2中，我写了个&lt;title&gt;，一开始的时候没有做任何处理，结果出来的网页有错，后来我才想起来，markdown里的html语句会被直接放到最终网页里，那么我直接这么写的话，就会出现两个&lt;title&gt;，所以正确的做法是用`把&lt;title&gt;括起来，或者就写<code>&amp;lt;title&amp;gt;</code>。就在我刚才编辑这段话时，又接连出现问题，这个`会自动寻找最近的另一半来匹配，所以我不得不用数字实体引用来表示它。</p>
-
-<p>第二个问题是当文章中引用了含有Liquid标签的代码片段时，这些代码会被jekyll渲染。一般代码是用<a href="http://octopress.org/docs/plugins/codeblock/" target="_blank">codeblock标签</a>或者用 <code>```</code>括起来（也就是Backtick Code Blocks的方式），能保持原样，还能显示语法高亮，但是当引用的代码里含有Liquid标签时就出现了混乱。为此，我也试了很久，也到<a href="http://ruby-taiwan.org/topics/74">ruby-taiwan.org</a>上发帖问了，总结起来有几种方法：</p>
-
-<p>1. <strong>用gist插件</strong></p>
-
-<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>{% gist gist_id [filename] %}</span></code></pre></td></tr></table></div></figure></notextile></div></p>
-
-<p>这种方式比较强大，但是需要连接gist，加载页面的时候有点卡。</p>
-
-<p>2. <strong>用include_code插件</strong></p>
-
-<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>{% include_code [title] [lang:language] path/to/file  %}</span></code></pre></td></tr></table></div></figure></notextile></div>
-上面两种方法在Octoprss的官方网站都有介绍，请看<a href="http://octopress.org/docs/blogging/code/">http://octopress.org/docs/blogging/code/</a></p>
-
-<p>3. <strong>用codeblock标签里嵌套raw标签</strong>，详情请看<a href="http://jimpravetz.com/blog/2011/12/inserting-liquid-syntax-into-octopress-codeblock/">http://jimpravetz.com/blog/2011/12/inserting-liquid-syntax-into-octopress-codeblock/</a>。这种方式只能帖代码，不能语法高亮。</p>
-
-<p>仔细研究一下Octopress官方网站的代码（比如<a href="https://raw.github.com/imathis/octopress/site/source/docs/plugins/codeblock/index.markdown">codeblock这节</a>），还能学到另一个技巧。在我翻译这篇文章时，几种方法都用到了，有兴趣的可以查看本文的markdown代码。</p>
-
-<p>第三个问题是CSS代码不能被着色，找到了一篇文章<a href="http://hack.sslab.co/blog/2011/11/13/octopress-upgrade-pygments/" target="_blank">《讓 Octopress 支援更多語言的程式碼區塊（更新 Pygments）》</a>，用里面的方法更新pygment就行了。需要注意的是pygments.rb的目录和那篇文章的不同，我的ubuntu11.10下为</p>
-
-<p><code>sh
-~/.rvm/gems/ruby-1.9.2-p290/gems/pygments.rb-0.2.4/vendor
-</code>
-后面的类似。</p>
 
 ]]></content>
   </entry>

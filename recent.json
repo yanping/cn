@@ -1,5 +1,11 @@
 [
     {
+        "title":"用jekyll生成包含json变量的js脚本",
+        "url":"http://chen.yanping.me/cn/blog/2012/04/20/jekyll-with-js-and-json/",
+        "date":"20 Apr 2012"
+    },
+
+    {
         "title":"用jekyll生成json",
         "url":"http://chen.yanping.me/cn/blog/2012/04/19/jekyll-with-json/",
         "date":"19 Apr 2012"
@@ -21,12 +27,6 @@
         "title":"黑魔法利器pandoc",
         "url":"http://chen.yanping.me/cn/blog/2012/03/13/pandoc/",
         "date":"13 Mar 2012"
-    },
-
-    {
-        "title":"我的Octopress样式表",
-        "url":"http://chen.yanping.me/cn/blog/2012/03/12/my-style-list/",
-        "date":"12 Mar 2012"
     }
 
 ]
