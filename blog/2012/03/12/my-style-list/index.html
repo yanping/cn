@@ -103,10 +103,10 @@
   </fieldset>
 </form>
 <ul class="main-navigation">
-  <li><a href="/cn/">博 客</a></li>
-  <li><a href="/cn/blog/archives">归 档</a></li>
-  <li><a href="/cn/blog/categories">分 类</a></li>
-  <li><a href="/cn/blog/about">关 于</a></li>
+  <li><a href="/cn/">博客主页</a></li>
+  <li><a href="/cn/blog/archives">文章列表</a></li>
+  <li><a href="/cn/blog/categories">分类目录</a></li>
+  <li><a href="/cn/blog/about">关于</a></li>
 </ul>
 
 </nav>
@@ -514,7 +514,7 @@
       
   
 
-<span class="byline author vcard">Posted by <span class="fn">ypchen</span></span>
+<span class="byline author vcard"><span class="fn">ypchen</span>发布于</span>
 
       
 
@@ -532,6 +532,7 @@
       
 
 <span class="categories">
+	分类：
   
     <a class='category' href='/cn/blog/categories/octopress/'>octopress</a>
   
@@ -543,6 +544,20 @@
       <div class="sharing">
   
   
+  
+ 
+	<!-- JiaThis Button BEGIN -->
+	<div id="ckepop">
+		<span class="jiathis_txt">分享到： </span>
+		<a class="jiathis_button_tools_1"></a>
+		<a class="jiathis_button_tools_2"></a>
+		<a class="jiathis_button_tools_3"></a>
+		<a class="jiathis_button_tools_4"></a>
+		<a href="http://www.jiathis.com/share?uid=1558027" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank">更多</a>
+		<a class="jiathis_counter_style"></a>
+	</div>
+	
+	<!-- JiaThis Button END -->
   
 </div>
 
@@ -575,7 +590,7 @@
 </section>
 
 <section>
-  <h1>Recent Posts</h1>
+  <h1>近期文章</h1>
   <ul id="recent_posts">
     
       <li class="post">
@@ -722,14 +737,21 @@
 
 
 
-	<script type="text/javascript">
+
+<script type="text/javascript"
+   src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+
+
+
+<script type="text/javascript">
     
         $(document).ready(function(){             
 
             $('.entry-content a').each(function(index,element){
                 var href = $(this).attr('href');
                 if(href.indexOf('#') == 0){
-                }else if ( href.indexOf('/') == 0 || href.toLowerCase().indexOf('chen.yanping.me/cn')>-1 ){
+                }else if ( href.indexOf('/') == 0 || href.toLowerCase().indexOf('chen.yanping.me')>-1 ){
                 }else{
                     $(this).attr('target','_blank');
                     $(this).addClass('external');
@@ -739,6 +761,10 @@
         });	
 
 </script>
+
+
+
+
 
 
 </body>

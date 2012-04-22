@@ -103,10 +103,10 @@
   </fieldset>
 </form>
 <ul class="main-navigation">
-  <li><a href="/cn/">博 客</a></li>
-  <li><a href="/cn/blog/archives">归 档</a></li>
-  <li><a href="/cn/blog/categories">分 类</a></li>
-  <li><a href="/cn/blog/about">关 于</a></li>
+  <li><a href="/cn/">博客主页</a></li>
+  <li><a href="/cn/blog/archives">文章列表</a></li>
+  <li><a href="/cn/blog/categories">分类目录</a></li>
+  <li><a href="/cn/blog/about">关于</a></li>
 </ul>
 
 </nav>
@@ -151,363 +151,12 @@
 
 <p>现在问题出来了，我除了前文提到的三个网站以外，还有个<a href="http://yanping.me">主页的镜像网站</a>，它存放在美国的一位师兄的服务器上，和那三个网站肯定不同域，如果我要让它和github上的<a href="http://chen.yanping.me">主页</a>始终保持一致，又不想每次手动修改博客文章列表，也不能再使用feedsky了。因为feedsky除了慢之外，生成的列表样式也和网站风格不一致。</p>
 
-<p>别看表面上只有一行代码：</p>
-
-<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span /></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
-</pre></td><td class="code"><pre><code class="html"><span class="line"><span class="nt">&lt;script </span><span class="na">src=</span><span class="s">&quot;http://feed.feedsky.com/yanping/jsout&amp;n=5&amp;e=utf8&quot;</span> <span class="na">type=</span><span class="s">&quot;text/javascript&quot;</span><span class="nt">&gt;&lt;/script&gt;</span>	
-</span></code></pre></td></tr></table></div></figure></notextile></div>
-
-<p>实际上经过了向feedsky服务器发送请求、返回数据、浏览器渲染之后的代码很臃肿，用firefox的插件firebug查看上面那行代码渲染之后的代码是如下行形式（只是个例子，等这篇文章发布以后feedsky提供的内容会改变）：</p>
-
-<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span /></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
-<span class="line-number">2</span>
-<span class="line-number">3</span>
-<span class="line-number">4</span>
-<span class="line-number">5</span>
-<span class="line-number">6</span>
-<span class="line-number">7</span>
-<span class="line-number">8</span>
-<span class="line-number">9</span>
-<span class="line-number">10</span>
-<span class="line-number">11</span>
-<span class="line-number">12</span>
-<span class="line-number">13</span>
-<span class="line-number">14</span>
-<span class="line-number">15</span>
-<span class="line-number">16</span>
-<span class="line-number">17</span>
-<span class="line-number">18</span>
-<span class="line-number">19</span>
-<span class="line-number">20</span>
-<span class="line-number">21</span>
-<span class="line-number">22</span>
-<span class="line-number">23</span>
-<span class="line-number">24</span>
-<span class="line-number">25</span>
-<span class="line-number">26</span>
-<span class="line-number">27</span>
-<span class="line-number">28</span>
-<span class="line-number">29</span>
-<span class="line-number">30</span>
-<span class="line-number">31</span>
-<span class="line-number">32</span>
-<span class="line-number">33</span>
-<span class="line-number">34</span>
-<span class="line-number">35</span>
-<span class="line-number">36</span>
-<span class="line-number">37</span>
-<span class="line-number">38</span>
-<span class="line-number">39</span>
-<span class="line-number">40</span>
-<span class="line-number">41</span>
-<span class="line-number">42</span>
-<span class="line-number">43</span>
-<span class="line-number">44</span>
-<span class="line-number">45</span>
-<span class="line-number">46</span>
-<span class="line-number">47</span>
-<span class="line-number">48</span>
-<span class="line-number">49</span>
-</pre></td><td class="code"><pre><code class="html"><span class="line"><span class="c">&lt;!-- Feedsky FEED JS发布代码开始 --&gt;</span>
-</span><span class="line">    <span class="nt">&lt;script </span><span class="na">src=</span><span class="s">&quot;http://feed.feedsky.com/yanping/jsout&amp;amp;n=5&amp;amp;e=utf8&quot;</span><span class="nt">&gt;</span>
-</span><span class="line">    <span class="nt">&lt;/script&gt;</span>
-</span><span class="line">    <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;reader-publisher-module&quot;</span> <span class="na">id=</span><span class="s">&quot;readerpublishermodule0&quot;</span> <span class="na">style=</span><span class="s">&quot;border: 1px solid rgb(188, 204, 235); margin: 0.5em; padding: 0pt; background: rgb(255, 255, 255) none repeat scroll 0%; -moz-background-clip: -moz-initial; -moz-background-origin: -moz-initial; -moz-background-inline-policy: -moz-initial; text-align: left; text-indent: 0pt; text-decoration: none; font-weight: normal; font-family: arial,sans-serif; font-size: 10pt; -moz-border-radius-topleft: 8px; -moz-border-radius-topright: 8px; -moz-border-radius-bottomright: 8px; -moz-border-radius-bottomleft: 8px;&quot;</span><span class="nt">&gt;</span>
-</span><span class="line">        <span class="nt">&lt;h3</span> <span class="na">style=</span><span class="s">&quot;border-style: none none solid; border-color: -moz-use-text-color -moz-use-text-color rgb(188, 204, 235); border-width: medium medium 1px; margin: 0pt 0.5em; padding: 0.2em 0pt; background: transparent none repeat scroll 0%; -moz-background-clip: -moz-initial; -moz-background-origin: -moz-initial; -moz-background-inline-policy: -moz-initial; text-align: left; text-indent: 0pt; text-decoration: none; font-weight: normal; -moz-border-radius-topleft: 8px; -moz-border-radius-topright: 8px; -moz-border-radius-bottomright: 0pt; -moz-border-radius-bottomleft: 0pt; color: rgb(9, 9, 146);&quot;</span><span class="nt">&gt;</span>
-</span><span class="line">            <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">&quot;http://chen.yanping.me/cn/&quot;</span><span class="nt">&gt;</span>
-</span><span class="line">                雁起平沙的网络日志
-</span><span class="line">            <span class="nt">&lt;/a&gt;</span>
-</span><span class="line">        <span class="nt">&lt;/h3&gt;</span>
-</span><span class="line">        <span class="nt">&lt;ul</span> <span class="na">style=</span><span class="s">&quot;border: medium none ; margin: 0pt 0.5em; padding: 0.2em; background: transparent none repeat scroll 0%; overflow: hidden; -moz-background-clip: -moz-initial; -moz-background-origin: -moz-initial; -moz-background-inline-policy: -moz-initial; text-align: left; text-indent: 0pt; text-decoration: none; font-weight: normal;&quot;</span><span class="nt">&gt;</span>
-</span><span class="line">            <span class="nt">&lt;li</span> <span class="na">style=</span><span class="s">&quot;border: medium none ; margin: 0pt; padding: 0.4em 0pt; background: transparent none repeat scroll 0%; -moz-background-clip: -moz-initial; -moz-background-origin: -moz-initial; -moz-background-inline-policy: -moz-initial; text-align: left; text-indent: 0pt; text-decoration: none; font-weight: normal; list-style-type: none;&quot;</span><span class="nt">&gt;</span>
-</span><span class="line">                <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">&quot;http://item.feedsky.com/~feedsky/yanping/~8847833/629496870/6966477/1/item.html&quot;</span>
-</span><span class="line">                <span class="na">title=</span><span class="s">&quot;Thu, 19 Apr 2012 22:30:00 +0800:用jekyll生成json&quot;</span> <span class="na">class=</span><span class="s">&quot;i&quot;</span> <span class="na">style=</span><span class="s">&quot;border-style: none none solid; border-color: -moz-use-text-color -moz-use-text-color rgb(122, 126, 224); border-width: medium medium 1px; margin: 0pt; padding: 0pt; background: transparent none repeat scroll 0%; -moz-background-clip: -moz-initial; -moz-background-origin: -moz-initial; -moz-background-inline-policy: -moz-initial; text-align: left; text-indent: 0pt; text-decoration: none; font-weight: normal; color: rgb(16, 16, 200);&quot;</span><span class="nt">&gt;</span>
-</span><span class="line">                    用jekyll生成json
-</span><span class="line">                <span class="nt">&lt;/a&gt;</span>
-</span><span class="line">            <span class="nt">&lt;/li&gt;</span>
-</span><span class="line">            <span class="nt">&lt;li</span> <span class="na">style=</span><span class="s">&quot;border: medium none ; margin: 0pt; padding: 0.4em 0pt; background: transparent none repeat scroll 0%; -moz-background-clip: -moz-initial; -moz-background-origin: -moz-initial; -moz-background-inline-policy: -moz-initial; text-align: left; text-indent: 0pt; text-decoration: none; font-weight: normal; list-style-type: none;&quot;</span><span class="nt">&gt;</span>
-</span><span class="line">                <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">&quot;http://item.feedsky.com/~feedsky/yanping/~8847833/629496871/6966477/1/item.html&quot;</span>
-</span><span class="line">                <span class="na">title=</span><span class="s">&quot;Fri, 30 Mar 2012 19:50:00 +0800:指数方法论入门&quot;</span> <span class="na">class=</span><span class="s">&quot;i&quot;</span> <span class="na">style=</span><span class="s">&quot;border-style: none none solid; border-color: -moz-use-text-color -moz-use-text-color rgb(122, 126, 224); border-width: medium medium 1px; margin: 0pt; padding: 0pt; background: transparent none repeat scroll 0%; -moz-background-clip: -moz-initial; -moz-background-origin: -moz-initial; -moz-background-inline-policy: -moz-initial; text-align: left; text-indent: 0pt; text-decoration: none; font-weight: normal; color: rgb(16, 16, 200);&quot;</span><span class="nt">&gt;</span>
-</span><span class="line">                    指数方法论入门
-</span><span class="line">                <span class="nt">&lt;/a&gt;</span>
-</span><span class="line">            <span class="nt">&lt;/li&gt;</span>
-</span><span class="line">            <span class="nt">&lt;li</span> <span class="na">style=</span><span class="s">&quot;border: medium none ; margin: 0pt; padding: 0.4em 0pt; background: transparent none repeat scroll 0%; -moz-background-clip: -moz-initial; -moz-background-origin: -moz-initial; -moz-background-inline-policy: -moz-initial; text-align: left; text-indent: 0pt; text-decoration: none; font-weight: normal; list-style-type: none;&quot;</span><span class="nt">&gt;</span>
-</span><span class="line">                <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">&quot;http://item.feedsky.com/~feedsky/yanping/~8847833/629496872/6966477/1/item.html&quot;</span>
-</span><span class="line">                <span class="na">title=</span><span class="s">&quot;Sun, 18 Mar 2012 00:30:00 +0800:Github Pages极简教程&quot;</span> <span class="na">class=</span><span class="s">&quot;i&quot;</span> <span class="na">style=</span><span class="s">&quot;border-style: none none solid; border-color: -moz-use-text-color -moz-use-text-color rgb(122, 126, 224); border-width: medium medium 1px; margin: 0pt; padding: 0pt; background: transparent none repeat scroll 0%; -moz-background-clip: -moz-initial; -moz-background-origin: -moz-initial; -moz-background-inline-policy: -moz-initial; text-align: left; text-indent: 0pt; text-decoration: none; font-weight: normal; color: rgb(16, 16, 200);&quot;</span><span class="nt">&gt;</span>
-</span><span class="line">                    Github Pages极简教程
-</span><span class="line">                <span class="nt">&lt;/a&gt;</span>
-</span><span class="line">            <span class="nt">&lt;/li&gt;</span>
-</span><span class="line">            <span class="nt">&lt;li</span> <span class="na">style=</span><span class="s">&quot;border: medium none ; margin: 0pt; padding: 0.4em 0pt; background: transparent none repeat scroll 0%; -moz-background-clip: -moz-initial; -moz-background-origin: -moz-initial; -moz-background-inline-policy: -moz-initial; text-align: left; text-indent: 0pt; text-decoration: none; font-weight: normal; list-style-type: none;&quot;</span><span class="nt">&gt;</span>
-</span><span class="line">                <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">&quot;http://item.feedsky.com/~feedsky/yanping/~8847833/629496873/6966477/1/item.html&quot;</span>
-</span><span class="line">                <span class="na">title=</span><span class="s">&quot;Tue, 13 Mar 2012 00:30:00 +0800:黑魔法利器pandoc&quot;</span> <span class="na">class=</span><span class="s">&quot;i&quot;</span> <span class="na">style=</span><span class="s">&quot;border-style: none none solid; border-color: -moz-use-text-color -moz-use-text-color rgb(122, 126, 224); border-width: medium medium 1px; margin: 0pt; padding: 0pt; background: transparent none repeat scroll 0%; -moz-background-clip: -moz-initial; -moz-background-origin: -moz-initial; -moz-background-inline-policy: -moz-initial; text-align: left; text-indent: 0pt; text-decoration: none; font-weight: normal; color: rgb(16, 16, 200);&quot;</span><span class="nt">&gt;</span>
-</span><span class="line">                    黑魔法利器pandoc
-</span><span class="line">                <span class="nt">&lt;/a&gt;</span>
-</span><span class="line">            <span class="nt">&lt;/li&gt;</span>
-</span><span class="line">            <span class="nt">&lt;li</span> <span class="na">style=</span><span class="s">&quot;border: medium none ; margin: 0pt; padding: 0.4em 0pt; background: transparent none repeat scroll 0%; -moz-background-clip: -moz-initial; -moz-background-origin: -moz-initial; -moz-background-inline-policy: -moz-initial; text-align: left; text-indent: 0pt; text-decoration: none; font-weight: normal; list-style-type: none;&quot;</span><span class="nt">&gt;</span>
-</span><span class="line">                <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">&quot;http://item.feedsky.com/~feedsky/yanping/~8847833/629496874/6966477/1/item.html&quot;</span>
-</span><span class="line">                <span class="na">title=</span><span class="s">&quot;Mon, 12 Mar 2012 22:16:00 +0800:我的Octopress样式表&quot;</span> <span class="na">class=</span><span class="s">&quot;i&quot;</span> <span class="na">style=</span><span class="s">&quot;border-style: none none solid; border-color: -moz-use-text-color -moz-use-text-color rgb(122, 126, 224); border-width: medium medium 1px; margin: 0pt; padding: 0pt; background: transparent none repeat scroll 0%; -moz-background-clip: -moz-initial; -moz-background-origin: -moz-initial; -moz-background-inline-policy: -moz-initial; text-align: left; text-indent: 0pt; text-decoration: none; font-weight: normal; color: rgb(16, 16, 200);&quot;</span><span class="nt">&gt;</span>
-</span><span class="line">                    我的Octopress样式表
-</span><span class="line">                <span class="nt">&lt;/a&gt;</span>
-</span><span class="line">            <span class="nt">&lt;/li&gt;</span>
-</span><span class="line">        <span class="nt">&lt;/ul&gt;</span>
-</span><span class="line">        <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;f&quot;</span> <span class="na">style=</span><span class="s">&quot;border-style: solid none none; border-color: rgb(188, 204, 235) -moz-use-text-color -moz-use-text-color; border-width: 1px medium medium; margin: 0pt; padding: 0.2em 8px; background: rgb(229, 236, 249) none repeat scroll 0%; -moz-background-clip: -moz-initial; -moz-background-origin: -moz-initial; -moz-background-inline-policy: -moz-initial; text-align: right; text-indent: 0pt; text-decoration: none; font-weight: normal; -moz-border-radius-topleft: 0pt; -moz-border-radius-topright: 0pt; -moz-border-radius-bottomright: 4px; -moz-border-radius-bottomleft: 4px; font-size: small; white-space: nowrap;&quot;</span><span class="nt">&gt;</span>
-</span><span class="line">            <span class="nt">&lt;a</span> <span class="na">style=</span><span class="s">&quot;border: medium none ; margin: 0pt; padding: 0pt; background: transparent none repeat scroll 0%; -moz-background-clip: -moz-initial; -moz-background-origin: -moz-initial; -moz-background-inline-policy: -moz-initial; text-align: left; text-indent: 0pt; text-decoration: underline; font-weight: normal; color: rgb(137, 141, 233);&quot;</span>
-</span><span class="line">            <span class="na">href=</span><span class="s">&quot;http://feed.yanping.me&quot;</span><span class="nt">&gt;</span>
-</span><span class="line">                Read in Feedsky
-</span><span class="line">            <span class="nt">&lt;/a&gt;</span>
-</span><span class="line">        <span class="nt">&lt;/div&gt;</span>
-</span><span class="line">    <span class="nt">&lt;/div&gt;</span>
-</span><span class="line">    <span class="c">&lt;!-- Feedsky FEED JS发布代码结束 --&gt;</span>
-</span></code></pre></td></tr></table></div></figure></notextile></div>
-
-<p>虽然不好跨域读取json数据文件，但是浏览器可以加载外部js脚本，js脚本里又可以包含json变量。</p>
-
-<p>我们称提供json数据的一端为服务端，调用json数据的一端为客户端。在服务端创建下面的js脚本模板：</p>
-
-<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span>recent.json  (posts.js)</span> <a href="/cn/downloads/code/../../posts.js">download</a></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
-<span class="line-number">2</span>
-<span class="line-number">3</span>
-<span class="line-number">4</span>
-<span class="line-number">5</span>
-<span class="line-number">6</span>
-<span class="line-number">7</span>
-<span class="line-number">8</span>
-<span class="line-number">9</span>
-<span class="line-number">10</span>
-<span class="line-number">11</span>
-<span class="line-number">12</span>
-<span class="line-number">13</span>
-<span class="line-number">14</span>
-<span class="line-number">15</span>
-<span class="line-number">16</span>
-<span class="line-number">17</span>
-<span class="line-number">18</span>
-<span class="line-number">19</span>
-<span class="line-number">20</span>
-<span class="line-number">21</span>
-<span class="line-number">22</span>
-<span class="line-number">23</span>
-<span class="line-number">24</span>
-</pre></td><td class="code"><pre><code class="javascript"><span class="line"><span class="o">---</span>
-</span><span class="line"><span class="nx">layout</span><span class="o">:</span> <span class="nx">nil</span>
-</span><span class="line"><span class="o">---</span>
-</span><span class="line">
-</span><span class="line"><span class="nx">$</span><span class="p">(</span><span class="nb">document</span><span class="p">).</span><span class="nx">ready</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-</span><span class="line">	<span class="kd">var</span> <span class="nx">post</span> <span class="o">=</span> <span class="p">{</span>
-</span><span class="line">	<span class="s2">&quot;list&quot;</span><span class="o">:</span><span class="p">[{</span><span class="o">%</span> <span class="k">for</span> <span class="nx">post</span> <span class="k">in</span> <span class="nx">site</span><span class="p">.</span><span class="nx">posts</span> <span class="nx">limit</span><span class="o">:</span><span class="mi">5</span> <span class="o">%</span><span class="p">}{</span>
-</span><span class="line">		<span class="s2">&quot;title&quot;</span><span class="o">:</span><span class="s2">&quot;{{post.title}}&quot;</span><span class="p">,</span>
-</span><span class="line">		    <span class="s2">&quot;url&quot;</span><span class="o">:</span><span class="s2">&quot;{{site.url}}{{post.url}}&quot;</span><span class="p">,</span>
-</span><span class="line">		    <span class="s2">&quot;date&quot;</span><span class="o">:</span><span class="s2">&quot;{{post.date|date_to_string}}&quot;</span>
-</span><span class="line">		<span class="p">}{</span><span class="o">%</span> <span class="k">if</span> <span class="nx">forloop</span><span class="p">.</span><span class="nx">last</span> <span class="o">==</span> <span class="kc">false</span> <span class="o">%</span><span class="p">},{</span><span class="o">%</span> <span class="nx">endif</span> <span class="o">%</span><span class="p">}</span>
-</span><span class="line">	<span class="p">{</span><span class="o">%</span> <span class="nx">endfor</span> <span class="o">%</span><span class="p">}</span>
-</span><span class="line">	<span class="p">]};</span>
-</span><span class="line">
-</span><span class="line">	<span class="kd">var</span> <span class="nx">content</span> <span class="o">=</span><span class="s2">&quot;&lt;ul class=\&quot;compact recent\&quot;&gt;&quot;</span><span class="p">;</span>
-</span><span class="line">	<span class="nx">$</span><span class="p">.</span><span class="nx">each</span><span class="p">(</span><span class="nx">post</span><span class="p">.</span><span class="nx">list</span><span class="p">,</span><span class="kd">function</span><span class="p">(</span><span class="nx">i</span><span class="p">,</span><span class="nx">item</span><span class="p">){</span>
-</span><span class="line">
-</span><span class="line">	<span class="nx">content</span> <span class="o">+=</span> <span class="s2">&quot;&lt;li&gt;&lt;span class=\&quot;date\&quot;&gt;&quot;</span><span class="o">+</span> <span class="nx">item</span><span class="p">.</span><span class="nx">date</span> <span class="o">+</span> <span class="s2">&quot;&lt;/span&gt;&lt;a href=\&quot;&quot;</span><span class="o">+</span><span class="nx">item</span><span class="p">.</span><span class="nx">url</span><span class="o">+</span><span class="s2">&quot;\&quot;&gt;&quot;</span><span class="o">+</span> <span class="nx">item</span><span class="p">.</span><span class="nx">title</span> <span class="o">+</span><span class="s2">&quot;&lt;/a&gt;&lt;/li&gt;&quot;</span><span class="p">;</span>
-</span><span class="line">
-</span><span class="line">	<span class="p">});</span>
-</span><span class="line">
-</span><span class="line">	<span class="nx">content</span> <span class="o">+=</span><span class="s2">&quot;&lt;/ul&gt;&quot;</span><span class="p">;</span>
-</span><span class="line">	<span class="nx">$</span><span class="p">(</span><span class="s2">&quot;#blog1-posts-list&quot;</span><span class="p">).</span><span class="nx">append</span><span class="p">(</span><span class="nx">content</span><span class="p">);</span>
-</span><span class="line"><span class="p">});</span>
-</span></code></pre></td></tr></table></div></figure></notextile></div>
-
-<p>经过jekyll的处理后得到：</p>
-
-<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span>recent.json  (posts.js)</span> <a href="/cn/downloads/code/../../../public/cn/posts.js">download</a></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
-<span class="line-number">2</span>
-<span class="line-number">3</span>
-<span class="line-number">4</span>
-<span class="line-number">5</span>
-<span class="line-number">6</span>
-<span class="line-number">7</span>
-<span class="line-number">8</span>
-<span class="line-number">9</span>
-<span class="line-number">10</span>
-<span class="line-number">11</span>
-<span class="line-number">12</span>
-<span class="line-number">13</span>
-<span class="line-number">14</span>
-<span class="line-number">15</span>
-<span class="line-number">16</span>
-<span class="line-number">17</span>
-<span class="line-number">18</span>
-<span class="line-number">19</span>
-<span class="line-number">20</span>
-<span class="line-number">21</span>
-<span class="line-number">22</span>
-<span class="line-number">23</span>
-<span class="line-number">24</span>
-<span class="line-number">25</span>
-<span class="line-number">26</span>
-<span class="line-number">27</span>
-<span class="line-number">28</span>
-<span class="line-number">29</span>
-<span class="line-number">30</span>
-<span class="line-number">31</span>
-<span class="line-number">32</span>
-<span class="line-number">33</span>
-<span class="line-number">34</span>
-<span class="line-number">35</span>
-<span class="line-number">36</span>
-<span class="line-number">37</span>
-<span class="line-number">38</span>
-<span class="line-number">39</span>
-<span class="line-number">40</span>
-</pre></td><td class="code"><pre><code class="javascript"><span class="line"><span class="nx">$</span><span class="p">(</span><span class="nb">document</span><span class="p">).</span><span class="nx">ready</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-</span><span class="line">	<span class="kd">var</span> <span class="nx">post</span> <span class="o">=</span> <span class="p">{</span>
-</span><span class="line">	<span class="s2">&quot;list&quot;</span><span class="o">:</span><span class="p">[{</span>
-</span><span class="line">		<span class="s2">&quot;title&quot;</span><span class="o">:</span><span class="s2">&quot;用jekyll生成包含json变量的js脚本&quot;</span><span class="p">,</span>
-</span><span class="line">		    <span class="s2">&quot;url&quot;</span><span class="o">:</span><span class="s2">&quot;http://chen.yanping.me/cn/blog/2012/04/20/jekyll-with-js-and-json/&quot;</span><span class="p">,</span>
-</span><span class="line">		    <span class="s2">&quot;date&quot;</span><span class="o">:</span><span class="s2">&quot;20 Apr 2012&quot;</span>
-</span><span class="line">		<span class="p">},</span>
-</span><span class="line">	<span class="p">{</span>
-</span><span class="line">		<span class="s2">&quot;title&quot;</span><span class="o">:</span><span class="s2">&quot;用jekyll生成json&quot;</span><span class="p">,</span>
-</span><span class="line">		    <span class="s2">&quot;url&quot;</span><span class="o">:</span><span class="s2">&quot;http://chen.yanping.me/cn/blog/2012/04/19/jekyll-with-json/&quot;</span><span class="p">,</span>
-</span><span class="line">		    <span class="s2">&quot;date&quot;</span><span class="o">:</span><span class="s2">&quot;19 Apr 2012&quot;</span>
-</span><span class="line">		<span class="p">},</span>
-</span><span class="line">	<span class="p">{</span>
-</span><span class="line">		<span class="s2">&quot;title&quot;</span><span class="o">:</span><span class="s2">&quot;指数方法论入门&quot;</span><span class="p">,</span>
-</span><span class="line">		    <span class="s2">&quot;url&quot;</span><span class="o">:</span><span class="s2">&quot;http://chen.yanping.me/cn/blog/2012/03/30/the-abcs-of-index-methodologies/&quot;</span><span class="p">,</span>
-</span><span class="line">		    <span class="s2">&quot;date&quot;</span><span class="o">:</span><span class="s2">&quot;30 Mar 2012&quot;</span>
-</span><span class="line">		<span class="p">},</span>
-</span><span class="line">	<span class="p">{</span>
-</span><span class="line">		<span class="s2">&quot;title&quot;</span><span class="o">:</span><span class="s2">&quot;Github Pages极简教程&quot;</span><span class="p">,</span>
-</span><span class="line">		    <span class="s2">&quot;url&quot;</span><span class="o">:</span><span class="s2">&quot;http://chen.yanping.me/cn/blog/2012/03/18/github-pages-step-by-step/&quot;</span><span class="p">,</span>
-</span><span class="line">		    <span class="s2">&quot;date&quot;</span><span class="o">:</span><span class="s2">&quot;18 Mar 2012&quot;</span>
-</span><span class="line">		<span class="p">},</span>
-</span><span class="line">	<span class="p">{</span>
-</span><span class="line">		<span class="s2">&quot;title&quot;</span><span class="o">:</span><span class="s2">&quot;黑魔法利器pandoc&quot;</span><span class="p">,</span>
-</span><span class="line">		    <span class="s2">&quot;url&quot;</span><span class="o">:</span><span class="s2">&quot;http://chen.yanping.me/cn/blog/2012/03/13/pandoc/&quot;</span><span class="p">,</span>
-</span><span class="line">		    <span class="s2">&quot;date&quot;</span><span class="o">:</span><span class="s2">&quot;13 Mar 2012&quot;</span>
-</span><span class="line">		<span class="p">}</span>
-</span><span class="line">	
-</span><span class="line">	<span class="p">]};</span>
-</span><span class="line">
-</span><span class="line">	<span class="kd">var</span> <span class="nx">content</span> <span class="o">=</span><span class="s2">&quot;&lt;ul class=\&quot;compact recent\&quot;&gt;&quot;</span><span class="p">;</span>
-</span><span class="line">	<span class="nx">$</span><span class="p">.</span><span class="nx">each</span><span class="p">(</span><span class="nx">post</span><span class="p">.</span><span class="nx">list</span><span class="p">,</span><span class="kd">function</span><span class="p">(</span><span class="nx">i</span><span class="p">,</span><span class="nx">item</span><span class="p">){</span>
-</span><span class="line">
-</span><span class="line">	<span class="nx">content</span> <span class="o">+=</span> <span class="s2">&quot;&lt;li&gt;&lt;span class=\&quot;date\&quot;&gt;&quot;</span><span class="o">+</span> <span class="nx">item</span><span class="p">.</span><span class="nx">date</span> <span class="o">+</span> <span class="s2">&quot;&lt;/span&gt;&lt;a href=\&quot;&quot;</span><span class="o">+</span><span class="nx">item</span><span class="p">.</span><span class="nx">url</span><span class="o">+</span><span class="s2">&quot;\&quot;&gt;&quot;</span><span class="o">+</span> <span class="nx">item</span><span class="p">.</span><span class="nx">title</span> <span class="o">+</span><span class="s2">&quot;&lt;/a&gt;&lt;/li&gt;&quot;</span><span class="p">;</span>
-</span><span class="line">
-</span><span class="line">	<span class="p">});</span>
-</span><span class="line">
-</span><span class="line">	<span class="nx">content</span> <span class="o">+=</span><span class="s2">&quot;&lt;/ul&gt;&quot;</span><span class="p">;</span>
-</span><span class="line">	<span class="nx">$</span><span class="p">(</span><span class="s2">&quot;#blog1-posts-list&quot;</span><span class="p">).</span><span class="nx">append</span><span class="p">(</span><span class="nx">content</span><span class="p">);</span>
-</span><span class="line"><span class="p">});</span>
-</span></code></pre></td></tr></table></div></figure></notextile></div>
-
-<p>客户端页面里是这样调用的：</p>
-
-<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span /></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
-<span class="line-number">2</span>
-<span class="line-number">3</span>
-<span class="line-number">4</span>
-<span class="line-number">5</span>
-<span class="line-number">6</span>
-</pre></td><td class="code"><pre><code class="html"><span class="line"><span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;section&quot;</span> <span class="na">id=</span><span class="s">&quot;blog1-posts-list&quot;</span><span class="nt">&gt;</span>
-</span><span class="line">	<span class="nt">&lt;h1</span> <span class="na">id=</span><span class="s">&quot;id165&quot;</span><span class="nt">&gt;</span>博客<span class="nt">&lt;/h1&gt;</span>
-</span><span class="line">	<span class="nt">&lt;p&gt;</span>我现在主要更新的是托管在github上的<span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">&quot;http://chen.yanping.me/cn&quot;</span> <span class="na">target=</span><span class="s">&quot;_blank&quot;</span><span class="nt">&gt;</span>Octopress博客<span class="nt">&lt;/a&gt;</span>，主要记录自己在学习过程中的心得体会。近期内容：<span class="nt">&lt;/p&gt;</span>
-</span><span class="line"><span class="nt">&lt;/div&gt;</span>
-</span><span class="line">
-</span><span class="line"><span class="nt">&lt;script </span><span class="na">src=</span><span class="s">&quot;http://chen.yanping.me/cn/posts.js&quot;</span> <span class="na">type=</span><span class="s">&quot;text/javascript&quot;</span><span class="nt">&gt;&lt;/script&gt;</span>
-</span></code></pre></td></tr></table></div></figure></notextile></div>
-
-<p>读者可以自行比较<a href="http://yanpimg.me">http://yanpimg.me</a>和<a href="http://yanping.me/json-demo">http://yanping.me/json-demo</a>的差别。</p>
-
-<h2 id="section">第二种方法</h2>
-
-<p>上面讲的这种调用方式还是不够灵活，客户端不但提供数据，还限定了使用数据的方法，如果两端你都能操作那一点问题没有，但经常两端分属不同的人维护，你也没权力指挥别人做什么。有没有更好的办法呢？答案是肯定的。只要把数据格式的定义和调用数据的函数定义分开就行。</p>
-
-<p>服务端只定义json数据的形式，例如在博客<a href="https://github.com/yanping/art">https://github.com/yanping/art</a>新建posts2.js的模板：</p>
-
-<div class="bogus-wrapper"><notextile><figure class="code"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
-<span class="line-number">2</span>
-<span class="line-number">3</span>
-<span class="line-number">4</span>
-<span class="line-number">5</span>
-<span class="line-number">6</span>
-<span class="line-number">7</span>
-<span class="line-number">8</span>
-<span class="line-number">9</span>
-<span class="line-number">10</span>
-<span class="line-number">11</span>
-<span class="line-number">12</span>
-<span class="line-number">13</span>
-</pre></td><td class="code"><pre><code class=""><span class="line">---
-</span><span class="line">layout: nil
-</span><span class="line">---
-</span><span class="line">
-</span><span class="line">	var post = {
-</span><span class="line">	"list":[{% for post in site.posts limit:5 %}{
-</span><span class="line">	    "title":"{{post.title}}",
-</span><span class="line">        "url":"{{site.url}}{{post.url}}",
-</span><span class="line">        "date":"{{post.date|date_to_string}}"
-</span><span class="line">    }{% if forloop.last == false %},{% endif %}
-</span><span class="line">{% endfor %}
-</span><span class="line">
-</span><span class="line">	]};</span></code></pre></td></tr></table></div></figure></notextile></div>
-
-<p>在客户端页面这样调用：</p>
-
-<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span /></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
-<span class="line-number">2</span>
-<span class="line-number">3</span>
-<span class="line-number">4</span>
-<span class="line-number">5</span>
-<span class="line-number">6</span>
-<span class="line-number">7</span>
-<span class="line-number">8</span>
-<span class="line-number">9</span>
-<span class="line-number">10</span>
-<span class="line-number">11</span>
-<span class="line-number">12</span>
-<span class="line-number">13</span>
-<span class="line-number">14</span>
-<span class="line-number">15</span>
-<span class="line-number">16</span>
-<span class="line-number">17</span>
-<span class="line-number">18</span>
-<span class="line-number">19</span>
-<span class="line-number">20</span>
-<span class="line-number">21</span>
-</pre></td><td class="code"><pre><code class="html"><span class="line"><span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;section&quot;</span> <span class="na">id=</span><span class="s">&quot;blog2-posts-list&quot;</span><span class="nt">&gt;</span>
-</span><span class="line"><span class="nt">&lt;p&gt;</span>我还有个文艺点儿的<span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">&quot;http://art.yanping.me&quot;</span> <span class="na">target=</span><span class="s">&quot;_blank&quot;</span><span class="nt">&gt;</span>博客<span class="nt">&lt;/a&gt;</span>，写写跟技术无关的东西。近期内容：<span class="nt">&lt;/p&gt;</span>
-</span><span class="line"><span class="nt">&lt;/div&gt;</span>
-</span><span class="line">	
-</span><span class="line"><span class="nt">&lt;script </span><span class="na">src=</span><span class="s">&quot;http://art.yanping.me/posts2.js&quot;</span> <span class="na">type=</span><span class="s">&quot;text/javascript&quot;</span><span class="nt">&gt;&lt;/script&gt;</span>
-</span><span class="line">
-</span><span class="line"><span class="c">&lt;!-- 下面定义数据调用方法 --&gt;</span>
-</span><span class="line"><span class="nt">&lt;script </span><span class="na">type=</span><span class="s">&quot;text/javascript&quot;</span><span class="nt">&gt;</span>
-</span><span class="line">	<span class="nx">$</span><span class="p">(</span><span class="nb">document</span><span class="p">).</span><span class="nx">ready</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-</span><span class="line">			<span class="kd">var</span> <span class="nx">content</span> <span class="o">=</span><span class="s2">&quot;&lt;ul class=\&quot;compact recent\&quot;&gt;&quot;</span><span class="p">;</span>
-</span><span class="line">			<span class="nx">$</span><span class="p">.</span><span class="nx">each</span><span class="p">(</span><span class="nx">post</span><span class="p">.</span><span class="nx">list</span><span class="p">,</span><span class="kd">function</span><span class="p">(</span><span class="nx">i</span><span class="p">,</span><span class="nx">item</span><span class="p">){</span>
-</span><span class="line">
-</span><span class="line">			<span class="nx">content</span> <span class="o">+=</span> <span class="s2">&quot;&lt;li&gt;&lt;span class=\&quot;date\&quot;&gt;&quot;</span><span class="o">+</span> <span class="nx">item</span><span class="p">.</span><span class="nx">date</span> <span class="o">+</span> <span class="s2">&quot;&lt;/span&gt;&lt;a href=\&quot;&quot;</span><span class="o">+</span><span class="nx">item</span><span class="p">.</span><span class="nx">url</span><span class="o">+</span><span class="s2">&quot;\&quot;&gt;&quot;</span><span class="o">+</span> <span class="nx">item</span><span class="p">.</span><span class="nx">title</span> <span class="o">+</span><span class="s2">&quot;&lt;/a&gt;&lt;/li&gt;&quot;</span><span class="p">;</span>
-</span><span class="line">
-</span><span class="line">			<span class="p">});</span>
-</span><span class="line">
-</span><span class="line">			<span class="nx">content</span> <span class="o">+=</span><span class="s2">&quot;&lt;/ul&gt;&quot;</span><span class="p">;</span>
-</span><span class="line">			<span class="nx">$</span><span class="p">(</span><span class="s2">&quot;#blog2-posts-list&quot;</span><span class="p">).</span><span class="nx">append</span><span class="p">(</span><span class="nx">content</span><span class="p">);</span>
-</span><span class="line">	
-</span><span class="line">	<span class="p">});</span>		
-</span><span class="line"><span class="nt">&lt;/script&gt;</span>
-</span></code></pre></td></tr></table></div></figure></notextile></div>
-
-<p>我尝试了几种json数据的定义形式，<a href="http://yanping.me/json-demo/2.html">示例1</a>、<a href="http://yanping.me/json-demo/3.html">示例2</a>、<a href="http://yanping.me/json-demo/4.html">示例3</a>和<a href="http://yanping.me/json-demo/5.html">示例4</a>，只有最后一种没有办法完成调用，这是因为数据的读取和使用分别在两个<code>&lt;script&gt;</code>标签里，数据必须定义成全局变量才能在后面被引用。</p>
-
-<h2 id="section-1">进一步思考</h2>
-
-<p>在同域的情况下，服务端生成json数据，在客户端用getJSON读取json文件，我们称之为<strong>方法一</strong>，这是<a href="http://chen.yanping.me/cn/blog/2012/04/19/jekyll-with-json/">前一篇文章</a>讲的方法;在跨域的情况下，服务端生成包含json变量的js脚本，然后再在客户端链接这个外部的js脚本，这种方法我们称之为<strong>方法二</strong>。</p>
-
-<p>本文在使用<strong>方法二</strong>时，如果服务端和客户端分别由两个人维护的话，客户端的维护者只能被动接受。幸好我们有github，github的口号是social coding，有人翻译成社会化编程，我偏向于翻译成社交编程。想想我们在facebook、人人网这样的社交网络都干些什么，我们在那上面上发布状态、上传图片，告诉朋友以及路过的陌生人我们都做了什么、心情如何、拍了什么照片，上班时大家很喜欢挂人人，刷新鲜事；而在github上，coder们晒出自己的代码，可以关注别的coder和感兴趣的项目，登录github可以看到大家的“新鲜事”：某某创建了个什么代码库、做了什么修改，你可以亲眼看到别人的项目从最初的雏形发展成一个完美的项目，可以给别人的代码留言，报告bug，也可以fork别人的代码，根据自己的喜好做修改，如果有好的主意，可以给原作者发个pull request，作者要是也同样喜欢，就会加到自己的代码里。</p>
-
-<p>在github上，跨域的问题不是那么难解决，我们完全可以针对自己的需求写个js脚本的模板，给博客的作者发个pull request，或者留言，没准儿哪天包含json变量的js脚本模板也会像rss.xml、atom.xml或者sitemap.xml一样变得成github博客的标配。</p>
-
 </div>
   
+  
+    <footer>
+      <a rel="full-article" href="/cn/blog/2012/04/20/jekyll-with-js-and-json/">阅读全文 &rarr;</a>
+    </footer>
   
 
 
@@ -903,9 +552,9 @@
   
   <div class="pagination">
     
-      <a class="prev" href="/cn/blog/page/2/">&larr; Older</a>
+      <a class="prev" href="/cn/blog/page/2/">&larr; 前一页</a>
     
-    <a href="/cn/blog/archives">Blog Archives</a>
+    <a href="/cn/blog/archives">文章列表</a>
     
   </div>
 </div>
@@ -930,7 +579,7 @@
 </section>
 
 <section>
-  <h1>Recent Posts</h1>
+  <h1>近期文章</h1>
   <ul id="recent_posts">
     
       <li class="post">
@@ -1073,14 +722,21 @@
 
 
 
-	<script type="text/javascript">
+
+<script type="text/javascript"
+   src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+
+
+
+<script type="text/javascript">
     
         $(document).ready(function(){             
 
             $('.entry-content a').each(function(index,element){
                 var href = $(this).attr('href');
                 if(href.indexOf('#') == 0){
-                }else if ( href.indexOf('/') == 0 || href.toLowerCase().indexOf('chen.yanping.me/cn')>-1 ){
+                }else if ( href.indexOf('/') == 0 || href.toLowerCase().indexOf('chen.yanping.me')>-1 ){
                 }else{
                     $(this).attr('target','_blank');
                     $(this).addClass('external');
@@ -1090,6 +746,10 @@
         });	
 
 </script>
+
+
+
+
 
 
 </body>

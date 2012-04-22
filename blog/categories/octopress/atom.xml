@@ -4,7 +4,7 @@
   <title><![CDATA[分类： octopress | 雁起平沙的网络日志]]></title>
   <link href="http://chen.yanping.me/cn/blog/categories/octopress/atom.xml" rel="self"/>
   <link href="http://chen.yanping.me/cn/"/>
-  <updated>2012-04-21T02:20:06+08:00</updated>
+  <updated>2012-04-22T12:48:42+08:00</updated>
   <id>http://chen.yanping.me/cn/</id>
   <author>
     <name><![CDATA[ypchen]]></name>
@@ -23,6 +23,8 @@
 <p><a href="http://chen.yanping.me/cn/blog/2012/04/19/jekyll-with-json/">前一篇文章</a>提到用getJSON读取json文件，并以此动态更新页面，但只能读取同域的json文件，据说是出于安全性的考虑。</p>
 
 <p>现在问题出来了，我除了前文提到的三个网站以外，还有个<a href="http://yanping.me">主页的镜像网站</a>，它存放在美国的一位师兄的服务器上，和那三个网站肯定不同域，如果我要让它和github上的<a href="http://chen.yanping.me">主页</a>始终保持一致，又不想每次手动修改博客文章列表，也不能再使用feedsky了。因为feedsky除了慢之外，生成的列表样式也和网站风格不一致。</p>
+
+<!--more-->
 
 <p>别看表面上只有一行代码：</p>
 
@@ -258,6 +260,7 @@
 <span class='line-number'>13</span>
 <span class='line-number'>14</span>
 <span class='line-number'>15</span>
+<span class='line-number'>16</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>—
 </span><span class='line'>layout: nil
 </span><span class='line'>—&lt;/p>
@@ -267,7 +270,8 @@
 </span><span class='line'>    "title":"{{post.title}}",
 </span><span class='line'>    "url":"{{site.url}}{{post.url}}",
 </span><span class='line'>    "date":"{{post.date|date_to_string}}"
-</span><span class='line'>}{% if forloop.last == false %},{% endif %} {% endfor %}
+</span><span class='line'>}{% if forloop.last == false %},{% endif %}
+</span><span class='line'>{% endfor %}
 </span><span class='line'>
 </span><span class='line'>]};	
 </span><span class='line'>&lt;/code>&lt;/pre>
@@ -286,15 +290,15 @@
 &lt;!-- 下面定义数据调用方法 --&gt;
 &lt;script type="text/javascript"&gt;
 	$(document).ready(function() {
-			var content ="&lt;ul class=\"compact recent\"&gt;";
-			$.each(post.list,function(i,item){
+		var content ="&lt;ul class=\"compact recent\"&gt;";
+		$.each(post.list,function(i,item){
 
-			content += "&lt;li&gt;&lt;span class=\"date\"&gt;"+ item.date + "&lt;/span&gt;&lt;a href=\""+item.url+"\"&gt;"+ item.title +"&lt;/a&gt;&lt;/li&gt;";
+		content += "&lt;li&gt;&lt;span class=\"date\"&gt;"+ item.date + "&lt;/span&gt;&lt;a href=\""+item.url+"\"&gt;"+ item.title +"&lt;/a&gt;&lt;/li&gt;";
 
-			});
+		});
 
-			content +="&lt;/ul&gt;";
-			$("#blog2-posts-list").append(content);
+		content +="&lt;/ul&gt;";
+		$("#blog2-posts-list").append(content);
 	
 	});		
 &lt;/script&gt; ```

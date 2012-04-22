@@ -4,7 +4,7 @@
   <title><![CDATA[雁起平沙的网络日志]]></title>
   <link href="http://chen.yanping.me/cn/atom.xml" rel="self"/>
   <link href="http://chen.yanping.me/cn/"/>
-  <updated>2012-04-21T02:20:06+08:00</updated>
+  <updated>2012-04-22T12:48:42+08:00</updated>
   <id>http://chen.yanping.me/cn/</id>
   <author>
     <name><![CDATA[ypchen]]></name>
@@ -23,6 +23,8 @@
 <p><a href="http://chen.yanping.me/cn/blog/2012/04/19/jekyll-with-json/">前一篇文章</a>提到用getJSON读取json文件，并以此动态更新页面，但只能读取同域的json文件，据说是出于安全性的考虑。</p>
 
 <p>现在问题出来了，我除了前文提到的三个网站以外，还有个<a href="http://yanping.me">主页的镜像网站</a>，它存放在美国的一位师兄的服务器上，和那三个网站肯定不同域，如果我要让它和github上的<a href="http://chen.yanping.me">主页</a>始终保持一致，又不想每次手动修改博客文章列表，也不能再使用feedsky了。因为feedsky除了慢之外，生成的列表样式也和网站风格不一致。</p>
+
+<!--more-->
 
 <p>别看表面上只有一行代码：</p>
 
@@ -319,7 +321,7 @@
 </span><span class="line">        "url":"{{site.url}}{{post.url}}",
 </span><span class="line">        "date":"{{post.date|date_to_string}}"
 </span><span class="line">    }{% if forloop.last == false %},{% endif %}
-</span><span class="line">{% endfor %}
+</span><span class="line">	{% endfor %}
 </span><span class="line">
 </span><span class="line">	]};</span></code></pre></td></tr></table></div></figure></notextile></div>
 
@@ -355,15 +357,15 @@
 </span><span class="line"><span class="c">&lt;!-- 下面定义数据调用方法 --&gt;</span>
 </span><span class="line"><span class="nt">&lt;script </span><span class="na">type=</span><span class="s">&quot;text/javascript&quot;</span><span class="nt">&gt;</span>
 </span><span class="line">	<span class="nx">$</span><span class="p">(</span><span class="nb">document</span><span class="p">).</span><span class="nx">ready</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-</span><span class="line">			<span class="kd">var</span> <span class="nx">content</span> <span class="o">=</span><span class="s2">&quot;&lt;ul class=\&quot;compact recent\&quot;&gt;&quot;</span><span class="p">;</span>
-</span><span class="line">			<span class="nx">$</span><span class="p">.</span><span class="nx">each</span><span class="p">(</span><span class="nx">post</span><span class="p">.</span><span class="nx">list</span><span class="p">,</span><span class="kd">function</span><span class="p">(</span><span class="nx">i</span><span class="p">,</span><span class="nx">item</span><span class="p">){</span>
+</span><span class="line">		<span class="kd">var</span> <span class="nx">content</span> <span class="o">=</span><span class="s2">&quot;&lt;ul class=\&quot;compact recent\&quot;&gt;&quot;</span><span class="p">;</span>
+</span><span class="line">		<span class="nx">$</span><span class="p">.</span><span class="nx">each</span><span class="p">(</span><span class="nx">post</span><span class="p">.</span><span class="nx">list</span><span class="p">,</span><span class="kd">function</span><span class="p">(</span><span class="nx">i</span><span class="p">,</span><span class="nx">item</span><span class="p">){</span>
 </span><span class="line">
-</span><span class="line">			<span class="nx">content</span> <span class="o">+=</span> <span class="s2">&quot;&lt;li&gt;&lt;span class=\&quot;date\&quot;&gt;&quot;</span><span class="o">+</span> <span class="nx">item</span><span class="p">.</span><span class="nx">date</span> <span class="o">+</span> <span class="s2">&quot;&lt;/span&gt;&lt;a href=\&quot;&quot;</span><span class="o">+</span><span class="nx">item</span><span class="p">.</span><span class="nx">url</span><span class="o">+</span><span class="s2">&quot;\&quot;&gt;&quot;</span><span class="o">+</span> <span class="nx">item</span><span class="p">.</span><span class="nx">title</span> <span class="o">+</span><span class="s2">&quot;&lt;/a&gt;&lt;/li&gt;&quot;</span><span class="p">;</span>
+</span><span class="line">		<span class="nx">content</span> <span class="o">+=</span> <span class="s2">&quot;&lt;li&gt;&lt;span class=\&quot;date\&quot;&gt;&quot;</span><span class="o">+</span> <span class="nx">item</span><span class="p">.</span><span class="nx">date</span> <span class="o">+</span> <span class="s2">&quot;&lt;/span&gt;&lt;a href=\&quot;&quot;</span><span class="o">+</span><span class="nx">item</span><span class="p">.</span><span class="nx">url</span><span class="o">+</span><span class="s2">&quot;\&quot;&gt;&quot;</span><span class="o">+</span> <span class="nx">item</span><span class="p">.</span><span class="nx">title</span> <span class="o">+</span><span class="s2">&quot;&lt;/a&gt;&lt;/li&gt;&quot;</span><span class="p">;</span>
 </span><span class="line">
-</span><span class="line">			<span class="p">});</span>
+</span><span class="line">		<span class="p">});</span>
 </span><span class="line">
-</span><span class="line">			<span class="nx">content</span> <span class="o">+=</span><span class="s2">&quot;&lt;/ul&gt;&quot;</span><span class="p">;</span>
-</span><span class="line">			<span class="nx">$</span><span class="p">(</span><span class="s2">&quot;#blog2-posts-list&quot;</span><span class="p">).</span><span class="nx">append</span><span class="p">(</span><span class="nx">content</span><span class="p">);</span>
+</span><span class="line">		<span class="nx">content</span> <span class="o">+=</span><span class="s2">&quot;&lt;/ul&gt;&quot;</span><span class="p">;</span>
+</span><span class="line">		<span class="nx">$</span><span class="p">(</span><span class="s2">&quot;#blog2-posts-list&quot;</span><span class="p">).</span><span class="nx">append</span><span class="p">(</span><span class="nx">content</span><span class="p">);</span>
 </span><span class="line">	
 </span><span class="line">	<span class="p">});</span>		
 </span><span class="line"><span class="nt">&lt;/script&gt;</span>
@@ -2025,10 +2027,10 @@ R导论的10.8也是讲定制环境的。
 <span class="line-number">5</span>
 <span class="line-number">6</span>
 </pre></td><td class="code"><pre><code class="html"><span class="line"><span class="nt">&lt;ul</span> <span class="na">class=</span><span class="s">&quot;main-navigation&quot;</span><span class="nt">&gt;</span>
-</span><span class="line">  <span class="nt">&lt;li&gt;&lt;a</span> <span class="na">href=</span><span class="s">&quot;{{ root_url }}/&quot;</span><span class="nt">&gt;</span>博 客<span class="nt">&lt;/a&gt;&lt;/li&gt;</span>
-</span><span class="line">  <span class="nt">&lt;li&gt;&lt;a</span> <span class="na">href=</span><span class="s">&quot;{{ root_url }}/blog/archives&quot;</span><span class="nt">&gt;</span>归 档<span class="nt">&lt;/a&gt;&lt;/li&gt;</span>
-</span><span class="line">  <span class="nt">&lt;li&gt;&lt;a</span> <span class="na">href=</span><span class="s">&quot;{{ root_url }}/blog/categories&quot;</span><span class="nt">&gt;</span>分 类<span class="nt">&lt;/a&gt;&lt;/li&gt;</span>
-</span><span class="line">  <span class="nt">&lt;li&gt;&lt;a</span> <span class="na">href=</span><span class="s">&quot;{{ root_url }}/blog/about&quot;</span><span class="nt">&gt;</span>关 于<span class="nt">&lt;/a&gt;&lt;/li&gt;</span>
+</span><span class="line">  <span class="nt">&lt;li&gt;&lt;a</span> <span class="na">href=</span><span class="s">&quot;{{ root_url }}/&quot;</span><span class="nt">&gt;</span>博客主页<span class="nt">&lt;/a&gt;&lt;/li&gt;</span>
+</span><span class="line">  <span class="nt">&lt;li&gt;&lt;a</span> <span class="na">href=</span><span class="s">&quot;{{ root_url }}/blog/archives&quot;</span><span class="nt">&gt;</span>文章列表<span class="nt">&lt;/a&gt;&lt;/li&gt;</span>
+</span><span class="line">  <span class="nt">&lt;li&gt;&lt;a</span> <span class="na">href=</span><span class="s">&quot;{{ root_url }}/blog/categories&quot;</span><span class="nt">&gt;</span>分类目录<span class="nt">&lt;/a&gt;&lt;/li&gt;</span>
+</span><span class="line">  <span class="nt">&lt;li&gt;&lt;a</span> <span class="na">href=</span><span class="s">&quot;{{ root_url }}/blog/about&quot;</span><span class="nt">&gt;</span>关于<span class="nt">&lt;/a&gt;&lt;/li&gt;</span>
 </span><span class="line"><span class="nt">&lt;/ul&gt;</span>
 </span></code></pre></td></tr></table></div></figure></notextile></div>
 

@@ -103,10 +103,10 @@
   </fieldset>
 </form>
 <ul class="main-navigation">
-  <li><a href="/cn/">博 客</a></li>
-  <li><a href="/cn/blog/archives">归 档</a></li>
-  <li><a href="/cn/blog/categories">分 类</a></li>
-  <li><a href="/cn/blog/about">关 于</a></li>
+  <li><a href="/cn/">博客主页</a></li>
+  <li><a href="/cn/blog/archives">文章列表</a></li>
+  <li><a href="/cn/blog/categories">分类目录</a></li>
+  <li><a href="/cn/blog/about">关于</a></li>
 </ul>
 
 </nav>
@@ -147,6 +147,8 @@
 <p><a href="http://chen.yanping.me/cn/blog/2012/04/19/jekyll-with-json/">前一篇文章</a>提到用getJSON读取json文件，并以此动态更新页面，但只能读取同域的json文件，据说是出于安全性的考虑。</p>
 
 <p>现在问题出来了，我除了前文提到的三个网站以外，还有个<a href="http://yanping.me">主页的镜像网站</a>，它存放在美国的一位师兄的服务器上，和那三个网站肯定不同域，如果我要让它和github上的<a href="http://chen.yanping.me">主页</a>始终保持一致，又不想每次手动修改博客文章列表，也不能再使用feedsky了。因为feedsky除了慢之外，生成的列表样式也和网站风格不一致。</p>
+
+<!--more-->
 
 <p>别看表面上只有一行代码：</p>
 
@@ -443,7 +445,7 @@
 </span><span class="line">        "url":"{{site.url}}{{post.url}}",
 </span><span class="line">        "date":"{{post.date|date_to_string}}"
 </span><span class="line">    }{% if forloop.last == false %},{% endif %}
-</span><span class="line">{% endfor %}
+</span><span class="line">	{% endfor %}
 </span><span class="line">
 </span><span class="line">	]};</span></code></pre></td></tr></table></div></figure></notextile></div>
 
@@ -479,15 +481,15 @@
 </span><span class="line"><span class="c">&lt;!-- 下面定义数据调用方法 --&gt;</span>
 </span><span class="line"><span class="nt">&lt;script </span><span class="na">type=</span><span class="s">&quot;text/javascript&quot;</span><span class="nt">&gt;</span>
 </span><span class="line">	<span class="nx">$</span><span class="p">(</span><span class="nb">document</span><span class="p">).</span><span class="nx">ready</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-</span><span class="line">			<span class="kd">var</span> <span class="nx">content</span> <span class="o">=</span><span class="s2">&quot;&lt;ul class=\&quot;compact recent\&quot;&gt;&quot;</span><span class="p">;</span>
-</span><span class="line">			<span class="nx">$</span><span class="p">.</span><span class="nx">each</span><span class="p">(</span><span class="nx">post</span><span class="p">.</span><span class="nx">list</span><span class="p">,</span><span class="kd">function</span><span class="p">(</span><span class="nx">i</span><span class="p">,</span><span class="nx">item</span><span class="p">){</span>
+</span><span class="line">		<span class="kd">var</span> <span class="nx">content</span> <span class="o">=</span><span class="s2">&quot;&lt;ul class=\&quot;compact recent\&quot;&gt;&quot;</span><span class="p">;</span>
+</span><span class="line">		<span class="nx">$</span><span class="p">.</span><span class="nx">each</span><span class="p">(</span><span class="nx">post</span><span class="p">.</span><span class="nx">list</span><span class="p">,</span><span class="kd">function</span><span class="p">(</span><span class="nx">i</span><span class="p">,</span><span class="nx">item</span><span class="p">){</span>
 </span><span class="line">
-</span><span class="line">			<span class="nx">content</span> <span class="o">+=</span> <span class="s2">&quot;&lt;li&gt;&lt;span class=\&quot;date\&quot;&gt;&quot;</span><span class="o">+</span> <span class="nx">item</span><span class="p">.</span><span class="nx">date</span> <span class="o">+</span> <span class="s2">&quot;&lt;/span&gt;&lt;a href=\&quot;&quot;</span><span class="o">+</span><span class="nx">item</span><span class="p">.</span><span class="nx">url</span><span class="o">+</span><span class="s2">&quot;\&quot;&gt;&quot;</span><span class="o">+</span> <span class="nx">item</span><span class="p">.</span><span class="nx">title</span> <span class="o">+</span><span class="s2">&quot;&lt;/a&gt;&lt;/li&gt;&quot;</span><span class="p">;</span>
+</span><span class="line">		<span class="nx">content</span> <span class="o">+=</span> <span class="s2">&quot;&lt;li&gt;&lt;span class=\&quot;date\&quot;&gt;&quot;</span><span class="o">+</span> <span class="nx">item</span><span class="p">.</span><span class="nx">date</span> <span class="o">+</span> <span class="s2">&quot;&lt;/span&gt;&lt;a href=\&quot;&quot;</span><span class="o">+</span><span class="nx">item</span><span class="p">.</span><span class="nx">url</span><span class="o">+</span><span class="s2">&quot;\&quot;&gt;&quot;</span><span class="o">+</span> <span class="nx">item</span><span class="p">.</span><span class="nx">title</span> <span class="o">+</span><span class="s2">&quot;&lt;/a&gt;&lt;/li&gt;&quot;</span><span class="p">;</span>
 </span><span class="line">
-</span><span class="line">			<span class="p">});</span>
+</span><span class="line">		<span class="p">});</span>
 </span><span class="line">
-</span><span class="line">			<span class="nx">content</span> <span class="o">+=</span><span class="s2">&quot;&lt;/ul&gt;&quot;</span><span class="p">;</span>
-</span><span class="line">			<span class="nx">$</span><span class="p">(</span><span class="s2">&quot;#blog2-posts-list&quot;</span><span class="p">).</span><span class="nx">append</span><span class="p">(</span><span class="nx">content</span><span class="p">);</span>
+</span><span class="line">		<span class="nx">content</span> <span class="o">+=</span><span class="s2">&quot;&lt;/ul&gt;&quot;</span><span class="p">;</span>
+</span><span class="line">		<span class="nx">$</span><span class="p">(</span><span class="s2">&quot;#blog2-posts-list&quot;</span><span class="p">).</span><span class="nx">append</span><span class="p">(</span><span class="nx">content</span><span class="p">);</span>
 </span><span class="line">	
 </span><span class="line">	<span class="p">});</span>		
 </span><span class="line"><span class="nt">&lt;/script&gt;</span>
@@ -511,7 +513,7 @@
       
   
 
-<span class="byline author vcard">Posted by <span class="fn">ypchen</span></span>
+<span class="byline author vcard"><span class="fn">ypchen</span>发布于</span>
 
       
 
@@ -529,6 +531,7 @@
       
 
 <span class="categories">
+	分类：
   
     <a class='category' href='/cn/blog/categories/github/'>github</a>, <a class='category' href='/cn/blog/categories/javascript/'>javascript</a>, <a class='category' href='/cn/blog/categories/jekyll/'>jekyll</a>, <a class='category' href='/cn/blog/categories/octopress/'>octopress</a>
   
@@ -540,6 +543,20 @@
       <div class="sharing">
   
   
+  
+ 
+	<!-- JiaThis Button BEGIN -->
+	<div id="ckepop">
+		<span class="jiathis_txt">分享到： </span>
+		<a class="jiathis_button_tools_1"></a>
+		<a class="jiathis_button_tools_2"></a>
+		<a class="jiathis_button_tools_3"></a>
+		<a class="jiathis_button_tools_4"></a>
+		<a href="http://www.jiathis.com/share?uid=1558027" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank">更多</a>
+		<a class="jiathis_counter_style"></a>
+	</div>
+	
+	<!-- JiaThis Button END -->
   
 </div>
 
@@ -570,7 +587,7 @@
 </section>
 
 <section>
-  <h1>Recent Posts</h1>
+  <h1>近期文章</h1>
   <ul id="recent_posts">
     
       <li class="post">
@@ -717,14 +734,21 @@
 
 
 
-	<script type="text/javascript">
+
+<script type="text/javascript"
+   src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+
+
+
+<script type="text/javascript">
     
         $(document).ready(function(){             
 
             $('.entry-content a').each(function(index,element){
                 var href = $(this).attr('href');
                 if(href.indexOf('#') == 0){
-                }else if ( href.indexOf('/') == 0 || href.toLowerCase().indexOf('chen.yanping.me/cn')>-1 ){
+                }else if ( href.indexOf('/') == 0 || href.toLowerCase().indexOf('chen.yanping.me')>-1 ){
                 }else{
                     $(this).attr('target','_blank');
                     $(this).addClass('external');
@@ -734,6 +758,10 @@
         });	
 
 </script>
+
+
+
+
 
 
 </body>
