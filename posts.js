@@ -34,7 +34,8 @@ $(document).ready(function() {
 	content += "<li><span class=\"date\">"+ item.date + "</span><a href=\""+item.url+"\">"+ item.title +"</a></li>";
 
 	});
-
+	
 	content +="</ul>";
+	$("#blog1-posts-list .loading").remove();
 	$("#blog1-posts-list").append(content);
 }); 

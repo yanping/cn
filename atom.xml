@@ -4,7 +4,7 @@
   <title><![CDATA[雁起平沙的网络日志]]></title>
   <link href="http://chen.yanping.me/cn/atom.xml" rel="self"/>
   <link href="http://chen.yanping.me/cn/"/>
-  <updated>2012-04-22T12:48:42+08:00</updated>
+  <updated>2012-04-27T02:27:20+08:00</updated>
   <id>http://chen.yanping.me/cn/</id>
   <author>
     <name><![CDATA[ypchen]]></name>
@@ -163,6 +163,7 @@
 <span class="line-number">22</span>
 <span class="line-number">23</span>
 <span class="line-number">24</span>
+<span class="line-number">25</span>
 </pre></td><td class="code"><pre><code class="javascript"><span class="line"><span class="o">---</span>
 </span><span class="line"><span class="nx">layout</span><span class="o">:</span> <span class="nx">nil</span>
 </span><span class="line"><span class="o">---</span>
@@ -183,8 +184,9 @@
 </span><span class="line">	<span class="nx">content</span> <span class="o">+=</span> <span class="s2">&quot;&lt;li&gt;&lt;span class=\&quot;date\&quot;&gt;&quot;</span><span class="o">+</span> <span class="nx">item</span><span class="p">.</span><span class="nx">date</span> <span class="o">+</span> <span class="s2">&quot;&lt;/span&gt;&lt;a href=\&quot;&quot;</span><span class="o">+</span><span class="nx">item</span><span class="p">.</span><span class="nx">url</span><span class="o">+</span><span class="s2">&quot;\&quot;&gt;&quot;</span><span class="o">+</span> <span class="nx">item</span><span class="p">.</span><span class="nx">title</span> <span class="o">+</span><span class="s2">&quot;&lt;/a&gt;&lt;/li&gt;&quot;</span><span class="p">;</span>
 </span><span class="line">
 </span><span class="line">	<span class="p">});</span>
-</span><span class="line">
+</span><span class="line">	
 </span><span class="line">	<span class="nx">content</span> <span class="o">+=</span><span class="s2">&quot;&lt;/ul&gt;&quot;</span><span class="p">;</span>
+</span><span class="line">	<span class="nx">$</span><span class="p">(</span><span class="s2">&quot;#blog1-posts-list .loading&quot;</span><span class="p">).</span><span class="nx">remove</span><span class="p">();</span>
 </span><span class="line">	<span class="nx">$</span><span class="p">(</span><span class="s2">&quot;#blog1-posts-list&quot;</span><span class="p">).</span><span class="nx">append</span><span class="p">(</span><span class="nx">content</span><span class="p">);</span>
 </span><span class="line"><span class="p">});</span>
 </span></code></pre></td></tr></table></div></figure></notextile></div>
