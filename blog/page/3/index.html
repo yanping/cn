@@ -9,7 +9,8 @@
   <meta name="author" content="ypchen">
 
   
-  <meta name="description" content="本文翻译自R in Action的附录G，如果对该书感兴趣，请自行购买或去图书馆阅读。 R会把所有的对象读存入虚拟内存中。对我们大多数用户来说，这种设计可以提高与R相互的速度，但是当分析大数据集时，这种设计会降低程序运行速度有时还会产生跟内存相关的错误。 内存限制主要取决于R的build版（ &hellip;">
+  <meta name="description" content="本文翻译自Octopress的帮助文档Theming &amp; Customization。
+本人水平有限，不当之处请指正，欢迎留言给出修改意见。 Octopress在 .themes 目录提供了一个默认主题。当你安装Octopress时，HTML和Javascripts被复制到 / &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -114,6 +115,113 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/cn/blog/2012/01/07/theming-and-customization/">为Octopress修改主题和自定义样式</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-01-07T21:16:00+08:00" pubdate data-updated="true">Jan 7<span>th</span>, 2012</time>
+        
+         | <a href="/cn/blog/2012/01/07/theming-and-customization/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p class="info">
+本文翻译自Octopress的帮助文档<a href="http://octopress.org/docs/theme" target="_blank">Theming &amp; Customization</a>。
+本人水平有限，不当之处请指正，欢迎留言给出修改意见。
+</p>
+
+<p>Octopress在 <code>.themes</code> 目录提供了一个默认主题。当你安装Octopress时，HTML和Javascripts被复制到 <code>/source</code>，Sass样式表被复制到 <code>/sass</code>。
+你可以随意修改上述文件，不过我还是设计了一些模式，来让自定制变得更简单，更新Octopress更方便。</p>
+
+<p>本文分成两部分：</p>
+
+<ol>
+  <li><a href="/cn/blog/2012/01/07/theming-and-customization/#theme">自定义模板</a> - <em>学习如何修改HEAD，sidebar，header，navigation 以及footer</em></li>
+  <li><a href="/cn/blog/2012/01/07/theming-and-customization/#styles">修改样式</a> - <em>学习如何修改颜色和布局，控制样式</em></li>
+</ol>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/cn/blog/2012/01/07/theming-and-customization/">阅读全文 &rarr;</a>
+    </footer>
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/cn/blog/2012/01/06/updating-an-r-installation/">如何升级R</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-01-06T17:12:00+08:00" pubdate data-updated="true">Jan 6<span>th</span>, 2012</time>
+        
+         | <a href="/cn/blog/2012/01/06/updating-an-r-installation/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p><span class="info">
+本文翻译自<a href="http://www.manning.com/kabacoff/" target="_blank">R in Action</a>的附录H，如果对该书感兴趣，请自行购买或去图书馆阅读。
+</span>
+</p>
+<p>R的函数<code>update.packages()</code>可以下载和升级安装的包，但是没有相应的函数升级R本身。如果你想把R从4.1.0版升级到5.1.1版，那你必须有点创造性。（实际上作者写书的时候R的版本还只是2.13.0，但是他说想这本书在若干年后仍然不显得过时）</p>
+
+<p>从CRAN（<a href="http://cran.r-project.org/bin">http://cran.r-project.org/bin</a>）下载并安装最新版的R相当简单。但是想在新安装时保留之前的个性化设置（比如之前安装的包）就复杂了。在我现在的安装中，安装了248个包。我实在是不想把这些包的名字写下来，然后在下次升级R的时候手动重装它们。</p>
+
+<p>关于如何方便简洁高效地升级R，网上有很多这方面的讨论。下面描述的方法既不简洁，也不高效，但是我发现它可以用在任何平台（Windows，Mac以及Linux）。</p>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/cn/blog/2012/01/06/updating-an-r-installation/">阅读全文 &rarr;</a>
+    </footer>
+  
+
+
+    </article>
   
   
     <article>
@@ -375,127 +483,6 @@ github pages的<a target="_blank" href="http://pages.github.com/">官方主页</
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/cn/blog/2011/12/03/hello-octopress/">你好！octopress</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2011-12-03T10:36:00+08:00" pubdate data-updated="true">Dec 3<span>rd</span>, 2011</time>
-        
-         | <a href="/cn/blog/2011/12/03/hello-octopress/#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>第一次使用octopress，看看好不好用。</p>
-
-<ul>
-  <li><a href="http://colors4.us/blog/categories/octopress/" target="_blank">Octopress博客从零开始</a></li>
-  <li><a href="http://blog.fangjian.me/posts/2011/12/18/migrate-wordpress-to-octopress/" target="_blank">从Wordpress到Octopress</a></li>
-  <li><a href="http://hychen.wuweig.org/blog/2011/12/04/octopress-source-drafts-publish-management-process/" target="_blank">关于octopress代码的管理</a></li>
-  <li><a href="http://shanewfx.github.com/blog/2012/02/16/bulid-blog-by-octopress/" target="_blank">搭Blog 学Git，windows下使用Octopress</a></li>
-  <li><a href="http://shanewfx.github.com/blog/2012/02/16/clone-blog-from-github/" target="_blank">维护Github上的博客</a></li>
-  <li><a href="http://fancyoung.com/blog/octopress-study/" target="_blank">技术博客利器——Octopress</a></li>
-  <li><a href="http://madeye.me/2011/12/17/setup-octopress-on-windows/" target="_blank">在Cygwin中搭建Octopress环境</a></li>
-  <li><a href="http://rednaxelafx.github.com/blog/2011/09/04/test-page/" target="_blank">关于Octopress的设置</a></li>
-</ul>
-
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/cn/blog/2011/11/12/use-jekyll-template/">使用现有的jekyll模板</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2011-11-12T15:36:00+08:00" pubdate data-updated="true">Nov 12<span>th</span>, 2011</time>
-        
-         | <a href="/cn/blog/2011/11/12/use-jekyll-template/#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>jekyll可以生成静态页面，可以用来写博客。假设你建立的repo地址是 <code>https://github.com/username/reponame</code> :</p>
-
-<p>下面的命令用于克隆和初始化别人的模板</p>
-
-<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span /></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
-<span class="line-number">2</span>
-<span class="line-number">3</span>
-<span class="line-number">4</span>
-<span class="line-number">5</span>
-<span class="line-number">6</span>
-<span class="line-number">7</span>
-<span class="line-number">8</span>
-</pre></td><td class="code"><pre><code class="sh"><span class="line">git clone https://github.com/krisb/jekyll-template.git mysite
-</span><span class="line"><span class="nb">cd </span>mysite
-</span><span class="line">rm -rf .git
-</span><span class="line">git init
-</span><span class="line">git add -A
-</span><span class="line">git commit -m <span class="s1">&#39;initial template based on https://github.com/krisb/jekyll-template&#39;</span>
-</span><span class="line">git remote add origin git@github.com:username/reponame.git
-</span><span class="line">git push -u origin master
-</span></code></pre></td></tr></table></div></figure></notextile></div>
-
-<p>原文地址 <a target="_blank" href="https://github.com/krisb/jekyll-template">https://github.com/krisb/jekyll-template</a></p>
-
-<h3 id="section">延伸阅读：</h3>
-
-<ul>
-  <li><a target="_blank" href="http://kyle.xlau.org/2009/08/13/blogging-like-a-hacker.html">像黑客一样写博客</a></li>
-  <li><a target="_blank" href="http://blog.leezhong.com/tech/2010/08/25/make-github-as-blog-engine.html">使用github作为博客引擎</a></li>
-  <li><a target="_blank" href="http://www.yangzhiping.com/tech/wordpress-to-jekyll.html">告别wordpress，拥抱jekyll</a></li>
-  <li><a target="_blank" href="http://roylez.heroku.com/2010/02/04/jekyll-on-heroku.html">在heroku上用jekyll做博客</a></li>
-  <li><a target="_blank" href="http://www.shaoshing.com/2010/04/03/blog-engine-jekyll-vs-toto/">轻量级博客工具: Jekyll vs ToTo</a></li>
-  <li><a target="_blank" href="http://blog.miaout17.net/2011/05/08/convert-wordpress-to-jekyll-and-disqus/">將Wordpress轉移到Jekyll及Disqus</a></li>
-</ul>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/cn/blog/page/4/">&larr; 前一页</a>
@@ -523,12 +510,20 @@ github pages的<a target="_blank" href="http://pages.github.com/">官方主页</
 
 <section id="categories_tag">
 <h1>分类目录</h1>
-<span class='categories_tag'> <a href='/cn/blog/categories/github' style='font-size: 152.5%'>Github(7)</a>  <a href='/cn/blog/categories/javascript' style='font-size: 122.5%'>Javascript(3)</a>  <a href='/cn/blog/categories/jekyll' style='font-size: 152.5%'>Jekyll(7)</a>  <a href='/cn/blog/categories/latex' style='font-size: 107.5%'>Latex(1)</a>  <a href='/cn/blog/categories/markdown' style='font-size: 107.5%'>Markdown(1)</a>  <a href='/cn/blog/categories/octopress' style='font-size: 160.0%'>Octopress(8)</a>  <a href='/cn/blog/categories/r语言' style='font-size: 130.0%'>R语言(4)</a>  <a href='/cn/blog/categories/指数' style='font-size: 107.5%'>指数(1)</a> </span>
+<span class='categories_tag'> <a href='/cn/blog/categories/github' style='font-size: 152.5%'>Github(7)</a>  <a href='/cn/blog/categories/javascript' style='font-size: 122.5%'>Javascript(3)</a>  <a href='/cn/blog/categories/jekyll' style='font-size: 152.5%'>Jekyll(7)</a>  <a href='/cn/blog/categories/latex' style='font-size: 107.5%'>Latex(1)</a>  <a href='/cn/blog/categories/markdown' style='font-size: 107.5%'>Markdown(1)</a>  <a href='/cn/blog/categories/octopress' style='font-size: 160.0%'>Octopress(8)</a>  <a href='/cn/blog/categories/r语言' style='font-size: 137.5%'>R语言(5)</a>  <a href='/cn/blog/categories/指数' style='font-size: 107.5%'>指数(1)</a>  <a href='/cn/blog/categories/金融' style='font-size: 107.5%'>金融(1)</a> </span>
 </section>
 
 <section>
   <h1>近期文章</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/cn/blog/2012/06/10/palisade-training-course/">DecisionTools培训课程大纲</a>
+      </li>
+    
+      <li class="post">
+        <a href="/cn/blog/2012/06/07/new-target/">下一步学习的目标</a>
+      </li>
     
       <li class="post">
         <a href="/cn/blog/2012/04/20/jekyll-with-js-and-json/">用jekyll生成包含json变量的js脚本</a>
@@ -548,14 +543,6 @@ github pages的<a target="_blank" href="http://pages.github.com/">官方主页</
     
       <li class="post">
         <a href="/cn/blog/2012/03/13/pandoc/">黑魔法利器pandoc</a>
-      </li>
-    
-      <li class="post">
-        <a href="/cn/blog/2012/03/12/my-style-list/">我的Octopress样式表</a>
-      </li>
-    
-      <li class="post">
-        <a href="/cn/blog/2012/03/10/octopress-with-latex/">在Octopress中使用LaTeX</a>
       </li>
     
   </ul>

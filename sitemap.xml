@@ -89,12 +89,20 @@
         <lastmod>2012-04-21T02:29:24+08:00</lastmod>
     </url>
     <url>
+        <loc>http://chen.yanping.me/cn/blog/2012/06/07/new-target/</loc>
+        <lastmod>2012-06-10T14:31:14+08:00</lastmod>
+    </url>
+    <url>
+        <loc>http://chen.yanping.me/cn/blog/2012/06/10/palisade-training-course/</loc>
+        <lastmod>2012-06-10T15:25:13+08:00</lastmod>
+    </url>
+    <url>
         <loc>http://chen.yanping.me/cn/recent.json</loc>
         <lastmod>2012-04-19T23:30:08+08:00</lastmod>
     </url>
     <url>
         <loc>http://chen.yanping.me/cn/blog/categories/</loc>
-        <lastmod>2012-04-21T02:29:24+08:00</lastmod>
+        <lastmod>2012-06-10T15:25:13+08:00</lastmod>
     </url>
     <url>
         <loc>http://chen.yanping.me/cn/blog/about/</loc>
@@ -102,7 +110,7 @@
     </url>
     <url>
         <loc>http://chen.yanping.me/cn/blog/archives/</loc>
-        <lastmod>2012-04-21T10:19:44+08:00</lastmod>
+        <lastmod>2012-06-10T15:25:13+08:00</lastmod>
     </url>
     <url>
         <loc>http://chen.yanping.me/cn/downloads/code/portfolio_entry.html</loc>
@@ -110,7 +118,7 @@
     </url>
     <url>
         <loc>http://chen.yanping.me/cn/</loc>
-        <lastmod>2012-04-21T10:17:04+08:00</lastmod>
+        <lastmod>2012-06-10T15:25:13+08:00</lastmod>
     </url>
     <url>
         <loc>http://chen.yanping.me/cn/posts.js</loc>

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[分类： 金融 | 雁起平沙的网络日志]]></title>
+  <link href="http://chen.yanping.me/cn/blog/categories/金融/atom.xml" rel="self"/>
+  <link href="http://chen.yanping.me/cn/"/>
+  <updated>2012-06-10T15:28:03+08:00</updated>
+  <id>http://chen.yanping.me/cn/</id>
+  <author>
+    <name><![CDATA[ypchen]]></name>
+    <email><![CDATA[chen@yanping.me]]></email>
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[下一步学习的目标]]></title>
+    <link href="http://chen.yanping.me/cn/blog/2012/06/07/new-target/"/>
+    <updated>2012-06-07T23:58:00+08:00</updated>
+    <id>http://chen.yanping.me/cn/blog/2012/06/07/new-target</id>
+    <content type="html"><![CDATA[<p>不给自己定太遥远的目标了，为了把R语言捡起来，为了把数量金融方面捡起来，我决定以 <em>Using SAS in Financial Research</em> 为蓝本，用R语言来实现每章的案例，来个 <em>Using R in Financial Research</em> 。涉及的案例有：</p>
+
+<ul>
+  <li>资产价格的随机游走理论：方差比率检验</li>
+  <li>谁是赢家谁是输家：使用R来检验过度反应假设</li>
+  <li>资本资产定价模型的实证检验：使用横截面方法</li>
+  <li>事件研究</li>
+  <li>价格-盈利关系的分析：关联类型研究方法</li>
+  <li>使用财务压力特征模型来预测破产</li>
+  <li>使用会计信息来预测市场绩效</li>
+  <li>交易数据的分析</li>
+</ul>
+]]></content>
+  </entry>
+  
+</feed>
