@@ -4,7 +4,7 @@
   <title><![CDATA[分类： github | 雁起平沙的网络日志]]></title>
   <link href="http://chen.yanping.me/cn/blog/categories/github/atom.xml" rel="self"/>
   <link href="http://chen.yanping.me/cn/"/>
-  <updated>2012-06-10T15:28:03+08:00</updated>
+  <updated>2012-09-16T11:15:06+08:00</updated>
   <id>http://chen.yanping.me/cn/</id>
   <author>
     <name><![CDATA[ypchen]]></name>
@@ -532,11 +532,11 @@
 
 <p>在Github网站找到 “Account Settings” &gt; Click “SSH Keys” &gt; Click “Add SSH key”</p>
 
-<p><img src="http://help.github.com/images/ssh_key_add.jpg" alt="set-up-SSH" /></p>
+<p><img src="https://github-images.s3.amazonaws.com/help/userbar-account-settings.png" alt="set-up-SSH" class="center" /></p>
 
 <p>用文本编辑器打开id_rsa.pub文件，并把里面的内容（包括空格和新行）复制出来，填到Github的账户设置的SSH设置里。</p>
 
-<p><img src="http://help.github.com/images/bootcamp/bootcamp_1_ssh.jpg" alt="set-up-SSH-2" class="center" /></p>
+<p><img src="https://github-images.s3.amazonaws.com/help/ssh-key-paste.png" alt="set-up-SSH-2" class="center" /></p>
 
 <p>在开始菜单里找到RailsInstaller –&gt; Git Bash，执行它，就打开了下面的命令窗口，以后的操作都是在这个窗口下进行的</p>
 
