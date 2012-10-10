@@ -5,12 +5,12 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>在Windows下使用jekyll如何避免出现中文字符集错误 - 雁起平沙的网络日志</title>
+  <title>用jekyll和jQuery实现异步加载文章列表 - 雁起平沙的网络日志</title>
   <meta name="author" content="ypchen">
 
   
-  <meta name="description" content="在windows下使用jekyll时经常会遇到字符集错误，本文重点讲解解决办法。">
-  <meta name="keywords" content="jekyll, notepad++, 字符集">
+  <meta name="description" content="本文主要讨论如何用jekyll模板生成json，使用jQuery的插件waypoint，实现异步加载文章列表">
+  <meta name="keywords" content="jekyll, octopress, javascript">
 
   <!-- http://t.co/dKP3o1e -->
   <meta name="HandheldFriendly" content="True">
@@ -18,7 +18,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://chen.yanping.me/cn/blog/2012/10/09/chinese-charset-problems-with-jekyll">
+  <link rel="canonical" href="http://chen.yanping.me/cn/blog/2012/10/10/asynchronous-loading-post-list-with-jekyll-and-jQuery">
   <link href="/cn/favicon.png" rel="icon">
   <link href="/cn/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <script src="/cn/javascripts/modernizr-2.0.js"></script>
@@ -104,7 +104,7 @@
   
   <header>
     
-      <h1 class="entry-title">在Windows下使用jekyll如何避免出现中文字符集错误</h1>
+      <h1 class="entry-title">用jekyll和jQuery实现异步加载文章列表</h1>
     
     
       <p class="meta">
@@ -120,7 +120,7 @@
   
 
 
-<time datetime="2012-10-09T21:30:00+08:00" pubdate data-updated="true">Oct 9<span>th</span>, 2012</time>
+<time datetime="2012-10-10T23:30:00+08:00" pubdate data-updated="true">Oct 10<span>th</span>, 2012</time>
         
          | <a href="#disqus_thread">Comments</a>
         
@@ -129,56 +129,175 @@
   </header>
 
 
-<div class="entry-content"><p class="info">在windows下使用jekyll时经常会遇到字符集错误，比如遇到提示<span style="font-family: Menlo,Monaco,'Andale Mono','lucida console','Courier New',monospace;">Liquid error: incompatible character encodings: UTF-8 and GBK</span>。本文将介绍几种解决方案。</p>
+<div class="entry-content"><p class="info">本文主要讨论如何用基于jQuery的插件waypoint，实现异步加载jekyll模板生成的json文件，生成文章列表。</p>
 
-<p>1. <strong>修改bash的字符集：</strong>在<code>C:\Documents and Settings\用户名</code>下，找到文件<code>.bash_profile</code>，后面加两行</p>
+<p>我在<a href="http://art.yanping.me/archives/">另一个博客的文章列表</a>里使用了异步加载的技术，不过直接看页面的html源代码是看不出来的。编译之前的代码在<a href="https://github.com/yanping/art/blob/gh-pages/archives/index.html">这里</a>。</p>
+
+<p>首先，生成文章列表数据的json模板是：</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+<span class="line-number">7</span>
+<span class="line-number">8</span>
+<span class="line-number">9</span>
+<span class="line-number">10</span>
+<span class="line-number">11</span>
+<span class="line-number">12</span>
+<span class="line-number">13</span>
+</pre></td><td class="code"><pre><code class=""><span class="line">---
+</span><span class="line">layout: nil
+</span><span class="line">---
+</span><span class="line">
+</span><span class="line">[
+</span><span class="line">{% for post in site.posts %}
+</span><span class="line">  {"title":"{{post.title}}", 
+</span><span class="line">  "url":"{{site.url}}{{post.url}}", 
+</span><span class="line">  "date":"{{ post.date | date:'%Y-%m-%d' }}", 
+</span><span class="line">  "tags":[{% for tag in post.tags %}"{{tag}}"{% if forloop.last == false %} ,{% endif %}{% endfor %}]}
+</span><span class="line">  {% if forloop.last == false %},{% endif %}{% endfor %}
+</span><span class="line">]
+</span><span class="line">
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<p>这在前面的<a href="http://chen.yanping.me/cn/blog/2012/04/19/jekyll-with-json/">文章</a>里提到过。</p>
+
+<p>头部YAML数据部分：</p>
 
 <div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span /></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
 <span class="line-number">2</span>
-</pre></td><td class="code"><pre><code class="sh"><span class="line"><span class="nb">set </span><span class="nv">LC_ALL</span><span class="o">=</span>en_US.UTF-8
-</span><span class="line"><span class="nb">set </span><span class="nv">LANG</span><span class="o">=</span>en_US.UTF-8
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+</pre></td><td class="code"><pre><code class="yaml"><span class="line"><span class="nn">---</span>
+</span><span class="line"><span class="l-Scalar-Plain">layout</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">default</span>
+</span><span class="line"><span class="l-Scalar-Plain">title</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">全部文章</span>
+</span><span class="line"><span class="l-Scalar-Plain">initItem</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">50</span>
+</span><span class="line"><span class="l-Scalar-Plain">perPageItem</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">100</span>
+</span><span class="line"><span class="nn">---</span>
 </span></code></pre></td></tr></table></div></figure></notextile></div>
 
-<!--more-->
+<p><code>initItem</code>是初始加载时显示的文章主题数，<code>perPageItem</code>是每次页面下拉到底部时读取json数据并新生成的文章主题数。</p>
 
-<p>2. <strong>所有文档使用utf-8无BOM格式</strong></p>
+<p>初始加载网页时，文章主题列表是静态的html，由jekyll生成：</p>
 
-<p>在Windows下新建的文本文件默认是ANSI格式的，而jekyll只认utf-8。如果遇到ANSI格式编码的文件，可以在notepad++中转换，如下图：</p>
+<div class="bogus-wrapper"><notextile><figure class="code"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+<span class="line-number">7</span>
+</pre></td><td class="code"><pre><code class=""><span class="line">&lt;ul class="posts"&gt;
+</span><span class="line">{% for post in site.posts limit:page.initItem %}
+</span><span class="line">  &lt;li class="listing-item"&gt;
+</span><span class="line">    &lt;time datetime="{{ post.date | date:"%Y-%m-%d" }}"&gt;{{ post.date | date:"%Y-%m-%d" }}&lt;/time&gt;
+</span><span class="line">    &lt;a href="{{site.baseurl}}{{ post.url }}" title="{{ post.title }}"&gt;{{ post.title }}&lt;/a&gt;
+</span><span class="line">  &lt;/li&gt;{% endfor %}
+</span><span class="line">&lt;/ul&gt;</span></code></pre></td></tr></table></div></figure></notextile></div>
 
-<p><img src="http://f-1.tuzhan.com/31767262cd80/p-1/l/2012/10/09/16/bc35a142ea064af69246d43d794d11bd.png" alt="转换为utf-8编码" /></p>
+<p>上面的<code>limit:page.initItem</code>限定了列表的项数不超过<code>initItem</code>。当向下拉页面，waypoint会捕捉到页面下拉到底部的事件，并调用<em>getJSON</em>方法来读取json数据，形成文章列表。</p>
 
-<p>3. <strong>使用Unix换行符</strong></p>
+<div class="bogus-wrapper"><notextile><figure class="code"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+<span class="line-number">7</span>
+<span class="line-number">8</span>
+<span class="line-number">9</span>
+<span class="line-number">10</span>
+<span class="line-number">11</span>
+<span class="line-number">12</span>
+<span class="line-number">13</span>
+<span class="line-number">14</span>
+<span class="line-number">15</span>
+<span class="line-number">16</span>
+<span class="line-number">17</span>
+<span class="line-number">18</span>
+<span class="line-number">19</span>
+<span class="line-number">20</span>
+<span class="line-number">21</span>
+<span class="line-number">22</span>
+<span class="line-number">23</span>
+<span class="line-number">24</span>
+<span class="line-number">25</span>
+<span class="line-number">26</span>
+<span class="line-number">27</span>
+<span class="line-number">28</span>
+<span class="line-number">29</span>
+<span class="line-number">30</span>
+<span class="line-number">31</span>
+<span class="line-number">32</span>
+<span class="line-number">33</span>
+<span class="line-number">34</span>
+<span class="line-number">35</span>
+<span class="line-number">36</span>
+<span class="line-number">37</span>
+<span class="line-number">38</span>
+<span class="line-number">39</span>
+<span class="line-number">40</span>
+<span class="line-number">41</span>
+</pre></td><td class="code"><pre><code class=""><span class="line">{% if site.posts.size &gt; page.initItem %}
+</span><span class="line">&lt;script src="/cn/js/jquery-1.7.1.min.js" type="text/javascript" charset="utf-8"&gt;
+</span><span class="line">&lt;/script&gt;
+</span><span class="line">&lt;script src="/cn/js/waypoints.min.js" type="text/javascript"&gt;
+</span><span class="line">&lt;/script&gt;
+</span><span class="line">&lt;script type="text/javascript"&gt;
+</span><span class="line">  $(document).ready(function() {
+</span><span class="line">    // 关于waypoint，请看 http://imakewebthings.com/jquery-waypoints/
+</span><span class="line">    var $loading = $("&lt;div class='loading' style='text-align:center'&gt;&lt;img src='/cn/images/loading.gif'&gt;&lt;/div&gt;"),
+</span><span class="line">    $footer = $('footer'),
+</span><span class="line">    opts = {
+</span><span class="line">      offset: '100%'
+</span><span class="line">    };
+</span><span class="line">
+</span><span class="line">    var count = {{ page.initItem }}; // 初始文章数
+</span><span class="line">    var count_sup = 0; // 循环上界，初始为0
+</span><span class="line">    $footer.waypoint(function(event, direction) {
+</span><span class="line">      $footer.waypoint('remove');
+</span><span class="line">      $('.posts').append($loading);
+</span><span class="line">      $.getJSON("../post.json", function(data) {
+</span><span class="line">        var content = "";
+</span><span class="line">        count_sup = count + {{ page.perPageItem }}; // 循环上界每次增加page.perPageItem项
+</span><span class="line">        var delta = 0; // 局部计数器
+</span><span class="line">        $.each(data,
+</span><span class="line">        function(i, item) {
+</span><span class="line">          if (i &gt;= count &amp; i &lt; count_sup) {
+</span><span class="line">            content += "&lt;li class='listing-item'&gt;&lt;time datetime='" + item.date + "'&gt;" + item.date + "&lt;/time&gt;";
+</span><span class="line">            content += "&lt;a href='" + item.url + "' title='" + item.title + "'&gt;" + item.title + "&lt;/a&gt;&lt;/li&gt;";
+</span><span class="line">            delta++;
+</span><span class="line">          }
+</span><span class="line">        });
+</span><span class="line">        count += delta;
+</span><span class="line">        $('div.loading').remove();
+</span><span class="line">        $(".posts").append(content);
+</span><span class="line">        if (count &lt; data.length) $footer.waypoint(opts);
+</span><span class="line">      });
+</span><span class="line">    },
+</span><span class="line">    opts);
+</span><span class="line">  });
+</span><span class="line">&lt;/script&gt;
+</span><span class="line">{% endif %}</span></code></pre></td></tr></table></div></figure></notextile></div>
 
-<p>可以在notepad++中转换，如下图：</p>
+<p>关于这段代码，要注意以下几点：</p>
 
-<p><img src="http://t-1.tuzhan.com/c6de0d29ca03/p-1/l/2012/10/09/16/73050c832188493ba1d6cbbb4757211c.png" alt="转换为Unix换行符" /></p>
+<ol>
+  <li>上面的代码一开始有个判断语句，当文章数不大于<code>initItem</code>时，后面的js代码不会进入最终生成的html中。</li>
+  <li>充分利用Liquid模板的特性，在js代码中，也引用了Liquid模板数据<code>{{ page.initItem }}</code>和<code>{{ page.perPageItem }}</code></li>
+  <li><code>.getJSON()</code>读取数据形成列表之后，语句</li>
+</ol>
 
-<p>这里有个技巧，在notepad++中，可以开启“显示所有字符”选项，这样就可以看出文档用的是Windows的换行符还是Unix的换行符。</p>
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span /></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+</pre></td><td class="code"><pre><code class="yaml"><span class="line"> <span class="l-Scalar-Plain">if (count &lt; data.length) $footer.waypoint(opts);</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
 
-<p><img src="http://f-1.tuzhan.com/63479110599f/p-1/l/2012/10/09/16/6a12be56f7374c608d732f090a1a49bd.png" alt="显示所有字符" /></p>
-
-<p>在这种模式下，Windows的换行符显示的是<code>CR</code>，Unix的换行符显示的是<code>LF</code></p>
-
-<p>4. <strong>新建文档的时候就注意到前两条</strong></p>
-
-<p>在<strong>设置–&gt;首选项</strong>里，如下设置
-<img src="http://f-1.tuzhan.com/fb1e112d285c/p-1/l/2012/10/09/21/6c80da6e228343998fa184a3983c403a.png" alt="新建文档设置" /></p>
-
-<p>5. <strong>注意YAML头部的格式</strong></p>
-
-<p>模板文件的元数据以YAML的格式展现，YAML头部经常会出现三个问题：（1）三短线前面不能有空格；（2）“名: 值”对里冒号后面要有空格；（3）回车后不要有Tab符；（4）表示数组成员开始的<code>-</code>号后面要有空格</p>
-
-<p>在notepad++中开启“显示所有字符”选项后，就可以看清空格和Tab符了，下图是很规范的例子
-<img src="http://f-1.tuzhan.com/5a62f0e1e6c7/p-1/l/2012/10/09/16/1395a21769e24594a7783da6a8310d17.png" alt="yaml头部" /></p>
-
-<p>尤其是Tab符，不借助工具很难跟空格区分，下图那个向右箭头的符号就是Tab符，这是个错误的例子，应该把Tab符删除，改为用空格缩进</p>
-
-<p><img src="http://f-1.tuzhan.com/104be2300ea4/p-1/l/2012/10/09/16/5a42fd3a016741388044954d4e9c0925.png" alt="带Tab符的YAML头部" /></p>
-
-<p>正确的应该是这样，<code>-</code>号后面都有空格</p>
-
-<p><img src="http://f-1.tuzhan.com/8df6d607c9f0/p-1/l/2012/10/09/16/4769b025fb8b4d129d3755cf84746ad1.png" alt="不带Tab符的YAML头部" /></p>
-
+<p>是要判断已经加载的文章主题数是否到达总数，如果比总数小，就会在新的底部<code>$footer</code>上注册为<em>waypoint</em>，然后再向下拉页面，到达底部还会触发事件，然后接着读取数据，直到数据已经读取完毕。</p>
 </div>
 
 
@@ -201,13 +320,13 @@
   
 
 
-<time datetime="2012-10-09T21:30:00+08:00" pubdate data-updated="true">Oct 9<span>th</span>, 2012</time>
+<time datetime="2012-10-10T23:30:00+08:00" pubdate data-updated="true">Oct 10<span>th</span>, 2012</time>
       
 
 <span class="categories">
 	分类：
   
-    <a class='category' href='/cn/blog/categories/jekyll/'>jekyll</a>
+    <a class='category' href='/cn/blog/categories/github/'>github</a>, <a class='category' href='/cn/blog/categories/javascript/'>javascript</a>, <a class='category' href='/cn/blog/categories/jekyll/'>jekyll</a>, <a class='category' href='/cn/blog/categories/octopress/'>octopress</a>
   
 </span>
 
@@ -237,10 +356,8 @@
     
     <p class="meta">
       
-        <a class="basic-alignment left" href="/cn/blog/2012/06/10/palisade-training-course/" title="Previous Post: DecisionTools培训课程大纲">&laquo; DecisionTools培训课程大纲</a>
+        <a class="basic-alignment left" href="/cn/blog/2012/10/09/chinese-charset-problems-with-jekyll/" title="Previous Post: 在Windows下使用jekyll如何避免出现中文字符集错误">&laquo; 在Windows下使用jekyll如何避免出现中文字符集错误</a>
       
-      
-        <a class="basic-alignment right" href="/cn/blog/2012/10/10/asynchronous-loading-post-list-with-jekyll-and-jQuery/" title="next Post: 用jekyll和jQuery实现异步加载文章列表">用jekyll和jQuery实现异步加载文章列表 &raquo;</a>
       
     </p>
   </footer>
@@ -368,8 +485,8 @@
       
         
         // var disqus_developer = 1;
-        var disqus_identifier = 'http://chen.yanping.me/cn/blog/2012/10/09/chinese-charset-problems-with-jekyll/';
-        var disqus_url = 'http://chen.yanping.me/cn/blog/2012/10/09/chinese-charset-problems-with-jekyll/';
+        var disqus_identifier = 'http://chen.yanping.me/cn/blog/2012/10/10/asynchronous-loading-post-list-with-jekyll-and-jQuery/';
+        var disqus_url = 'http://chen.yanping.me/cn/blog/2012/10/10/asynchronous-loading-post-list-with-jekyll-and-jQuery/';
         var disqus_script = 'embed.js';
       
     (function () {

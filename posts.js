@@ -1,6 +1,11 @@
 $(document).ready(function() {
 	var post = {
 	"list":[{
+		"title":"用jekyll和jQuery实现异步加载文章列表",
+		    "url":"http://chen.yanping.me/cn/blog/2012/10/10/asynchronous-loading-post-list-with-jekyll-and-jQuery/",
+		    "date":"10 Oct 2012"
+		},
+	{
 		"title":"在Windows下使用jekyll如何避免出现中文字符集错误",
 		    "url":"http://chen.yanping.me/cn/blog/2012/10/09/chinese-charset-problems-with-jekyll/",
 		    "date":"09 Oct 2012"
@@ -19,11 +24,6 @@ $(document).ready(function() {
 		"title":"用jekyll生成包含json变量的js脚本",
 		    "url":"http://chen.yanping.me/cn/blog/2012/04/20/jekyll-with-js-and-json/",
 		    "date":"20 Apr 2012"
-		},
-	{
-		"title":"用jekyll生成json",
-		    "url":"http://chen.yanping.me/cn/blog/2012/04/19/jekyll-with-json/",
-		    "date":"19 Apr 2012"
 		}
 	
 	]};

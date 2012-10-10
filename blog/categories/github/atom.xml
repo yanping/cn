@@ -4,7 +4,7 @@
   <title><![CDATA[分类： github | 雁起平沙的网络日志]]></title>
   <link href="http://chen.yanping.me/cn/blog/categories/github/atom.xml" rel="self"/>
   <link href="http://chen.yanping.me/cn/"/>
-  <updated>2012-10-09T23:03:18+08:00</updated>
+  <updated>2012-10-11T00:19:02+08:00</updated>
   <id>http://chen.yanping.me/cn/</id>
   <author>
     <name><![CDATA[ypchen]]></name>
@@ -12,6 +12,177 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[用jekyll和jQuery实现异步加载文章列表]]></title>
+    <link href="http://chen.yanping.me/cn/blog/2012/10/10/asynchronous-loading-post-list-with-jekyll-and-jQuery/"/>
+    <updated>2012-10-10T23:30:00+08:00</updated>
+    <id>http://chen.yanping.me/cn/blog/2012/10/10/asynchronous-loading-post-list-with-jekyll-and-jQuery</id>
+    <content type="html"><![CDATA[<p class="info">本文主要讨论如何用基于jQuery的插件waypoint，实现异步加载jekyll模板生成的json文件，生成文章列表。</p>
+
+<p>我在<a href="http://art.yanping.me/archives/">另一个博客的文章列表</a>里使用了异步加载的技术，不过直接看页面的html源代码是看不出来的。编译之前的代码在<a href="https://github.com/yanping/art/blob/gh-pages/archives/index.html">这里</a>。</p>
+
+<p>首先，生成文章列表数据的json模板是：</p>
+
+<p>```
+—
+layout: nil
+—</p>
+
+<p>[
+{% for post in site.posts %}
+  {“title”:”{{post.title}}”, 
+  “url”:”{{site.url}}{{post.url}}”, 
+  “date”:”{{ post.date | date:’%Y-%m-%d’ }}”, 
+  “tags”:[{% for tag in post.tags %}”{{tag}}”{% if forloop.last == false %} ,{% endif %}{% endfor %}]}
+  {% if forloop.last == false %},{% endif %}{% endfor %}
+]
+
+```</p>
+
+<p>这在前面的<a href="http://chen.yanping.me/cn/blog/2012/04/19/jekyll-with-json/">文章</a>里提到过。</p>
+
+<p>头部YAML数据部分：</p>
+
+<h2 id="yaml">```yaml</h2>
+<p>layout: default
+title: 全部文章
+initItem: 50
+perPageItem: 100
+—
+```</p>
+
+<p><code>initItem</code>是初始加载时显示的文章主题数，<code>perPageItem</code>是每次页面下拉到底部时读取json数据并新生成的文章主题数。</p>
+
+<p>初始加载网页时，文章主题列表是静态的html，由jekyll生成：</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>&lt;/p>
+</span><span class='line'>
+</span><span class='line'>&lt;ul class="posts">
+</span><span class='line'>{% for post in site.posts limit:page.initItem %}
+</span><span class='line'>  &lt;li class="listing-item">
+</span><span class='line'>    &lt;time datetime="{{ post.date | date:"%Y-%m-%d" }}"&gt;{{ post.date | date:"%Y-%m-%d" }}
+</span><span class='line'>    &lt;a href="{{site.baseurl}}{{ post.url }}" title="{{ post.title }}">{{ post.title }}&lt;/a>
+</span><span class='line'>  &lt;/li>{% endfor %}
+</span><span class='line'>&lt;/ul>
+</span><span class='line'>
+</span><span class='line'>&lt;p></span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>上面的<code>limit:page.initItem</code>限定了列表的项数不超过<code>initItem</code>。当向下拉页面，waypoint会捕捉到页面下拉到底部的事件，并调用<em>getJSON</em>方法来读取json数据，形成文章列表。</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>&lt;/p>
+</span><span class='line'>
+</span><span class='line'>&lt;p>{% if site.posts.size &gt; page.initItem %}
+</span><span class='line'>&lt;script src="http://chen.yanping.me/cn/js/jquery-1.7.1.min.js" type="text/javascript" charset="utf-8">
+</span><span class='line'>&lt;/script>
+</span><span class='line'>&lt;script src="http://chen.yanping.me/cn/js/waypoints.min.js" type="text/javascript">
+</span><span class='line'>&lt;/script>
+</span><span class='line'>&lt;script type="text/javascript">
+</span><span class='line'>  $(document).ready(function() {
+</span><span class='line'>    // 关于waypoint，请看 http://imakewebthings.com/jquery-waypoints/
+</span><span class='line'>    var $loading = $("&lt;div class='loading' style='text-align:center'&gt;&lt;img src="http://chen.yanping.me/cn/images/loading.gif" />&lt;/div&gt;"),
+</span><span class='line'>    $footer = $('footer'),
+</span><span class='line'>    opts = {
+</span><span class='line'>      offset: '100%'
+</span><span class='line'>    };&lt;/script>&lt;/p>
+</span><span class='line'>
+</span><span class='line'>&lt;pre>&lt;code>var count = {{ page.initItem }}; // 初始文章数
+</span><span class='line'>var count_sup = 0; // 循环上界，初始为0
+</span><span class='line'>$footer.waypoint(function(event, direction) {
+</span><span class='line'>  $footer.waypoint('remove');
+</span><span class='line'>  $('.posts').append($loading);
+</span><span class='line'>  $.getJSON("../post.json", function(data) {
+</span><span class='line'>    var content = "";
+</span><span class='line'>    count_sup = count + {{ page.perPageItem }}; // 循环上界每次增加page.perPageItem项
+</span><span class='line'>    var delta = 0; // 局部计数器
+</span><span class='line'>    $.each(data,
+</span><span class='line'>    function(i, item) {
+</span><span class='line'>      if (i &gt;= count &amp; i &lt; count_sup) {
+</span><span class='line'>        content += "&lt;li class='listing-item'&gt;&lt;time datetime='" + item.date + "'&gt;" + item.date + "&lt;/time&gt;";
+</span><span class='line'>        content += "&lt;a href='" + item.url + "' title='" + item.title + "'&gt;" + item.title + "&lt;/a&gt;&lt;/li&gt;";
+</span><span class='line'>        delta++;
+</span><span class='line'>      }
+</span><span class='line'>    });
+</span><span class='line'>    count += delta;
+</span><span class='line'>    $('div.loading').remove();
+</span><span class='line'>    $(".posts").append(content);
+</span><span class='line'>    if (count &lt; data.length) $footer.waypoint(opts);
+</span><span class='line'>  });
+</span><span class='line'>},
+</span><span class='line'>opts);   }); &lt;/script&gt; {% endif %}
+</span><span class='line'>&lt;/code>&lt;/pre>
+</span><span class='line'>
+</span><span class='line'>&lt;p></span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>关于这段代码，要注意以下几点：</p>
+
+<ol>
+  <li>上面的代码一开始有个判断语句，当文章数不大于<code>initItem</code>时，后面的js代码不会进入最终生成的html中。</li>
+  <li>充分利用Liquid模板的特性，在js代码中，也引用了Liquid模板数据<code>{{ page.initItem }}</code>和<code>{{ page.perPageItem }}</code></li>
+  <li><code>.getJSON()</code>读取数据形成列表之后，语句</li>
+</ol>
+
+<p><code>
+ if (count &lt; data.length) $footer.waypoint(opts);
+</code></p>
+
+<p>是要判断已经加载的文章主题数是否到达总数，如果比总数小，就会在新的底部<code>$footer</code>上注册为<em>waypoint</em>，然后再向下拉页面，到达底部还会触发事件，然后接着读取数据，直到数据已经读取完毕。</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[用jekyll生成包含json变量的js脚本]]></title>
@@ -190,6 +361,11 @@
 </pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="nx">$</span><span class="p">(</span><span class="nb">document</span><span class="p">).</span><span class="nx">ready</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
 </span><span class='line'>	<span class="kd">var</span> <span class="nx">post</span> <span class="o">=</span> <span class="p">{</span>
 </span><span class='line'>	<span class="s2">&quot;list&quot;</span><span class="o">:</span><span class="p">[{</span>
+</span><span class='line'>		<span class="s2">&quot;title&quot;</span><span class="o">:</span><span class="s2">&quot;用jekyll和jQuery实现异步加载文章列表&quot;</span><span class="p">,</span>
+</span><span class='line'>		    <span class="s2">&quot;url&quot;</span><span class="o">:</span><span class="s2">&quot;http://chen.yanping.me/cn/blog/2012/10/10/asynchronous-loading-post-list-with-jekyll-and-jQuery/&quot;</span><span class="p">,</span>
+</span><span class='line'>		    <span class="s2">&quot;date&quot;</span><span class="o">:</span><span class="s2">&quot;10 Oct 2012&quot;</span>
+</span><span class='line'>		<span class="p">},</span>
+</span><span class='line'>	<span class="p">{</span>
 </span><span class='line'>		<span class="s2">&quot;title&quot;</span><span class="o">:</span><span class="s2">&quot;在Windows下使用jekyll如何避免出现中文字符集错误&quot;</span><span class="p">,</span>
 </span><span class='line'>		    <span class="s2">&quot;url&quot;</span><span class="o">:</span><span class="s2">&quot;http://chen.yanping.me/cn/blog/2012/10/09/chinese-charset-problems-with-jekyll/&quot;</span><span class="p">,</span>
 </span><span class='line'>		    <span class="s2">&quot;date&quot;</span><span class="o">:</span><span class="s2">&quot;09 Oct 2012&quot;</span>
@@ -208,11 +384,6 @@
 </span><span class='line'>		<span class="s2">&quot;title&quot;</span><span class="o">:</span><span class="s2">&quot;用jekyll生成包含json变量的js脚本&quot;</span><span class="p">,</span>
 </span><span class='line'>		    <span class="s2">&quot;url&quot;</span><span class="o">:</span><span class="s2">&quot;http://chen.yanping.me/cn/blog/2012/04/20/jekyll-with-js-and-json/&quot;</span><span class="p">,</span>
 </span><span class='line'>		    <span class="s2">&quot;date&quot;</span><span class="o">:</span><span class="s2">&quot;20 Apr 2012&quot;</span>
-</span><span class='line'>		<span class="p">},</span>
-</span><span class='line'>	<span class="p">{</span>
-</span><span class='line'>		<span class="s2">&quot;title&quot;</span><span class="o">:</span><span class="s2">&quot;用jekyll生成json&quot;</span><span class="p">,</span>
-</span><span class='line'>		    <span class="s2">&quot;url&quot;</span><span class="o">:</span><span class="s2">&quot;http://chen.yanping.me/cn/blog/2012/04/19/jekyll-with-json/&quot;</span><span class="p">,</span>
-</span><span class='line'>		    <span class="s2">&quot;date&quot;</span><span class="o">:</span><span class="s2">&quot;19 Apr 2012&quot;</span>
 </span><span class='line'>		<span class="p">}</span>
 </span><span class='line'>	
 </span><span class='line'>	<span class="p">]};</span>
@@ -414,6 +585,12 @@
 <span class='line-number'>32</span>
 </pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="p">[</span>
 </span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>        <span class="s2">&quot;title&quot;</span><span class="o">:</span><span class="s2">&quot;用jekyll和jQuery实现异步加载文章列表&quot;</span><span class="p">,</span>
+</span><span class='line'>        <span class="s2">&quot;url&quot;</span><span class="o">:</span><span class="s2">&quot;http://chen.yanping.me/cn/blog/2012/10/10/asynchronous-loading-post-list-with-jekyll-and-jQuery/&quot;</span><span class="p">,</span>
+</span><span class='line'>        <span class="s2">&quot;date&quot;</span><span class="o">:</span><span class="s2">&quot;10 Oct 2012&quot;</span>
+</span><span class='line'>    <span class="p">},</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="p">{</span>
 </span><span class='line'>        <span class="s2">&quot;title&quot;</span><span class="o">:</span><span class="s2">&quot;在Windows下使用jekyll如何避免出现中文字符集错误&quot;</span><span class="p">,</span>
 </span><span class='line'>        <span class="s2">&quot;url&quot;</span><span class="o">:</span><span class="s2">&quot;http://chen.yanping.me/cn/blog/2012/10/09/chinese-charset-problems-with-jekyll/&quot;</span><span class="p">,</span>
 </span><span class='line'>        <span class="s2">&quot;date&quot;</span><span class="o">:</span><span class="s2">&quot;09 Oct 2012&quot;</span>
@@ -435,12 +612,6 @@
 </span><span class='line'>        <span class="s2">&quot;title&quot;</span><span class="o">:</span><span class="s2">&quot;用jekyll生成包含json变量的js脚本&quot;</span><span class="p">,</span>
 </span><span class='line'>        <span class="s2">&quot;url&quot;</span><span class="o">:</span><span class="s2">&quot;http://chen.yanping.me/cn/blog/2012/04/20/jekyll-with-js-and-json/&quot;</span><span class="p">,</span>
 </span><span class='line'>        <span class="s2">&quot;date&quot;</span><span class="o">:</span><span class="s2">&quot;20 Apr 2012&quot;</span>
-</span><span class='line'>    <span class="p">},</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="p">{</span>
-</span><span class='line'>        <span class="s2">&quot;title&quot;</span><span class="o">:</span><span class="s2">&quot;用jekyll生成json&quot;</span><span class="p">,</span>
-</span><span class='line'>        <span class="s2">&quot;url&quot;</span><span class="o">:</span><span class="s2">&quot;http://chen.yanping.me/cn/blog/2012/04/19/jekyll-with-json/&quot;</span><span class="p">,</span>
-</span><span class='line'>        <span class="s2">&quot;date&quot;</span><span class="o">:</span><span class="s2">&quot;19 Apr 2012&quot;</span>
 </span><span class='line'>    <span class="p">}</span>
 </span><span class='line'>
 </span><span class='line'><span class="p">]</span>
@@ -775,32 +946,6 @@ git push
 <p>&lt;/script&gt;
 ```
 注意：域名末尾的<code>/</code>一定要有，我之前就因为没发现这点，所以才浪费了很长时间。</p>
-
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[再谈github页面域名绑定]]></title>
-    <link href="http://chen.yanping.me/cn/blog/2011/12/26/github-pages-domain-2/"/>
-    <updated>2011-12-26T14:56:00+08:00</updated>
-    <id>http://chen.yanping.me/cn/blog/2011/12/26/github-pages-domain-2</id>
-    <content type="html"><![CDATA[<p>之前我写过一篇<a href="http://chen.yanping.me/cn/blog/2011/12/04/github-pages-domain/" target="_blank">浅谈github页面域名绑定</a>，现在一直困扰我的问题终于解决了。</p>
-
-<p>假设你的用户名是<code>username</code>，要绑定一个二级域名的话，那么不管是user page还是project page，除了在github的版本库里添加CNAME文件，还要在DNS record里增加相应的CNAME记录指向<code>username.github.com</code>。注意这里的表述，指向的地址在两种情况下都是一样的。</p>
-
-<p>如果要绑定顶级域名，就建立A记录，指向<code>207.97.227.245</code>。</p>
-
-<p>经过这样的操作，你想绑定几个域名都可以了。</p>
-
-<h2 id="section">域名跳转的问题</h2>
-<p><del>当你访问<code>username.github.com</code>这个地址时，Github会自动转到绑定的域名，但是当你访问<code>http://username.github.com/repo-name</code>这样的网址，虽然可以显示网页，但是地址不会自动转。</del></p>
-
-<p><del>可以用.htaccess文件来实现跳转，在repo代码库根目录下创建.htaccess文件</del></p>
-
-<p><span class="warning">
-本文域名跳转部分有误，请看<a href="http://chen.yanping.me/cn/blog/2012/02/06/github-pages-domain-3/" target="_blank">三谈github页面域名绑定</a>
-</span>
-</p>
 
 ]]></content>
   </entry>

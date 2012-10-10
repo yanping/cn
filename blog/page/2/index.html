@@ -9,7 +9,7 @@
   <meta name="author" content="ypchen">
 
   
-  <meta name="description" content="pandoc是什么？ 如果你需要把文件从一种标记语言格式转换到另一种格式，pandoc会是你的瑞士军刀。它可以把markdown、 reStructuredText、 textile、 HTML、或者LaTeX转换成： HTML格式: XHTML, HTML5, 以及HTML幻灯片Slidy， &hellip;">
+  <meta name="description" content="我写这篇文章的目的是帮助没有用过gihub和jekyll的童鞋尽快掌握使用流程。学习使用github网页的最好办法就是clone别人的代码，看懂他们的代码，并修改成自己喜欢的样子。这篇文章介绍了从最初安装软件到使用的过程。 先假设读者对ruby完全没有了解，仅对html有初步的了解（&lt; &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -101,6 +101,65 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/cn/blog/2012/03/18/github-pages-step-by-step/">Github Pages极简教程</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-03-18T00:30:00+08:00" pubdate data-updated="true">Mar 18<span>th</span>, 2012</time>
+        
+         | <a href="/cn/blog/2012/03/18/github-pages-step-by-step/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>我写这篇文章的目的是帮助没有用过gihub和jekyll的童鞋尽快掌握使用流程。学习使用github网页的最好办法就是clone别人的代码，看懂他们的代码，并修改成自己喜欢的样子。这篇文章介绍了从最初安装软件到使用的过程。</p>
+
+<p>先假设读者对ruby完全没有了解，仅对html有初步的了解（<code>&lt;title&gt;</code>等标签知道是什么意思，如果懂点儿CSS更好）。基本的linux命令（<code>ls</code>、<code>cd</code>、<code>mkdir</code>、<code>rm</code>等，不会也没关系，就用到这几个命令，自己百度一下就好）。</p>
+
+<p>本文标题所说的“极简”是基于下面的原则：</p>
+
+<ul>
+  <li>安装尽量少的软件</li>
+  <li>使用尽量少的命令</li>
+  <li>接触尽量少的概念</li>
+</ul>
+
+<p>如果想了解用Github Pages写博客的理念，可以看这篇文章</p>
+
+<ul>
+  <li><a href="http://www.yangzhiping.com/tech/writing-space.html" target="_blank">《理想的写作环境：git+github+markdown+jekyll》</a></li>
+</ul>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/cn/blog/2012/03/18/github-pages-step-by-step/">阅读全文 &rarr;</a>
+    </footer>
+  
+
+
+    </article>
   
   
     <article>
@@ -555,134 +614,6 @@
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/cn/blog/2012/01/10/matrix-algebra-in-r/">R的矩阵代数</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2012-01-10T14:00:00+08:00" pubdate data-updated="true">Jan 10<span>th</span>, 2012</time>
-        
-         | <a href="/cn/blog/2012/01/10/matrix-algebra-in-r/#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p class="info">
-本文翻译自<a target="_blank" href="http://www.manning.com/kabacoff/">R in Action</a>的附录E，如果对该书感兴趣，请自行购买或去图书馆阅读。<br />
-更多的例子请看<a href="http://yishuo.org/2011/08/matrix-operations/">http://yishuo.org/2011/08/matrix-operations/</a>
-</p>
-
-<p>书中描述的很多函数都是在矩阵上的操作。矩阵的处理根植于R语言底层。下表描述了求解线性代数问题中重要的操作符和函数。下表中，A和B是矩阵，x和b是向量，k是标量。</p>
-
-<table class="datalist">
-<caption>矩阵代数的R函数和操作符</caption>
-<tr>
-	<th>操作符或函数</th><th>描述</th>
-</tr>
-<tr>
-	<td>+ -<code> *</code> / ^</td><td>对应元素相加、相减、相乘、相除、求幂</td>
-</tr>
-<tr>
-	<td>A <code>%*%</code> B</td><td>矩阵相乘</td>
-</tr>
-<tr>
-	<td>A <code>%o%</code> B</td><td>矩阵的外积。<code>AB'</code></td>
-</tr>
-<tr>
-	<td>cbind(A, B, ...)</td><td>横向组合矩阵或向量</td>
-</tr>
-<tr>
-	<td>col(A)</td><td>求A的Choleski因子。如果<code>R &lt;- chol(A)</code>，则<code>chol(A)</code>包含上三角因子，并有<code>R'R=A</code></td>
-</tr>
-<tr>
-	<td>colMeans(A)</td><td>返回一个向量，包含A每列的均值</td>
-</tr>
-<tr>
-	<td>crossprod(A)</td><td><code>A'A</code></td>
-</tr>
-<tr>
-	<td>crossprod(A,B)&nbsp;&nbsp;&nbsp;&nbsp;</td><td><code>A'B</code></td>
-</tr>
-<tr>
-	<td>colSums(A)</td><td>返回一个向量，包含A每列的和</td>
-</tr>
-<tr>
-	<td>diag(A)</td><td>返回一个向量，包含主对角线元素</td>
-</tr>
-<tr>
-	<td>diag(x)</td><td>以x为主对角线元素创建对角矩阵</td>
-</tr>
-<tr>
-	<td>diag(k)</td><td>如果k是标量，则创建一个k &times; k的单位矩阵</td>
-</tr>
-<tr>
-	<td>eigen(A)</td><td>A的特征值和特征向量。如果<code>y &lt;- eigen(A)</code>，则<br />
-	<code>y$val</code>是A的特征值，<code>y$vec</code>是A的特征向量
-	</td>
-</tr>
-<tr>
-	<td>ginv(A)</td><td>A的Moore-Penrose广义逆。（需要MASS包）</td>
-</tr>
-<tr>
-	<td>qr(A)</td><td>A的QR分解。如果<code>y &lt;- qr(A)</code>，则<br />
-	<code>y$qr</code>有一个包含分解值的上三角矩阵和一个包含分解值信息的下三角矩阵，<code>y$rank</code>是A的秩，<code>y$qraux</code>是包含Q其他信息的向量，<code>y$pivot</code>包含旋转策略的信息。
-	</td>
-</tr>
-<tr>
-	<td>rbind(A, B, ...)</td><td>纵向组合矩阵或向量</td>
-</tr>
-<tr>
-	<td>rowMeans(A)</td><td>返回一个向量，包含A每行的均值</td>
-</tr>
-<tr>
-	<td>rowSums(A)</td><td>返回一个向量，包含A每行的和</td>
-</tr>
-<tr>
-	<td>solve(A)</td><td>求A的逆，其中A是方阵</td>
-</tr>
-<tr>
-	<td>solve(A, b)</td><td>解出方程b=Ax里的向量x</td>
-</tr>
-
-<tr>
-	<td>svd(A)</td><td>A的奇异值分解。如果<code>y &lt;- svd(A)</code>，则	<code>y$d</code>是包含A的奇异值的向量，矩阵<code>y$u</code>的列向量包含A的左奇异值向量，矩阵<code>y$v</code>的列向量包含A的右奇异值向量。</td></tr>
-
-<tr>
-	<td>t(A)</td><td>求A的转置</td>
-</tr>
-</table>
-
-<p>还有一些用户贡献的包专门用于矩阵代数。<em>matlab</em> 包封装了类似MATLAB语言的矩阵操作函数和变量。这些函数可以帮助用户将MATLAB程序移植到R语言代码。<a href="http://mathesaurus.sourceforge.net/octave-r.html">http://mathesaurus.sourceforge.net/octave-r.html</a>上有一份很有用的清单可以帮助你将MATLAB语句转化为R语句。</p>
-
-<p><em>Matrix</em> 包提供的函数使R可以处理高密度矩阵或稀疏矩阵。它提供了对BLAS（Basic Linear Algebra Subroutines）、Lapack（dense matrix）、TAUCS（sparse matrix）和UMFPACK（sparse matrix）的高效调用。</p>
-
-<p>最后，<em>matrixStats</em> 包提供了对矩阵的行和列的操作方法，例如计数、求和、中心趋势、离差（dispersion）等。每一个函数都进过了优化，使得可以高速高效地运行。</p>
-
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/cn/blog/page/3/">&larr; 前一页</a>
@@ -710,12 +641,16 @@
 
 <section id="categories_tag">
 <h1>分类目录</h1>
-<span class='categories_tag'> <a href='/cn/blog/categories/github' style='font-size: 152.5%'>Github(7)</a>  <a href='/cn/blog/categories/javascript' style='font-size: 122.5%'>Javascript(3)</a>  <a href='/cn/blog/categories/jekyll' style='font-size: 160.0%'>Jekyll(8)</a>  <a href='/cn/blog/categories/latex' style='font-size: 107.5%'>Latex(1)</a>  <a href='/cn/blog/categories/markdown' style='font-size: 107.5%'>Markdown(1)</a>  <a href='/cn/blog/categories/octopress' style='font-size: 160.0%'>Octopress(8)</a>  <a href='/cn/blog/categories/r语言' style='font-size: 137.5%'>R语言(5)</a>  <a href='/cn/blog/categories/指数' style='font-size: 107.5%'>指数(1)</a>  <a href='/cn/blog/categories/金融' style='font-size: 107.5%'>金融(1)</a> </span>
+<span class='categories_tag'> <a href='/cn/blog/categories/github' style='font-size: 153.33333333333334%'>Github(8)</a>  <a href='/cn/blog/categories/javascript' style='font-size: 126.66666666666667%'>Javascript(4)</a>  <a href='/cn/blog/categories/jekyll' style='font-size: 160.0%'>Jekyll(9)</a>  <a href='/cn/blog/categories/latex' style='font-size: 106.66666666666667%'>Latex(1)</a>  <a href='/cn/blog/categories/markdown' style='font-size: 106.66666666666667%'>Markdown(1)</a>  <a href='/cn/blog/categories/octopress' style='font-size: 160.0%'>Octopress(9)</a>  <a href='/cn/blog/categories/r语言' style='font-size: 133.33333333333334%'>R语言(5)</a>  <a href='/cn/blog/categories/指数' style='font-size: 106.66666666666667%'>指数(1)</a>  <a href='/cn/blog/categories/金融' style='font-size: 106.66666666666667%'>金融(1)</a> </span>
 </section>
 
 <section>
   <h1>近期文章</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/cn/blog/2012/10/10/asynchronous-loading-post-list-with-jekyll-and-jQuery/" title="用jekyll和jQuery实现异步加载文章列表">用jekyll和jQuery实现异步加载文章列表</a>
+      </li>
     
       <li class="post">
         <a href="/cn/blog/2012/10/09/chinese-charset-problems-with-jekyll/" title="在Windows下使用jekyll如何避免出现中文字符集错误">在Windows下使用jekyll如何避免出现中文字符集错误</a>
@@ -739,10 +674,6 @@
     
       <li class="post">
         <a href="/cn/blog/2012/03/30/the-abcs-of-index-methodologies/" title="指数方法论入门">指数方法论入门</a>
-      </li>
-    
-      <li class="post">
-        <a href="/cn/blog/2012/03/18/github-pages-step-by-step/" title="Github Pages极简教程">Github Pages极简教程</a>
       </li>
     
   </ul>

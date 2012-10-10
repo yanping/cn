@@ -9,7 +9,11 @@
   <meta name="author" content="ypchen">
 
   
-  <meta name="description" content="在windows下使用jekyll时经常会遇到字符集错误，比如遇到提示Liquid error: incompatible character encodings: UTF-8 and GBK。本文将介绍几种解决方案。 1. 修改bash的字符集：在C:\Documents and &hellip;">
+  <meta name="description" content="本文主要讨论如何用基于jQuery的插件waypoint，实现异步加载jekyll模板生成的json文件，生成文章列表。 我在另一个博客的文章列表里使用了异步加载的技术，不过直接看页面的html源代码是看不出来的。编译之前的代码在这里。 首先，生成文章列表数据的json模板是： 1
+2
+3
+4
+5 &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -101,6 +105,212 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/cn/blog/2012/10/10/asynchronous-loading-post-list-with-jekyll-and-jQuery/">用jekyll和jQuery实现异步加载文章列表</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-10-10T23:30:00+08:00" pubdate data-updated="true">Oct 10<span>th</span>, 2012</time>
+        
+         | <a href="/cn/blog/2012/10/10/asynchronous-loading-post-list-with-jekyll-and-jQuery/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p class="info">本文主要讨论如何用基于jQuery的插件waypoint，实现异步加载jekyll模板生成的json文件，生成文章列表。</p>
+
+<p>我在<a href="http://art.yanping.me/archives/">另一个博客的文章列表</a>里使用了异步加载的技术，不过直接看页面的html源代码是看不出来的。编译之前的代码在<a href="https://github.com/yanping/art/blob/gh-pages/archives/index.html">这里</a>。</p>
+
+<p>首先，生成文章列表数据的json模板是：</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+<span class="line-number">7</span>
+<span class="line-number">8</span>
+<span class="line-number">9</span>
+<span class="line-number">10</span>
+<span class="line-number">11</span>
+<span class="line-number">12</span>
+<span class="line-number">13</span>
+</pre></td><td class="code"><pre><code class=""><span class="line">---
+</span><span class="line">layout: nil
+</span><span class="line">---
+</span><span class="line">
+</span><span class="line">[
+</span><span class="line">{% for post in site.posts %}
+</span><span class="line">  {"title":"{{post.title}}", 
+</span><span class="line">  "url":"{{site.url}}{{post.url}}", 
+</span><span class="line">  "date":"{{ post.date | date:'%Y-%m-%d' }}", 
+</span><span class="line">  "tags":[{% for tag in post.tags %}"{{tag}}"{% if forloop.last == false %} ,{% endif %}{% endfor %}]}
+</span><span class="line">  {% if forloop.last == false %},{% endif %}{% endfor %}
+</span><span class="line">]
+</span><span class="line">
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<p>这在前面的<a href="http://chen.yanping.me/cn/blog/2012/04/19/jekyll-with-json/">文章</a>里提到过。</p>
+
+<p>头部YAML数据部分：</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span /></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+</pre></td><td class="code"><pre><code class="yaml"><span class="line"><span class="nn">---</span>
+</span><span class="line"><span class="l-Scalar-Plain">layout</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">default</span>
+</span><span class="line"><span class="l-Scalar-Plain">title</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">全部文章</span>
+</span><span class="line"><span class="l-Scalar-Plain">initItem</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">50</span>
+</span><span class="line"><span class="l-Scalar-Plain">perPageItem</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">100</span>
+</span><span class="line"><span class="nn">---</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<p><code>initItem</code>是初始加载时显示的文章主题数，<code>perPageItem</code>是每次页面下拉到底部时读取json数据并新生成的文章主题数。</p>
+
+<p>初始加载网页时，文章主题列表是静态的html，由jekyll生成：</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+<span class="line-number">7</span>
+</pre></td><td class="code"><pre><code class=""><span class="line">&lt;ul class="posts"&gt;
+</span><span class="line">{% for post in site.posts limit:page.initItem %}
+</span><span class="line">  &lt;li class="listing-item"&gt;
+</span><span class="line">    &lt;time datetime="{{ post.date | date:"%Y-%m-%d" }}"&gt;{{ post.date | date:"%Y-%m-%d" }}&lt;/time&gt;
+</span><span class="line">    &lt;a href="{{site.baseurl}}{{ post.url }}" title="{{ post.title }}"&gt;{{ post.title }}&lt;/a&gt;
+</span><span class="line">  &lt;/li&gt;{% endfor %}
+</span><span class="line">&lt;/ul&gt;</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<p>上面的<code>limit:page.initItem</code>限定了列表的项数不超过<code>initItem</code>。当向下拉页面，waypoint会捕捉到页面下拉到底部的事件，并调用<em>getJSON</em>方法来读取json数据，形成文章列表。</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+<span class="line-number">7</span>
+<span class="line-number">8</span>
+<span class="line-number">9</span>
+<span class="line-number">10</span>
+<span class="line-number">11</span>
+<span class="line-number">12</span>
+<span class="line-number">13</span>
+<span class="line-number">14</span>
+<span class="line-number">15</span>
+<span class="line-number">16</span>
+<span class="line-number">17</span>
+<span class="line-number">18</span>
+<span class="line-number">19</span>
+<span class="line-number">20</span>
+<span class="line-number">21</span>
+<span class="line-number">22</span>
+<span class="line-number">23</span>
+<span class="line-number">24</span>
+<span class="line-number">25</span>
+<span class="line-number">26</span>
+<span class="line-number">27</span>
+<span class="line-number">28</span>
+<span class="line-number">29</span>
+<span class="line-number">30</span>
+<span class="line-number">31</span>
+<span class="line-number">32</span>
+<span class="line-number">33</span>
+<span class="line-number">34</span>
+<span class="line-number">35</span>
+<span class="line-number">36</span>
+<span class="line-number">37</span>
+<span class="line-number">38</span>
+<span class="line-number">39</span>
+<span class="line-number">40</span>
+<span class="line-number">41</span>
+</pre></td><td class="code"><pre><code class=""><span class="line">{% if site.posts.size &gt; page.initItem %}
+</span><span class="line">&lt;script src="/cn/js/jquery-1.7.1.min.js" type="text/javascript" charset="utf-8"&gt;
+</span><span class="line">&lt;/script&gt;
+</span><span class="line">&lt;script src="/cn/js/waypoints.min.js" type="text/javascript"&gt;
+</span><span class="line">&lt;/script&gt;
+</span><span class="line">&lt;script type="text/javascript"&gt;
+</span><span class="line">  $(document).ready(function() {
+</span><span class="line">    // 关于waypoint，请看 http://imakewebthings.com/jquery-waypoints/
+</span><span class="line">    var $loading = $("&lt;div class='loading' style='text-align:center'&gt;&lt;img src='/cn/images/loading.gif'&gt;&lt;/div&gt;"),
+</span><span class="line">    $footer = $('footer'),
+</span><span class="line">    opts = {
+</span><span class="line">      offset: '100%'
+</span><span class="line">    };
+</span><span class="line">
+</span><span class="line">    var count = {{ page.initItem }}; // 初始文章数
+</span><span class="line">    var count_sup = 0; // 循环上界，初始为0
+</span><span class="line">    $footer.waypoint(function(event, direction) {
+</span><span class="line">      $footer.waypoint('remove');
+</span><span class="line">      $('.posts').append($loading);
+</span><span class="line">      $.getJSON("../post.json", function(data) {
+</span><span class="line">        var content = "";
+</span><span class="line">        count_sup = count + {{ page.perPageItem }}; // 循环上界每次增加page.perPageItem项
+</span><span class="line">        var delta = 0; // 局部计数器
+</span><span class="line">        $.each(data,
+</span><span class="line">        function(i, item) {
+</span><span class="line">          if (i &gt;= count &amp; i &lt; count_sup) {
+</span><span class="line">            content += "&lt;li class='listing-item'&gt;&lt;time datetime='" + item.date + "'&gt;" + item.date + "&lt;/time&gt;";
+</span><span class="line">            content += "&lt;a href='" + item.url + "' title='" + item.title + "'&gt;" + item.title + "&lt;/a&gt;&lt;/li&gt;";
+</span><span class="line">            delta++;
+</span><span class="line">          }
+</span><span class="line">        });
+</span><span class="line">        count += delta;
+</span><span class="line">        $('div.loading').remove();
+</span><span class="line">        $(".posts").append(content);
+</span><span class="line">        if (count &lt; data.length) $footer.waypoint(opts);
+</span><span class="line">      });
+</span><span class="line">    },
+</span><span class="line">    opts);
+</span><span class="line">  });
+</span><span class="line">&lt;/script&gt;
+</span><span class="line">{% endif %}</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<p>关于这段代码，要注意以下几点：</p>
+
+<ol>
+  <li>上面的代码一开始有个判断语句，当文章数不大于<code>initItem</code>时，后面的js代码不会进入最终生成的html中。</li>
+  <li>充分利用Liquid模板的特性，在js代码中，也引用了Liquid模板数据<code>{{ page.initItem }}</code>和<code>{{ page.perPageItem }}</code></li>
+  <li><code>.getJSON()</code>读取数据形成列表之后，语句</li>
+</ol>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span /></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+</pre></td><td class="code"><pre><code class="yaml"><span class="line"> <span class="l-Scalar-Plain">if (count &lt; data.length) $footer.waypoint(opts);</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<p>是要判断已经加载的文章主题数是否到达总数，如果比总数小，就会在新的底部<code>$footer</code>上注册为<em>waypoint</em>，然后再向下拉页面，到达底部还会触发事件，然后接着读取数据，直到数据已经读取完毕。</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -441,65 +651,6 @@
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/cn/blog/2012/03/18/github-pages-step-by-step/">Github Pages极简教程</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2012-03-18T00:30:00+08:00" pubdate data-updated="true">Mar 18<span>th</span>, 2012</time>
-        
-         | <a href="/cn/blog/2012/03/18/github-pages-step-by-step/#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>我写这篇文章的目的是帮助没有用过gihub和jekyll的童鞋尽快掌握使用流程。学习使用github网页的最好办法就是clone别人的代码，看懂他们的代码，并修改成自己喜欢的样子。这篇文章介绍了从最初安装软件到使用的过程。</p>
-
-<p>先假设读者对ruby完全没有了解，仅对html有初步的了解（<code>&lt;title&gt;</code>等标签知道是什么意思，如果懂点儿CSS更好）。基本的linux命令（<code>ls</code>、<code>cd</code>、<code>mkdir</code>、<code>rm</code>等，不会也没关系，就用到这几个命令，自己百度一下就好）。</p>
-
-<p>本文标题所说的“极简”是基于下面的原则：</p>
-
-<ul>
-  <li>安装尽量少的软件</li>
-  <li>使用尽量少的命令</li>
-  <li>接触尽量少的概念</li>
-</ul>
-
-<p>如果想了解用Github Pages写博客的理念，可以看这篇文章</p>
-
-<ul>
-  <li><a href="http://www.yangzhiping.com/tech/writing-space.html" target="_blank">《理想的写作环境：git+github+markdown+jekyll》</a></li>
-</ul>
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/cn/blog/2012/03/18/github-pages-step-by-step/">阅读全文 &rarr;</a>
-    </footer>
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/cn/blog/page/2/">&larr; 前一页</a>
@@ -525,12 +676,16 @@
 
 <section id="categories_tag">
 <h1>分类目录</h1>
-<span class='categories_tag'> <a href='/cn/blog/categories/github' style='font-size: 152.5%'>Github(7)</a>  <a href='/cn/blog/categories/javascript' style='font-size: 122.5%'>Javascript(3)</a>  <a href='/cn/blog/categories/jekyll' style='font-size: 160.0%'>Jekyll(8)</a>  <a href='/cn/blog/categories/latex' style='font-size: 107.5%'>Latex(1)</a>  <a href='/cn/blog/categories/markdown' style='font-size: 107.5%'>Markdown(1)</a>  <a href='/cn/blog/categories/octopress' style='font-size: 160.0%'>Octopress(8)</a>  <a href='/cn/blog/categories/r语言' style='font-size: 137.5%'>R语言(5)</a>  <a href='/cn/blog/categories/指数' style='font-size: 107.5%'>指数(1)</a>  <a href='/cn/blog/categories/金融' style='font-size: 107.5%'>金融(1)</a> </span>
+<span class='categories_tag'> <a href='/cn/blog/categories/github' style='font-size: 153.33333333333334%'>Github(8)</a>  <a href='/cn/blog/categories/javascript' style='font-size: 126.66666666666667%'>Javascript(4)</a>  <a href='/cn/blog/categories/jekyll' style='font-size: 160.0%'>Jekyll(9)</a>  <a href='/cn/blog/categories/latex' style='font-size: 106.66666666666667%'>Latex(1)</a>  <a href='/cn/blog/categories/markdown' style='font-size: 106.66666666666667%'>Markdown(1)</a>  <a href='/cn/blog/categories/octopress' style='font-size: 160.0%'>Octopress(9)</a>  <a href='/cn/blog/categories/r语言' style='font-size: 133.33333333333334%'>R语言(5)</a>  <a href='/cn/blog/categories/指数' style='font-size: 106.66666666666667%'>指数(1)</a>  <a href='/cn/blog/categories/金融' style='font-size: 106.66666666666667%'>金融(1)</a> </span>
 </section>
 
 <section>
   <h1>近期文章</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/cn/blog/2012/10/10/asynchronous-loading-post-list-with-jekyll-and-jQuery/" title="用jekyll和jQuery实现异步加载文章列表">用jekyll和jQuery实现异步加载文章列表</a>
+      </li>
     
       <li class="post">
         <a href="/cn/blog/2012/10/09/chinese-charset-problems-with-jekyll/" title="在Windows下使用jekyll如何避免出现中文字符集错误">在Windows下使用jekyll如何避免出现中文字符集错误</a>
@@ -554,10 +709,6 @@
     
       <li class="post">
         <a href="/cn/blog/2012/03/30/the-abcs-of-index-methodologies/" title="指数方法论入门">指数方法论入门</a>
-      </li>
-    
-      <li class="post">
-        <a href="/cn/blog/2012/03/18/github-pages-step-by-step/" title="Github Pages极简教程">Github Pages极简教程</a>
       </li>
     
   </ul>
