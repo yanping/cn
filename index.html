@@ -209,104 +209,12 @@
 
 <p>上面的<code>limit:page.initItem</code>限定了列表的项数不超过<code>initItem</code>。当向下拉页面，waypoint会捕捉到页面下拉到底部的事件，并调用<em>getJSON</em>方法来读取json数据，形成文章列表。</p>
 
-<div class="bogus-wrapper"><notextile><figure class="code"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
-<span class="line-number">2</span>
-<span class="line-number">3</span>
-<span class="line-number">4</span>
-<span class="line-number">5</span>
-<span class="line-number">6</span>
-<span class="line-number">7</span>
-<span class="line-number">8</span>
-<span class="line-number">9</span>
-<span class="line-number">10</span>
-<span class="line-number">11</span>
-<span class="line-number">12</span>
-<span class="line-number">13</span>
-<span class="line-number">14</span>
-<span class="line-number">15</span>
-<span class="line-number">16</span>
-<span class="line-number">17</span>
-<span class="line-number">18</span>
-<span class="line-number">19</span>
-<span class="line-number">20</span>
-<span class="line-number">21</span>
-<span class="line-number">22</span>
-<span class="line-number">23</span>
-<span class="line-number">24</span>
-<span class="line-number">25</span>
-<span class="line-number">26</span>
-<span class="line-number">27</span>
-<span class="line-number">28</span>
-<span class="line-number">29</span>
-<span class="line-number">30</span>
-<span class="line-number">31</span>
-<span class="line-number">32</span>
-<span class="line-number">33</span>
-<span class="line-number">34</span>
-<span class="line-number">35</span>
-<span class="line-number">36</span>
-<span class="line-number">37</span>
-<span class="line-number">38</span>
-<span class="line-number">39</span>
-<span class="line-number">40</span>
-<span class="line-number">41</span>
-</pre></td><td class="code"><pre><code class=""><span class="line">{% if site.posts.size &gt; page.initItem %}
-</span><span class="line">&lt;script src="/cn/js/jquery-1.7.1.min.js" type="text/javascript" charset="utf-8"&gt;
-</span><span class="line">&lt;/script&gt;
-</span><span class="line">&lt;script src="/cn/js/waypoints.min.js" type="text/javascript"&gt;
-</span><span class="line">&lt;/script&gt;
-</span><span class="line">&lt;script type="text/javascript"&gt;
-</span><span class="line">  $(document).ready(function() {
-</span><span class="line">    // 关于waypoint，请看 http://imakewebthings.com/jquery-waypoints/
-</span><span class="line">    var $loading = $("&lt;div class='loading' style='text-align:center'&gt;&lt;img src='/cn/images/loading.gif'&gt;&lt;/div&gt;"),
-</span><span class="line">    $footer = $('footer'),
-</span><span class="line">    opts = {
-</span><span class="line">      offset: '100%'
-</span><span class="line">    };
-</span><span class="line">
-</span><span class="line">    var count = {{ page.initItem }}; // 初始文章数
-</span><span class="line">    var count_sup = 0; // 循环上界，初始为0
-</span><span class="line">    $footer.waypoint(function(event, direction) {
-</span><span class="line">      $footer.waypoint('remove');
-</span><span class="line">      $('.posts').append($loading);
-</span><span class="line">      $.getJSON("../post.json", function(data) {
-</span><span class="line">        var content = "";
-</span><span class="line">        count_sup = count + {{ page.perPageItem }}; // 循环上界每次增加page.perPageItem项
-</span><span class="line">        var delta = 0; // 局部计数器
-</span><span class="line">        $.each(data,
-</span><span class="line">        function(i, item) {
-</span><span class="line">          if (i &gt;= count &amp; i &lt; count_sup) {
-</span><span class="line">            content += "&lt;li class='listing-item'&gt;&lt;time datetime='" + item.date + "'&gt;" + item.date + "&lt;/time&gt;";
-</span><span class="line">            content += "&lt;a href='" + item.url + "' title='" + item.title + "'&gt;" + item.title + "&lt;/a&gt;&lt;/li&gt;";
-</span><span class="line">            delta++;
-</span><span class="line">          }
-</span><span class="line">        });
-</span><span class="line">        count += delta;
-</span><span class="line">        $('div.loading').remove();
-</span><span class="line">        $(".posts").append(content);
-</span><span class="line">        if (count &lt; data.length) $footer.waypoint(opts);
-</span><span class="line">      });
-</span><span class="line">    },
-</span><span class="line">    opts);
-</span><span class="line">  });
-</span><span class="line">&lt;/script&gt;
-</span><span class="line">{% endif %}</span></code></pre></td></tr></table></div></figure></notextile></div>
-
-<p>关于这段代码，要注意以下几点：</p>
-
-<ol>
-  <li>上面的代码一开始有个判断语句，当文章数不大于<code>initItem</code>时，后面的js代码不会进入最终生成的html中。</li>
-  <li>充分利用Liquid模板的特性，在js代码中，也引用了Liquid模板数据<code>{{ page.initItem }}</code>和<code>{{ page.perPageItem }}</code></li>
-  <li><code>.getJSON()</code>读取数据形成列表之后，语句</li>
-</ol>
-
-<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span /></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
-</pre></td><td class="code"><pre><code class="yaml"><span class="line"> <span class="l-Scalar-Plain">if (count &lt; data.length) $footer.waypoint(opts);</span>
-</span></code></pre></td></tr></table></div></figure></notextile></div>
-
-<p>是要判断已经加载的文章主题数是否到达总数，如果比总数小，就会在新的底部<code>$footer</code>上注册为<em>waypoint</em>，然后再向下拉页面，到达底部还会触发事件，然后接着读取数据，直到数据已经读取完毕。</p>
 </div>
   
+  
+    <footer>
+      <a rel="full-article" href="/cn/blog/2012/10/10/asynchronous-loading-post-list-with-jekyll-and-jQuery/">阅读全文 &rarr;</a>
+    </footer>
   
 
 

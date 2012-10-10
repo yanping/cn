@@ -4,7 +4,7 @@
   <title><![CDATA[分类： javascript | 雁起平沙的网络日志]]></title>
   <link href="http://chen.yanping.me/cn/blog/categories/javascript/atom.xml" rel="self"/>
   <link href="http://chen.yanping.me/cn/"/>
-  <updated>2012-10-11T00:19:02+08:00</updated>
+  <updated>2012-10-11T00:21:47+08:00</updated>
   <id>http://chen.yanping.me/cn/</id>
   <author>
     <name><![CDATA[ypchen]]></name>
@@ -80,6 +80,8 @@ perPageItem: 100
 </span><span class='line'>&lt;p></span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
 <p>上面的<code>limit:page.initItem</code>限定了列表的项数不超过<code>initItem</code>。当向下拉页面，waypoint会捕捉到页面下拉到底部的事件，并调用<em>getJSON</em>方法来读取json数据，形成文章列表。</p>
+
+<!--more-->
 
 <p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
