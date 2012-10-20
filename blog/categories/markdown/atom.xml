@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[分类： markdown | 雁起平沙的网络日志]]></title>
-  <link href="http://chen.yanping.me/cn/blog/categories/markdown/atom.xml" rel="self"/>
-  <link href="http://chen.yanping.me/cn/"/>
-  <updated>2012-10-11T00:21:47+08:00</updated>
-  <id>http://chen.yanping.me/cn/</id>
+  <link href="http://yanping.me/cn/blog/categories/markdown/atom.xml" rel="self"/>
+  <link href="http://yanping.me/cn/"/>
+  <updated>2012-10-21T06:35:32+08:00</updated>
+  <id>http://yanping.me/cn/</id>
   <author>
     <name><![CDATA[ypchen]]></name>
     <email><![CDATA[chen@yanping.me]]></email>
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[黑魔法利器pandoc]]></title>
-    <link href="http://chen.yanping.me/cn/blog/2012/03/13/pandoc/"/>
+    <link href="http://yanping.me/cn/blog/2012/03/13/pandoc/"/>
     <updated>2012-03-13T00:30:00+08:00</updated>
-    <id>http://chen.yanping.me/cn/blog/2012/03/13/pandoc</id>
+    <id>http://yanping.me/cn/blog/2012/03/13/pandoc</id>
     <content type="html"><![CDATA[<h2 id="pandoc">pandoc是什么？</h2>
 
 <p>如果你需要把文件从一种标记语言格式转换到另一种格式，<a href="http://johnmacfarlane.net/pandoc" target="_blank">pandoc</a>会是你的瑞士军刀。它可以把<a href="http://daringfireball.net/projects/markdown/">markdown</a>、 <a href="http://docutils.sourceforge.net/docs/ref/rst/introduction.html">reStructuredText</a>、 <a href="http://redcloth.org/textile">textile</a>、 <a href="http://www.w3.org/TR/html40/">HTML</a>、或者<a href="http://www.latex-project.org/">LaTeX</a>转换成：</p>

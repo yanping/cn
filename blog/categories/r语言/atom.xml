@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[分类： R语言 | 雁起平沙的网络日志]]></title>
-  <link href="http://chen.yanping.me/cn/blog/categories/r语言/atom.xml" rel="self"/>
-  <link href="http://chen.yanping.me/cn/"/>
-  <updated>2012-10-11T00:21:47+08:00</updated>
-  <id>http://chen.yanping.me/cn/</id>
+  <link href="http://yanping.me/cn/blog/categories/r语言/atom.xml" rel="self"/>
+  <link href="http://yanping.me/cn/"/>
+  <updated>2012-10-21T06:35:32+08:00</updated>
+  <id>http://yanping.me/cn/</id>
   <author>
     <name><![CDATA[ypchen]]></name>
     <email><![CDATA[chen@yanping.me]]></email>
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[下一步学习的目标]]></title>
-    <link href="http://chen.yanping.me/cn/blog/2012/06/07/new-target/"/>
+    <link href="http://yanping.me/cn/blog/2012/06/07/new-target/"/>
     <updated>2012-06-07T23:58:00+08:00</updated>
-    <id>http://chen.yanping.me/cn/blog/2012/06/07/new-target</id>
+    <id>http://yanping.me/cn/blog/2012/06/07/new-target</id>
     <content type="html"><![CDATA[<p>不给自己定太遥远的目标了，为了把R语言捡起来，为了把数量金融方面捡起来，我决定以 <em>Using SAS in Financial Research</em> 为蓝本，用R语言来实现每章的案例，来个 <em>Using R in Financial Research</em> 。涉及的案例有：</p>
 
 <ul>
@@ -35,9 +35,9 @@
   
   <entry>
     <title type="html"><![CDATA[R的矩阵代数]]></title>
-    <link href="http://chen.yanping.me/cn/blog/2012/01/10/matrix-algebra-in-r/"/>
+    <link href="http://yanping.me/cn/blog/2012/01/10/matrix-algebra-in-r/"/>
     <updated>2012-01-10T14:00:00+08:00</updated>
-    <id>http://chen.yanping.me/cn/blog/2012/01/10/matrix-algebra-in-r</id>
+    <id>http://yanping.me/cn/blog/2012/01/10/matrix-algebra-in-r</id>
     <content type="html"><![CDATA[<p class="info">
 本文翻译自<a target="_blank" href="http://www.manning.com/kabacoff/">R in Action</a>的附录E，如果对该书感兴趣，请自行购买或去图书馆阅读。<br />
 更多的例子请看<a href="http://yishuo.org/2011/08/matrix-operations/">http://yishuo.org/2011/08/matrix-operations/</a>
@@ -134,9 +134,9 @@
   
   <entry>
     <title type="html"><![CDATA[定制R启动环境]]></title>
-    <link href="http://chen.yanping.me/cn/blog/2012/01/09/customizing-the-startup-environment/"/>
+    <link href="http://yanping.me/cn/blog/2012/01/09/customizing-the-startup-environment/"/>
     <updated>2012-01-09T22:16:00+08:00</updated>
-    <id>http://chen.yanping.me/cn/blog/2012/01/09/customizing-the-startup-environment</id>
+    <id>http://yanping.me/cn/blog/2012/01/09/customizing-the-startup-environment</id>
     <content type="html"><![CDATA[<p class="info">
 本文翻译自<a href="http://www.manning.com/kabacoff/" target="_blank">R in Action</a>的附录B，如果对该书感兴趣，请自行购买或去图书馆阅读。<br />
 R导论的10.8也是讲定制环境的。
@@ -239,9 +239,9 @@ R导论的10.8也是讲定制环境的。
   
   <entry>
     <title type="html"><![CDATA[如何升级R]]></title>
-    <link href="http://chen.yanping.me/cn/blog/2012/01/06/updating-an-r-installation/"/>
+    <link href="http://yanping.me/cn/blog/2012/01/06/updating-an-r-installation/"/>
     <updated>2012-01-06T17:12:00+08:00</updated>
-    <id>http://chen.yanping.me/cn/blog/2012/01/06/updating-an-r-installation</id>
+    <id>http://yanping.me/cn/blog/2012/01/06/updating-an-r-installation</id>
     <content type="html"><![CDATA[<p><span class="info">
 本文翻译自<a href="http://www.manning.com/kabacoff/" target="_blank">R in Action</a>的附录H，如果对该书感兴趣，请自行购买或去图书馆阅读。
 </span>
@@ -296,9 +296,9 @@ R导论的10.8也是讲定制环境的。
   
   <entry>
     <title type="html"><![CDATA[用R处理大数据集]]></title>
-    <link href="http://chen.yanping.me/cn/blog/2012/01/01/working-with-large-datasets/"/>
+    <link href="http://yanping.me/cn/blog/2012/01/01/working-with-large-datasets/"/>
     <updated>2012-01-01T15:36:00+08:00</updated>
-    <id>http://chen.yanping.me/cn/blog/2012/01/01/working-with-large-datasets</id>
+    <id>http://yanping.me/cn/blog/2012/01/01/working-with-large-datasets</id>
     <content type="html"><![CDATA[<p><span class="info">
 本文翻译自<a href="http://www.manning.com/kabacoff/" target="_blank">R in Action</a>的附录G，如果对该书感兴趣，请自行购买或去图书馆阅读。
 </span>

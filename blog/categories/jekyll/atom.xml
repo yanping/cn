@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[分类： jekyll | 雁起平沙的网络日志]]></title>
-  <link href="http://chen.yanping.me/cn/blog/categories/jekyll/atom.xml" rel="self"/>
-  <link href="http://chen.yanping.me/cn/"/>
-  <updated>2012-10-11T00:21:47+08:00</updated>
-  <id>http://chen.yanping.me/cn/</id>
+  <link href="http://yanping.me/cn/blog/categories/jekyll/atom.xml" rel="self"/>
+  <link href="http://yanping.me/cn/"/>
+  <updated>2012-10-21T06:35:32+08:00</updated>
+  <id>http://yanping.me/cn/</id>
   <author>
     <name><![CDATA[ypchen]]></name>
     <email><![CDATA[chen@yanping.me]]></email>
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[用jekyll和jQuery实现异步加载文章列表]]></title>
-    <link href="http://chen.yanping.me/cn/blog/2012/10/10/asynchronous-loading-post-list-with-jekyll-and-jQuery/"/>
+    <link href="http://yanping.me/cn/blog/2012/10/10/asynchronous-loading-post-list-with-jekyll-and-jQuery/"/>
     <updated>2012-10-10T23:30:00+08:00</updated>
-    <id>http://chen.yanping.me/cn/blog/2012/10/10/asynchronous-loading-post-list-with-jekyll-and-jQuery</id>
+    <id>http://yanping.me/cn/blog/2012/10/10/asynchronous-loading-post-list-with-jekyll-and-jQuery</id>
     <content type="html"><![CDATA[<p class="info">本文主要讨论如何用基于jQuery的插件waypoint，实现异步加载jekyll模板生成的json文件，生成文章列表。</p>
 
 <p>我在<a href="http://art.yanping.me/archives/">另一个博客的文章列表</a>里使用了异步加载的技术，不过直接看页面的html源代码是看不出来的。编译之前的代码在<a href="https://github.com/yanping/art/blob/gh-pages/archives/index.html">这里</a>。</p>
@@ -122,21 +122,15 @@ perPageItem: 100
 <span class='line-number'>37</span>
 <span class='line-number'>38</span>
 <span class='line-number'>39</span>
-<span class='line-number'>40</span>
-<span class='line-number'>41</span>
-<span class='line-number'>42</span>
-<span class='line-number'>43</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>&lt;/p>
 </span><span class='line'>
 </span><span class='line'>&lt;p>{% if site.posts.size &gt; page.initItem %}
-</span><span class='line'>&lt;script src="http://chen.yanping.me/cn/js/jquery-1.7.1.min.js" type="text/javascript" charset="utf-8">
-</span><span class='line'>&lt;/script>
-</span><span class='line'>&lt;script src="http://chen.yanping.me/cn/js/waypoints.min.js" type="text/javascript">
-</span><span class='line'>&lt;/script>
+</span><span class='line'>&lt;script src="http://yanping.me/cn/js/jquery-1.7.1.min.js" type="text/javascript" charset="utf-8">&lt;/script>
+</span><span class='line'>&lt;script src="http://yanping.me/cn/js/waypoints.min.js" type="text/javascript">&lt;/script>
 </span><span class='line'>&lt;script type="text/javascript">
 </span><span class='line'>  $(document).ready(function() {
 </span><span class='line'>    // 关于waypoint，请看 http://imakewebthings.com/jquery-waypoints/
-</span><span class='line'>    var $loading = $("&lt;div class='loading' style='text-align:center'&gt;&lt;img src="http://chen.yanping.me/cn/images/loading.gif" />&lt;/div&gt;"),
+</span><span class='line'>    var $loading = $("&lt;div class='loading' style='text-align:center'&gt;&lt;img src="http://yanping.me/cn/images/loading.gif" />&lt;/div&gt;"),
 </span><span class='line'>    $footer = $('footer'),
 </span><span class='line'>    opts = {
 </span><span class='line'>      offset: '100%'
@@ -151,8 +145,7 @@ perPageItem: 100
 </span><span class='line'>    var content = "";
 </span><span class='line'>    count_sup = count + {{ page.perPageItem }}; // 循环上界每次增加page.perPageItem项
 </span><span class='line'>    var delta = 0; // 局部计数器
-</span><span class='line'>    $.each(data,
-</span><span class='line'>    function(i, item) {
+</span><span class='line'>    $.each(data, function(i, item) {
 </span><span class='line'>      if (i &gt;= count &amp; i &lt; count_sup) {
 </span><span class='line'>        content += "&lt;li class='listing-item'&gt;&lt;time datetime='" + item.date + "'&gt;" + item.date + "&lt;/time&gt;";
 </span><span class='line'>        content += "&lt;a href='" + item.url + "' title='" + item.title + "'&gt;" + item.title + "&lt;/a&gt;&lt;/li&gt;";
@@ -164,8 +157,7 @@ perPageItem: 100
 </span><span class='line'>    $(".posts").append(content);
 </span><span class='line'>    if (count &lt; data.length) $footer.waypoint(opts);
 </span><span class='line'>  });
-</span><span class='line'>},
-</span><span class='line'>opts);   }); &lt;/script&gt; {% endif %}
+</span><span class='line'>}, opts);   }); &lt;/script&gt; {% endif %}
 </span><span class='line'>&lt;/code>&lt;/pre>
 </span><span class='line'>
 </span><span class='line'>&lt;p></span></code></pre></td></tr></table></div></figure></notextile></div></p>
@@ -188,9 +180,9 @@ perPageItem: 100
   
   <entry>
     <title type="html"><![CDATA[在Windows下使用jekyll如何避免出现中文字符集错误]]></title>
-    <link href="http://chen.yanping.me/cn/blog/2012/10/09/chinese-charset-problems-with-jekyll/"/>
+    <link href="http://yanping.me/cn/blog/2012/10/09/chinese-charset-problems-with-jekyll/"/>
     <updated>2012-10-09T21:30:00+08:00</updated>
-    <id>http://chen.yanping.me/cn/blog/2012/10/09/chinese-charset-problems-with-jekyll</id>
+    <id>http://yanping.me/cn/blog/2012/10/09/chinese-charset-problems-with-jekyll</id>
     <content type="html"><![CDATA[<p class="info">在windows下使用jekyll时经常会遇到字符集错误，比如遇到提示<span style="font-family: Menlo,Monaco,'Andale Mono','lucida console','Courier New',monospace;">Liquid error: incompatible character encodings: UTF-8 and GBK</span>。本文将介绍几种解决方案。</p>
 
 <p>1. <strong>修改bash的字符集：</strong>在<code>C:\Documents and Settings\用户名</code>下，找到文件<code>.bash_profile</code>，后面加两行</p>
@@ -245,14 +237,14 @@ set LANG=en_US.UTF-8
   
   <entry>
     <title type="html"><![CDATA[用jekyll生成包含json变量的js脚本]]></title>
-    <link href="http://chen.yanping.me/cn/blog/2012/04/20/jekyll-with-js-and-json/"/>
+    <link href="http://yanping.me/cn/blog/2012/04/20/jekyll-with-js-and-json/"/>
     <updated>2012-04-20T23:58:00+08:00</updated>
-    <id>http://chen.yanping.me/cn/blog/2012/04/20/jekyll-with-js-and-json</id>
+    <id>http://yanping.me/cn/blog/2012/04/20/jekyll-with-js-and-json</id>
     <content type="html"><![CDATA[<p class="info">本文主要讨论如何用jekyll模板生成含有json数据的javascript脚本，并以此解决跨域读取json数据的问题。</p>
 
-<p><a href="http://chen.yanping.me/cn/blog/2012/04/19/jekyll-with-json/">前一篇文章</a>提到用getJSON读取json文件，并以此动态更新页面，但只能读取同域的json文件，据说是出于安全性的考虑。</p>
+<p><a href="http://yanping.me/cn/blog/2012/04/19/jekyll-with-json/">前一篇文章</a>提到用getJSON读取json文件，并以此动态更新页面，但只能读取同域的json文件，据说是出于安全性的考虑。</p>
 
-<p>现在问题出来了，我除了前文提到的三个网站以外，还有个<a href="http://yanping.me">主页的镜像网站</a>，它存放在美国的一位师兄的服务器上，和那三个网站肯定不同域，如果我要让它和github上的<a href="http://chen.yanping.me">主页</a>始终保持一致，又不想每次手动修改博客文章列表，也不能再使用feedsky了。因为feedsky除了慢之外，生成的列表样式也和网站风格不一致。</p>
+<p>现在问题出来了，我除了前文提到的三个网站以外，还有个<a href="http://inwake.com/ypchen">主页的镜像网站</a>，它存放在美国的一位师兄的服务器上，和那三个网站肯定不同域，如果我要让它和github上的<a href="http://yanping.me">主页</a>始终保持一致，又不想每次手动修改博客文章列表，也不能再使用feedsky了。因为feedsky除了慢之外，生成的列表样式也和网站风格不一致。</p>
 
 <!--more-->
 
@@ -421,6 +413,11 @@ set LANG=en_US.UTF-8
 </span><span class='line'>	<span class="kd">var</span> <span class="nx">post</span> <span class="o">=</span> <span class="p">{</span>
 </span><span class='line'>	<span class="s2">&quot;list&quot;</span><span class="o">:</span><span class="p">[{</span>
 </span><span class='line'>		<span class="s2">&quot;title&quot;</span><span class="o">:</span><span class="s2">&quot;用jekyll和jQuery实现异步加载文章列表&quot;</span><span class="p">,</span>
+</span><span class='line'>		    <span class="s2">&quot;url&quot;</span><span class="o">:</span><span class="s2">&quot;http://chen.yanping.me/cn/blog/2012/10/10/new-post/&quot;</span><span class="p">,</span>
+</span><span class='line'>		    <span class="s2">&quot;date&quot;</span><span class="o">:</span><span class="s2">&quot;10 Oct 2012&quot;</span>
+</span><span class='line'>		<span class="p">},</span>
+</span><span class='line'>	<span class="p">{</span>
+</span><span class='line'>		<span class="s2">&quot;title&quot;</span><span class="o">:</span><span class="s2">&quot;用jekyll和jQuery实现异步加载文章列表&quot;</span><span class="p">,</span>
 </span><span class='line'>		    <span class="s2">&quot;url&quot;</span><span class="o">:</span><span class="s2">&quot;http://chen.yanping.me/cn/blog/2012/10/10/asynchronous-loading-post-list-with-jekyll-and-jQuery/&quot;</span><span class="p">,</span>
 </span><span class='line'>		    <span class="s2">&quot;date&quot;</span><span class="o">:</span><span class="s2">&quot;10 Oct 2012&quot;</span>
 </span><span class='line'>		<span class="p">},</span>
@@ -438,11 +435,6 @@ set LANG=en_US.UTF-8
 </span><span class='line'>		<span class="s2">&quot;title&quot;</span><span class="o">:</span><span class="s2">&quot;下一步学习的目标&quot;</span><span class="p">,</span>
 </span><span class='line'>		    <span class="s2">&quot;url&quot;</span><span class="o">:</span><span class="s2">&quot;http://chen.yanping.me/cn/blog/2012/06/07/new-target/&quot;</span><span class="p">,</span>
 </span><span class='line'>		    <span class="s2">&quot;date&quot;</span><span class="o">:</span><span class="s2">&quot;07 Jun 2012&quot;</span>
-</span><span class='line'>		<span class="p">},</span>
-</span><span class='line'>	<span class="p">{</span>
-</span><span class='line'>		<span class="s2">&quot;title&quot;</span><span class="o">:</span><span class="s2">&quot;用jekyll生成包含json变量的js脚本&quot;</span><span class="p">,</span>
-</span><span class='line'>		    <span class="s2">&quot;url&quot;</span><span class="o">:</span><span class="s2">&quot;http://chen.yanping.me/cn/blog/2012/04/20/jekyll-with-js-and-json/&quot;</span><span class="p">,</span>
-</span><span class='line'>		    <span class="s2">&quot;date&quot;</span><span class="o">:</span><span class="s2">&quot;20 Apr 2012&quot;</span>
 </span><span class='line'>		<span class="p">}</span>
 </span><span class='line'>	
 </span><span class='line'>	<span class="p">]};</span>
@@ -471,7 +463,7 @@ set LANG=en_US.UTF-8
 <pre><code>&lt;script src="http://chen.yanping.me/cn/posts.js" type="text/javascript"&gt;&lt;/script&gt; ```
 </code></pre>
 
-<p>读者可以自行比较<a href="http://yanpimg.me">http://yanpimg.me</a>和<a href="http://yanping.me/json-demo">http://yanping.me/json-demo</a>的差别。</p>
+<p>读者可以自行比较<a href="http://inwake.com/ypchen">http://inwake.com/ypchen</a>和<a href="http://inwake.com/ypchen/json-demo">http://inwake.com/ypchen/json-demo</a>的差别。</p>
 
 <h2 id="section">第二种方法</h2>
 
@@ -538,11 +530,11 @@ set LANG=en_US.UTF-8
 &lt;/script&gt; ```
 </code></pre>
 
-<p>我尝试了几种json数据的定义形式，<a href="http://yanping.me/json-demo/2.html">示例1</a>、<a href="http://yanping.me/json-demo/3.html">示例2</a>、<a href="http://yanping.me/json-demo/4.html">示例3</a>和<a href="http://yanping.me/json-demo/5.html">示例4</a>，只有最后一种没有办法完成调用，这是因为数据的读取和使用分别在两个<code>&lt;script&gt;</code>标签里，数据必须定义成全局变量才能在后面被引用。</p>
+<p>我尝试了几种json数据的定义形式，<a href="http://inwake.com/ypchen/json-demo/2.html">示例1</a>、<a href="http://inwake.com/ypchen/json-demo/3.html">示例2</a>、<a href="http://inwake.com/ypchen/json-demo/4.html">示例3</a>和<a href="http://inwake.com/ypchen/json-demo/5.html">示例4</a>，只有最后一种没有办法完成调用，这是因为数据的读取和使用分别在两个<code>&lt;script&gt;</code>标签里，数据必须定义成全局变量才能在后面被引用。</p>
 
 <h2 id="section-1">进一步思考</h2>
 
-<p>在同域的情况下，服务端生成json数据，在客户端用getJSON读取json文件，我们称之为<strong>方法一</strong>，这是<a href="http://chen.yanping.me/cn/blog/2012/04/19/jekyll-with-json/">前一篇文章</a>讲的方法;在跨域的情况下，服务端生成包含json变量的js脚本，然后再在客户端链接这个外部的js脚本，这种方法我们称之为<strong>方法二</strong>。</p>
+<p>在同域的情况下，服务端生成json数据，在客户端用getJSON读取json文件，我们称之为<strong>方法一</strong>，这是<a href="http://yanping.me/cn/blog/2012/04/19/jekyll-with-json/">前一篇文章</a>讲的方法;在跨域的情况下，服务端生成包含json变量的js脚本，然后再在客户端链接这个外部的js脚本，这种方法我们称之为<strong>方法二</strong>。</p>
 
 <p>本文在使用<strong>方法二</strong>时，如果服务端和客户端分别由两个人维护的话，客户端的维护者只能被动接受。幸好我们有github，github的口号是social coding，有人翻译成社会化编程，我偏向于翻译成社交编程。想想我们在facebook、人人网这样的社交网络都干些什么，我们在那上面上发布状态、上传图片，告诉朋友以及路过的陌生人我们都做了什么、心情如何、拍了什么照片，上班时大家很喜欢挂人人，刷新鲜事；而在github上，coder们晒出自己的代码，可以关注别的coder和感兴趣的项目，登录github可以看到大家的“新鲜事”：某某创建了个什么代码库、做了什么修改，你可以亲眼看到别人的项目从最初的雏形发展成一个完美的项目，可以给别人的代码留言，报告bug，也可以fork别人的代码，根据自己的喜好做修改，如果有好的主意，可以给原作者发个pull request，作者要是也同样喜欢，就会加到自己的代码里。</p>
 
@@ -553,18 +545,18 @@ set LANG=en_US.UTF-8
   
   <entry>
     <title type="html"><![CDATA[用jekyll生成json]]></title>
-    <link href="http://chen.yanping.me/cn/blog/2012/04/19/jekyll-with-json/"/>
+    <link href="http://yanping.me/cn/blog/2012/04/19/jekyll-with-json/"/>
     <updated>2012-04-19T22:30:00+08:00</updated>
-    <id>http://chen.yanping.me/cn/blog/2012/04/19/jekyll-with-json</id>
+    <id>http://yanping.me/cn/blog/2012/04/19/jekyll-with-json</id>
     <content type="html"><![CDATA[<p class="info">本文主要讨论如何用jekyll模板生成json，并以此整合在github上托管的不同网站的数据。</p>
 
 <p>从去年年底接触github和jekyll到现在已经折腾五个月了，从最初用github托管纯静态网站，到现在依照别人的网站构架修改成自己喜欢的样子，这个过程也是个不断学习的过程。</p>
 
-<p>我在github上有三个网站，一个是<a href="http://chen.yanping.me">主页</a>，一个<a href="http://chen.yanping.me/cn">技术博客</a>，最后一个是<a href="http://art.yanping.me">文艺博客</a>。现在有个问题是，这三个网站对应的是github上三个不同的代码库，如果我要在<a href="http://chen.yanping.me">主页</a>上列出另两个网站的文章列表，不能用jekyll提供的函数来做到，jekyll只能操作一个代码库的文本，不能跨代码库。我之前用的一个方法是用feedsky提供的发布脚本，效果请看<a href="http://yanping.me/json-demo">http://yanping.me/json-demo</a>。这样的缺点是很显然的，一是加载速度慢，二是我们没办法控制列表的格式和样式。有没有更直接的解决方法呢？</p>
+<p>我在github上有三个网站，一个是<a href="http://yanping.me">主页</a>，一个<a href="http://yanping.me/cn">技术博客</a>，最后一个是<a href="http://art.yanping.me">文艺博客</a>。现在有个问题是，这三个网站对应的是github上三个不同的代码库，如果我要在<a href="http://yanping.me">主页</a>上列出另两个网站的文章列表，不能用jekyll提供的函数来做到，jekyll只能操作一个代码库的文本，不能跨代码库。我之前用的一个方法是用feedsky提供的发布脚本，效果请看<a href="http://inwake.com/ypchen/json-demo">http://inwake.com/ypchen/json-demo</a>。这样的缺点是很显然的，一是加载速度慢，二是我们没办法控制列表的格式和样式。有没有更直接的解决方法呢？</p>
 
 <!--more-->
 
-<p>我看到在很多jekyll的博客里，都能自动生成rss.xml和atom.xml，其实说白了，只要是本文文件，jekyll都能用模板操作。后来我听说了json，听说可以用jquery调用json，既然jekyll可以操作本文，那么可不可以用jekyll来生成我们规定格式的json文件呢？例如在<a href="http://chen.yanping.me/cn">技术博客</a>和<a href="http://art.yanping.me">文艺博客</a>各生成一个包含文章信息的json文件，再用jquery或ajax来调用。这里面涉及到一个是否跨域的问题，一开始我只能确定<a href="http://chen.yanping.me">主页</a>和<a href="http://chen.yanping.me/cn">技术博客</a>是同域的，可我忘了<a href="http://art.yanping.me">文艺博客</a>的真正地址是<a href="http://yanping.github.com/art">http://yanping.github.com/art</a>，或者说是<a href="http://chen.yanping.me/art">http://chen.yanping.me/art</a>，<a href="http://artn.yanping.me/">http://artn.yanping.me/</a>只不过是我后来给它绑定的域名，还特定用了javascript来限定了只能用这个域名访问，因为用前两个地址访问都显示不正常（关于这点，请看<a href="http://chen.yanping.me/cn/blog/2012/02/06/github-pages-domain-3/">这里</a>）。所以说，只要是在同一个github账户下建立的网站，它们就是同域的。</p>
+<p>我看到在很多jekyll的博客里，都能自动生成rss.xml和atom.xml，其实说白了，只要是本文文件，jekyll都能用模板操作。后来我听说了json，听说可以用jquery调用json，既然jekyll可以操作本文，那么可不可以用jekyll来生成我们规定格式的json文件呢？例如在<a href="http://yanping.me/cn">技术博客</a>和<a href="http://art.yanping.me">文艺博客</a>各生成一个包含文章信息的json文件，再用jquery或ajax来调用。这里面涉及到一个是否跨域的问题，一开始我只能确定<a href="http://yanping.me">主页</a>和<a href="http://yanping.me/cn">技术博客</a>是同域的，可我忘了<a href="http://art.yanping.me">文艺博客</a>的真正地址是<a href="http://yanping.github.com/art">http://yanping.github.com/art</a>，或者说是<a href="http://chen.yanping.me/art">http://chen.yanping.me/art</a>，<a href="http://artn.yanping.me/">http://artn.yanping.me/</a>只不过是我后来给它绑定的域名，还特定用了javascript来限定了只能用这个域名访问，因为用前两个地址访问都显示不正常（关于这点，请看<a href="http://chen.yanping.me/cn/blog/2012/02/06/github-pages-domain-3/">这里</a>）。所以说，只要是在同一个github账户下建立的网站，它们就是同域的。</p>
 
 <h2 id="json">生成json</h2>
 
@@ -645,6 +637,12 @@ set LANG=en_US.UTF-8
 </pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="p">[</span>
 </span><span class='line'>    <span class="p">{</span>
 </span><span class='line'>        <span class="s2">&quot;title&quot;</span><span class="o">:</span><span class="s2">&quot;用jekyll和jQuery实现异步加载文章列表&quot;</span><span class="p">,</span>
+</span><span class='line'>        <span class="s2">&quot;url&quot;</span><span class="o">:</span><span class="s2">&quot;http://chen.yanping.me/cn/blog/2012/10/10/new-post/&quot;</span><span class="p">,</span>
+</span><span class='line'>        <span class="s2">&quot;date&quot;</span><span class="o">:</span><span class="s2">&quot;10 Oct 2012&quot;</span>
+</span><span class='line'>    <span class="p">},</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>        <span class="s2">&quot;title&quot;</span><span class="o">:</span><span class="s2">&quot;用jekyll和jQuery实现异步加载文章列表&quot;</span><span class="p">,</span>
 </span><span class='line'>        <span class="s2">&quot;url&quot;</span><span class="o">:</span><span class="s2">&quot;http://chen.yanping.me/cn/blog/2012/10/10/asynchronous-loading-post-list-with-jekyll-and-jQuery/&quot;</span><span class="p">,</span>
 </span><span class='line'>        <span class="s2">&quot;date&quot;</span><span class="o">:</span><span class="s2">&quot;10 Oct 2012&quot;</span>
 </span><span class='line'>    <span class="p">},</span>
@@ -665,12 +663,6 @@ set LANG=en_US.UTF-8
 </span><span class='line'>        <span class="s2">&quot;title&quot;</span><span class="o">:</span><span class="s2">&quot;下一步学习的目标&quot;</span><span class="p">,</span>
 </span><span class='line'>        <span class="s2">&quot;url&quot;</span><span class="o">:</span><span class="s2">&quot;http://chen.yanping.me/cn/blog/2012/06/07/new-target/&quot;</span><span class="p">,</span>
 </span><span class='line'>        <span class="s2">&quot;date&quot;</span><span class="o">:</span><span class="s2">&quot;07 Jun 2012&quot;</span>
-</span><span class='line'>    <span class="p">},</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="p">{</span>
-</span><span class='line'>        <span class="s2">&quot;title&quot;</span><span class="o">:</span><span class="s2">&quot;用jekyll生成包含json变量的js脚本&quot;</span><span class="p">,</span>
-</span><span class='line'>        <span class="s2">&quot;url&quot;</span><span class="o">:</span><span class="s2">&quot;http://chen.yanping.me/cn/blog/2012/04/20/jekyll-with-js-and-json/&quot;</span><span class="p">,</span>
-</span><span class='line'>        <span class="s2">&quot;date&quot;</span><span class="o">:</span><span class="s2">&quot;20 Apr 2012&quot;</span>
 </span><span class='line'>    <span class="p">}</span>
 </span><span class='line'>
 </span><span class='line'><span class="p">]</span>
@@ -678,7 +670,7 @@ set LANG=en_US.UTF-8
 
 <h2 id="json-1">调用json</h2>
 
-<p>可以用ajax或jquery来调用json文件，后者更容易一些，这里给出一个例子，效果见我的<a href="http://chen.yanping.me">主页</a></p>
+<p>可以用ajax或jquery来调用json文件，后者更容易一些，这里给出一个例子，效果见我的<a href="http://yanping.me">主页</a></p>
 
 <p>```html
 &lt;div class="section" id="blog1-posts-list"&gt;
@@ -707,7 +699,7 @@ set LANG=en_US.UTF-8
 <p>别忘了加载jquery脚本，在我主页里是这句：</p>
 
 <p><code>html
-&lt;script src="http://chen.yanping.me/cn/files/js/jquery-1.7.1.min.js" type="text/javascript"&gt;&lt;/script&gt; 
+&lt;script src="http://yanping.me/cn/files/js/jquery-1.7.1.min.js" type="text/javascript"&gt;&lt;/script&gt; 
 </code></p>
 
 ]]></content>
@@ -715,9 +707,9 @@ set LANG=en_US.UTF-8
   
   <entry>
     <title type="html"><![CDATA[Github Pages极简教程]]></title>
-    <link href="http://chen.yanping.me/cn/blog/2012/03/18/github-pages-step-by-step/"/>
+    <link href="http://yanping.me/cn/blog/2012/03/18/github-pages-step-by-step/"/>
     <updated>2012-03-18T00:30:00+08:00</updated>
-    <id>http://chen.yanping.me/cn/blog/2012/03/18/github-pages-step-by-step</id>
+    <id>http://yanping.me/cn/blog/2012/03/18/github-pages-step-by-step</id>
     <content type="html"><![CDATA[<p>我写这篇文章的目的是帮助没有用过gihub和jekyll的童鞋尽快掌握使用流程。学习使用github网页的最好办法就是clone别人的代码，看懂他们的代码，并修改成自己喜欢的样子。这篇文章介绍了从最初安装软件到使用的过程。</p>
 
 <p>先假设读者对ruby完全没有了解，仅对html有初步的了解（<code>&lt;title&gt;</code>等标签知道是什么意思，如果懂点儿CSS更好）。基本的linux命令（<code>ls</code>、<code>cd</code>、<code>mkdir</code>、<code>rm</code>等，不会也没关系，就用到这几个命令，自己百度一下就好）。</p>
@@ -750,7 +742,7 @@ set LANG=en_US.UTF-8
 
 <p id="ruby"><strong>二、在windows下安装ruby环境</strong>。推荐安装<a href="http://railsinstaller.org/" target="_blank">RailsInstaller</a>，里面包含了<a href="http://ruby-lang.org/" target="_blank">Ruby</a>、<a href="http://rubyonrails.org/" target="_blank">Rails</a>、<a href="http://gembundler.com/" target="_blank">Bundler</a>、<a href="http://git-scm.com/" target="_blank">Git</a>、<a href="http://sqlite.org/" target="_blank">Sqlite</a>、<a href="https://github.com/rails-sqlserver/tiny_tds" target="_blank">TinyTDS</a>、<a href="https://github.com/rails-sqlserver/activerecord-sqlserver-adapter" target="_blank">SQL Server support</a>和<a href="https://github.com/oneclick/rubyinstaller/wiki/Development-Kit" target="_blank">DevKit</a>。</p>
 
-<p>不过最近的RailsInstaller里包含的ruby版本升到了1.9.3，如果以后要使用<a href="http://www.octopress.org" target="_blank">Octopress</a>的话必须使用ruby1.9.2，建议使用以前的版本，我把以前的版本放到了<a href="http://yanping.me/files/upload/railsinstaller-2.0.1.exe" target="_blank">这里</a>。</p>
+<p>不过最近的RailsInstaller里包含的ruby版本升到了1.9.3，如果以后要使用<a href="http://www.octopress.org" target="_blank">Octopress</a>的话必须使用ruby1.9.2，建议使用以前的版本，我把以前的版本放到了<a href="http://inwake.com/ypchen/files/upload/railsinstaller-2.0.1.exe" target="_blank">这里</a>。</p>
 
 <p><strong id="git-hub">三、紧接着上一步，配置git和github</strong></p>
 

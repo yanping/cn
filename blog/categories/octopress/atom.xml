@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[分类： octopress | 雁起平沙的网络日志]]></title>
-  <link href="http://chen.yanping.me/cn/blog/categories/octopress/atom.xml" rel="self"/>
-  <link href="http://chen.yanping.me/cn/"/>
-  <updated>2012-10-11T00:21:47+08:00</updated>
-  <id>http://chen.yanping.me/cn/</id>
+  <link href="http://yanping.me/cn/blog/categories/octopress/atom.xml" rel="self"/>
+  <link href="http://yanping.me/cn/"/>
+  <updated>2012-10-21T06:35:32+08:00</updated>
+  <id>http://yanping.me/cn/</id>
   <author>
     <name><![CDATA[ypchen]]></name>
     <email><![CDATA[chen@yanping.me]]></email>
@@ -14,188 +14,15 @@
 
   
   <entry>
-    <title type="html"><![CDATA[用jekyll和jQuery实现异步加载文章列表]]></title>
-    <link href="http://chen.yanping.me/cn/blog/2012/10/10/asynchronous-loading-post-list-with-jekyll-and-jQuery/"/>
-    <updated>2012-10-10T23:30:00+08:00</updated>
-    <id>http://chen.yanping.me/cn/blog/2012/10/10/asynchronous-loading-post-list-with-jekyll-and-jQuery</id>
-    <content type="html"><![CDATA[<p class="info">本文主要讨论如何用基于jQuery的插件waypoint，实现异步加载jekyll模板生成的json文件，生成文章列表。</p>
-
-<p>我在<a href="http://art.yanping.me/archives/">另一个博客的文章列表</a>里使用了异步加载的技术，不过直接看页面的html源代码是看不出来的。编译之前的代码在<a href="https://github.com/yanping/art/blob/gh-pages/archives/index.html">这里</a>。</p>
-
-<p>首先，生成文章列表数据的json模板是：</p>
-
-<p>```
-—
-layout: nil
-—</p>
-
-<p>[
-{% for post in site.posts %}
-  {“title”:”{{post.title}}”, 
-  “url”:”{{site.url}}{{post.url}}”, 
-  “date”:”{{ post.date | date:’%Y-%m-%d’ }}”, 
-  “tags”:[{% for tag in post.tags %}”{{tag}}”{% if forloop.last == false %} ,{% endif %}{% endfor %}]}
-  {% if forloop.last == false %},{% endif %}{% endfor %}
-]
-
-```</p>
-
-<p>这在前面的<a href="http://chen.yanping.me/cn/blog/2012/04/19/jekyll-with-json/">文章</a>里提到过。</p>
-
-<p>头部YAML数据部分：</p>
-
-<h2 id="yaml">```yaml</h2>
-<p>layout: default
-title: 全部文章
-initItem: 50
-perPageItem: 100
-—
-```</p>
-
-<p><code>initItem</code>是初始加载时显示的文章主题数，<code>perPageItem</code>是每次页面下拉到底部时读取json数据并新生成的文章主题数。</p>
-
-<p>初始加载网页时，文章主题列表是静态的html，由jekyll生成：</p>
-
-<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>&lt;/p>
-</span><span class='line'>
-</span><span class='line'>&lt;ul class="posts">
-</span><span class='line'>{% for post in site.posts limit:page.initItem %}
-</span><span class='line'>  &lt;li class="listing-item">
-</span><span class='line'>    &lt;time datetime="{{ post.date | date:"%Y-%m-%d" }}"&gt;{{ post.date | date:"%Y-%m-%d" }}
-</span><span class='line'>    &lt;a href="{{site.baseurl}}{{ post.url }}" title="{{ post.title }}">{{ post.title }}&lt;/a>
-</span><span class='line'>  &lt;/li>{% endfor %}
-</span><span class='line'>&lt;/ul>
-</span><span class='line'>
-</span><span class='line'>&lt;p></span></code></pre></td></tr></table></div></figure></notextile></div></p>
-
-<p>上面的<code>limit:page.initItem</code>限定了列表的项数不超过<code>initItem</code>。当向下拉页面，waypoint会捕捉到页面下拉到底部的事件，并调用<em>getJSON</em>方法来读取json数据，形成文章列表。</p>
-
-<!--more-->
-
-<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-<span class='line-number'>21</span>
-<span class='line-number'>22</span>
-<span class='line-number'>23</span>
-<span class='line-number'>24</span>
-<span class='line-number'>25</span>
-<span class='line-number'>26</span>
-<span class='line-number'>27</span>
-<span class='line-number'>28</span>
-<span class='line-number'>29</span>
-<span class='line-number'>30</span>
-<span class='line-number'>31</span>
-<span class='line-number'>32</span>
-<span class='line-number'>33</span>
-<span class='line-number'>34</span>
-<span class='line-number'>35</span>
-<span class='line-number'>36</span>
-<span class='line-number'>37</span>
-<span class='line-number'>38</span>
-<span class='line-number'>39</span>
-<span class='line-number'>40</span>
-<span class='line-number'>41</span>
-<span class='line-number'>42</span>
-<span class='line-number'>43</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>&lt;/p>
-</span><span class='line'>
-</span><span class='line'>&lt;p>{% if site.posts.size &gt; page.initItem %}
-</span><span class='line'>&lt;script src="http://chen.yanping.me/cn/js/jquery-1.7.1.min.js" type="text/javascript" charset="utf-8">
-</span><span class='line'>&lt;/script>
-</span><span class='line'>&lt;script src="http://chen.yanping.me/cn/js/waypoints.min.js" type="text/javascript">
-</span><span class='line'>&lt;/script>
-</span><span class='line'>&lt;script type="text/javascript">
-</span><span class='line'>  $(document).ready(function() {
-</span><span class='line'>    // 关于waypoint，请看 http://imakewebthings.com/jquery-waypoints/
-</span><span class='line'>    var $loading = $("&lt;div class='loading' style='text-align:center'&gt;&lt;img src="http://chen.yanping.me/cn/images/loading.gif" />&lt;/div&gt;"),
-</span><span class='line'>    $footer = $('footer'),
-</span><span class='line'>    opts = {
-</span><span class='line'>      offset: '100%'
-</span><span class='line'>    };&lt;/script>&lt;/p>
-</span><span class='line'>
-</span><span class='line'>&lt;pre>&lt;code>var count = {{ page.initItem }}; // 初始文章数
-</span><span class='line'>var count_sup = 0; // 循环上界，初始为0
-</span><span class='line'>$footer.waypoint(function(event, direction) {
-</span><span class='line'>  $footer.waypoint('remove');
-</span><span class='line'>  $('.posts').append($loading);
-</span><span class='line'>  $.getJSON("../post.json", function(data) {
-</span><span class='line'>    var content = "";
-</span><span class='line'>    count_sup = count + {{ page.perPageItem }}; // 循环上界每次增加page.perPageItem项
-</span><span class='line'>    var delta = 0; // 局部计数器
-</span><span class='line'>    $.each(data,
-</span><span class='line'>    function(i, item) {
-</span><span class='line'>      if (i &gt;= count &amp; i &lt; count_sup) {
-</span><span class='line'>        content += "&lt;li class='listing-item'&gt;&lt;time datetime='" + item.date + "'&gt;" + item.date + "&lt;/time&gt;";
-</span><span class='line'>        content += "&lt;a href='" + item.url + "' title='" + item.title + "'&gt;" + item.title + "&lt;/a&gt;&lt;/li&gt;";
-</span><span class='line'>        delta++;
-</span><span class='line'>      }
-</span><span class='line'>    });
-</span><span class='line'>    count += delta;
-</span><span class='line'>    $('div.loading').remove();
-</span><span class='line'>    $(".posts").append(content);
-</span><span class='line'>    if (count &lt; data.length) $footer.waypoint(opts);
-</span><span class='line'>  });
-</span><span class='line'>},
-</span><span class='line'>opts);   }); &lt;/script&gt; {% endif %}
-</span><span class='line'>&lt;/code>&lt;/pre>
-</span><span class='line'>
-</span><span class='line'>&lt;p></span></code></pre></td></tr></table></div></figure></notextile></div></p>
-
-<p>关于这段代码，要注意以下几点：</p>
-
-<ol>
-  <li>上面的代码一开始有个判断语句，当文章数不大于<code>initItem</code>时，后面的js代码不会进入最终生成的html中。</li>
-  <li>充分利用Liquid模板的特性，在js代码中，也引用了Liquid模板数据<code>{{ page.initItem }}</code>和<code>{{ page.perPageItem }}</code></li>
-  <li><code>.getJSON()</code>读取数据形成列表之后，语句</li>
-</ol>
-
-<p><code>
- if (count &lt; data.length) $footer.waypoint(opts);
-</code></p>
-
-<p>是要判断已经加载的文章主题数是否到达总数，如果比总数小，就会在新的底部<code>$footer</code>上注册为<em>waypoint</em>，然后再向下拉页面，到达底部还会触发事件，然后接着读取数据，直到数据已经读取完毕。</p>
-]]></content>
-  </entry>
-  
-  <entry>
     <title type="html"><![CDATA[用jekyll生成包含json变量的js脚本]]></title>
-    <link href="http://chen.yanping.me/cn/blog/2012/04/20/jekyll-with-js-and-json/"/>
+    <link href="http://yanping.me/cn/blog/2012/04/20/jekyll-with-js-and-json/"/>
     <updated>2012-04-20T23:58:00+08:00</updated>
-    <id>http://chen.yanping.me/cn/blog/2012/04/20/jekyll-with-js-and-json</id>
+    <id>http://yanping.me/cn/blog/2012/04/20/jekyll-with-js-and-json</id>
     <content type="html"><![CDATA[<p class="info">本文主要讨论如何用jekyll模板生成含有json数据的javascript脚本，并以此解决跨域读取json数据的问题。</p>
 
-<p><a href="http://chen.yanping.me/cn/blog/2012/04/19/jekyll-with-json/">前一篇文章</a>提到用getJSON读取json文件，并以此动态更新页面，但只能读取同域的json文件，据说是出于安全性的考虑。</p>
+<p><a href="http://yanping.me/cn/blog/2012/04/19/jekyll-with-json/">前一篇文章</a>提到用getJSON读取json文件，并以此动态更新页面，但只能读取同域的json文件，据说是出于安全性的考虑。</p>
 
-<p>现在问题出来了，我除了前文提到的三个网站以外，还有个<a href="http://yanping.me">主页的镜像网站</a>，它存放在美国的一位师兄的服务器上，和那三个网站肯定不同域，如果我要让它和github上的<a href="http://chen.yanping.me">主页</a>始终保持一致，又不想每次手动修改博客文章列表，也不能再使用feedsky了。因为feedsky除了慢之外，生成的列表样式也和网站风格不一致。</p>
+<p>现在问题出来了，我除了前文提到的三个网站以外，还有个<a href="http://inwake.com/ypchen">主页的镜像网站</a>，它存放在美国的一位师兄的服务器上，和那三个网站肯定不同域，如果我要让它和github上的<a href="http://yanping.me">主页</a>始终保持一致，又不想每次手动修改博客文章列表，也不能再使用feedsky了。因为feedsky除了慢之外，生成的列表样式也和网站风格不一致。</p>
 
 <!--more-->
 
@@ -364,6 +191,11 @@ perPageItem: 100
 </span><span class='line'>	<span class="kd">var</span> <span class="nx">post</span> <span class="o">=</span> <span class="p">{</span>
 </span><span class='line'>	<span class="s2">&quot;list&quot;</span><span class="o">:</span><span class="p">[{</span>
 </span><span class='line'>		<span class="s2">&quot;title&quot;</span><span class="o">:</span><span class="s2">&quot;用jekyll和jQuery实现异步加载文章列表&quot;</span><span class="p">,</span>
+</span><span class='line'>		    <span class="s2">&quot;url&quot;</span><span class="o">:</span><span class="s2">&quot;http://chen.yanping.me/cn/blog/2012/10/10/new-post/&quot;</span><span class="p">,</span>
+</span><span class='line'>		    <span class="s2">&quot;date&quot;</span><span class="o">:</span><span class="s2">&quot;10 Oct 2012&quot;</span>
+</span><span class='line'>		<span class="p">},</span>
+</span><span class='line'>	<span class="p">{</span>
+</span><span class='line'>		<span class="s2">&quot;title&quot;</span><span class="o">:</span><span class="s2">&quot;用jekyll和jQuery实现异步加载文章列表&quot;</span><span class="p">,</span>
 </span><span class='line'>		    <span class="s2">&quot;url&quot;</span><span class="o">:</span><span class="s2">&quot;http://chen.yanping.me/cn/blog/2012/10/10/asynchronous-loading-post-list-with-jekyll-and-jQuery/&quot;</span><span class="p">,</span>
 </span><span class='line'>		    <span class="s2">&quot;date&quot;</span><span class="o">:</span><span class="s2">&quot;10 Oct 2012&quot;</span>
 </span><span class='line'>		<span class="p">},</span>
@@ -381,11 +213,6 @@ perPageItem: 100
 </span><span class='line'>		<span class="s2">&quot;title&quot;</span><span class="o">:</span><span class="s2">&quot;下一步学习的目标&quot;</span><span class="p">,</span>
 </span><span class='line'>		    <span class="s2">&quot;url&quot;</span><span class="o">:</span><span class="s2">&quot;http://chen.yanping.me/cn/blog/2012/06/07/new-target/&quot;</span><span class="p">,</span>
 </span><span class='line'>		    <span class="s2">&quot;date&quot;</span><span class="o">:</span><span class="s2">&quot;07 Jun 2012&quot;</span>
-</span><span class='line'>		<span class="p">},</span>
-</span><span class='line'>	<span class="p">{</span>
-</span><span class='line'>		<span class="s2">&quot;title&quot;</span><span class="o">:</span><span class="s2">&quot;用jekyll生成包含json变量的js脚本&quot;</span><span class="p">,</span>
-</span><span class='line'>		    <span class="s2">&quot;url&quot;</span><span class="o">:</span><span class="s2">&quot;http://chen.yanping.me/cn/blog/2012/04/20/jekyll-with-js-and-json/&quot;</span><span class="p">,</span>
-</span><span class='line'>		    <span class="s2">&quot;date&quot;</span><span class="o">:</span><span class="s2">&quot;20 Apr 2012&quot;</span>
 </span><span class='line'>		<span class="p">}</span>
 </span><span class='line'>	
 </span><span class='line'>	<span class="p">]};</span>
@@ -414,7 +241,7 @@ perPageItem: 100
 <pre><code>&lt;script src="http://chen.yanping.me/cn/posts.js" type="text/javascript"&gt;&lt;/script&gt; ```
 </code></pre>
 
-<p>读者可以自行比较<a href="http://yanpimg.me">http://yanpimg.me</a>和<a href="http://yanping.me/json-demo">http://yanping.me/json-demo</a>的差别。</p>
+<p>读者可以自行比较<a href="http://inwake.com/ypchen">http://inwake.com/ypchen</a>和<a href="http://inwake.com/ypchen/json-demo">http://inwake.com/ypchen/json-demo</a>的差别。</p>
 
 <h2 id="section">第二种方法</h2>
 
@@ -481,11 +308,11 @@ perPageItem: 100
 &lt;/script&gt; ```
 </code></pre>
 
-<p>我尝试了几种json数据的定义形式，<a href="http://yanping.me/json-demo/2.html">示例1</a>、<a href="http://yanping.me/json-demo/3.html">示例2</a>、<a href="http://yanping.me/json-demo/4.html">示例3</a>和<a href="http://yanping.me/json-demo/5.html">示例4</a>，只有最后一种没有办法完成调用，这是因为数据的读取和使用分别在两个<code>&lt;script&gt;</code>标签里，数据必须定义成全局变量才能在后面被引用。</p>
+<p>我尝试了几种json数据的定义形式，<a href="http://inwake.com/ypchen/json-demo/2.html">示例1</a>、<a href="http://inwake.com/ypchen/json-demo/3.html">示例2</a>、<a href="http://inwake.com/ypchen/json-demo/4.html">示例3</a>和<a href="http://inwake.com/ypchen/json-demo/5.html">示例4</a>，只有最后一种没有办法完成调用，这是因为数据的读取和使用分别在两个<code>&lt;script&gt;</code>标签里，数据必须定义成全局变量才能在后面被引用。</p>
 
 <h2 id="section-1">进一步思考</h2>
 
-<p>在同域的情况下，服务端生成json数据，在客户端用getJSON读取json文件，我们称之为<strong>方法一</strong>，这是<a href="http://chen.yanping.me/cn/blog/2012/04/19/jekyll-with-json/">前一篇文章</a>讲的方法;在跨域的情况下，服务端生成包含json变量的js脚本，然后再在客户端链接这个外部的js脚本，这种方法我们称之为<strong>方法二</strong>。</p>
+<p>在同域的情况下，服务端生成json数据，在客户端用getJSON读取json文件，我们称之为<strong>方法一</strong>，这是<a href="http://yanping.me/cn/blog/2012/04/19/jekyll-with-json/">前一篇文章</a>讲的方法;在跨域的情况下，服务端生成包含json变量的js脚本，然后再在客户端链接这个外部的js脚本，这种方法我们称之为<strong>方法二</strong>。</p>
 
 <p>本文在使用<strong>方法二</strong>时，如果服务端和客户端分别由两个人维护的话，客户端的维护者只能被动接受。幸好我们有github，github的口号是social coding，有人翻译成社会化编程，我偏向于翻译成社交编程。想想我们在facebook、人人网这样的社交网络都干些什么，我们在那上面上发布状态、上传图片，告诉朋友以及路过的陌生人我们都做了什么、心情如何、拍了什么照片，上班时大家很喜欢挂人人，刷新鲜事；而在github上，coder们晒出自己的代码，可以关注别的coder和感兴趣的项目，登录github可以看到大家的“新鲜事”：某某创建了个什么代码库、做了什么修改，你可以亲眼看到别人的项目从最初的雏形发展成一个完美的项目，可以给别人的代码留言，报告bug，也可以fork别人的代码，根据自己的喜好做修改，如果有好的主意，可以给原作者发个pull request，作者要是也同样喜欢，就会加到自己的代码里。</p>
 
@@ -496,18 +323,18 @@ perPageItem: 100
   
   <entry>
     <title type="html"><![CDATA[用jekyll生成json]]></title>
-    <link href="http://chen.yanping.me/cn/blog/2012/04/19/jekyll-with-json/"/>
+    <link href="http://yanping.me/cn/blog/2012/04/19/jekyll-with-json/"/>
     <updated>2012-04-19T22:30:00+08:00</updated>
-    <id>http://chen.yanping.me/cn/blog/2012/04/19/jekyll-with-json</id>
+    <id>http://yanping.me/cn/blog/2012/04/19/jekyll-with-json</id>
     <content type="html"><![CDATA[<p class="info">本文主要讨论如何用jekyll模板生成json，并以此整合在github上托管的不同网站的数据。</p>
 
 <p>从去年年底接触github和jekyll到现在已经折腾五个月了，从最初用github托管纯静态网站，到现在依照别人的网站构架修改成自己喜欢的样子，这个过程也是个不断学习的过程。</p>
 
-<p>我在github上有三个网站，一个是<a href="http://chen.yanping.me">主页</a>，一个<a href="http://chen.yanping.me/cn">技术博客</a>，最后一个是<a href="http://art.yanping.me">文艺博客</a>。现在有个问题是，这三个网站对应的是github上三个不同的代码库，如果我要在<a href="http://chen.yanping.me">主页</a>上列出另两个网站的文章列表，不能用jekyll提供的函数来做到，jekyll只能操作一个代码库的文本，不能跨代码库。我之前用的一个方法是用feedsky提供的发布脚本，效果请看<a href="http://yanping.me/json-demo">http://yanping.me/json-demo</a>。这样的缺点是很显然的，一是加载速度慢，二是我们没办法控制列表的格式和样式。有没有更直接的解决方法呢？</p>
+<p>我在github上有三个网站，一个是<a href="http://yanping.me">主页</a>，一个<a href="http://yanping.me/cn">技术博客</a>，最后一个是<a href="http://art.yanping.me">文艺博客</a>。现在有个问题是，这三个网站对应的是github上三个不同的代码库，如果我要在<a href="http://yanping.me">主页</a>上列出另两个网站的文章列表，不能用jekyll提供的函数来做到，jekyll只能操作一个代码库的文本，不能跨代码库。我之前用的一个方法是用feedsky提供的发布脚本，效果请看<a href="http://inwake.com/ypchen/json-demo">http://inwake.com/ypchen/json-demo</a>。这样的缺点是很显然的，一是加载速度慢，二是我们没办法控制列表的格式和样式。有没有更直接的解决方法呢？</p>
 
 <!--more-->
 
-<p>我看到在很多jekyll的博客里，都能自动生成rss.xml和atom.xml，其实说白了，只要是本文文件，jekyll都能用模板操作。后来我听说了json，听说可以用jquery调用json，既然jekyll可以操作本文，那么可不可以用jekyll来生成我们规定格式的json文件呢？例如在<a href="http://chen.yanping.me/cn">技术博客</a>和<a href="http://art.yanping.me">文艺博客</a>各生成一个包含文章信息的json文件，再用jquery或ajax来调用。这里面涉及到一个是否跨域的问题，一开始我只能确定<a href="http://chen.yanping.me">主页</a>和<a href="http://chen.yanping.me/cn">技术博客</a>是同域的，可我忘了<a href="http://art.yanping.me">文艺博客</a>的真正地址是<a href="http://yanping.github.com/art">http://yanping.github.com/art</a>，或者说是<a href="http://chen.yanping.me/art">http://chen.yanping.me/art</a>，<a href="http://artn.yanping.me/">http://artn.yanping.me/</a>只不过是我后来给它绑定的域名，还特定用了javascript来限定了只能用这个域名访问，因为用前两个地址访问都显示不正常（关于这点，请看<a href="http://chen.yanping.me/cn/blog/2012/02/06/github-pages-domain-3/">这里</a>）。所以说，只要是在同一个github账户下建立的网站，它们就是同域的。</p>
+<p>我看到在很多jekyll的博客里，都能自动生成rss.xml和atom.xml，其实说白了，只要是本文文件，jekyll都能用模板操作。后来我听说了json，听说可以用jquery调用json，既然jekyll可以操作本文，那么可不可以用jekyll来生成我们规定格式的json文件呢？例如在<a href="http://yanping.me/cn">技术博客</a>和<a href="http://art.yanping.me">文艺博客</a>各生成一个包含文章信息的json文件，再用jquery或ajax来调用。这里面涉及到一个是否跨域的问题，一开始我只能确定<a href="http://yanping.me">主页</a>和<a href="http://yanping.me/cn">技术博客</a>是同域的，可我忘了<a href="http://art.yanping.me">文艺博客</a>的真正地址是<a href="http://yanping.github.com/art">http://yanping.github.com/art</a>，或者说是<a href="http://chen.yanping.me/art">http://chen.yanping.me/art</a>，<a href="http://artn.yanping.me/">http://artn.yanping.me/</a>只不过是我后来给它绑定的域名，还特定用了javascript来限定了只能用这个域名访问，因为用前两个地址访问都显示不正常（关于这点，请看<a href="http://chen.yanping.me/cn/blog/2012/02/06/github-pages-domain-3/">这里</a>）。所以说，只要是在同一个github账户下建立的网站，它们就是同域的。</p>
 
 <h2 id="json">生成json</h2>
 
@@ -588,6 +415,12 @@ perPageItem: 100
 </pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="p">[</span>
 </span><span class='line'>    <span class="p">{</span>
 </span><span class='line'>        <span class="s2">&quot;title&quot;</span><span class="o">:</span><span class="s2">&quot;用jekyll和jQuery实现异步加载文章列表&quot;</span><span class="p">,</span>
+</span><span class='line'>        <span class="s2">&quot;url&quot;</span><span class="o">:</span><span class="s2">&quot;http://chen.yanping.me/cn/blog/2012/10/10/new-post/&quot;</span><span class="p">,</span>
+</span><span class='line'>        <span class="s2">&quot;date&quot;</span><span class="o">:</span><span class="s2">&quot;10 Oct 2012&quot;</span>
+</span><span class='line'>    <span class="p">},</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>        <span class="s2">&quot;title&quot;</span><span class="o">:</span><span class="s2">&quot;用jekyll和jQuery实现异步加载文章列表&quot;</span><span class="p">,</span>
 </span><span class='line'>        <span class="s2">&quot;url&quot;</span><span class="o">:</span><span class="s2">&quot;http://chen.yanping.me/cn/blog/2012/10/10/asynchronous-loading-post-list-with-jekyll-and-jQuery/&quot;</span><span class="p">,</span>
 </span><span class='line'>        <span class="s2">&quot;date&quot;</span><span class="o">:</span><span class="s2">&quot;10 Oct 2012&quot;</span>
 </span><span class='line'>    <span class="p">},</span>
@@ -608,12 +441,6 @@ perPageItem: 100
 </span><span class='line'>        <span class="s2">&quot;title&quot;</span><span class="o">:</span><span class="s2">&quot;下一步学习的目标&quot;</span><span class="p">,</span>
 </span><span class='line'>        <span class="s2">&quot;url&quot;</span><span class="o">:</span><span class="s2">&quot;http://chen.yanping.me/cn/blog/2012/06/07/new-target/&quot;</span><span class="p">,</span>
 </span><span class='line'>        <span class="s2">&quot;date&quot;</span><span class="o">:</span><span class="s2">&quot;07 Jun 2012&quot;</span>
-</span><span class='line'>    <span class="p">},</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="p">{</span>
-</span><span class='line'>        <span class="s2">&quot;title&quot;</span><span class="o">:</span><span class="s2">&quot;用jekyll生成包含json变量的js脚本&quot;</span><span class="p">,</span>
-</span><span class='line'>        <span class="s2">&quot;url&quot;</span><span class="o">:</span><span class="s2">&quot;http://chen.yanping.me/cn/blog/2012/04/20/jekyll-with-js-and-json/&quot;</span><span class="p">,</span>
-</span><span class='line'>        <span class="s2">&quot;date&quot;</span><span class="o">:</span><span class="s2">&quot;20 Apr 2012&quot;</span>
 </span><span class='line'>    <span class="p">}</span>
 </span><span class='line'>
 </span><span class='line'><span class="p">]</span>
@@ -621,7 +448,7 @@ perPageItem: 100
 
 <h2 id="json-1">调用json</h2>
 
-<p>可以用ajax或jquery来调用json文件，后者更容易一些，这里给出一个例子，效果见我的<a href="http://chen.yanping.me">主页</a></p>
+<p>可以用ajax或jquery来调用json文件，后者更容易一些，这里给出一个例子，效果见我的<a href="http://yanping.me">主页</a></p>
 
 <p>```html
 &lt;div class="section" id="blog1-posts-list"&gt;
@@ -650,7 +477,7 @@ perPageItem: 100
 <p>别忘了加载jquery脚本，在我主页里是这句：</p>
 
 <p><code>html
-&lt;script src="http://chen.yanping.me/cn/files/js/jquery-1.7.1.min.js" type="text/javascript"&gt;&lt;/script&gt; 
+&lt;script src="http://yanping.me/cn/files/js/jquery-1.7.1.min.js" type="text/javascript"&gt;&lt;/script&gt; 
 </code></p>
 
 ]]></content>
@@ -658,9 +485,9 @@ perPageItem: 100
   
   <entry>
     <title type="html"><![CDATA[我的Octopress样式表]]></title>
-    <link href="http://chen.yanping.me/cn/blog/2012/03/12/my-style-list/"/>
+    <link href="http://yanping.me/cn/blog/2012/03/12/my-style-list/"/>
     <updated>2012-03-12T22:16:00+08:00</updated>
-    <id>http://chen.yanping.me/cn/blog/2012/03/12/my-style-list</id>
+    <id>http://yanping.me/cn/blog/2012/03/12/my-style-list</id>
     <content type="html"><![CDATA[<p><code>/sass/custom/_styles.scss</code>里是用户自己定义的样式，我在博客里添加了表格、脚注、提示框等样式，本文作为备忘，博客每次更新本文会自动更新，这也是用octopress博客的好处，我不过是在博客里插入下面两段代码：</p>
 
 <p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
@@ -1029,9 +856,9 @@ perPageItem: 100
   
   <entry>
     <title type="html"><![CDATA[在Octopress中使用LaTeX]]></title>
-    <link href="http://chen.yanping.me/cn/blog/2012/03/10/octopress-with-latex/"/>
+    <link href="http://yanping.me/cn/blog/2012/03/10/octopress-with-latex/"/>
     <updated>2012-03-10T10:30:00+08:00</updated>
-    <id>http://chen.yanping.me/cn/blog/2012/03/10/octopress-with-latex</id>
+    <id>http://yanping.me/cn/blog/2012/03/10/octopress-with-latex</id>
     <content type="html"><![CDATA[<p>这个博客的主题定位为数量金融、统计与R语言，但一直以来我都没写什么金融和统计的文章，估计很多看官都误以为我是程序猿。最初我列了个书单，计划有哪些书要读要翻译的，包括<em>Implementing Models in Quantitative Finance</em>、<em>Statistics and Data Analysis for Financial Engineering</em>和<em>Option Pricing and Estimation of Financial Models with R</em>。除了没时间开始以外，还有个原因是折腾完octopress之后也没去折腾如何在octopress中插入公式。估计ruby的程序猿很少会用到数学公式吧，对<em>LaTeX</em>的支持很有限，但是我等数学文艺青年的博客里怎能没有数学公式呢？</p>
 
 <p>热心网友Sinosmond推荐使用kramdown以尽量减少往markdown中插入html代码，接着我发现此物非常强大，连<em>LaTeX</em>都支持。昨晚使用了一下，现在把心得记录于此。</p>
@@ -1201,6 +1028,69 @@ gem install kramdown
 
 <h2 id="section-2">参考资料</h2>
 <p><a href="http://steshaw.org/blog/2012/02/09/hello-mathjax/">http://steshaw.org/blog/2012/02/09/hello-mathjax/</a> 解决了右键点击公式网页消失的问题。</p>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[给博客侧边栏添加近期评论]]></title>
+    <link href="http://yanping.me/cn/blog/2012/02/07/comment-sidebar/"/>
+    <updated>2012-02-07T14:56:00+08:00</updated>
+    <id>http://yanping.me/cn/blog/2012/02/07/comment-sidebar</id>
+    <content type="html"><![CDATA[<p class="info">
+在我翻译的<a href="http://chen.yanping.me/cn/blog/2012/01/07/theming-and-customization/" target="_blank">为Octopress修改主题和自定义样式</a>一文后面，Eric Lau问我如何在博客侧边栏显示近期评论。本文就是针对这一问题的简短教程。
+</p>
+
+<h2 id="disquscom">第一步：在disqus.com获取代码</h2>
+<p>登录到disqus.com，选择评论所在的网站，进入Admin，选择Tools，在code中，是<strong>Extra Widgets</strong>的代码，提供了几种Widgets插件，分别是Combination（组合式）、Recent Comments（近期评论）、 Popular Threads（热门话题）、Top Commenters（最近评论人）。该工具可以根据用户设置的参数生成代码。</p>
+
+<p><img src="/images/blog/12-02-07/tools-setting.png"> </p>
+
+<!-- more -->
+
+<h2 id="octopress">第二步：把代码添加到octopress</h2>
+<p>按照<a href="http://chen.yanping.me/cn/blog/2012/01/07/theming-and-customization/" target="_blank">为Octopress修改主题和自定义样式</a>一文的描述，在sidebar里添加一个section，比如叫做recent_comments.html，代码如下：</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>recent_comments.html (../source/_includes/custom/asides/recent_comments.html) </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='html'><span class='line'><span class="nt">&lt;section</span> <span class="na">id=</span><span class="s">&quot;comment_sidebar&quot;</span><span class="nt">&gt;</span>
+</span><span class='line'><span class="nt">&lt;h1&gt;</span>近期评论<span class="nt">&lt;/h1&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="nt">&lt;script </span><span class="na">type=</span><span class="s">&quot;text/javascript&quot;</span> <span class="na">src=</span><span class="s">&quot;http://ypchencn.disqus.com/recent_comments_widget.js?num_items=5&amp;hide_avatars=0&amp;avatar_size=32&amp;excerpt_length=20&quot;</span><span class="nt">&gt;&lt;/script&gt;&lt;a</span> <span class="na">href=</span><span class="s">&quot;http://disqus.com/&quot;</span><span class="nt">&gt;</span>Powered by Disqus<span class="nt">&lt;/a&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="nt">&lt;/section&gt;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<h2 id="configyml">第三步：修改_config.yml</h2>
+<p>按照<a href="http://chen.yanping.me/cn/blog/2012/01/07/theming-and-customization/" target="_blank">为Octopress修改主题和自定义样式</a>一文的描述，修改_config.yml，以决定评论插件出现的位置。</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>Sidebar configuration (_config.yml) </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+</pre></td><td class='code'><pre><code class='yaml'><span class='line'><span class="c1"># list each of the sidebar modules you want to include, in the order you want them to appear.</span>
+</span><span class='line'><span class="c1"># To add custom asides, create files in /source/_includes/custom/asides/ and add them to the list like ‘custom/asides/custom_aside_name.html’</span>
+</span><span class='line'><span class="l-Scalar-Plain">default_asides</span><span class="p-Indicator">:</span>     <span class="p-Indicator">[</span><span class="nv">asides/recent_posts.html</span><span class="p-Indicator">,</span> <span class="nv">custom/asides/recent_comments.html</span><span class="p-Indicator">,</span> <span class="nv">custom/asides/blogroll.html</span><span class="p-Indicator">,</span><span class="nv">custom/asides/weibo.html</span><span class="p-Indicator">,</span> <span class="nv">custom/asides/copyleft.html</span><span class="p-Indicator">,</span><span class="nv">custom/asides/feed.html</span><span class="p-Indicator">]</span><span class="l-Scalar-Plain">&lt;/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="l-Scalar-Plain">&lt;h1 id=&quot;each-layout-uses-the-default-asides-but-they-can-have-their-own-asides-instead-simply-uncomment-the-lines-below&quot;&gt;Each layout uses the default asides, but they can have their own asides instead. Simply uncomment the lines below&lt;/h1&gt;</span>
+</span><span class='line'><span class="l-Scalar-Plain">&lt;p&gt;# and add an array with the asides you want to use.&lt;/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="l-Scalar-Plain">&lt;p&gt;blog_index_asides</span><span class="p-Indicator">:</span>  <span class="p-Indicator">[</span><span class="nv">custom/asides/about.html</span><span class="p-Indicator">,</span> <span class="nv">asides/recent_posts.html</span><span class="p-Indicator">,</span> <span class="nv">custom/asides/recent_comments.html</span><span class="p-Indicator">,</span> <span class="nv">custom/asides/blogroll.html</span><span class="p-Indicator">,</span> <span class="nv">custom/asides/weibo.html</span><span class="p-Indicator">,</span> <span class="nv">custom/asides/copyleft.html</span><span class="p-Indicator">,</span> <span class="nv">custom/asides/feed.html</span><span class="p-Indicator">]</span>
+</span><span class='line'><span class="l-Scalar-Plain">post_asides</span><span class="p-Indicator">:</span>        <span class="p-Indicator">[</span><span class="nv">asides/recent_posts.html</span><span class="p-Indicator">,</span> <span class="nv">custom/asides/recent_comments.html</span><span class="p-Indicator">,</span> <span class="nv">custom/asides/blogroll.html</span><span class="p-Indicator">,</span> <span class="nv">custom/asides/weibo.html</span><span class="p-Indicator">,</span> <span class="nv">custom/asides/copyleft.html</span><span class="p-Indicator">,</span> <span class="nv">custom/asides/feed.html</span><span class="p-Indicator">]</span>
+</span><span class='line'><span class="c1"># page_asides:</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
 ]]></content>
   </entry>

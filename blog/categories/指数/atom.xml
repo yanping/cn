@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[分类： 指数 | 雁起平沙的网络日志]]></title>
-  <link href="http://chen.yanping.me/cn/blog/categories/指数/atom.xml" rel="self"/>
-  <link href="http://chen.yanping.me/cn/"/>
-  <updated>2012-10-11T00:21:47+08:00</updated>
-  <id>http://chen.yanping.me/cn/</id>
+  <link href="http://yanping.me/cn/blog/categories/指数/atom.xml" rel="self"/>
+  <link href="http://yanping.me/cn/"/>
+  <updated>2012-10-21T06:35:32+08:00</updated>
+  <id>http://yanping.me/cn/</id>
   <author>
     <name><![CDATA[ypchen]]></name>
     <email><![CDATA[chen@yanping.me]]></email>
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[指数方法论入门]]></title>
-    <link href="http://chen.yanping.me/cn/blog/2012/03/30/the-abcs-of-index-methodologies/"/>
+    <link href="http://yanping.me/cn/blog/2012/03/30/the-abcs-of-index-methodologies/"/>
     <updated>2012-03-30T19:50:00+08:00</updated>
-    <id>http://chen.yanping.me/cn/blog/2012/03/30/the-abcs-of-index-methodologies</id>
+    <id>http://yanping.me/cn/blog/2012/03/30/the-abcs-of-index-methodologies</id>
     <content type="html"><![CDATA[<p class="info">本文译自道琼斯指数公司的<a href="http://blog.djindexes.com">指数学博客</a>，原文地址：<a href="http://blog.djindexes.com/index.php/the-abcs-of-index-methodologies/">http://blog.djindexes.com/index.php/the-abcs-of-index-methodologies/</a></p>
 
 <p>如果我们研究各类市场指数，一个关键的信息来源就是指数的“方法论”。首先，这一文档解释了如何挑选股票（或其它金融工具）进入指数，以及指数是如何计算的。读完指数的方法论，你就会判断出该指数是否精准地度量你想跟踪的市场、资产、策略或者行业板块，也可以了解到该指数对你的实际应用中有多适合。</p>
