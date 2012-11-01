@@ -1,0 +1,3 @@
+<blahtex>
+<error><id>UnrecognisedCommand</id><arg>\begin{align*}</arg><message>Unrecognised command "\begin{align*}"</message></error>
+</blahtex>

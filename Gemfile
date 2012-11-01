@@ -1,4 +1,4 @@
-source "http://rubygems.org"
+source "http://ruby.taobao.org/"
 
 group :development do
   gem 'rake'
@@ -12,6 +12,7 @@ group :development do
   gem 'rubypants'
   gem 'rb-fsevent'
   gem 'stringex'
+  gem 'json'
   gem 'liquid', '2.2.2'
 end
 

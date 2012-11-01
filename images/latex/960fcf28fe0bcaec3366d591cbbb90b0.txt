@@ -1,0 +1,3 @@
+<blahtex>
+<error><id>UnexpectedNextCell</id><message>The command "&amp;" may only appear inside a "\begin ... \end" block</message></error>
+</blahtex>

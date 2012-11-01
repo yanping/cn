@@ -2,10 +2,10 @@
 #      Main Configs       #
 # ----------------------- #
 
-url: http://yoursite.com
-title: My Octopress Blog
-subtitle: A blogging framework for hackers.
-author: Your Name
+url: http://yanping.me/cn
+title: 雁起平沙的网络日志
+subtitle: 数量金融与R
+author: ypchen
 simple_search: http://google.com/search
 
 # Default date format is "ordinal" (resulting in "July 22nd 2007")
@@ -15,49 +15,83 @@ simple_search: http://google.com/search
 date_format: "ordinal"
 
 # RSS / Email (optional) subscription links (change if using something like Feedburner)
-subscribe_rss: /atom.xml
-subscribe_email:
+subscribe_rss: /cn/atom.xml
+subscribe_email: 
 # RSS feeds can list your email address if you like
-email:
+email: chen@yanping.me
 
 # ----------------------- #
 #    Jekyll & Plugins     #
 # ----------------------- #
 
 # If publishing to a subdirectory as in http://site.com/project set 'root: /project'
-root: /
+root: /cn
 permalink: /blog/:year/:month/:day/:title/
 source: source
-destination: public
+destination: public/cn
 plugins: plugins
 code_dir: downloads/code
+
 category_dir: blog/categories
-markdown: rdiscount
+category_title_prefix: "分类： "
+
+
+# markdown: rdiscount
+
+markdown: kramdown 
+
+#markdown: maruku
+
+# maruku:
+#    use_divs: true
+#    use_tex: true
+#    png_engine : blahtex
+#    png_dir    : images/latex/
+#    png_url    : /images/latex/
+
 pygments: false # default python pygments have been replaced by pygments.rb
 
-paginate: 10          # Posts per page on the blog index
+paginate: 7          # Posts per page on the blog index
 pagination_dir: blog  # Directory base for pagination URLs eg. /blog/page/2/
-recent_posts: 5       # Posts in the sidebar Recent Posts section
-excerpt_link: "Read on &rarr;"  # "Continue reading" link text at the bottom of excerpted articles
+recent_posts: 7       # Posts in the sidebar Recent Posts section
+excerpt_link: "阅读全文 &rarr;"  # "Continue reading" link text at the bottom of excerpted articles
 
 titlecase: true       # Converts page and post titles to tilecase
 
 # list each of the sidebar modules you want to include, in the order you want them to appear.
 # To add custom asides, create files in /source/_includes/custom/asides/ and add them to the list like 'custom/asides/custom_aside_name.html'
-default_asides: [asides/recent_posts.html, asides/github.html, asides/twitter.html, asides/delicious.html, asides/pinboard.html, asides/googleplus.html]
+default_asides:     [asides/categories_tag.html, asides/recent_posts.html, custom/asides/recent_comments.html, custom/asides/blogroll.html,custom/asides/weibo.html, custom/asides/copyleft.html,custom/asides/feed.html]
 
 # Each layout uses the default asides, but they can have their own asides instead. Simply uncomment the lines below
 # and add an array with the asides you want to use.
-# blog_index_asides:
-# post_asides:
+
+blog_index_asides:  [custom/asides/about.html, asides/categories_tag.html, asides/recent_posts.html, custom/asides/recent_comments.html, custom/asides/blogroll.html, custom/asides/weibo.html, custom/asides/copyleft.html, custom/asides/feed.html]
+post_asides:        [asides/categories_tag.html, asides/recent_posts.html, custom/asides/recent_comments.html, custom/asides/blogroll.html, custom/asides/weibo.html, custom/asides/copyleft.html, custom/asides/feed.html]
 # page_asides:
+
+# ----------------------- #
+#    Categories           #
+# ----------------------- #
+# create categories page
+category_list: true
+# use counter after categories
+category_counter: true
+# category title
+category_title: 分类目录
+# create an include categories list in @source/_includes/asides/categories_sidebar.html
+# and don't forget to add 'asides/categories_sidebar.html' into @default_asides if you want to enable it.
+category_sidebar: true
+# create an include categories tag cloud page in @source/_includes/asides/categories_tag.html
+# and don't forget to add 'asides/categories_tag.html' to @default_asides if you want to enable it.
+category_tag_cloud: true
 
 # ----------------------- #
 #   3rd Party Settings    #
 # ----------------------- #
 
+
 # Github repositories
-github_user:
+github_user: yanping
 github_repo_count: 0
 github_show_profile_link: true
 github_skip_forks: true
@@ -66,9 +100,9 @@ github_skip_forks: true
 twitter_user:
 twitter_tweet_count: 4
 twitter_show_replies: false
-twitter_follow_button: true
+twitter_follow_button: false
 twitter_show_follower_count: false
-twitter_tweet_button: true
+twitter_tweet_button: false
 
 # Google +1
 google_plus_one: false
@@ -88,11 +122,14 @@ delicious_user:
 delicious_count: 3
 
 # Disqus Comments
-disqus_short_name:
-disqus_show_comment_count: false
+disqus_short_name: ypchencn
+disqus_show_comment_count: true
 
 # Google Analytics
-google_analytics_tracking_id:
+google_analytics_tracking_id: UA-27377274-2
 
 # Facebook Like
 facebook_like: false
+
+# jiathis
+jiathis_button: true

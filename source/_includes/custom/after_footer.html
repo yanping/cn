@@ -1,0 +1,16 @@
+{% comment %}
+  Add content to be output at the bottom of each page. (You might use this for analytics scripts, for example)
+{% endcomment %}
+
+{% include google_analytics.html %}
+
+
+{% unless page.sharing == false %}
+	{% include custom/sharing_foot.html %}
+{% endunless %}
+
+{% include custom/mathjax_foot.html %}
+{% include custom/external-link.html %}
+
+
+

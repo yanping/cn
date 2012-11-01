@@ -1,0 +1,160 @@
+// This File is imported last, and will override other styles in the cascade
+// Add styles here to make changes without digging in too much
+
+/* 自定义的样式 */
+p,blockquote,ul,ol{margin-bottom: 0.618em}  /* 调整行距*/
+
+blockquote{
+	font-family:Arial, 楷体_GB2312, sans-serif;
+}
+
+/* 提示框样式 */
+
+.info, .warning{
+
+	border:none;
+	padding:0.6em 1.25em 0.6em 48px;
+	margin-top:0.25em;
+
+	-webkit-border-radius: 8px; 
+	-moz-border-radius: 8px; 
+	border-radius: 8px;
+	
+	-webkit-box-shadow: 0 4px 4px rgba(0, 0, 0, 0.3); 
+	-moz-box-shadow: 0 4px 4px rgba(0, 0, 0, 0.3); 
+	-box-shadow: 0 4px 4px rgba(0, 0, 0, 0.3);  
+}
+
+.info{
+	background:#d5e9f6 url(/cn/images/blog/tab_info.gif) no-repeat left top;
+}
+
+.warning{
+	background:#f9d9d8 url(/cn/images/blog/tab_red.gif) no-repeat left top;
+}
+
+
+
+/* -----表格样式----- */
+
+.datalist{
+    border:1px solid #007eff;
+    border-collapse:collapse;
+	margin: 20px auto 20px auto;
+	
+}
+
+.datalist caption{
+	font-weight:bold;
+	text-align:center;
+}
+
+.datalist th{
+    border:1px solid #429fff;
+    background-color:#d2e8ff;
+    font-weight:bold;
+    padding-top:4px;
+    padding-bottom:4px;
+    padding-left:10px;
+    padding-right:10px;
+    text-align:center;
+}
+
+.datalist td{
+      border:1px solid #429fff;
+      text-align:left;
+      padding:4px;
+}
+
+.datalist tr:hover{
+    background-color:#c4e4fe;
+}
+
+/* -------------- */
+
+.none-left-margin{
+    padding-left: 0;
+}
+
+
+
+/* -----侧边栏样式----- */
+
+#blogroll a{
+    text-decoration:none;
+    
+}
+
+#copyleft a{
+    text-decoration:none;
+}
+
+#comment_sidebar a{
+    text-decoration:none;
+}
+
+#comment_sidebar ul{
+    padding-left:0;
+}
+
+#categories_tag a{
+    text-decoration:none;
+    
+}
+
+
+
+/*--- 关于脚注 ---*/
+div.footnotes{
+	border-top: 1px dashed grey;
+	font-size: 0.8em;
+	
+}
+
+div.footnotes > ol:before{
+	margin-left: -20px;
+	content: "脚注： ";
+}
+
+.footnotes blockquote{
+	font-size: 0.8em;
+}
+
+a[rel="footnote"]:after{
+	content: "]";
+}
+
+a[rel="footnote"]:before{
+	content: "[";
+}
+
+a[rev="footnote"]:after{
+	content: "]";
+}
+
+a[rev="footnote"]:before{
+	content: "[";
+}
+
+/*--- 关于脚注结束 ---*/
+
+
+pre code{
+	color:#DDD;
+}
+
+
+div.showbox{
+	margin: 15px auto 15px auto;
+	background-color: white;
+	border: solid 1px black;
+	padding: 10px 10px 5px 10px;
+
+}
+
+div.sharing{
+	margin-bottom: 25px;
+}
+
+
+

@@ -1,0 +1,76 @@
+---
+layout: post
+title: "黑魔法利器pandoc"
+date: 2012-03-13 00:30
+comments: true
+categories: markdown
+description: 本文简要介绍pandoc
+keywords: pandoc, markdown
+---
+
+## pandoc是什么？ ## 
+
+如果你需要把文件从一种标记语言格式转换到另一种格式，[pandoc]{:target="_blank"}会是你的瑞士军刀。它可以把<a href="http://daringfireball.net/projects/markdown/">markdown</a>、 <a href="http://docutils.sourceforge.net/docs/ref/rst/introduction.html">reStructuredText</a>、 <a href="http://redcloth.org/textile">textile</a>、 <a href="http://www.w3.org/TR/html40/">HTML</a>、或者<a href="http://www.latex-project.org/">LaTeX</a>转换成：
+
+<ul>
+<li>HTML格式: XHTML, HTML5, 以及HTML幻灯片<a href="http://www.w3.org/Talks/Tools/Slidy">Slidy</a>， <a href="http://meyerweb.com/eric/tools/s5/">S5</a>，或者<a href="http://paulrouget.com/dzslides/">DZSlides</a>.</li>
+<li>文字处理软件格式： Microsoft Word <a href="http://www.microsoft.com/interop/openup/openxml/default.aspx">docx</a>, OpenOffice/LibreOffice <a href="http://en.wikipedia.org/wiki/OpenDocument">ODT</a>, <a href="http://opendocument.xml.org/">OpenDocument XML</a></li>
+<li>电子书： <a href="http://en.wikipedia.org/wiki/EPUB">EPUB</a></li>
+<li>文档格式： <a href="http://www.docbook.org/">DocBook</a>, <a href="http://www.gnu.org/software/texinfo/">GNU TexInfo</a>, <a href="http://www.gnu.org/software/groff/groff.html">Groff man</a> pages</li>
+<li>TeX格式： <a href="http://www.latex-project.org/">LaTeX</a>, <a href="http://www.pragma-ade.nl/">ConTeXt</a>, LaTeX Beamer slides</li>
+<li><a href="http://en.wikipedia.org/wiki/Portable_Document_Format">PDF</a> via LaTeX</li>
+<li>轻量级标记语言格式： <a href="http://daringfireball.net/projects/markdown/">Markdown</a>, <a href="http://docutils.sourceforge.net/docs/ref/rst/introduction.html">reStructuredText</a>, <a href="http://www.methods.co.nz/asciidoc/">AsciiDoc</a>, <a href="http://www.mediawiki.org/wiki/Help:Formatting">MediaWiki markup</a>, Emacs <a href="http://orgmode.org">Org-Mode</a>, <a href="http://redcloth.org/textile">Textile</a></li>
+</ul>
+
+<!--more-->
+
+## 如何安装 ##
+见<http://johnmacfarlane.net/pandoc/installing.html>{:target="_blank"}。
+
+需要注意的是，我在ubuntu下用命令`sudo apt-get install pandoc`安装[pandoc]{:target="_blank"}，发现并不能编译beamer
+
+	pandoc -t beamer talk.txt -o talk.pdf
+	pandoc: Unknown writer: beamer
+
+
+
+后来在ubuntu的问答网站发现了[答案]{:target="_blank"}
+
+	sudo apt-get autoremove pandoc
+	sudo apt-get install cabal-install
+	cabal update
+	cabal install pandoc
+
+
+然后再把`~/.cabal`加到路径中去，在`.bashrc`里加上一句
+
+```sh
+export PATH=/home/ypchen/.cabal/bin:$PATH
+```
+
+## 怎么用？ ##
+
+在官方网站的[示例]{:target="_blank"}中找了一个例子，修改了模板文件[mytemplate.tex](/downloads/code/2012/03/mytemplate.tex){:target="_blank"}，使它可以支持中文，然后用下面的命令编译[SLIDES.md](/downloads/code/2012/03/SLIDES.md){:target="_blank"}
+
+	pandoc -N --template=mytemplate.tex --variable version=1.9 SLIDES.md --latex-engine=xelatex --toc -o example14.pdf
+
+[示例]{:target="_blank"}页里还有很多别的例子，其中将markdown文件转换成网页的sldes非常吸引人
+
+<div markdown="1" class="showbox">
+pandoc -s --mathml -i -t dzslides <a href="http://johnmacfarlane.net/pandoc/demo/SLIDES" target="_blank">SLIDES</a> -o <a href="http://johnmacfarlane.net/pandoc/demo/example14a.html" target="_blank">example14a.html</a><br />
+pandoc -s --webtex -i -t slidy <a href="http://johnmacfarlane.net/pandoc/demo/SLIDES" target="_blank">SLIDES</a> -o <a href="http://johnmacfarlane.net/pandoc/demo/example14b.html" target="_blank">example14b.html</a><br />
+pandoc -s --webtex -t -t s5 <a href="http://johnmacfarlane.net/pandoc/demo/SLIDES" target="_blank">SLIDES</a> -o <a href="http://johnmacfarlane.net/pandoc/demo/example14c.html" target="_blank">example14c.html</a>
+</div>
+
+之前益辉就给出过一个[HTML5幻灯片的例子](http://yihui.name/cn/2011/11/html5-slides/){:target="_blank"}。人生苦短啊，不要把太多的时间和精力浪费在调格式上了。
+
+### 参考文章 ###
+* [pandoc介绍](http://stdio.tumblr.com/lightdoc){:target="_blank"}
+* [如何用markdown写简历](http://sysadvent.blogspot.com/2011/12/day-14-write-your-resume-in-markdown.html){:target="_blank"}
+* [如何用markdown写beamer幻灯片](http://www.music.mcgill.ca/~sinclair/content/blog/using_markdown_for_beamer_presentations){:target="_blank"}
+
+
+[pandoc]: http://johnmacfarlane.net/pandoc
+[答案]: http://askubuntu.com/questions/108138/pandoc-on-ubuntu-cant-use-beamer
+[示例]: http://johnmacfarlane.net/pandoc/demos.html
+

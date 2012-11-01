@@ -1,0 +1,3 @@
+<blahtex>
+<error><id>IllegalCommandInMathModeWithHint</id><arg>#</arg><arg>\#</arg><message>The command "#" is illegal in math mode (perhaps you intended to use "\#" instead?)</message></error>
+</blahtex>

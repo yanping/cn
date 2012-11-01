@@ -1,0 +1,3 @@
+<blahtex>
+<error><id>UnrecognisedCommand</id><arg>\LaTeX</arg><message>Unrecognised command "\LaTeX"</message></error>
+</blahtex>
