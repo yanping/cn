@@ -194,6 +194,172 @@
       
   <header>
     
+      <h1 class="entry-title"><a href="/cn/blog/2013/02/10/cntrade-r-version/">R语言版的cntrade程序</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-02-10T02:00:00+08:00" pubdate data-updated="true">Feb 10<span>th</span>, 2013</time>
+        
+         | <a href="/cn/blog/2013/02/10/cntrade-r-version/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p class="info">本文展示的是R语言版的cntrade程序</p>
+
+<p>李春涛和张璇两位老师写了个<a href="http://ideas.repec.org/c/boc/bocode/s457580.html">名叫cntrade的stata程序</a>，用来从网易财经网获取沪深两市股票日度行情数据。</p>
+
+<p>我用R重写了这个程序，请看：</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span> (cntrade.r)</span> <a href="/cn/downloads/code/cntrade.r">download</a></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+<span class="line-number">7</span>
+<span class="line-number">8</span>
+<span class="line-number">9</span>
+<span class="line-number">10</span>
+<span class="line-number">11</span>
+<span class="line-number">12</span>
+<span class="line-number">13</span>
+<span class="line-number">14</span>
+<span class="line-number">15</span>
+<span class="line-number">16</span>
+<span class="line-number">17</span>
+<span class="line-number">18</span>
+<span class="line-number">19</span>
+<span class="line-number">20</span>
+<span class="line-number">21</span>
+<span class="line-number">22</span>
+<span class="line-number">23</span>
+<span class="line-number">24</span>
+<span class="line-number">25</span>
+<span class="line-number">26</span>
+<span class="line-number">27</span>
+<span class="line-number">28</span>
+<span class="line-number">29</span>
+<span class="line-number">30</span>
+<span class="line-number">31</span>
+<span class="line-number">32</span>
+<span class="line-number">33</span>
+<span class="line-number">34</span>
+<span class="line-number">35</span>
+<span class="line-number">36</span>
+<span class="line-number">37</span>
+<span class="line-number">38</span>
+<span class="line-number">39</span>
+<span class="line-number">40</span>
+<span class="line-number">41</span>
+<span class="line-number">42</span>
+<span class="line-number">43</span>
+<span class="line-number">44</span>
+<span class="line-number">45</span>
+<span class="line-number">46</span>
+<span class="line-number">47</span>
+<span class="line-number">48</span>
+<span class="line-number">49</span>
+<span class="line-number">50</span>
+<span class="line-number">51</span>
+<span class="line-number">52</span>
+<span class="line-number">53</span>
+<span class="line-number">54</span>
+<span class="line-number">55</span>
+<span class="line-number">56</span>
+<span class="line-number">57</span>
+<span class="line-number">58</span>
+<span class="line-number">59</span>
+<span class="line-number">60</span>
+</pre></td><td class="code"><pre><code class="r"><span class="line"><span class="c1"># cntrade R语言版 </span>
+</span><span class="line"><span class="c1"># 作者：陈堰平（新华指数有限责任公司，chen@yanping.me） </span>
+</span><span class="line"><span class="c1"># 使用网易股票数据接口 原stata版的作者为：</span>
+</span><span class="line"><span class="c1">#   李春涛（中南财经政法大学，chtl@znufe.edu.cn） </span>
+</span><span class="line"><span class="c1">#   张璇（中南财经政法大学，zhangx@znufe.edu.cn） </span>
+</span><span class="line"><span class="c1"># example: </span>
+</span><span class="line"><span class="c1">#   cntrade(c(&#39;600000&#39;, &#39;000008&#39;), path =&#39;D:/stockprice&#39;, start = &#39;20010104&#39;, end = &#39;20120124&#39;)</span>
+</span><span class="line">
+</span><span class="line">cntrade <span class="o">&lt;-</span> <span class="kr">function</span><span class="p">(</span>tickers<span class="p">,</span> path <span class="o">=</span> <span class="s">&quot;&quot;</span><span class="p">,</span> start <span class="o">=</span> <span class="s">&quot;19910101&quot;</span><span class="p">,</span> end <span class="o">=</span> <span class="s">&quot;&quot;</span><span class="p">)</span> <span class="p">{</span>
+</span><span class="line">
+</span><span class="line">  address <span class="o">&lt;-</span> <span class="s">&quot;http://quotes.money.163.com/service/chddata.html&quot;</span>
+</span><span class="line">  field <span class="o">&lt;-</span> <span class="s">&quot;&amp;fields=TCLOSE;HIGH;LOW;TOPEN;LCLOSE;CHG;PCHG;TURNOVER;VOTURNOVER;VATURNOVER;TCAP;MCAP&quot;</span>
+</span><span class="line">
+</span><span class="line">  <span class="kr">if</span> <span class="p">(</span>path <span class="o">==</span> <span class="s">&quot;&quot;</span><span class="p">)</span> <span class="p">{</span>
+</span><span class="line">    path <span class="o">&lt;-</span> getwd<span class="p">()</span>
+</span><span class="line">  <span class="p">}</span>
+</span><span class="line">
+</span><span class="line">  <span class="kr">if</span> <span class="p">(</span>!file.exists<span class="p">(</span>path<span class="p">))</span> <span class="p">{</span>
+</span><span class="line">    dir.create<span class="p">(</span>path<span class="p">)</span>
+</span><span class="line">  <span class="p">}</span>
+</span><span class="line">
+</span><span class="line">  <span class="kr">if</span> <span class="p">(</span>substr<span class="p">(</span>path<span class="p">,</span> nchar<span class="p">(</span>path<span class="p">),</span> nchar<span class="p">(</span>path<span class="p">))</span> <span class="o">!=</span> <span class="s">&quot;/&quot;</span><span class="p">)</span> <span class="p">{</span>
+</span><span class="line">    path <span class="o">&lt;-</span> paste<span class="p">(</span>path<span class="p">,</span> <span class="s">&quot;/&quot;</span><span class="p">,</span> sep <span class="o">=</span> <span class="s">&quot;&quot;</span><span class="p">)</span>
+</span><span class="line">  <span class="p">}</span>
+</span><span class="line">
+</span><span class="line">  <span class="kr">if</span> <span class="p">(</span>end <span class="o">==</span> <span class="s">&quot;&quot;</span><span class="p">)</span> <span class="p">{</span>
+</span><span class="line">    year <span class="o">&lt;-</span> substr<span class="p">(</span>Sys.time<span class="p">(),</span> <span class="m">1</span><span class="p">,</span> <span class="m">4</span><span class="p">)</span>
+</span><span class="line">    month <span class="o">&lt;-</span> substr<span class="p">(</span>Sys.time<span class="p">(),</span> <span class="m">6</span><span class="p">,</span> <span class="m">7</span><span class="p">)</span>
+</span><span class="line">    day <span class="o">&lt;-</span> substr<span class="p">(</span>Sys.time<span class="p">(),</span> <span class="m">9</span><span class="p">,</span> <span class="m">10</span><span class="p">)</span>
+</span><span class="line">    end <span class="o">&lt;-</span> paste<span class="p">(</span>year<span class="p">,</span> month<span class="p">,</span> day<span class="p">,</span> sep <span class="o">=</span> <span class="s">&quot;&quot;</span><span class="p">)</span>
+</span><span class="line">  <span class="p">}</span>
+</span><span class="line">
+</span><span class="line">  count <span class="o">&lt;-</span> <span class="m">0</span>
+</span><span class="line">  <span class="kr">for</span> <span class="p">(</span>name in tickers<span class="p">)</span> <span class="p">{</span>
+</span><span class="line">    <span class="kr">while</span> <span class="p">(</span>nchar<span class="p">(</span>name<span class="p">)</span> <span class="o">&lt;</span> <span class="m">6</span><span class="p">)</span> <span class="p">{</span>
+</span><span class="line">      name <span class="o">&lt;-</span> paste<span class="p">(</span><span class="s">&quot;0&quot;</span><span class="p">,</span> name<span class="p">,</span> sep <span class="o">=</span> <span class="s">&quot;&quot;</span><span class="p">)</span>
+</span><span class="line">    <span class="p">}</span>
+</span><span class="line">
+</span><span class="line">    <span class="kr">if</span> <span class="p">(</span>nchar<span class="p">(</span>name<span class="p">)</span> <span class="o">&gt;</span> <span class="m">6</span><span class="p">)</span> <span class="p">{</span>
+</span><span class="line">      warning<span class="p">(</span>paste<span class="p">(</span><span class="s">&quot;invalid stock code: &quot;</span><span class="p">,</span> name<span class="p">,</span> sep <span class="o">=</span> <span class="s">&quot;&quot;</span><span class="p">))</span>
+</span><span class="line">      next
+</span><span class="line">    <span class="p">}</span>
+</span><span class="line">
+</span><span class="line">    <span class="kr">if</span> <span class="p">(</span>as.numeric<span class="p">(</span>name<span class="p">)</span> <span class="o">&gt;</span> <span class="m">600000</span><span class="p">)</span> <span class="p">{</span>
+</span><span class="line">      url <span class="o">&lt;-</span> paste<span class="p">(</span>address<span class="p">,</span> <span class="s">&quot;?code=0&quot;</span><span class="p">,</span> name<span class="p">,</span> <span class="s">&quot;&amp;start=&quot;</span><span class="p">,</span> start<span class="p">,</span> <span class="s">&quot;&amp;end=&quot;</span><span class="p">,</span> end<span class="p">,</span> field<span class="p">,</span> sep <span class="o">=</span> <span class="s">&quot;&quot;</span><span class="p">)</span>
+</span><span class="line">    <span class="p">}</span> <span class="kr">else</span> <span class="p">{</span>
+</span><span class="line">      url <span class="o">&lt;-</span> paste<span class="p">(</span>address<span class="p">,</span> <span class="s">&quot;?code=1&quot;</span><span class="p">,</span> name<span class="p">,</span> <span class="s">&quot;&amp;start=&quot;</span><span class="p">,</span> start<span class="p">,</span> <span class="s">&quot;&amp;end=&quot;</span><span class="p">,</span> end<span class="p">,</span> field<span class="p">,</span> sep <span class="o">=</span> <span class="s">&quot;&quot;</span><span class="p">)</span>
+</span><span class="line">    <span class="p">}</span>
+</span><span class="line">    destfile <span class="o">&lt;-</span> paste<span class="p">(</span>path<span class="p">,</span> name<span class="p">,</span> <span class="s">&quot;.csv&quot;</span><span class="p">,</span> sep <span class="o">=</span> <span class="s">&quot;&quot;</span><span class="p">)</span>
+</span><span class="line">    download.file<span class="p">(</span>url<span class="p">,</span> destfile<span class="p">,</span> quiet <span class="o">=</span> <span class="kc">TRUE</span><span class="p">)</span>
+</span><span class="line">    count <span class="o">&lt;-</span> count <span class="o">+</span> <span class="m">1</span>
+</span><span class="line">  <span class="p">}</span>
+</span><span class="line">
+</span><span class="line">  <span class="kr">if</span> <span class="p">(</span>count <span class="o">==</span> <span class="m">0</span><span class="p">)</span> <span class="p">{</span>
+</span><span class="line">    cat<span class="p">(</span><span class="s">&quot;一个数据文件都没下载下来！\n&quot;</span><span class="p">)</span>
+</span><span class="line">  <span class="p">}</span> <span class="kr">else</span> <span class="p">{</span>
+</span><span class="line">    cat<span class="p">(</span><span class="s">&quot;数据下载完成！\n&quot;</span><span class="p">)</span>
+</span><span class="line">    cat<span class="p">(</span>paste<span class="p">(</span><span class="s">&quot;共下载&quot;</span><span class="p">,</span> count<span class="p">,</span> <span class="s">&quot;个文件\n&quot;</span><span class="p">,</span> sep <span class="o">=</span> <span class="s">&quot;&quot;</span><span class="p">))</span>
+</span><span class="line">  <span class="p">}</span>
+</span><span class="line"><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
       <h1 class="entry-title"><a href="/cn/blog/2013/02/09/get-zce-data/">用R获取郑州商品交易所历史数据</a></h1>
     
     
@@ -644,55 +810,6 @@
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/cn/blog/2012/06/07/new-target/">下一步学习的目标</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2012-06-07T23:58:00+08:00" pubdate data-updated="true">Jun 7<span>th</span>, 2012</time>
-        
-         | <a href="/cn/blog/2012/06/07/new-target/#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>不给自己定太遥远的目标了，为了把R语言捡起来，为了把数量金融方面捡起来，我决定以 <em>Using SAS in Financial Research</em> 为蓝本，用R语言来实现每章的案例，来个 <em>Using R in Financial Research</em> 。涉及的案例有：</p>
-
-<ul>
-  <li>资产价格的随机游走理论：方差比率检验</li>
-  <li>谁是赢家谁是输家：使用R来检验过度反应假设</li>
-  <li>资本资产定价模型的实证检验：使用横截面方法</li>
-  <li>事件研究</li>
-  <li>价格-盈利关系的分析：关联类型研究方法</li>
-  <li>使用财务压力特征模型来预测破产</li>
-  <li>使用会计信息来预测市场绩效</li>
-  <li>交易数据的分析</li>
-</ul>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/cn/blog/page/2/">&larr; 前一页</a>
@@ -718,7 +835,7 @@
 
 <section id="categories_tag">
 <h1>分类目录</h1>
-<span class='categories_tag'> <a href='/cn/blog/categories/github' style='font-size: 146.66666666666666%'>Github(7)</a>  <a href='/cn/blog/categories/javascript' style='font-size: 126.66666666666667%'>Javascript(4)</a>  <a href='/cn/blog/categories/jekyll' style='font-size: 160.0%'>Jekyll(9)</a>  <a href='/cn/blog/categories/latex' style='font-size: 106.66666666666667%'>Latex(1)</a>  <a href='/cn/blog/categories/markdown' style='font-size: 106.66666666666667%'>Markdown(1)</a>  <a href='/cn/blog/categories/octopress' style='font-size: 153.33333333333334%'>Octopress(8)</a>  <a href='/cn/blog/categories/r语言' style='font-size: 153.33333333333334%'>R语言(8)</a>  <a href='/cn/blog/categories/指数' style='font-size: 106.66666666666667%'>指数(1)</a>  <a href='/cn/blog/categories/金融工程' style='font-size: 126.66666666666667%'>金融工程(4)</a> </span>
+<span class='categories_tag'> <a href='/cn/blog/categories/github' style='font-size: 146.66666666666666%'>Github(7)</a>  <a href='/cn/blog/categories/javascript' style='font-size: 126.66666666666667%'>Javascript(4)</a>  <a href='/cn/blog/categories/jekyll' style='font-size: 160.0%'>Jekyll(9)</a>  <a href='/cn/blog/categories/latex' style='font-size: 106.66666666666667%'>Latex(1)</a>  <a href='/cn/blog/categories/markdown' style='font-size: 106.66666666666667%'>Markdown(1)</a>  <a href='/cn/blog/categories/octopress' style='font-size: 153.33333333333334%'>Octopress(8)</a>  <a href='/cn/blog/categories/r语言' style='font-size: 160.0%'>R语言(9)</a>  <a href='/cn/blog/categories/指数' style='font-size: 106.66666666666667%'>指数(1)</a>  <a href='/cn/blog/categories/金融工程' style='font-size: 133.33333333333334%'>金融工程(5)</a> </span>
 </section>
 
 <section>
@@ -727,6 +844,10 @@
     
       <li class="post">
         <a href="/cn/blog/2013/02/10/get-data-from-flash/" title="用R获取flash中的数据">用R获取flash中的数据</a>
+      </li>
+    
+      <li class="post">
+        <a href="/cn/blog/2013/02/10/cntrade-r-version/" title="R语言版的cntrade程序">R语言版的cntrade程序</a>
       </li>
     
       <li class="post">
@@ -747,10 +868,6 @@
     
       <li class="post">
         <a href="/cn/blog/2012/06/10/palisade-training-course/" title="DecisionTools培训课程大纲">DecisionTools培训课程大纲</a>
-      </li>
-    
-      <li class="post">
-        <a href="/cn/blog/2012/06/07/new-target/" title="下一步学习的目标">下一步学习的目标</a>
       </li>
     
   </ul>

@@ -6,6 +6,11 @@ $(document).ready(function() {
 		    "date":"10 Feb 2013"
 		},
 	{
+		"title":"R语言版的cntrade程序",
+		    "url":"http://yanping.me/cn/blog/2013/02/10/cntrade-r-version/",
+		    "date":"10 Feb 2013"
+		},
+	{
 		"title":"用R获取郑州商品交易所历史数据",
 		    "url":"http://yanping.me/cn/blog/2013/02/09/get-zce-data/",
 		    "date":"09 Feb 2013"
@@ -19,11 +24,6 @@ $(document).ready(function() {
 		"title":"用jekyll和jQuery实现异步加载文章列表",
 		    "url":"http://yanping.me/cn/blog/2012/10/10/asynchronous-loading-post-list-with-jekyll-and-jQuery/",
 		    "date":"10 Oct 2012"
-		},
-	{
-		"title":"在Windows下使用jekyll如何避免出现中文字符集错误",
-		    "url":"http://yanping.me/cn/blog/2012/10/09/chinese-charset-problems-with-jekyll/",
-		    "date":"09 Oct 2012"
 		}
 	
 	]};

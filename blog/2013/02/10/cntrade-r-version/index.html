@@ -5,13 +5,12 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>定制R启动环境 - 雁起平沙的网络日志</title>
+  <title>R语言版的cntrade程序 - 雁起平沙的网络日志</title>
   <meta name="author" content="ypchen">
 
   
-  <meta name="description" content="本文翻译自R in Action的附录B，如果对该书感兴趣，请自行购买或去图书馆阅读。
-R导论的10.8也是讲定制环境的。 程序员最喜欢做的事之一是定制启动环境，好让程序按照他们喜欢方式工作。定制启动环境可以让你设置R的选项、指定工作目录、加载常用的包、加载用户自己写的函数、 &hellip;">
-  
+  <meta name="description" content="本文展示的是R语言版的cntrade程序">
+  <meta name="keywords" content="R语言, 金融数据, 金融工程">
 
   <!-- http://t.co/dKP3o1e -->
   <meta name="HandheldFriendly" content="True">
@@ -19,7 +18,7 @@ R导论的10.8也是讲定制环境的。 程序员最喜欢做的事之一是�
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://yanping.me/cn/blog/2012/01/09/customizing-the-startup-environment">
+  <link rel="canonical" href="http://yanping.me/cn/blog/2013/02/10/cntrade-r-version">
   <link href="/cn/favicon.png" rel="icon">
   <link href="/cn/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <script src="/cn/javascripts/modernizr-2.0.js"></script>
@@ -105,7 +104,7 @@ R导论的10.8也是讲定制环境的。 程序员最喜欢做的事之一是�
   
   <header>
     
-      <h1 class="entry-title">定制R启动环境</h1>
+      <h1 class="entry-title">R语言版的cntrade程序</h1>
     
     
       <p class="meta">
@@ -121,7 +120,7 @@ R导论的10.8也是讲定制环境的。 程序员最喜欢做的事之一是�
   
 
 
-<time datetime="2012-01-09T22:16:00+08:00" pubdate data-updated="true">Jan 9<span>th</span>, 2012</time>
+<time datetime="2013-02-10T02:00:00+08:00" pubdate data-updated="true">Feb 10<span>th</span>, 2013</time>
         
          | <a href="#disqus_thread">Comments</a>
         
@@ -130,22 +129,13 @@ R导论的10.8也是讲定制环境的。 程序员最喜欢做的事之一是�
   </header>
 
 
-<div class="entry-content"><p class="info">
-本文翻译自<a href="http://www.manning.com/kabacoff/" target="_blank">R in Action</a>的附录B，如果对该书感兴趣，请自行购买或去图书馆阅读。<br />
-R导论的10.8也是讲定制环境的。
-</p>
+<div class="entry-content"><p class="info">本文展示的是R语言版的cntrade程序</p>
 
-<p>程序员最喜欢做的事之一是定制启动环境，好让程序按照他们喜欢方式工作。定制启动环境可以让你设置R的选项、指定工作目录、加载常用的包、加载用户自己写的函数、设置CRAN下载网址以及其它操作。</p>
+<p>李春涛和张璇两位老师写了个<a href="http://ideas.repec.org/c/boc/bocode/s457580.html">名叫cntrade的stata程序</a>，用来从网易财经网获取沪深两市股票日度行情数据。</p>
 
-<p>你可以通过编辑位置位置初始化文件（Rprofile.site）或者目录初始化文件（.Rprofile）来定制R环境。这两个是纯文本文件，包含启动时要执行的R代码。</p>
+<p>我用R重写了这个程序，请看：</p>
 
-<!--more-->
-
-<p>在启动的时候，R会从<em>R_HOME</em>/etc这个目录寻找Rprofile.site来调用，其中 <em>R_HOME</em> 是环境变量。然后R会在当前工作目录寻找.Rprofile文件来调用。如果R没有找到这个文件，就会在用户的主目录寻找。你可以用<code>Sys.getenv("R_HOME")</code>、<code>Sys.getenv("HOME")</code>和<code>getwd()</code>分别查看<em>R_HOME</em> 、<em>HOME</em>以及当前工作目录。</p>
-
-<p>你可以在这些文件里放两个特殊的函数，<code>.First()</code>函数在启动R会话的时候执行，<code>.Last()</code>函数在结束会话的时候执行。Rprofile.site文件的例子如下：</p>
-
-<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span>Sample Rprofile.site file   </span></figcaption>
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span> (cntrade.r)</span> <a href="/cn/downloads/code/cntrade.r">download</a></figcaption>
  <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
 <span class="line-number">2</span>
 <span class="line-number">3</span>
@@ -178,50 +168,95 @@ R导论的10.8也是讲定制环境的。
 <span class="line-number">30</span>
 <span class="line-number">31</span>
 <span class="line-number">32</span>
-</pre></td><td class="code"><pre><code class="r"><span class="line"><span class="c1"># 设置常用选项</span>
-</span><span class="line">options<span class="p">(</span>papersize<span class="o">=</span><span class="s">&quot;a4&quot;</span><span class="p">)</span>
-</span><span class="line">options<span class="p">(</span>editor<span class="o">=</span><span class="s">&quot;notepad&quot;</span><span class="p">)</span>
-</span><span class="line">options<span class="p">(</span>pager<span class="o">=</span><span class="s">&quot;internal&quot;</span><span class="p">)</span>
-</span><span class="line">options<span class="p">(</span>tab.width <span class="o">=</span> <span class="m">2</span><span class="p">)</span>
-</span><span class="line">options<span class="p">(</span>width <span class="o">=</span> <span class="m">130</span><span class="p">)</span>
-</span><span class="line">options<span class="p">(</span>graphics.record<span class="o">=</span><span class="kc">TRUE</span><span class="p">)</span>
-</span><span class="line">options<span class="p">(</span>show.signif.stars<span class="o">=</span><span class="kc">FALSE</span><span class="p">)</span>
+<span class="line-number">33</span>
+<span class="line-number">34</span>
+<span class="line-number">35</span>
+<span class="line-number">36</span>
+<span class="line-number">37</span>
+<span class="line-number">38</span>
+<span class="line-number">39</span>
+<span class="line-number">40</span>
+<span class="line-number">41</span>
+<span class="line-number">42</span>
+<span class="line-number">43</span>
+<span class="line-number">44</span>
+<span class="line-number">45</span>
+<span class="line-number">46</span>
+<span class="line-number">47</span>
+<span class="line-number">48</span>
+<span class="line-number">49</span>
+<span class="line-number">50</span>
+<span class="line-number">51</span>
+<span class="line-number">52</span>
+<span class="line-number">53</span>
+<span class="line-number">54</span>
+<span class="line-number">55</span>
+<span class="line-number">56</span>
+<span class="line-number">57</span>
+<span class="line-number">58</span>
+<span class="line-number">59</span>
+<span class="line-number">60</span>
+</pre></td><td class="code"><pre><code class="r"><span class="line"><span class="c1"># cntrade R语言版 </span>
+</span><span class="line"><span class="c1"># 作者：陈堰平（新华指数有限责任公司，chen@yanping.me） </span>
+</span><span class="line"><span class="c1"># 使用网易股票数据接口 原stata版的作者为：</span>
+</span><span class="line"><span class="c1">#   李春涛（中南财经政法大学，chtl@znufe.edu.cn） </span>
+</span><span class="line"><span class="c1">#   张璇（中南财经政法大学，zhangx@znufe.edu.cn） </span>
+</span><span class="line"><span class="c1"># example: </span>
+</span><span class="line"><span class="c1">#   cntrade(c(&#39;600000&#39;, &#39;000008&#39;), path =&#39;D:/stockprice&#39;, start = &#39;20010104&#39;, end = &#39;20120124&#39;)</span>
 </span><span class="line">
-</span><span class="line"><span class="c1"># 设置R交互提示信息</span>
-</span><span class="line">options<span class="p">(</span>prompt<span class="o">=</span><span class="s">&quot;&gt; &quot;</span><span class="p">)</span>
-</span><span class="line">options<span class="p">(</span>continue<span class="o">=</span><span class="s">&quot;+ &quot;</span><span class="p">)</span>
+</span><span class="line">cntrade <span class="o">&lt;-</span> <span class="kr">function</span><span class="p">(</span>tickers<span class="p">,</span> path <span class="o">=</span> <span class="s">&quot;&quot;</span><span class="p">,</span> start <span class="o">=</span> <span class="s">&quot;19910101&quot;</span><span class="p">,</span> end <span class="o">=</span> <span class="s">&quot;&quot;</span><span class="p">)</span> <span class="p">{</span>
 </span><span class="line">
-</span><span class="line"><span class="m">.</span>libPaths<span class="p">(</span><span class="s">&quot;C:/my_R_library&quot;</span><span class="p">)</span> <span class="c1"># 设置包的本地库（library）路径</span>
+</span><span class="line">  address <span class="o">&lt;-</span> <span class="s">&quot;http://quotes.money.163.com/service/chddata.html&quot;</span>
+</span><span class="line">  field <span class="o">&lt;-</span> <span class="s">&quot;&amp;fields=TCLOSE;HIGH;LOW;TOPEN;LCLOSE;CHG;PCHG;TURNOVER;VOTURNOVER;VATURNOVER;TCAP;MCAP&quot;</span>
 </span><span class="line">
-</span><span class="line"><span class="c1"># 设置CRAN镜像默认地址</span>
-</span><span class="line">local<span class="p">({</span>r <span class="o">&lt;-</span> getOption<span class="p">(</span><span class="s">&quot;repos&quot;</span><span class="p">)</span>
-</span><span class="line">     r<span class="p">[</span><span class="s">&quot;CRAN&quot;</span><span class="p">]</span> <span class="o">&lt;-</span> <span class="s">&quot;http://cran.case.edu/&quot;</span>
-</span><span class="line">     options<span class="p">(</span>repos<span class="o">=</span>r<span class="p">)})</span>
+</span><span class="line">  <span class="kr">if</span> <span class="p">(</span>path <span class="o">==</span> <span class="s">&quot;&quot;</span><span class="p">)</span> <span class="p">{</span>
+</span><span class="line">    path <span class="o">&lt;-</span> getwd<span class="p">()</span>
+</span><span class="line">  <span class="p">}</span>
 </span><span class="line">
-</span><span class="line"><span class="c1"># 启动函数</span>
-</span><span class="line"><span class="m">.</span>First <span class="o">&lt;-</span> <span class="kr">function</span><span class="p">(){</span>
-</span><span class="line"> library<span class="p">(</span>lattice<span class="p">)</span>
-</span><span class="line"> library<span class="p">(</span>Hmisc<span class="p">)</span>
-</span><span class="line"> source<span class="p">(</span><span class="s">&quot;C:/mydir/myfunctions.R&quot;</span><span class="p">)</span>
-</span><span class="line"> cat<span class="p">(</span><span class="s">&quot;\nWelcome at&quot;</span><span class="p">,</span> date<span class="p">(),</span> <span class="s">&quot;\n&quot;</span><span class="p">)</span>
-</span><span class="line"><span class="p">}</span>
+</span><span class="line">  <span class="kr">if</span> <span class="p">(</span>!file.exists<span class="p">(</span>path<span class="p">))</span> <span class="p">{</span>
+</span><span class="line">    dir.create<span class="p">(</span>path<span class="p">)</span>
+</span><span class="line">  <span class="p">}</span>
 </span><span class="line">
-</span><span class="line"><span class="c1"># 会话结束函数</span>
-</span><span class="line"><span class="m">.</span>Last <span class="o">&lt;-</span> <span class="kr">function</span><span class="p">(){</span>
-</span><span class="line"> cat<span class="p">(</span><span class="s">&quot;\nGoodbye at &quot;</span><span class="p">,</span> date<span class="p">(),</span> <span class="s">&quot;\n&quot;</span><span class="p">)</span>
+</span><span class="line">  <span class="kr">if</span> <span class="p">(</span>substr<span class="p">(</span>path<span class="p">,</span> nchar<span class="p">(</span>path<span class="p">),</span> nchar<span class="p">(</span>path<span class="p">))</span> <span class="o">!=</span> <span class="s">&quot;/&quot;</span><span class="p">)</span> <span class="p">{</span>
+</span><span class="line">    path <span class="o">&lt;-</span> paste<span class="p">(</span>path<span class="p">,</span> <span class="s">&quot;/&quot;</span><span class="p">,</span> sep <span class="o">=</span> <span class="s">&quot;&quot;</span><span class="p">)</span>
+</span><span class="line">  <span class="p">}</span>
+</span><span class="line">
+</span><span class="line">  <span class="kr">if</span> <span class="p">(</span>end <span class="o">==</span> <span class="s">&quot;&quot;</span><span class="p">)</span> <span class="p">{</span>
+</span><span class="line">    year <span class="o">&lt;-</span> substr<span class="p">(</span>Sys.time<span class="p">(),</span> <span class="m">1</span><span class="p">,</span> <span class="m">4</span><span class="p">)</span>
+</span><span class="line">    month <span class="o">&lt;-</span> substr<span class="p">(</span>Sys.time<span class="p">(),</span> <span class="m">6</span><span class="p">,</span> <span class="m">7</span><span class="p">)</span>
+</span><span class="line">    day <span class="o">&lt;-</span> substr<span class="p">(</span>Sys.time<span class="p">(),</span> <span class="m">9</span><span class="p">,</span> <span class="m">10</span><span class="p">)</span>
+</span><span class="line">    end <span class="o">&lt;-</span> paste<span class="p">(</span>year<span class="p">,</span> month<span class="p">,</span> day<span class="p">,</span> sep <span class="o">=</span> <span class="s">&quot;&quot;</span><span class="p">)</span>
+</span><span class="line">  <span class="p">}</span>
+</span><span class="line">
+</span><span class="line">  count <span class="o">&lt;-</span> <span class="m">0</span>
+</span><span class="line">  <span class="kr">for</span> <span class="p">(</span>name in tickers<span class="p">)</span> <span class="p">{</span>
+</span><span class="line">    <span class="kr">while</span> <span class="p">(</span>nchar<span class="p">(</span>name<span class="p">)</span> <span class="o">&lt;</span> <span class="m">6</span><span class="p">)</span> <span class="p">{</span>
+</span><span class="line">      name <span class="o">&lt;-</span> paste<span class="p">(</span><span class="s">&quot;0&quot;</span><span class="p">,</span> name<span class="p">,</span> sep <span class="o">=</span> <span class="s">&quot;&quot;</span><span class="p">)</span>
+</span><span class="line">    <span class="p">}</span>
+</span><span class="line">
+</span><span class="line">    <span class="kr">if</span> <span class="p">(</span>nchar<span class="p">(</span>name<span class="p">)</span> <span class="o">&gt;</span> <span class="m">6</span><span class="p">)</span> <span class="p">{</span>
+</span><span class="line">      warning<span class="p">(</span>paste<span class="p">(</span><span class="s">&quot;invalid stock code: &quot;</span><span class="p">,</span> name<span class="p">,</span> sep <span class="o">=</span> <span class="s">&quot;&quot;</span><span class="p">))</span>
+</span><span class="line">      next
+</span><span class="line">    <span class="p">}</span>
+</span><span class="line">
+</span><span class="line">    <span class="kr">if</span> <span class="p">(</span>as.numeric<span class="p">(</span>name<span class="p">)</span> <span class="o">&gt;</span> <span class="m">600000</span><span class="p">)</span> <span class="p">{</span>
+</span><span class="line">      url <span class="o">&lt;-</span> paste<span class="p">(</span>address<span class="p">,</span> <span class="s">&quot;?code=0&quot;</span><span class="p">,</span> name<span class="p">,</span> <span class="s">&quot;&amp;start=&quot;</span><span class="p">,</span> start<span class="p">,</span> <span class="s">&quot;&amp;end=&quot;</span><span class="p">,</span> end<span class="p">,</span> field<span class="p">,</span> sep <span class="o">=</span> <span class="s">&quot;&quot;</span><span class="p">)</span>
+</span><span class="line">    <span class="p">}</span> <span class="kr">else</span> <span class="p">{</span>
+</span><span class="line">      url <span class="o">&lt;-</span> paste<span class="p">(</span>address<span class="p">,</span> <span class="s">&quot;?code=1&quot;</span><span class="p">,</span> name<span class="p">,</span> <span class="s">&quot;&amp;start=&quot;</span><span class="p">,</span> start<span class="p">,</span> <span class="s">&quot;&amp;end=&quot;</span><span class="p">,</span> end<span class="p">,</span> field<span class="p">,</span> sep <span class="o">=</span> <span class="s">&quot;&quot;</span><span class="p">)</span>
+</span><span class="line">    <span class="p">}</span>
+</span><span class="line">    destfile <span class="o">&lt;-</span> paste<span class="p">(</span>path<span class="p">,</span> name<span class="p">,</span> <span class="s">&quot;.csv&quot;</span><span class="p">,</span> sep <span class="o">=</span> <span class="s">&quot;&quot;</span><span class="p">)</span>
+</span><span class="line">    download.file<span class="p">(</span>url<span class="p">,</span> destfile<span class="p">,</span> quiet <span class="o">=</span> <span class="kc">TRUE</span><span class="p">)</span>
+</span><span class="line">    count <span class="o">&lt;-</span> count <span class="o">+</span> <span class="m">1</span>
+</span><span class="line">  <span class="p">}</span>
+</span><span class="line">
+</span><span class="line">  <span class="kr">if</span> <span class="p">(</span>count <span class="o">==</span> <span class="m">0</span><span class="p">)</span> <span class="p">{</span>
+</span><span class="line">    cat<span class="p">(</span><span class="s">&quot;一个数据文件都没下载下来！\n&quot;</span><span class="p">)</span>
+</span><span class="line">  <span class="p">}</span> <span class="kr">else</span> <span class="p">{</span>
+</span><span class="line">    cat<span class="p">(</span><span class="s">&quot;数据下载完成！\n&quot;</span><span class="p">)</span>
+</span><span class="line">    cat<span class="p">(</span>paste<span class="p">(</span><span class="s">&quot;共下载&quot;</span><span class="p">,</span> count<span class="p">,</span> <span class="s">&quot;个文件\n&quot;</span><span class="p">,</span> sep <span class="o">=</span> <span class="s">&quot;&quot;</span><span class="p">))</span>
+</span><span class="line">  <span class="p">}</span>
 </span><span class="line"><span class="p">}</span>
 </span></code></pre></td></tr></table></div></figure></notextile></div>
-
-<p>关于这个文件，你需要注意以下几点：</p>
-
-<ul>
-  <li>设置.libPaths值允许你在R的安装目录之外创建包的本地库。这再升级时很有用，可以保留之前安装的包。</li>
-  <li>设置CRAN镜像网站可以让你在使用<code>install.packages()</code>命令时不用每次都选择。</li>
-  <li><code>.First()</code>函数是一个很好的地方，来加载你常用的包，运行常用的用户编写的函数。</li>
-  <li><code>.Last()</code>函数一个很好的地方做清理活动，包括保存命令历史、程序输出和数据文件。</li>
-</ul>
-
-<p>还有其他定制启动环境的方式，包括使用命令行选项和环境变量。查看<code>help(Startup)</code>以及R导论的附录B（<a href="http://cran.r-project.org/doc/manuals/R-intro.pdf">http://cran.r-project.org/doc/manuals/R-intro.pdf</a>，中文版地址<a href="http://cran.r-project.org/doc/contrib/Ding-R-intro_cn.pdf">http://cran.r-project.org/doc/contrib/Ding-R-intro_cn.pdf</a>）获取更多细节。</p>
 
 </div>
 
@@ -245,13 +280,13 @@ R导论的10.8也是讲定制环境的。
   
 
 
-<time datetime="2012-01-09T22:16:00+08:00" pubdate data-updated="true">Jan 9<span>th</span>, 2012</time>
+<time datetime="2013-02-10T02:00:00+08:00" pubdate data-updated="true">Feb 10<span>th</span>, 2013</time>
       
 
 <span class="categories">
 	分类：
   
-    <a class='category' href='/cn/blog/categories/r语言/'>R语言</a>
+    <a class='category' href='/cn/blog/categories/r语言/'>R语言</a>, <a class='category' href='/cn/blog/categories/金融工程/'>金融工程</a>
   
 </span>
 
@@ -281,10 +316,10 @@ R导论的10.8也是讲定制环境的。
     
     <p class="meta">
       
-        <a class="basic-alignment left" href="/cn/blog/2012/01/07/theming-and-customization/" title="Previous Post: 为Octopress修改主题和自定义样式">&laquo; 为Octopress修改主题和自定义样式</a>
+        <a class="basic-alignment left" href="/cn/blog/2013/02/09/get-zce-data/" title="Previous Post: 用R获取郑州商品交易所历史数据">&laquo; 用R获取郑州商品交易所历史数据</a>
       
       
-        <a class="basic-alignment right" href="/cn/blog/2012/01/10/matrix-algebra-in-r/" title="next Post: R的矩阵代数">R的矩阵代数 &raquo;</a>
+        <a class="basic-alignment right" href="/cn/blog/2013/02/10/get-data-from-flash/" title="next Post: 用R获取flash中的数据">用R获取flash中的数据 &raquo;</a>
       
     </p>
   </footer>
@@ -412,8 +447,8 @@ R导论的10.8也是讲定制环境的。
       
         
         // var disqus_developer = 1;
-        var disqus_identifier = 'http://yanping.me/cn/blog/2012/01/09/customizing-the-startup-environment/';
-        var disqus_url = 'http://yanping.me/cn/blog/2012/01/09/customizing-the-startup-environment/';
+        var disqus_identifier = 'http://yanping.me/cn/blog/2013/02/10/cntrade-r-version/';
+        var disqus_url = 'http://yanping.me/cn/blog/2013/02/10/cntrade-r-version/';
         var disqus_script = 'embed.js';
       
     (function () {

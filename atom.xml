@@ -4,7 +4,7 @@
   <title><![CDATA[雁起平沙的网络日志]]></title>
   <link href="http://yanping.me/cn/atom.xml" rel="self"/>
   <link href="http://yanping.me/cn/"/>
-  <updated>2013-02-10T01:30:13+08:00</updated>
+  <updated>2013-02-10T01:48:08+08:00</updated>
   <id>http://yanping.me/cn/</id>
   <author>
     <name><![CDATA[ypchen]]></name>
@@ -66,6 +66,143 @@
 </span><span class="line">fddf<span class="p">[,</span><span class="m">2</span>:<span class="m">4</span><span class="p">]</span> <span class="o">&lt;-</span> sapply<span class="p">(</span>fddf<span class="p">[,</span><span class="m">2</span>:<span class="m">4</span><span class="p">],</span>as.numeric<span class="p">)</span>
 </span><span class="line">colnames<span class="p">(</span>fddf<span class="p">)</span> <span class="o">&lt;-</span> c<span class="p">(</span><span class="s">&quot;date&quot;</span><span class="p">,</span><span class="s">&quot;人民币名义有效汇率指数&quot;</span><span class="p">,</span><span class="s">&quot;人民币实际有效汇率指数&quot;</span><span class="p">,</span><span class="s">&quot;人民币盯住一篮子货币模拟汇率指数&quot;</span><span class="p">)</span>
 </span><span class="line">write.csv<span class="p">(</span>fddf<span class="p">,</span><span class="s">&quot;fudan.csv&quot;</span><span class="p">,</span>row.names <span class="o">=</span> <span class="k-Variable">F</span> <span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[R语言版的cntrade程序]]></title>
+    <link href="http://yanping.me/cn/blog/2013/02/10/cntrade-r-version/"/>
+    <updated>2013-02-10T02:00:00+08:00</updated>
+    <id>http://yanping.me/cn/blog/2013/02/10/cntrade-r-version</id>
+    <content type="html"><![CDATA[<p class="info">本文展示的是R语言版的cntrade程序</p>
+
+<p>李春涛和张璇两位老师写了个<a href="http://ideas.repec.org/c/boc/bocode/s457580.html">名叫cntrade的stata程序</a>，用来从网易财经网获取沪深两市股票日度行情数据。</p>
+
+<p>我用R重写了这个程序，请看：</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span> (cntrade.r)</span> <a href="http://yanping.me/cn/downloads/code/cntrade.r">download</a></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+<span class="line-number">7</span>
+<span class="line-number">8</span>
+<span class="line-number">9</span>
+<span class="line-number">10</span>
+<span class="line-number">11</span>
+<span class="line-number">12</span>
+<span class="line-number">13</span>
+<span class="line-number">14</span>
+<span class="line-number">15</span>
+<span class="line-number">16</span>
+<span class="line-number">17</span>
+<span class="line-number">18</span>
+<span class="line-number">19</span>
+<span class="line-number">20</span>
+<span class="line-number">21</span>
+<span class="line-number">22</span>
+<span class="line-number">23</span>
+<span class="line-number">24</span>
+<span class="line-number">25</span>
+<span class="line-number">26</span>
+<span class="line-number">27</span>
+<span class="line-number">28</span>
+<span class="line-number">29</span>
+<span class="line-number">30</span>
+<span class="line-number">31</span>
+<span class="line-number">32</span>
+<span class="line-number">33</span>
+<span class="line-number">34</span>
+<span class="line-number">35</span>
+<span class="line-number">36</span>
+<span class="line-number">37</span>
+<span class="line-number">38</span>
+<span class="line-number">39</span>
+<span class="line-number">40</span>
+<span class="line-number">41</span>
+<span class="line-number">42</span>
+<span class="line-number">43</span>
+<span class="line-number">44</span>
+<span class="line-number">45</span>
+<span class="line-number">46</span>
+<span class="line-number">47</span>
+<span class="line-number">48</span>
+<span class="line-number">49</span>
+<span class="line-number">50</span>
+<span class="line-number">51</span>
+<span class="line-number">52</span>
+<span class="line-number">53</span>
+<span class="line-number">54</span>
+<span class="line-number">55</span>
+<span class="line-number">56</span>
+<span class="line-number">57</span>
+<span class="line-number">58</span>
+<span class="line-number">59</span>
+<span class="line-number">60</span>
+</pre></td><td class="code"><pre><code class="r"><span class="line"><span class="c1"># cntrade R语言版 </span>
+</span><span class="line"><span class="c1"># 作者：陈堰平（新华指数有限责任公司，chen@yanping.me） </span>
+</span><span class="line"><span class="c1"># 使用网易股票数据接口 原stata版的作者为：</span>
+</span><span class="line"><span class="c1">#   李春涛（中南财经政法大学，chtl@znufe.edu.cn） </span>
+</span><span class="line"><span class="c1">#   张璇（中南财经政法大学，zhangx@znufe.edu.cn） </span>
+</span><span class="line"><span class="c1"># example: </span>
+</span><span class="line"><span class="c1">#   cntrade(c(&#39;600000&#39;, &#39;000008&#39;), path =&#39;D:/stockprice&#39;, start = &#39;20010104&#39;, end = &#39;20120124&#39;)</span>
+</span><span class="line">
+</span><span class="line">cntrade <span class="o">&lt;-</span> <span class="kr">function</span><span class="p">(</span>tickers<span class="p">,</span> path <span class="o">=</span> <span class="s">&quot;&quot;</span><span class="p">,</span> start <span class="o">=</span> <span class="s">&quot;19910101&quot;</span><span class="p">,</span> end <span class="o">=</span> <span class="s">&quot;&quot;</span><span class="p">)</span> <span class="p">{</span>
+</span><span class="line">
+</span><span class="line">  address <span class="o">&lt;-</span> <span class="s">&quot;http://quotes.money.163.com/service/chddata.html&quot;</span>
+</span><span class="line">  field <span class="o">&lt;-</span> <span class="s">&quot;&amp;fields=TCLOSE;HIGH;LOW;TOPEN;LCLOSE;CHG;PCHG;TURNOVER;VOTURNOVER;VATURNOVER;TCAP;MCAP&quot;</span>
+</span><span class="line">
+</span><span class="line">  <span class="kr">if</span> <span class="p">(</span>path <span class="o">==</span> <span class="s">&quot;&quot;</span><span class="p">)</span> <span class="p">{</span>
+</span><span class="line">    path <span class="o">&lt;-</span> getwd<span class="p">()</span>
+</span><span class="line">  <span class="p">}</span>
+</span><span class="line">
+</span><span class="line">  <span class="kr">if</span> <span class="p">(</span>!file.exists<span class="p">(</span>path<span class="p">))</span> <span class="p">{</span>
+</span><span class="line">    dir.create<span class="p">(</span>path<span class="p">)</span>
+</span><span class="line">  <span class="p">}</span>
+</span><span class="line">
+</span><span class="line">  <span class="kr">if</span> <span class="p">(</span>substr<span class="p">(</span>path<span class="p">,</span> nchar<span class="p">(</span>path<span class="p">),</span> nchar<span class="p">(</span>path<span class="p">))</span> <span class="o">!=</span> <span class="s">&quot;/&quot;</span><span class="p">)</span> <span class="p">{</span>
+</span><span class="line">    path <span class="o">&lt;-</span> paste<span class="p">(</span>path<span class="p">,</span> <span class="s">&quot;/&quot;</span><span class="p">,</span> sep <span class="o">=</span> <span class="s">&quot;&quot;</span><span class="p">)</span>
+</span><span class="line">  <span class="p">}</span>
+</span><span class="line">
+</span><span class="line">  <span class="kr">if</span> <span class="p">(</span>end <span class="o">==</span> <span class="s">&quot;&quot;</span><span class="p">)</span> <span class="p">{</span>
+</span><span class="line">    year <span class="o">&lt;-</span> substr<span class="p">(</span>Sys.time<span class="p">(),</span> <span class="m">1</span><span class="p">,</span> <span class="m">4</span><span class="p">)</span>
+</span><span class="line">    month <span class="o">&lt;-</span> substr<span class="p">(</span>Sys.time<span class="p">(),</span> <span class="m">6</span><span class="p">,</span> <span class="m">7</span><span class="p">)</span>
+</span><span class="line">    day <span class="o">&lt;-</span> substr<span class="p">(</span>Sys.time<span class="p">(),</span> <span class="m">9</span><span class="p">,</span> <span class="m">10</span><span class="p">)</span>
+</span><span class="line">    end <span class="o">&lt;-</span> paste<span class="p">(</span>year<span class="p">,</span> month<span class="p">,</span> day<span class="p">,</span> sep <span class="o">=</span> <span class="s">&quot;&quot;</span><span class="p">)</span>
+</span><span class="line">  <span class="p">}</span>
+</span><span class="line">
+</span><span class="line">  count <span class="o">&lt;-</span> <span class="m">0</span>
+</span><span class="line">  <span class="kr">for</span> <span class="p">(</span>name in tickers<span class="p">)</span> <span class="p">{</span>
+</span><span class="line">    <span class="kr">while</span> <span class="p">(</span>nchar<span class="p">(</span>name<span class="p">)</span> <span class="o">&lt;</span> <span class="m">6</span><span class="p">)</span> <span class="p">{</span>
+</span><span class="line">      name <span class="o">&lt;-</span> paste<span class="p">(</span><span class="s">&quot;0&quot;</span><span class="p">,</span> name<span class="p">,</span> sep <span class="o">=</span> <span class="s">&quot;&quot;</span><span class="p">)</span>
+</span><span class="line">    <span class="p">}</span>
+</span><span class="line">
+</span><span class="line">    <span class="kr">if</span> <span class="p">(</span>nchar<span class="p">(</span>name<span class="p">)</span> <span class="o">&gt;</span> <span class="m">6</span><span class="p">)</span> <span class="p">{</span>
+</span><span class="line">      warning<span class="p">(</span>paste<span class="p">(</span><span class="s">&quot;invalid stock code: &quot;</span><span class="p">,</span> name<span class="p">,</span> sep <span class="o">=</span> <span class="s">&quot;&quot;</span><span class="p">))</span>
+</span><span class="line">      next
+</span><span class="line">    <span class="p">}</span>
+</span><span class="line">
+</span><span class="line">    <span class="kr">if</span> <span class="p">(</span>as.numeric<span class="p">(</span>name<span class="p">)</span> <span class="o">&gt;</span> <span class="m">600000</span><span class="p">)</span> <span class="p">{</span>
+</span><span class="line">      url <span class="o">&lt;-</span> paste<span class="p">(</span>address<span class="p">,</span> <span class="s">&quot;?code=0&quot;</span><span class="p">,</span> name<span class="p">,</span> <span class="s">&quot;&amp;start=&quot;</span><span class="p">,</span> start<span class="p">,</span> <span class="s">&quot;&amp;end=&quot;</span><span class="p">,</span> end<span class="p">,</span> field<span class="p">,</span> sep <span class="o">=</span> <span class="s">&quot;&quot;</span><span class="p">)</span>
+</span><span class="line">    <span class="p">}</span> <span class="kr">else</span> <span class="p">{</span>
+</span><span class="line">      url <span class="o">&lt;-</span> paste<span class="p">(</span>address<span class="p">,</span> <span class="s">&quot;?code=1&quot;</span><span class="p">,</span> name<span class="p">,</span> <span class="s">&quot;&amp;start=&quot;</span><span class="p">,</span> start<span class="p">,</span> <span class="s">&quot;&amp;end=&quot;</span><span class="p">,</span> end<span class="p">,</span> field<span class="p">,</span> sep <span class="o">=</span> <span class="s">&quot;&quot;</span><span class="p">)</span>
+</span><span class="line">    <span class="p">}</span>
+</span><span class="line">    destfile <span class="o">&lt;-</span> paste<span class="p">(</span>path<span class="p">,</span> name<span class="p">,</span> <span class="s">&quot;.csv&quot;</span><span class="p">,</span> sep <span class="o">=</span> <span class="s">&quot;&quot;</span><span class="p">)</span>
+</span><span class="line">    download.file<span class="p">(</span>url<span class="p">,</span> destfile<span class="p">,</span> quiet <span class="o">=</span> <span class="kc">TRUE</span><span class="p">)</span>
+</span><span class="line">    count <span class="o">&lt;-</span> count <span class="o">+</span> <span class="m">1</span>
+</span><span class="line">  <span class="p">}</span>
+</span><span class="line">
+</span><span class="line">  <span class="kr">if</span> <span class="p">(</span>count <span class="o">==</span> <span class="m">0</span><span class="p">)</span> <span class="p">{</span>
+</span><span class="line">    cat<span class="p">(</span><span class="s">&quot;一个数据文件都没下载下来！\n&quot;</span><span class="p">)</span>
+</span><span class="line">  <span class="p">}</span> <span class="kr">else</span> <span class="p">{</span>
+</span><span class="line">    cat<span class="p">(</span><span class="s">&quot;数据下载完成！\n&quot;</span><span class="p">)</span>
+</span><span class="line">    cat<span class="p">(</span>paste<span class="p">(</span><span class="s">&quot;共下载&quot;</span><span class="p">,</span> count<span class="p">,</span> <span class="s">&quot;个文件\n&quot;</span><span class="p">,</span> sep <span class="o">=</span> <span class="s">&quot;&quot;</span><span class="p">))</span>
+</span><span class="line">  <span class="p">}</span>
+</span><span class="line"><span class="p">}</span>
 </span></code></pre></td></tr></table></div></figure></notextile></div>
 
 ]]></content>
@@ -982,7 +1119,7 @@
 </span><span class="line">	<span class="kd">var</span> <span class="nx">post</span> <span class="o">=</span> <span class="p">{</span>
 </span><span class="line">	<span class="s2">&quot;list&quot;</span><span class="o">:</span><span class="p">[{</span>
 </span><span class="line">		<span class="s2">&quot;title&quot;</span><span class="o">:</span><span class="s2">&quot;用R获取flash中的数据&quot;</span><span class="p">,</span>
-</span><span class="line">		    <span class="s2">&quot;url&quot;</span><span class="o">:</span><span class="s2">&quot;http://yanping.me/cn/blog/2013/02/10/get-fudan-currency-index-data/&quot;</span><span class="p">,</span>
+</span><span class="line">		    <span class="s2">&quot;url&quot;</span><span class="o">:</span><span class="s2">&quot;http://yanping.me/cn/blog/2013/02/10/get-data-from-flash/&quot;</span><span class="p">,</span>
 </span><span class="line">		    <span class="s2">&quot;date&quot;</span><span class="o">:</span><span class="s2">&quot;10 Feb 2013&quot;</span>
 </span><span class="line">		<span class="p">},</span>
 </span><span class="line">	<span class="p">{</span>
@@ -1225,7 +1362,7 @@
 </pre></td><td class="code"><pre><code class="javascript"><span class="line"><span class="p">[</span>
 </span><span class="line">    <span class="p">{</span>
 </span><span class="line">        <span class="s2">&quot;title&quot;</span><span class="o">:</span><span class="s2">&quot;用R获取flash中的数据&quot;</span><span class="p">,</span>
-</span><span class="line">        <span class="s2">&quot;url&quot;</span><span class="o">:</span><span class="s2">&quot;http://yanping.me/cn/blog/2013/02/10/get-fudan-currency-index-data/&quot;</span><span class="p">,</span>
+</span><span class="line">        <span class="s2">&quot;url&quot;</span><span class="o">:</span><span class="s2">&quot;http://yanping.me/cn/blog/2013/02/10/get-data-from-flash/&quot;</span><span class="p">,</span>
 </span><span class="line">        <span class="s2">&quot;date&quot;</span><span class="o">:</span><span class="s2">&quot;10 Feb 2013&quot;</span>
 </span><span class="line">    <span class="p">},</span>
 </span><span class="line">
@@ -2614,296 +2751,6 @@ R导论的10.8也是讲定制环境的。
 </ul>
 
 <p>还有其他定制启动环境的方式，包括使用命令行选项和环境变量。查看<code>help(Startup)</code>以及R导论的附录B（<a href="http://cran.r-project.org/doc/manuals/R-intro.pdf">http://cran.r-project.org/doc/manuals/R-intro.pdf</a>，中文版地址<a href="http://cran.r-project.org/doc/contrib/Ding-R-intro_cn.pdf">http://cran.r-project.org/doc/contrib/Ding-R-intro_cn.pdf</a>）获取更多细节。</p>
-
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[为Octopress修改主题和自定义样式]]></title>
-    <link href="http://yanping.me/cn/blog/2012/01/07/theming-and-customization/"/>
-    <updated>2012-01-07T21:16:00+08:00</updated>
-    <id>http://yanping.me/cn/blog/2012/01/07/theming-and-customization</id>
-    <content type="html"><![CDATA[<p class="info">
-本文翻译自Octopress的帮助文档<a href="http://octopress.org/docs/theme" target="_blank">Theming &amp; Customization</a>。
-本人水平有限，不当之处请指正，欢迎留言给出修改意见。
-</p>
-
-<p>Octopress在 <code>.themes</code> 目录提供了一个默认主题。当你安装Octopress时，HTML和Javascripts被复制到 <code>/source</code>，Sass样式表被复制到 <code>/sass</code>。
-你可以随意修改上述文件，不过我还是设计了一些模式，来让自定制变得更简单，更新Octopress更方便。</p>
-
-<p>本文分成两部分：</p>
-
-<ol>
-  <li><a href="http://yanping.me/cn/blog/2012/01/07/theming-and-customization/#theme">自定义模板</a> - <em>学习如何修改HEAD，sidebar，header，navigation 以及footer</em></li>
-  <li><a href="http://yanping.me/cn/blog/2012/01/07/theming-and-customization/#styles">修改样式</a> - <em>学习如何修改颜色和布局，控制样式</em></li>
-</ol>
-
-<!--more-->
-
-<h2 id="theme" style="font-size:32px;color:red;">1. 主题</h2>
-
-<p>不久前发布的 Octopress 2.0版增加了 <code>source/_includes/custom</code>目录。 如果你没有这个目录， 建议 <a href="http://octopress.org/docs/updating" target="_blank">升级</a> Octopress，因为它真的很棒。</p>
-
-<pre><code>source/
-  _includes/    # Main layout partials
-    custom/     # &lt;- Customize head, header, navigation, footer, and sidebar here
-    asides/     # Theme sidebar partials
-    post/       # post metadata, sharing &amp; comment partials
-  _layouts/     # layouts for pages, posts &amp; category archives
-</code></pre>
-
-<h2 id="landing_page">登录页 vs. 博客主页</h2>
-
-<p>Octopress默认地把博客主页生成在网站的根目录下。
-如果你想把你的博客主页发布在别的位置，比如 <code>blog/index.html</code>，那么请在终端里进行下面的操作：</p>
-
-<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span /></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
-<span class="line-number">2</span>
-</pre></td><td class="code"><pre><code class="sh"><span class="line">mv <span class="nb">source</span>/index.html <span class="nb">source</span>/blog/index.html
-</span><span class="line">rake new_page<span class="o">[</span>index.html<span class="o">]</span>
-</span></code></pre></td></tr></table></div></figure></notextile></div>
-
-<p>当你 <a href="http://octopress.org/docs/updating" target="_blank">更新Octopress</a>，下一步你要更新<code>Rakefile</code> ，以保证博客主页不被修改。</p>
-
-<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span /></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
-</pre></td><td class="code"><pre><code class="ruby"><span class="line"><span class="n">blog_index_dir</span> <span class="o">=</span> <span class="s1">&#39;source/blog&#39;</span>
-</span></code></pre></td></tr></table></div></figure></notextile></div>
-
-<p>记住修改网站的导航栏（navigation），因为现在博客链接指向<code>/</code>。跳到下面<a href="#changing_navigation">修改navigation</a>这节，添加“主页”链接，更新“博客”链接指向<code>/blog/</code>。</p>
-
-<p>最后，<code>source/index.html</code> 可以成为你网站的登录页（landing page）。
-## 修改 &lt;HEAD&gt;</p>
-
-<p>如果你想修改<code>&lt;HEAD&gt;</code>，请看一下 <code>/source/_includes/custom/head.html</code>。</p>
-
-<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span>&lt;HEAD&gt; (source/_includes/custom/head.html) </span></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
-<span class="line-number">2</span>
-<span class="line-number">3</span>
-<span class="line-number">4</span>
-<span class="line-number">5</span>
-<span class="line-number">6</span>
-<span class="line-number">7</span>
-</pre></td><td class="code"><pre><code class="html"><span class="line"><span class="c">&lt;!--Fonts from Google&quot;s Web font directory at http://google.com/webfonts --&gt;</span>
-</span><span class="line"><span class="nt">&lt;link</span> <span class="na">href=</span><span class="s">&quot;http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic&quot;</span> <span class="na">rel=</span><span class="s">&quot;stylesheet&quot;</span> <span class="na">type=</span><span class="s">&quot;text/css&quot;</span><span class="nt">&gt;</span>
-</span><span class="line"><span class="nt">&lt;link</span> <span class="na">href=</span><span class="s">&quot;http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic&quot;</span> <span class="na">rel=</span><span class="s">&quot;stylesheet&quot;</span> <span class="na">type=</span><span class="s">&quot;text/css&quot;</span><span class="nt">&gt;</span>
-</span><span class="line">
-</span><span class="line"><span class="nt">&lt;script </span><span class="na">src=</span><span class="s">&quot;/cn/javascripts/jquery-1.7.1.min.js&quot;</span> <span class="na">type=</span><span class="s">&quot;text/javascript&quot;</span><span class="nt">&gt;&lt;/script&gt;</span>
-</span><span class="line">
-</span><span class="line">	{% include custom/mathjax_head.html %}
-</span></code></pre></td></tr></table></div></figure></notextile></div>
-
-<p>在这里你可以轻易地修改或移除<a href="http://google.com/webfonts" target="_blank">Google Webfonts</a>，插入javascripts等等。</p>
-
-<h3 id="section">修改侧边栏</h3>
-<p>Octopress整合了一些<a href="http://www.octopress.org/docs/configuring/#third_party" target="_blank">第三方服务</a>，诸如出现在侧边栏的Twitter，Pinboard和Delicious。
-在<code>_config.yml</code>你可以重新安排它们的位置，为每种layout创建自定制的侧边栏，添加你自己的侧边栏section。</p>
-
-<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span>Sidebar configuration (_config.yml) </span></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
-<span class="line-number">2</span>
-<span class="line-number">3</span>
-<span class="line-number">4</span>
-</pre></td><td class="code"><pre><code class="yaml"><span class="line"><span class="l-Scalar-Plain">default_asides</span><span class="p-Indicator">:</span>   <span class="p-Indicator">[</span><span class="nv">asides/recent_posts.html</span><span class="p-Indicator">,</span> <span class="nv">asides/twitter.html</span><span class="p-Indicator">,</span> <span class="nv">asides/delicious.html</span><span class="p-Indicator">,</span> <span class="nv">asides/pinboard.html</span><span class="p-Indicator">]</span>
-</span><span class="line"><span class="c1"># blog_index_asides:</span>
-</span><span class="line"><span class="c1"># post_asides:</span>
-</span><span class="line"><span class="c1"># page_asides:</span>
-</span></code></pre></td></tr></table></div></figure></notextile></div>
-
-<p>如果你想在侧边栏添加新的section，就在 <code>source/_includes/custom/asides/</code>中创建新的文件。
-许多都会想在侧边栏加一个“关于我”的section，上面提到的这个目录下已经有个<code>about.html</code> 文件以供修改。内容如下：</p>
-
-<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span>About Me (source/_includes/custom/asides/about.html) </span></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
-<span class="line-number">2</span>
-<span class="line-number">3</span>
-<span class="line-number">4</span>
-</pre></td><td class="code"><pre><code class="html"><span class="line"><span class="nt">&lt;section&gt;</span>
-</span><span class="line">  <span class="nt">&lt;h1&gt;</span>About Me<span class="nt">&lt;/h1&gt;</span>
-</span><span class="line">  <span class="nt">&lt;p&gt;</span>A little something about me.<span class="nt">&lt;/p&gt;</span>
-</span><span class="line"><span class="nt">&lt;/section&gt;</span>
-</span></code></pre></td></tr></table></div></figure></notextile></div>
-
-<p>如果你要添加section到侧边栏, 必须遵循这样的模式，要有一个<code>&lt;section&gt;</code> 代码块，并以<code>&lt;h1&gt;</code>为标题。如果想把这个section加到侧边栏里，就要编辑 <code>_config.yml</code> 把它加到asides列表里。</p>
-
-<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span>Sidebar configuration (_config.yml) </span></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
-<span class="line-number">2</span>
-<span class="line-number">3</span>
-<span class="line-number">4</span>
-</pre></td><td class="code"><pre><code class="yaml"><span class="line"><span class="l-Scalar-Plain">default_asides</span><span class="p-Indicator">:</span>     <span class="p-Indicator">[</span><span class="nv">asides/recent_posts.html</span><span class="p-Indicator">,</span> <span class="nv">asides/twitter.html</span><span class="p-Indicator">,</span> <span class="nv">asides/delicious.html</span><span class="p-Indicator">,</span> <span class="nv">asides/pinboard.html</span><span class="p-Indicator">]</span>
-</span><span class="line"><span class="l-Scalar-Plain">blog_index_asides</span><span class="p-Indicator">:</span>  <span class="p-Indicator">[</span><span class="nv">custom/asides/about.html</span><span class="p-Indicator">,</span> <span class="nv">asides/recent_posts.html</span><span class="p-Indicator">,</span> <span class="nv">asides/twitter.html</span><span class="p-Indicator">,</span> <span class="nv">asides/delicious.html</span><span class="p-Indicator">,</span> <span class="nv">asides/pinboard.html</span><span class="p-Indicator">]</span>
-</span><span class="line"><span class="l-Scalar-Plain">post_asides</span><span class="p-Indicator">:</span>        <span class="p-Indicator">[</span><span class="nv">custom/asides/about.html</span><span class="p-Indicator">,</span> <span class="nv">asides/recent_posts.html</span><span class="p-Indicator">,</span> <span class="nv">asides/twitter.html</span><span class="p-Indicator">,</span> <span class="nv">asides/delicious.html</span><span class="p-Indicator">,</span> <span class="nv">asides/pinboard.html</span><span class="p-Indicator">]</span>
-</span><span class="line"><span class="c1"># page_asides:</span>
-</span></code></pre></td></tr></table></div></figure></notextile></div>
-
-<p>在上面的配置文件中，我向博客主页和文章页面添加了about页。 由于<code>page_asides</code> 没有被设置, 它会从默认列表（default_asides）中继承内容。</p>
-
-<h2 id="header-navigationfooter">修改Header, Navigation和Footer</h2>
-
-<p>网站的这几个部分是经常被自定制的。你可以编辑 <code>/source/_includes/custom/</code>里的每个文件，即使更新Octopress,你的修改还会保留。</p>
-
-<h3 id="header">修改Header</h3>
-
-<p>header的标题和子标题必须在 <code>_config.yml</code>中设置。如果你想对header做其他设置，就要编辑<code>/source/_includes/custom/header.html</code>：</p>
-
-<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span>Header (source/_includes/custom/header.html) </span></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
-<span class="line-number">2</span>
-<span class="line-number">3</span>
-<span class="line-number">4</span>
-<span class="line-number">5</span>
-<span class="line-number">6</span>
-</pre></td><td class="code"><pre><code class="html"><span class="line"><span class="nt">&lt;hgroup&gt;</span>
-</span><span class="line">  <span class="nt">&lt;h1&gt;&lt;a</span> <span class="na">href=</span><span class="s">&quot;{{ root_url }}/&quot;</span><span class="nt">&gt;</span>{{ site.title }}<span class="nt">&lt;/a&gt;&lt;/h1&gt;</span>
-</span><span class="line">  {% if site.subtitle %}
-</span><span class="line">    <span class="nt">&lt;h2&gt;</span>{{ site.subtitle }}<span class="nt">&lt;/h2&gt;</span>
-</span><span class="line">  {% endif %}
-</span><span class="line"><span class="nt">&lt;/hgroup&gt;</span>
-</span></code></pre></td></tr></table></div></figure></notextile></div>
-
-<h3 id="changing_navigation">修改Navigation</h3>
-
-<p>编辑<code>/source/_includes/custom/navigation.html</code>来修改或添加链接到主导航栏，代码如下：</p>
-
-<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span>Navigation (source/_includes/custom/navigation.html) </span></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
-<span class="line-number">2</span>
-<span class="line-number">3</span>
-<span class="line-number">4</span>
-<span class="line-number">5</span>
-<span class="line-number">6</span>
-</pre></td><td class="code"><pre><code class="html"><span class="line"><span class="nt">&lt;ul</span> <span class="na">class=</span><span class="s">&quot;main-navigation&quot;</span><span class="nt">&gt;</span>
-</span><span class="line">  <span class="nt">&lt;li&gt;&lt;a</span> <span class="na">href=</span><span class="s">&quot;{{ root_url }}/&quot;</span><span class="nt">&gt;</span>博客主页<span class="nt">&lt;/a&gt;&lt;/li&gt;</span>
-</span><span class="line">  <span class="nt">&lt;li&gt;&lt;a</span> <span class="na">href=</span><span class="s">&quot;{{ root_url }}/blog/archives&quot;</span><span class="nt">&gt;</span>文章列表<span class="nt">&lt;/a&gt;&lt;/li&gt;</span>
-</span><span class="line">  <span class="nt">&lt;li&gt;&lt;a</span> <span class="na">href=</span><span class="s">&quot;{{ root_url }}/blog/categories&quot;</span><span class="nt">&gt;</span>分类目录<span class="nt">&lt;/a&gt;&lt;/li&gt;</span>
-</span><span class="line">  <span class="nt">&lt;li&gt;&lt;a</span> <span class="na">href=</span><span class="s">&quot;{{ root_url }}/blog/about&quot;</span><span class="nt">&gt;</span>关于<span class="nt">&lt;/a&gt;&lt;/li&gt;</span>
-</span><span class="line"><span class="nt">&lt;/ul&gt;</span>
-</span></code></pre></td></tr></table></div></figure></notextile></div>
-
-<p>每个链接的<code>href</code>都以 <code>{{ root_url }}</code>开始 (如果网站部署到子目录里，这可以帮助Octopress采用不同的链接).
-如果你想把你的网站部署到像 <code>yoursite.com/octopress</code> 这样的子目录，你必须把它加到你添加的任何链接里。</p>
-
-<h3 id="footer">修改Footer</h3>
-
-<p>你可以在<code>source/_includes/custom/footer.html</code>中修改footer，像这样：</p>
-
-<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span>Footer (source/_includes/custom/footer.html) </span></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
-<span class="line-number">2</span>
-<span class="line-number">3</span>
-<span class="line-number">4</span>
-</pre></td><td class="code"><pre><code class="html"><span class="line"><span class="nt">&lt;p&gt;</span>
-</span><span class="line">  Copyright <span class="ni">&amp;copy;</span> {{ site.time | date: &quot;%Y&quot; }} - {{ site.author }} -
-</span><span class="line">  <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;credit&quot;</span><span class="nt">&gt;</span>Powered by <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">&quot;http://octopress.org&quot;</span><span class="nt">&gt;</span>Octopress<span class="nt">&lt;/a&gt;&lt;/span&gt;</span>
-</span><span class="line"><span class="nt">&lt;/p&gt;</span>
-</span></code></pre></td></tr></table></div></figure></notextile></div>
-
-<p>你可以做任意修改，只要够酷并保留Octopress的链接就可以。</p>
-
-<h2 id="styles" style="font-size:32px;color:red;">2. 样式</h2>
-
-<h2 id="overriding_styles">控制样式</h2>
-<p>如果想添加或控制样式，编辑<code>sass/custom/_styles.scss</code>。样式表最后才引入， so you can override styles with the cascade.</p>
-
-<h2 id="customizing_styles">修改配色</h2>
-<p>请查看<a href="http://hslpicker.com" target="_blank">HSL Color Picker</a>，它可以帮助你选择颜色，是一种易用的基于网页的选色工具。</p>
-
-<pre><code># In /sass/base/
-_theme.scss      # All colors are defined here
-
-# In /sass/custom/ - Change these files for easy customization
-_colors.scss     # Override colors in base/_theme.scss to change color schemes
-_styles.scss     # Easly Override any style (last in the cascade)
-</code></pre>
-
-<p>Octopress的所有颜色都是以Sass变量的形式在 <code>/sass/base/_theme.scss</code>文件中定义。
-想自定制你的配色，就要编辑<code>sass/custom/_colors.scss</code> 并在<code>sass/base/_theme.scss</code>中控制颜色。</p>
-
-<p>Octopress官方网站用的是默认的’classic’主题，颜色在自定制颜色文件中稍微做了调整。仔细看这个文件，你会看到sass代码的某些行被取消注释。</p>
-
-<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span>Custom Colors (sass/custom/_colors.scss)</span><a href="https://github.com/imathis/octopress/tree/master/.themes/classic/sass/custom/_colors.scss">View on Github </a></figcaption> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
-<span class="line-number">2</span>
-<span class="line-number">3</span>
-<span class="line-number">4</span>
-<span class="line-number">5</span>
-<span class="line-number">6</span>
-</pre></td><td class="code"><pre><code class="scss"><span class="line">	<span class="na">$header-bg</span><span class="o">:</span> <span class="mh">#263347</span><span class="p">;</span>
-</span><span class="line">	<span class="na">$subtitle-color</span><span class="o">:</span> <span class="nf">lighten</span><span class="p">(</span><span class="nv">$header-bg</span><span class="o">,</span> <span class="mi">58</span><span class="p">);</span>
-</span><span class="line">	<span class="na">$nav-bg</span><span class="o">:</span> <span class="nf">desaturate</span><span class="p">(</span><span class="nf">lighten</span><span class="p">(</span><span class="mh">#8fc17a</span><span class="o">,</span> <span class="mi">18</span><span class="p">)</span><span class="o">,</span> <span class="mi">5</span><span class="p">);</span>
-</span><span class="line">	<span class="na">$sidebar-bg</span><span class="o">:</span> <span class="nf">desaturate</span><span class="p">(</span><span class="mh">#eceff5</span><span class="o">,</span> <span class="mi">8</span><span class="p">);</span>
-</span><span class="line">	<span class="na">$sidebar-link-color</span><span class="o">:</span> <span class="nf">saturate</span><span class="p">(</span><span class="mh">#526f9a</span><span class="o">,</span> <span class="mi">10</span><span class="p">);</span>
-</span><span class="line">	<span class="na">$sidebar-link-color-hover</span><span class="o">:</span> <span class="nf">darken</span><span class="p">(</span><span class="mh">#7ab662</span><span class="o">,</span> <span class="mi">9</span><span class="p">);</span>
-</span></code></pre></td></tr></table></div></figure></notextile></div>
-
-<p>自定制颜色文件有几项被取消注释的颜色可以用。主题文件被分成几个部分以使文件更容易阅读。请看<code>sass/base/_theme.scss</code>中关于navigation的部分。</p>
-
-<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span>Navigation (sass/base/_theme.scss)</span><a href="https://github.com/imathis/octopress/tree/master/.themes/classic/sass/base/_theme.scss">View on Github </a></figcaption> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
-<span class="line-number">2</span>
-<span class="line-number">3</span>
-<span class="line-number">4</span>
-<span class="line-number">5</span>
-</pre></td><td class="code"><pre><code class="scss"><span class="line">	<span class="cm">/* Navigation */</span>
-</span><span class="line">	<span class="na">$nav-bg</span><span class="o">:</span> <span class="mh">#ccc</span> <span class="nv">!default</span><span class="p">;</span>
-</span><span class="line">	<span class="na">$nav-color</span><span class="o">:</span> <span class="nf">darken</span><span class="p">(</span><span class="nv">$nav-bg</span><span class="o">,</span> <span class="mi">38</span><span class="p">)</span> <span class="nv">!default</span><span class="p">;</span>
-</span><span class="line">	<span class="na">$nav-color-hover</span><span class="o">:</span> <span class="nf">darken</span><span class="p">(</span><span class="nv">$nav-color</span><span class="o">,</span> <span class="mi">25</span><span class="p">)</span> <span class="nv">!default</span><span class="p">;</span>
-</span><span class="line">	<span class="nc">...</span>
-</span></code></pre></td></tr></table></div></figure></notextile></div>
-
-<p>The <code>!default</code> rule lets the variable be overridden if it is defined beforehand.
-is imported before the <code>_theme.scss</code> it can predefine these colors easily. There are comments to help out with this in the
-<a href="https://github.com/imathis/octopress/tree/master/.themes/classic/sass/custom/_colors.scss">source</a>.</p>
-
-<p>主题里的许多颜色是用 <a href="http://sass-lang.com/docs/yardoc/Sass/Script/Functions.html" target="_blank">Sass’s color functions</a>来设置的。
-你可以通过设置<code>$nav-bg</code>变量为navigation选择新的背景颜色，并且其它颜色会做相应的改变。虽然这不是很完美，但是它对大多数颜色都是合适的。</p>
-
-<h2 id="changing_layout">修改布局</h2>
-
-<pre><code># In /sass/base
-_layout.scss     # Responsive layouts are defined here
-
-# In /sass/custom - Change these files for easy customization
-_layout.scss     # Override settings for base/_layout.scss to change the layout
-</code></pre>
-
-<p>和颜色一样， <code>/sass/base/_layout.scss</code>里的宽度像<code>$max-width: 1200px !default;</code>定义，在<code>sass/custom/_layout.scss</code>中定义它们可以很容易地自定制。下面是布局的一些默认值：</p>
-
-<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span>Layout Defaults (_layout.scss)</span><a href="https://github.com/imathis/octopress/tree/master/.themes/classic/sass/base/_layout.scss">view on Github </a></figcaption> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
-<span class="line-number">2</span>
-<span class="line-number">3</span>
-<span class="line-number">4</span>
-<span class="line-number">5</span>
-<span class="line-number">6</span>
-<span class="line-number">7</span>
-<span class="line-number">8</span>
-<span class="line-number">9</span>
-<span class="line-number">10</span>
-<span class="line-number">11</span>
-<span class="line-number">12</span>
-<span class="line-number">13</span>
-<span class="line-number">14</span>
-<span class="line-number">15</span>
-</pre></td><td class="code"><pre><code class="scss"><span class="line">	<span class="na">$max-width</span><span class="o">:</span> <span class="mi">1200</span><span class="kt">px</span> <span class="nv">!default</span><span class="p">;</span>
-</span><span class="line">
-</span><span class="line">	<span class="c1">// Padding used for layout margins</span>
-</span><span class="line">	<span class="na">$pad-min</span><span class="o">:</span> <span class="mi">18</span><span class="kt">px</span> <span class="nv">!default</span><span class="p">;</span>
-</span><span class="line">	<span class="na">$pad-narrow</span><span class="o">:</span> <span class="mi">25</span><span class="kt">px</span> <span class="nv">!default</span><span class="p">;</span>
-</span><span class="line">	<span class="na">$pad-medium</span><span class="o">:</span> <span class="mi">35</span><span class="kt">px</span> <span class="nv">!default</span><span class="p">;</span>
-</span><span class="line">	<span class="na">$pad-wide</span><span class="o">:</span> <span class="mi">55</span><span class="kt">px</span> <span class="nv">!default</span><span class="p">;</span>
-</span><span class="line">
-</span><span class="line">	<span class="c1">// Sidebar widths used in media queries</span>
-</span><span class="line">	<span class="na">$sidebar-width-medium</span><span class="o">:</span> <span class="mi">240</span><span class="kt">px</span> <span class="nv">!default</span><span class="p">;</span>
-</span><span class="line">	<span class="na">$sidebar-pad-medium</span><span class="o">:</span> <span class="mi">15</span><span class="kt">px</span> <span class="nv">!default</span><span class="p">;</span>
-</span><span class="line">	<span class="na">$sidebar-pad-wide</span><span class="o">:</span> <span class="mi">20</span><span class="kt">px</span> <span class="nv">!default</span><span class="p">;</span>
-</span><span class="line">	<span class="na">$sidebar-width-wide</span><span class="o">:</span> <span class="mi">300</span><span class="kt">px</span> <span class="nv">!default</span><span class="p">;</span>
-</span><span class="line">
-</span><span class="line">	<span class="na">$indented-lists</span><span class="o">:</span> <span class="n-Pseudo">false</span> <span class="nv">!default</span><span class="p">;</span>
-</span></code></pre></td></tr></table></div></figure></notextile></div>
-
-<p>这些变量是用来计算相应布局的宽度和padding的。<code>$indented-lists</code> 变量允许你选择列表的样式是使用缩进还是正常的。</p>
-
-<h2 id="section-1">推荐文章</h2>
-<p>关于sass和scss，请看<a href="http://blog.visioncan.com/2011/sass-scss-your-css/" target="_blank">http://blog.visioncan.com/2011/sass-scss-your-css/</a></p>
 
 ]]></content>
   </entry>

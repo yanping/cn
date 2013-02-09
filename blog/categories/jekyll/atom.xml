@@ -4,7 +4,7 @@
   <title><![CDATA[分类： jekyll | 雁起平沙的网络日志]]></title>
   <link href="http://yanping.me/cn/blog/categories/jekyll/atom.xml" rel="self"/>
   <link href="http://yanping.me/cn/"/>
-  <updated>2013-02-10T01:30:13+08:00</updated>
+  <updated>2013-02-10T01:48:08+08:00</updated>
   <id>http://yanping.me/cn/</id>
   <author>
     <name><![CDATA[ypchen]]></name>
@@ -413,7 +413,7 @@ set LANG=en_US.UTF-8
 </span><span class='line'>	<span class="kd">var</span> <span class="nx">post</span> <span class="o">=</span> <span class="p">{</span>
 </span><span class='line'>	<span class="s2">&quot;list&quot;</span><span class="o">:</span><span class="p">[{</span>
 </span><span class='line'>		<span class="s2">&quot;title&quot;</span><span class="o">:</span><span class="s2">&quot;用R获取flash中的数据&quot;</span><span class="p">,</span>
-</span><span class='line'>		    <span class="s2">&quot;url&quot;</span><span class="o">:</span><span class="s2">&quot;http://yanping.me/cn/blog/2013/02/10/get-fudan-currency-index-data/&quot;</span><span class="p">,</span>
+</span><span class='line'>		    <span class="s2">&quot;url&quot;</span><span class="o">:</span><span class="s2">&quot;http://yanping.me/cn/blog/2013/02/10/get-data-from-flash/&quot;</span><span class="p">,</span>
 </span><span class='line'>		    <span class="s2">&quot;date&quot;</span><span class="o">:</span><span class="s2">&quot;10 Feb 2013&quot;</span>
 </span><span class='line'>		<span class="p">},</span>
 </span><span class='line'>	<span class="p">{</span>
@@ -637,7 +637,7 @@ set LANG=en_US.UTF-8
 </pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="p">[</span>
 </span><span class='line'>    <span class="p">{</span>
 </span><span class='line'>        <span class="s2">&quot;title&quot;</span><span class="o">:</span><span class="s2">&quot;用R获取flash中的数据&quot;</span><span class="p">,</span>
-</span><span class='line'>        <span class="s2">&quot;url&quot;</span><span class="o">:</span><span class="s2">&quot;http://yanping.me/cn/blog/2013/02/10/get-fudan-currency-index-data/&quot;</span><span class="p">,</span>
+</span><span class='line'>        <span class="s2">&quot;url&quot;</span><span class="o">:</span><span class="s2">&quot;http://yanping.me/cn/blog/2013/02/10/get-data-from-flash/&quot;</span><span class="p">,</span>
 </span><span class='line'>        <span class="s2">&quot;date&quot;</span><span class="o">:</span><span class="s2">&quot;10 Feb 2013&quot;</span>
 </span><span class='line'>    <span class="p">},</span>
 </span><span class='line'>

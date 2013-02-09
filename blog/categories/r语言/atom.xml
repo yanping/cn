@@ -4,7 +4,7 @@
   <title><![CDATA[分类： R语言 | 雁起平沙的网络日志]]></title>
   <link href="http://yanping.me/cn/blog/categories/r语言/atom.xml" rel="self"/>
   <link href="http://yanping.me/cn/"/>
-  <updated>2013-02-10T01:30:13+08:00</updated>
+  <updated>2013-02-10T01:48:08+08:00</updated>
   <id>http://yanping.me/cn/</id>
   <author>
     <name><![CDATA[ypchen]]></name>
@@ -66,6 +66,143 @@
 </span><span class='line'>fddf<span class="p">[,</span><span class="m">2</span>:<span class="m">4</span><span class="p">]</span> <span class="o">&lt;-</span> sapply<span class="p">(</span>fddf<span class="p">[,</span><span class="m">2</span>:<span class="m">4</span><span class="p">],</span>as.numeric<span class="p">)</span>
 </span><span class='line'>colnames<span class="p">(</span>fddf<span class="p">)</span> <span class="o">&lt;-</span> c<span class="p">(</span><span class="s">&quot;date&quot;</span><span class="p">,</span><span class="s">&quot;人民币名义有效汇率指数&quot;</span><span class="p">,</span><span class="s">&quot;人民币实际有效汇率指数&quot;</span><span class="p">,</span><span class="s">&quot;人民币盯住一篮子货币模拟汇率指数&quot;</span><span class="p">)</span>
 </span><span class='line'>write.csv<span class="p">(</span>fddf<span class="p">,</span><span class="s">&quot;fudan.csv&quot;</span><span class="p">,</span>row.names <span class="o">=</span> <span class="k-Variable">F</span> <span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[R语言版的cntrade程序]]></title>
+    <link href="http://yanping.me/cn/blog/2013/02/10/cntrade-r-version/"/>
+    <updated>2013-02-10T02:00:00+08:00</updated>
+    <id>http://yanping.me/cn/blog/2013/02/10/cntrade-r-version</id>
+    <content type="html"><![CDATA[<p class="info">本文展示的是R语言版的cntrade程序</p>
+
+<p>李春涛和张璇两位老师写了个<a href="http://ideas.repec.org/c/boc/bocode/s457580.html">名叫cntrade的stata程序</a>，用来从网易财经网获取沪深两市股票日度行情数据。</p>
+
+<p>我用R重写了这个程序，请看：</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span> (cntrade.r)</span> <a href='/downloads/code/cntrade.r'>download</a></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+<span class='line-number'>45</span>
+<span class='line-number'>46</span>
+<span class='line-number'>47</span>
+<span class='line-number'>48</span>
+<span class='line-number'>49</span>
+<span class='line-number'>50</span>
+<span class='line-number'>51</span>
+<span class='line-number'>52</span>
+<span class='line-number'>53</span>
+<span class='line-number'>54</span>
+<span class='line-number'>55</span>
+<span class='line-number'>56</span>
+<span class='line-number'>57</span>
+<span class='line-number'>58</span>
+<span class='line-number'>59</span>
+<span class='line-number'>60</span>
+</pre></td><td class='code'><pre><code class='r'><span class='line'><span class="c1"># cntrade R语言版 </span>
+</span><span class='line'><span class="c1"># 作者：陈堰平（新华指数有限责任公司，chen@yanping.me） </span>
+</span><span class='line'><span class="c1"># 使用网易股票数据接口 原stata版的作者为：</span>
+</span><span class='line'><span class="c1">#   李春涛（中南财经政法大学，chtl@znufe.edu.cn） </span>
+</span><span class='line'><span class="c1">#   张璇（中南财经政法大学，zhangx@znufe.edu.cn） </span>
+</span><span class='line'><span class="c1"># example: </span>
+</span><span class='line'><span class="c1">#   cntrade(c(&#39;600000&#39;, &#39;000008&#39;), path =&#39;D:/stockprice&#39;, start = &#39;20010104&#39;, end = &#39;20120124&#39;)</span>
+</span><span class='line'>
+</span><span class='line'>cntrade <span class="o">&lt;-</span> <span class="kr">function</span><span class="p">(</span>tickers<span class="p">,</span> path <span class="o">=</span> <span class="s">&quot;&quot;</span><span class="p">,</span> start <span class="o">=</span> <span class="s">&quot;19910101&quot;</span><span class="p">,</span> end <span class="o">=</span> <span class="s">&quot;&quot;</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>
+</span><span class='line'>  address <span class="o">&lt;-</span> <span class="s">&quot;http://quotes.money.163.com/service/chddata.html&quot;</span>
+</span><span class='line'>  field <span class="o">&lt;-</span> <span class="s">&quot;&amp;fields=TCLOSE;HIGH;LOW;TOPEN;LCLOSE;CHG;PCHG;TURNOVER;VOTURNOVER;VATURNOVER;TCAP;MCAP&quot;</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="kr">if</span> <span class="p">(</span>path <span class="o">==</span> <span class="s">&quot;&quot;</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>    path <span class="o">&lt;-</span> getwd<span class="p">()</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="kr">if</span> <span class="p">(</span>!file.exists<span class="p">(</span>path<span class="p">))</span> <span class="p">{</span>
+</span><span class='line'>    dir.create<span class="p">(</span>path<span class="p">)</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="kr">if</span> <span class="p">(</span>substr<span class="p">(</span>path<span class="p">,</span> nchar<span class="p">(</span>path<span class="p">),</span> nchar<span class="p">(</span>path<span class="p">))</span> <span class="o">!=</span> <span class="s">&quot;/&quot;</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>    path <span class="o">&lt;-</span> paste<span class="p">(</span>path<span class="p">,</span> <span class="s">&quot;/&quot;</span><span class="p">,</span> sep <span class="o">=</span> <span class="s">&quot;&quot;</span><span class="p">)</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="kr">if</span> <span class="p">(</span>end <span class="o">==</span> <span class="s">&quot;&quot;</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>    year <span class="o">&lt;-</span> substr<span class="p">(</span>Sys.time<span class="p">(),</span> <span class="m">1</span><span class="p">,</span> <span class="m">4</span><span class="p">)</span>
+</span><span class='line'>    month <span class="o">&lt;-</span> substr<span class="p">(</span>Sys.time<span class="p">(),</span> <span class="m">6</span><span class="p">,</span> <span class="m">7</span><span class="p">)</span>
+</span><span class='line'>    day <span class="o">&lt;-</span> substr<span class="p">(</span>Sys.time<span class="p">(),</span> <span class="m">9</span><span class="p">,</span> <span class="m">10</span><span class="p">)</span>
+</span><span class='line'>    end <span class="o">&lt;-</span> paste<span class="p">(</span>year<span class="p">,</span> month<span class="p">,</span> day<span class="p">,</span> sep <span class="o">=</span> <span class="s">&quot;&quot;</span><span class="p">)</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>  count <span class="o">&lt;-</span> <span class="m">0</span>
+</span><span class='line'>  <span class="kr">for</span> <span class="p">(</span>name in tickers<span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>    <span class="kr">while</span> <span class="p">(</span>nchar<span class="p">(</span>name<span class="p">)</span> <span class="o">&lt;</span> <span class="m">6</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>      name <span class="o">&lt;-</span> paste<span class="p">(</span><span class="s">&quot;0&quot;</span><span class="p">,</span> name<span class="p">,</span> sep <span class="o">=</span> <span class="s">&quot;&quot;</span><span class="p">)</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="kr">if</span> <span class="p">(</span>nchar<span class="p">(</span>name<span class="p">)</span> <span class="o">&gt;</span> <span class="m">6</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>      warning<span class="p">(</span>paste<span class="p">(</span><span class="s">&quot;invalid stock code: &quot;</span><span class="p">,</span> name<span class="p">,</span> sep <span class="o">=</span> <span class="s">&quot;&quot;</span><span class="p">))</span>
+</span><span class='line'>      next
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="kr">if</span> <span class="p">(</span>as.numeric<span class="p">(</span>name<span class="p">)</span> <span class="o">&gt;</span> <span class="m">600000</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>      url <span class="o">&lt;-</span> paste<span class="p">(</span>address<span class="p">,</span> <span class="s">&quot;?code=0&quot;</span><span class="p">,</span> name<span class="p">,</span> <span class="s">&quot;&amp;start=&quot;</span><span class="p">,</span> start<span class="p">,</span> <span class="s">&quot;&amp;end=&quot;</span><span class="p">,</span> end<span class="p">,</span> field<span class="p">,</span> sep <span class="o">=</span> <span class="s">&quot;&quot;</span><span class="p">)</span>
+</span><span class='line'>    <span class="p">}</span> <span class="kr">else</span> <span class="p">{</span>
+</span><span class='line'>      url <span class="o">&lt;-</span> paste<span class="p">(</span>address<span class="p">,</span> <span class="s">&quot;?code=1&quot;</span><span class="p">,</span> name<span class="p">,</span> <span class="s">&quot;&amp;start=&quot;</span><span class="p">,</span> start<span class="p">,</span> <span class="s">&quot;&amp;end=&quot;</span><span class="p">,</span> end<span class="p">,</span> field<span class="p">,</span> sep <span class="o">=</span> <span class="s">&quot;&quot;</span><span class="p">)</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>    destfile <span class="o">&lt;-</span> paste<span class="p">(</span>path<span class="p">,</span> name<span class="p">,</span> <span class="s">&quot;.csv&quot;</span><span class="p">,</span> sep <span class="o">=</span> <span class="s">&quot;&quot;</span><span class="p">)</span>
+</span><span class='line'>    download.file<span class="p">(</span>url<span class="p">,</span> destfile<span class="p">,</span> quiet <span class="o">=</span> <span class="kc">TRUE</span><span class="p">)</span>
+</span><span class='line'>    count <span class="o">&lt;-</span> count <span class="o">+</span> <span class="m">1</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="kr">if</span> <span class="p">(</span>count <span class="o">==</span> <span class="m">0</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>    cat<span class="p">(</span><span class="s">&quot;一个数据文件都没下载下来！\n&quot;</span><span class="p">)</span>
+</span><span class='line'>  <span class="p">}</span> <span class="kr">else</span> <span class="p">{</span>
+</span><span class='line'>    cat<span class="p">(</span><span class="s">&quot;数据下载完成！\n&quot;</span><span class="p">)</span>
+</span><span class='line'>    cat<span class="p">(</span>paste<span class="p">(</span><span class="s">&quot;共下载&quot;</span><span class="p">,</span> count<span class="p">,</span> <span class="s">&quot;个文件\n&quot;</span><span class="p">,</span> sep <span class="o">=</span> <span class="s">&quot;&quot;</span><span class="p">))</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'><span class="p">}</span>
 </span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
 ]]></content>
@@ -367,105 +504,6 @@ d2 &lt;- getDceData(c("20121204","20121205","20121206"), c("a","b"), keep.dataFi
   <li>使用会计信息来预测市场绩效</li>
   <li>交易数据的分析</li>
 </ul>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[R的矩阵代数]]></title>
-    <link href="http://yanping.me/cn/blog/2012/01/10/matrix-algebra-in-r/"/>
-    <updated>2012-01-10T14:00:00+08:00</updated>
-    <id>http://yanping.me/cn/blog/2012/01/10/matrix-algebra-in-r</id>
-    <content type="html"><![CDATA[<p class="info">
-本文翻译自<a target="_blank" href="http://www.manning.com/kabacoff/">R in Action</a>的附录E，如果对该书感兴趣，请自行购买或去图书馆阅读。<br />
-更多的例子请看<a href="http://yishuo.org/2011/08/matrix-operations/">http://yishuo.org/2011/08/matrix-operations/</a>
-</p>
-
-<p>书中描述的很多函数都是在矩阵上的操作。矩阵的处理根植于R语言底层。下表描述了求解线性代数问题中重要的操作符和函数。下表中，A和B是矩阵，x和b是向量，k是标量。</p>
-
-<table class="datalist">
-<caption>矩阵代数的R函数和操作符</caption>
-<tr>
-	<th>操作符或函数</th><th>描述</th>
-</tr>
-<tr>
-	<td>+ -<code> *</code> / ^</td><td>对应元素相加、相减、相乘、相除、求幂</td>
-</tr>
-<tr>
-	<td>A <code>%*%</code> B</td><td>矩阵相乘</td>
-</tr>
-<tr>
-	<td>A <code>%o%</code> B</td><td>矩阵的外积。<code>AB'</code></td>
-</tr>
-<tr>
-	<td>cbind(A, B, ...)</td><td>横向组合矩阵或向量</td>
-</tr>
-<tr>
-	<td>col(A)</td><td>求A的Choleski因子。如果<code>R &lt;- chol(A)</code>，则<code>chol(A)</code>包含上三角因子，并有<code>R'R=A</code></td>
-</tr>
-<tr>
-	<td>colMeans(A)</td><td>返回一个向量，包含A每列的均值</td>
-</tr>
-<tr>
-	<td>crossprod(A)</td><td><code>A'A</code></td>
-</tr>
-<tr>
-	<td>crossprod(A,B)&nbsp;&nbsp;&nbsp;&nbsp;</td><td><code>A'B</code></td>
-</tr>
-<tr>
-	<td>colSums(A)</td><td>返回一个向量，包含A每列的和</td>
-</tr>
-<tr>
-	<td>diag(A)</td><td>返回一个向量，包含主对角线元素</td>
-</tr>
-<tr>
-	<td>diag(x)</td><td>以x为主对角线元素创建对角矩阵</td>
-</tr>
-<tr>
-	<td>diag(k)</td><td>如果k是标量，则创建一个k &times; k的单位矩阵</td>
-</tr>
-<tr>
-	<td>eigen(A)</td><td>A的特征值和特征向量。如果<code>y &lt;- eigen(A)</code>，则<br />
-	<code>y$val</code>是A的特征值，<code>y$vec</code>是A的特征向量
-	</td>
-</tr>
-<tr>
-	<td>ginv(A)</td><td>A的Moore-Penrose广义逆。（需要MASS包）</td>
-</tr>
-<tr>
-	<td>qr(A)</td><td>A的QR分解。如果<code>y &lt;- qr(A)</code>，则<br />
-	<code>y$qr</code>有一个包含分解值的上三角矩阵和一个包含分解值信息的下三角矩阵，<code>y$rank</code>是A的秩，<code>y$qraux</code>是包含Q其他信息的向量，<code>y$pivot</code>包含旋转策略的信息。
-	</td>
-</tr>
-<tr>
-	<td>rbind(A, B, ...)</td><td>纵向组合矩阵或向量</td>
-</tr>
-<tr>
-	<td>rowMeans(A)</td><td>返回一个向量，包含A每行的均值</td>
-</tr>
-<tr>
-	<td>rowSums(A)</td><td>返回一个向量，包含A每行的和</td>
-</tr>
-<tr>
-	<td>solve(A)</td><td>求A的逆，其中A是方阵</td>
-</tr>
-<tr>
-	<td>solve(A, b)</td><td>解出方程b=Ax里的向量x</td>
-</tr>
-
-<tr>
-	<td>svd(A)</td><td>A的奇异值分解。如果<code>y &lt;- svd(A)</code>，则	<code>y$d</code>是包含A的奇异值的向量，矩阵<code>y$u</code>的列向量包含A的左奇异值向量，矩阵<code>y$v</code>的列向量包含A的右奇异值向量。</td></tr>
-
-<tr>
-	<td>t(A)</td><td>求A的转置</td>
-</tr>
-</table>
-
-<p>还有一些用户贡献的包专门用于矩阵代数。<em>matlab</em> 包封装了类似MATLAB语言的矩阵操作函数和变量。这些函数可以帮助用户将MATLAB程序移植到R语言代码。<a href="http://mathesaurus.sourceforge.net/octave-r.html">http://mathesaurus.sourceforge.net/octave-r.html</a>上有一份很有用的清单可以帮助你将MATLAB语句转化为R语句。</p>
-
-<p><em>Matrix</em> 包提供的函数使R可以处理高密度矩阵或稀疏矩阵。它提供了对BLAS（Basic Linear Algebra Subroutines）、Lapack（dense matrix）、TAUCS（sparse matrix）和UMFPACK（sparse matrix）的高效调用。</p>
-
-<p>最后，<em>matrixStats</em> 包提供了对矩阵的行和列的操作方法，例如计数、求和、中心趋势、离差（dispersion）等。每一个函数都进过了优化，使得可以高速高效地运行。</p>
-
 ]]></content>
   </entry>
   
