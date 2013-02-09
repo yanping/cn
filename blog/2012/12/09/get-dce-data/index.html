@@ -5,12 +5,12 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>雁起平沙的网络日志</title>
+  <title>用R获取大连商品交易所历史数据 - 雁起平沙的网络日志</title>
   <meta name="author" content="ypchen">
 
   
-  <meta name="description" content="本文主要讨论如何用R语言从大连商品交易所网站上获取期货合约交易数据 大商所的网站上有提供查询历史的页面。但是它只能对某一个品种查询某一天的报价，或者某一天所有品种的报价，如果我想批量获取交易数据，应该怎么做呢？ 首先剖析一下这个页面，用firefox的firebug查看日行情表的代码 可以看到， &hellip;">
-  
+  <meta name="description" content="本文主要讨论如何用R语言从大连商品交易所网站上获取期货合约交易数据">
+  <meta name="keywords" content="R语言, 金融数据, 金融工程">
 
   <!-- http://t.co/dKP3o1e -->
   <meta name="HandheldFriendly" content="True">
@@ -18,7 +18,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://yanping.me/cn">
+  <link rel="canonical" href="http://yanping.me/cn/blog/2012/12/09/get-dce-data">
   <link href="/cn/favicon.png" rel="icon">
   <link href="/cn/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <script src="/cn/javascripts/modernizr-2.0.js"></script>
@@ -99,15 +99,12 @@
 </nav>
   <div id="main">
     <div id="content">
-      <div class="blog-index">
+      <div>
+<article class="hentry" role="article">
   
-  
-  
-    <article>
-      
   <header>
     
-      <h1 class="entry-title"><a href="/cn/blog/2012/12/09/get-dce-data/">用R获取大连商品交易所历史数据</a></h1>
+      <h1 class="entry-title">用R获取大连商品交易所历史数据</h1>
     
     
       <p class="meta">
@@ -125,14 +122,14 @@
 
 <time datetime="2012-12-09T20:00:00+08:00" pubdate data-updated="true">Dec 9<span>th</span>, 2012</time>
         
-         | <a href="/cn/blog/2012/12/09/get-dce-data/#disqus_thread">Comments</a>
+         | <a href="#disqus_thread">Comments</a>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p class="info">本文主要讨论如何用R语言从大连商品交易所网站上获取期货合约交易数据</p>
+<div class="entry-content"><p class="info">本文主要讨论如何用R语言从大连商品交易所网站上获取期货合约交易数据</p>
 
 <p>大商所的网站上有提供查询历史的<a href="http://www.dce.com.cn/portal/cate?cid=1261730308135">页面</a>。但是它只能对某一个品种查询某一天的报价，或者某一天所有品种的报价，如果我想批量获取交易数据，应该怎么做呢？</p>
 
@@ -378,136 +375,16 @@
 </span></code></pre></td></tr></table></div></figure></notextile></div>
 
 </div>
-  
-  
 
 
-    </article>
-  
-  
-    <article>
+  <footer>
+    <p class="meta">
       
-  <header>
-    
-      <h1 class="entry-title"><a href="/cn/blog/2012/10/10/asynchronous-loading-post-list-with-jekyll-and-jQuery/">用jekyll和jQuery实现异步加载文章列表</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
   
 
+<span class="byline author vcard"><span class="fn">ypchen</span>发布于</span>
 
-<time datetime="2012-10-10T23:30:00+08:00" pubdate data-updated="true">Oct 10<span>th</span>, 2012</time>
-        
-         | <a href="/cn/blog/2012/10/10/asynchronous-loading-post-list-with-jekyll-and-jQuery/#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p class="info">本文主要讨论如何用基于jQuery的插件waypoint，实现异步加载jekyll模板生成的json文件，生成文章列表。</p>
-
-<p>我在<a href="http://art.yanping.me/archives/">另一个博客的文章列表</a>里使用了异步加载的技术，不过直接看页面的html源代码是看不出来的。编译之前的代码在<a href="https://github.com/yanping/art/blob/gh-pages/archives/index.html">这里</a>。</p>
-
-<p>首先，生成文章列表数据的json模板是：</p>
-
-<div class="bogus-wrapper"><notextile><figure class="code"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
-<span class="line-number">2</span>
-<span class="line-number">3</span>
-<span class="line-number">4</span>
-<span class="line-number">5</span>
-<span class="line-number">6</span>
-<span class="line-number">7</span>
-<span class="line-number">8</span>
-<span class="line-number">9</span>
-<span class="line-number">10</span>
-<span class="line-number">11</span>
-<span class="line-number">12</span>
-<span class="line-number">13</span>
-</pre></td><td class="code"><pre><code class=""><span class="line">---
-</span><span class="line">layout: nil
-</span><span class="line">---
-</span><span class="line">
-</span><span class="line">[
-</span><span class="line">{% for post in site.posts %}
-</span><span class="line">  {"title":"{{post.title}}", 
-</span><span class="line">  "url":"{{site.url}}{{post.url}}", 
-</span><span class="line">  "date":"{{ post.date | date:'%Y-%m-%d' }}", 
-</span><span class="line">  "tags":[{% for tag in post.tags %}"{{tag}}"{% if forloop.last == false %} ,{% endif %}{% endfor %}]}
-</span><span class="line">  {% if forloop.last == false %},{% endif %}{% endfor %}
-</span><span class="line">]
-</span><span class="line">
-</span></code></pre></td></tr></table></div></figure></notextile></div>
-
-<p>这在前面的<a href="http://chen.yanping.me/cn/blog/2012/04/19/jekyll-with-json/">文章</a>里提到过。</p>
-
-<p>头部YAML数据部分：</p>
-
-<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span /></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
-<span class="line-number">2</span>
-<span class="line-number">3</span>
-<span class="line-number">4</span>
-<span class="line-number">5</span>
-<span class="line-number">6</span>
-</pre></td><td class="code"><pre><code class="yaml"><span class="line"><span class="nn">---</span>
-</span><span class="line"><span class="l-Scalar-Plain">layout</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">default</span>
-</span><span class="line"><span class="l-Scalar-Plain">title</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">全部文章</span>
-</span><span class="line"><span class="l-Scalar-Plain">initItem</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">50</span>
-</span><span class="line"><span class="l-Scalar-Plain">perPageItem</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">100</span>
-</span><span class="line"><span class="nn">---</span>
-</span></code></pre></td></tr></table></div></figure></notextile></div>
-
-<p><code>initItem</code>是初始加载时显示的文章主题数，<code>perPageItem</code>是每次页面下拉到底部时读取json数据并新生成的文章主题数。</p>
-
-<p>初始加载网页时，文章主题列表是静态的html，由jekyll生成：</p>
-
-<div class="bogus-wrapper"><notextile><figure class="code"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
-<span class="line-number">2</span>
-<span class="line-number">3</span>
-<span class="line-number">4</span>
-<span class="line-number">5</span>
-<span class="line-number">6</span>
-<span class="line-number">7</span>
-</pre></td><td class="code"><pre><code class=""><span class="line">&lt;ul class="posts"&gt;
-</span><span class="line">{% for post in site.posts limit:page.initItem %}
-</span><span class="line">  &lt;li class="listing-item"&gt;
-</span><span class="line">    &lt;time datetime="{{ post.date | date:"%Y-%m-%d" }}"&gt;{{ post.date | date:"%Y-%m-%d" }}&lt;/time&gt;
-</span><span class="line">    &lt;a href="{{site.baseurl}}{{ post.url }}" title="{{ post.title }}"&gt;{{ post.title }}&lt;/a&gt;
-</span><span class="line">  &lt;/li&gt;{% endfor %}
-</span><span class="line">&lt;/ul&gt;</span></code></pre></td></tr></table></div></figure></notextile></div>
-
-<p>上面的<code>limit:page.initItem</code>限定了列表的项数不超过<code>initItem</code>。当向下拉页面，waypoint会捕捉到页面下拉到底部的事件，并调用<em>getJSON</em>方法来读取json数据，形成文章列表。</p>
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/cn/blog/2012/10/10/asynchronous-loading-post-list-with-jekyll-and-jQuery/">阅读全文 &rarr;</a>
-    </footer>
-  
-
-
-    </article>
-  
-  
-    <article>
       
-  <header>
-    
-      <h1 class="entry-title"><a href="/cn/blog/2012/10/09/chinese-charset-problems-with-jekyll/">在Windows下使用jekyll如何避免出现中文字符集错误</a></h1>
-    
-    
-      <p class="meta">
-        
 
 
 
@@ -519,298 +396,60 @@
   
 
 
-<time datetime="2012-10-09T21:30:00+08:00" pubdate data-updated="true">Oct 9<span>th</span>, 2012</time>
-        
-         | <a href="/cn/blog/2012/10/09/chinese-charset-problems-with-jekyll/#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p class="info">在windows下使用jekyll时经常会遇到字符集错误，比如遇到提示<span style="font-family: Menlo,Monaco,'Andale Mono','lucida console','Courier New',monospace;">Liquid error: incompatible character encodings: UTF-8 and GBK</span>。本文将介绍几种解决方案。</p>
-
-<p>1. <strong>修改bash的字符集：</strong>在<code>C:\Documents and Settings\用户名</code>下，找到文件<code>.bash_profile</code>，后面加两行</p>
-
-<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span /></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
-<span class="line-number">2</span>
-</pre></td><td class="code"><pre><code class="sh"><span class="line"><span class="nb">set </span><span class="nv">LC_ALL</span><span class="o">=</span>en_US.UTF-8
-</span><span class="line"><span class="nb">set </span><span class="nv">LANG</span><span class="o">=</span>en_US.UTF-8
-</span></code></pre></td></tr></table></div></figure></notextile></div>
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/cn/blog/2012/10/09/chinese-charset-problems-with-jekyll/">阅读全文 &rarr;</a>
-    </footer>
-  
-
-
-    </article>
-  
-  
-    <article>
+<time datetime="2012-12-09T20:00:00+08:00" pubdate data-updated="true">Dec 9<span>th</span>, 2012</time>
       
-  <header>
-    
-      <h1 class="entry-title"><a href="/cn/blog/2012/06/10/palisade-training-course/">DecisionTools培训课程大纲</a></h1>
-    
-    
-      <p class="meta">
-        
 
-
-
-
-
-
-
-
+<span class="categories">
+	分类：
   
+    <a class='category' href='/cn/blog/categories/r语言/'>R语言</a>, <a class='category' href='/cn/blog/categories/金融工程/'>金融工程</a>
+  
+</span>
 
 
-<time datetime="2012-06-10T15:00:00+08:00" pubdate data-updated="true">Jun 10<span>th</span>, 2012</time>
-        
-         | <a href="/cn/blog/2012/06/10/palisade-training-course/#disqus_thread">Comments</a>
-        
-      </p>
+    </p>
     
-  </header>
-
-
-  <div class="entry-content"><p class="info">本人近期将推出《DecisionTools高级应用：数量风险建模与决策分析》课程，有需要培训的团体或个人与我联系。</p>
-
-<h2 id="section">课程目标</h2>
-<p>DecisionTools是一套在Microsoft Excel量身定制集成程序，从而使用户可以在一个软件包中针对不确定因素完成风险优化及决策分析的操作。DecisionTools Suite包括使用蒙特卡罗模拟执行风险分析的@RISK、执行决策分析的PrecisionTree和执行灵敏度分析的TopRank。此外，软件还包括执行预测、数据分析和最优化的 StatTools、NeuralTools和Evolver。</p>
-
-<p>本课程适用于从事风险建模、数据分析工作的人员。本课程使用项目成本评估、折现现金流模型等常规案例来讲解蒙特卡罗模拟的思想和软件操作技巧。学员将在课程中学习如何在Excel环境中建立风险评估模型和不确定性条件下的决策模型。</p>
-
-<p>除了@RISK以外，本课程也会介绍DecisionTools套件的其他组件， 这些组件可以完善和补充@RISK的模拟功能。主要涉及的主题包括：</p>
-
-<ul>
-  <li>使用PrecisionTree做序列决策建模以及敏感性分析；</li>
-  <li>结合@RISK和PrecisionTree；</li>
-  <li>使用RISKOptimizer做不确定性优化; </li>
-  <li>使用TopRank做敏感性分析；</li>
-  <li>使用StatTools和NeuralTools做统计分析和预测</li>
-</ul>
-
-<h2 id="section-1">课程大纲</h2>
-
-<p><strong>第一部分: @RISK和TopRank</strong></p>
-
-<ul>
-  <li>概率论、统计学和蒙特卡洛模拟的基础知识</li>
-  <li>@RISK的界面介绍</li>
-  <li>在确定性模型中加入不确定性</li>
-  <li>在风险模型中结合专家意见</li>
-  <li>用TopRank做敏感性分析和情景分析</li>
-  <li>模拟和模拟设置</li>
-  <li>输出与结果分析</li>
-  <li>在Excel中报告模拟结果</li>
-</ul>
-
-<p><strong>第二部分: @RISK, PrecisionTree, Evolver, RISKOptimizer, StatTools和 NeuralTools</strong></p>
-
-<ul>
-  <li>使用离散分布</li>
-  <li>建模逻辑</li>
-  <li>选择适合的分布</li>
-  <li>拟合数据的分布</li>
-  <li>使用 @RISK做决策分析</li>
-  <li>使用PrecisionTree做决策分析</li>
-  <li>使用Evolver和RISKOptimizer做最优化决策</li>
-  <li>相关性建模</li>
-  <li>使用StatTools和NeuralTools做数据分析</li>
-</ul>
-
-<p><strong>第三部分: 案例教学</strong></p>
-
-<p>案例范围有：</p>
-
-<ul>
-  <li>公司财务规划</li>
-  <li>项目管理</li>
-  <li>股票价格与期权定价</li>
-  <li>管理利率风险</li>
-  <li>期货对冲</li>
-  <li>存货与排队论</li>
-</ul>
-
+      <div class="sharing">
+  
+  
+  
+ 
+	<!-- JiaThis Button BEGIN -->
+	<div id="ckepop">
+		<span class="jiathis_txt">分享到： </span>
+		<a class="jiathis_button_tools_1"></a>
+		<a class="jiathis_button_tools_2"></a>
+		<a class="jiathis_button_tools_3"></a>
+		<a class="jiathis_button_tools_4"></a>
+		<a href="http://www.jiathis.com/share?uid=1558027" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank">更多</a>
+		<a class="jiathis_counter_style"></a>
+	</div>
+	
+	<!-- JiaThis Button END -->
+  
 </div>
-  
-  
 
-
-    </article>
-  
-  
-    <article>
+    
+    <p class="meta">
       
-  <header>
-    
-      <h1 class="entry-title"><a href="/cn/blog/2012/06/07/new-target/">下一步学习的目标</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2012-06-07T23:58:00+08:00" pubdate data-updated="true">Jun 7<span>th</span>, 2012</time>
-        
-         | <a href="/cn/blog/2012/06/07/new-target/#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>不给自己定太遥远的目标了，为了把R语言捡起来，为了把数量金融方面捡起来，我决定以 <em>Using SAS in Financial Research</em> 为蓝本，用R语言来实现每章的案例，来个 <em>Using R in Financial Research</em> 。涉及的案例有：</p>
-
-<ul>
-  <li>资产价格的随机游走理论：方差比率检验</li>
-  <li>谁是赢家谁是输家：使用R来检验过度反应假设</li>
-  <li>资本资产定价模型的实证检验：使用横截面方法</li>
-  <li>事件研究</li>
-  <li>价格-盈利关系的分析：关联类型研究方法</li>
-  <li>使用财务压力特征模型来预测破产</li>
-  <li>使用会计信息来预测市场绩效</li>
-  <li>交易数据的分析</li>
-</ul>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
+        <a class="basic-alignment left" href="/cn/blog/2012/10/10/asynchronous-loading-post-list-with-jekyll-and-jQuery/" title="Previous Post: 用jekyll和jQuery实现异步加载文章列表">&laquo; 用jekyll和jQuery实现异步加载文章列表</a>
       
-  <header>
-    
-      <h1 class="entry-title"><a href="/cn/blog/2012/04/20/jekyll-with-js-and-json/">用jekyll生成包含json变量的js脚本</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2012-04-20T23:58:00+08:00" pubdate data-updated="true">Apr 20<span>th</span>, 2012</time>
-        
-         | <a href="/cn/blog/2012/04/20/jekyll-with-js-and-json/#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p class="info">本文主要讨论如何用jekyll模板生成含有json数据的javascript脚本，并以此解决跨域读取json数据的问题。</p>
-
-<p><a href="http://yanping.me/cn/blog/2012/04/19/jekyll-with-json/">前一篇文章</a>提到用getJSON读取json文件，并以此动态更新页面，但只能读取同域的json文件，据说是出于安全性的考虑。</p>
-
-<p>现在问题出来了，我除了前文提到的三个网站以外，还有个<a href="http://inwake.com/ypchen">主页的镜像网站</a>，它存放在美国的一位师兄的服务器上，和那三个网站肯定不同域，如果我要让它和github上的<a href="http://yanping.me">主页</a>始终保持一致，又不想每次手动修改博客文章列表，也不能再使用feedsky了。因为feedsky除了慢之外，生成的列表样式也和网站风格不一致。</p>
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/cn/blog/2012/04/20/jekyll-with-js-and-json/">阅读全文 &rarr;</a>
-    </footer>
-  
-
-
-    </article>
-  
-  
-    <article>
       
-  <header>
-    
-      <h1 class="entry-title"><a href="/cn/blog/2012/04/19/jekyll-with-json/">用jekyll生成json</a></h1>
-    
-    
-      <p class="meta">
-        
+    </p>
+  </footer>
+</article>
 
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2012-04-19T22:30:00+08:00" pubdate data-updated="true">Apr 19<span>th</span>, 2012</time>
-        
-         | <a href="/cn/blog/2012/04/19/jekyll-with-json/#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p class="info">本文主要讨论如何用jekyll模板生成json，并以此整合在github上托管的不同网站的数据。</p>
-
-<p>从去年年底接触github和jekyll到现在已经折腾五个月了，从最初用github托管纯静态网站，到现在依照别人的网站构架修改成自己喜欢的样子，这个过程也是个不断学习的过程。</p>
-
-<p>我在github上有三个网站，一个是<a href="http://yanping.me">主页</a>，一个<a href="http://yanping.me/cn">技术博客</a>，最后一个是<a href="http://art.yanping.me">文艺博客</a>。现在有个问题是，这三个网站对应的是github上三个不同的代码库，如果我要在<a href="http://yanping.me">主页</a>上列出另两个网站的文章列表，不能用jekyll提供的函数来做到，jekyll只能操作一个代码库的文本，不能跨代码库。我之前用的一个方法是用feedsky提供的发布脚本，效果请看<a href="http://inwake.com/ypchen/json-demo">http://inwake.com/ypchen/json-demo</a>。这样的缺点是很显然的，一是加载速度慢，二是我们没办法控制列表的格式和样式。有没有更直接的解决方法呢？</p>
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
 
 </div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/cn/blog/2012/04/19/jekyll-with-json/">阅读全文 &rarr;</a>
-    </footer>
-  
 
-
-    </article>
-  
-  <div class="pagination">
-    
-      <a class="prev" href="/cn/blog/page/2/">&larr; 前一页</a>
-    
-    <a href="/cn/blog/archives">文章列表</a>
-    
-  </div>
-</div>
 <aside class="sidebar">
   
-    <section>
-  	<h1>关于本人</h1>
- <p align="center"><img src="http://art.yanping.me/images/avatar.jpg" /></p>
-
-
-<p>资浅媒体人，堆文字的金融攻城师，不靠谱的经济分析师，IT文艺小青年，舞者中的程序猿。<a href="/cn/blog/about" >更多介绍...</a></p>
-<p>声明：所有言论仅代表个人观点，与所在单位无关。</p><p>本人主页为<a href="http://chen.yanping.me" target="_blank">http://yanping.me</a></p>
-
-<p align="center"><a href="http://i.imgur.com/dBONa.jpg" target="_blank" title="The Certificate in Quantitative Finance (CQF) is a six-month part-time course designed for in-depth training for individuals working in, or intending to move into, derivatives, development, quantitative trading or risk management. " alt="Certificate in Quantitative Finance"><img src="/cn/images/blog/cqf.jpg" width="70%" /></a></p>
-</section>
-
-
-
+    
 <section id="categories_tag">
 <h1>分类目录</h1>
 <span class='categories_tag'> <a href='/cn/blog/categories/github' style='font-size: 146.66666666666666%'>Github(7)</a>  <a href='/cn/blog/categories/javascript' style='font-size: 126.66666666666667%'>Javascript(4)</a>  <a href='/cn/blog/categories/jekyll' style='font-size: 160.0%'>Jekyll(9)</a>  <a href='/cn/blog/categories/latex' style='font-size: 106.66666666666667%'>Latex(1)</a>  <a href='/cn/blog/categories/markdown' style='font-size: 106.66666666666667%'>Markdown(1)</a>  <a href='/cn/blog/categories/octopress' style='font-size: 153.33333333333334%'>Octopress(8)</a>  <a href='/cn/blog/categories/r语言' style='font-size: 140.0%'>R语言(6)</a>  <a href='/cn/blog/categories/指数' style='font-size: 106.66666666666667%'>指数(1)</a>  <a href='/cn/blog/categories/金融工程' style='font-size: 113.33333333333333%'>金融工程(2)</a> </span>
@@ -903,6 +542,7 @@
   
 </aside>
 
+
     </div>
   </div>
   <footer role="contentinfo">
@@ -920,7 +560,10 @@
       var disqus_shortname = 'ypchencn';
       
         
-        var disqus_script = 'count.js';
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://yanping.me/cn/blog/2012/12/09/get-dce-data/';
+        var disqus_url = 'http://yanping.me/cn/blog/2012/12/09/get-dce-data/';
+        var disqus_script = 'embed.js';
       
     (function () {
       var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;

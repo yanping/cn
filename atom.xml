@@ -4,7 +4,7 @@
   <title><![CDATA[雁起平沙的网络日志]]></title>
   <link href="http://yanping.me/cn/atom.xml" rel="self"/>
   <link href="http://yanping.me/cn/"/>
-  <updated>2012-10-21T06:35:32+08:00</updated>
+  <updated>2013-02-09T22:34:03+08:00</updated>
   <id>http://yanping.me/cn/</id>
   <author>
     <name><![CDATA[ypchen]]></name>
@@ -12,6 +12,259 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[用R获取大连商品交易所历史数据]]></title>
+    <link href="http://yanping.me/cn/blog/2012/12/09/get-dce-data/"/>
+    <updated>2012-12-09T20:00:00+08:00</updated>
+    <id>http://yanping.me/cn/blog/2012/12/09/get-dce-data</id>
+    <content type="html"><![CDATA[<p class="info">本文主要讨论如何用R语言从大连商品交易所网站上获取期货合约交易数据</p>
+
+<p>大商所的网站上有提供查询历史的<a href="http://www.dce.com.cn/portal/cate?cid=1261730308135">页面</a>。但是它只能对某一个品种查询某一天的报价，或者某一天所有品种的报价，如果我想批量获取交易数据，应该怎么做呢？</p>
+
+<p>首先剖析一下这个页面，用firefox的firebug查看日行情表的代码</p>
+
+<p><img src="http://i.imgur.com/PFZ4f1k.png" alt="日行情表" /></p>
+
+<p>可以看到，这个表实际上是用iframe实现的，查看页面的源文件可以查出这个iframe引用页面地址为<a href="http://www.dce.com.cn/PublicWeb/MainServlet?action=Data_service">http://www.dce.com.cn/PublicWeb/MainServlet?action=Data_service</a>。用上面的方法继续剖析这个页面，发现它引用了<a href="http://www.dce.com.cn/PublicWeb/MainServlet?action=Pu00011_search">http://www.dce.com.cn/PublicWeb/MainServlet?action=Pu00011_search</a>。</p>
+
+<p>先忽略无关的代码，只关注下面这部分</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span /></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+<span class="line-number">7</span>
+<span class="line-number">8</span>
+<span class="line-number">9</span>
+<span class="line-number">10</span>
+<span class="line-number">11</span>
+<span class="line-number">12</span>
+<span class="line-number">13</span>
+<span class="line-number">14</span>
+<span class="line-number">15</span>
+<span class="line-number">16</span>
+<span class="line-number">17</span>
+<span class="line-number">18</span>
+<span class="line-number">19</span>
+<span class="line-number">20</span>
+<span class="line-number">21</span>
+<span class="line-number">22</span>
+<span class="line-number">23</span>
+<span class="line-number">24</span>
+<span class="line-number">25</span>
+<span class="line-number">26</span>
+<span class="line-number">27</span>
+<span class="line-number">28</span>
+<span class="line-number">29</span>
+<span class="line-number">30</span>
+<span class="line-number">31</span>
+<span class="line-number">32</span>
+<span class="line-number">33</span>
+<span class="line-number">34</span>
+<span class="line-number">35</span>
+<span class="line-number">36</span>
+<span class="line-number">37</span>
+<span class="line-number">38</span>
+<span class="line-number">39</span>
+<span class="line-number">40</span>
+<span class="line-number">41</span>
+<span class="line-number">42</span>
+<span class="line-number">43</span>
+<span class="line-number">44</span>
+<span class="line-number">45</span>
+<span class="line-number">46</span>
+<span class="line-number">47</span>
+<span class="line-number">48</span>
+<span class="line-number">49</span>
+<span class="line-number">50</span>
+<span class="line-number">51</span>
+<span class="line-number">52</span>
+<span class="line-number">53</span>
+<span class="line-number">54</span>
+<span class="line-number">55</span>
+<span class="line-number">56</span>
+<span class="line-number">57</span>
+</pre></td><td class="code"><pre><code class="html"><span class="line"><span class="nt">&lt;form</span> <span class="na">target=</span><span class="s">&quot;_blank&quot;</span> <span class="na">name=</span><span class="s">&quot;form1&quot;</span> <span class="na">action=</span><span class="s">&quot;/PublicWeb/MainServlet&quot;</span> <span class="na">method=</span><span class="s">&quot;post&quot;</span> <span class="na">onSubmit=</span><span class="s">&quot;return formcheck(this);&quot;</span><span class="nt">&gt;</span>
+</span><span class="line">  <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">&quot;hidden&quot;</span> <span class="na">name=</span><span class="s">&quot;action&quot;</span> <span class="na">value=</span><span class="s">&quot;Pu00011_result&quot;</span><span class="nt">&gt;</span>
+</span><span class="line"><span class="nt">&lt;tr</span> <span class="na">valign=</span><span class="s">&quot;top&quot;</span><span class="nt">&gt;</span>
+</span><span class="line"><span class="nt">&lt;td</span> <span class="na">height=</span><span class="s">&quot;10&quot;</span><span class="nt">&gt;&lt;/td&gt;</span>
+</span><span class="line"><span class="nt">&lt;/tr&gt;</span>
+</span><span class="line">  <span class="nt">&lt;tr</span> <span class="na">valign=</span><span class="s">&quot;top&quot;</span><span class="nt">&gt;</span>
+</span><span class="line">    <span class="nt">&lt;td</span> <span class="na">height=</span><span class="s">&quot;133&quot;</span><span class="nt">&gt;</span>
+</span><span class="line">	<span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;title&quot;</span><span class="nt">&gt;</span>日 行 情 表<span class="nt">&lt;/div&gt;</span>
+</span><span class="line"><span class="nt">&lt;table</span> <span class="na">border=</span><span class="s">&quot;0&quot;</span> <span class="na">align=</span><span class="s">&quot;center&quot;</span> <span class="na">cellpadding=</span><span class="s">&quot;3&quot;</span> <span class="na">cellspacing=</span><span class="s">&quot;1&quot;</span> <span class="na">width=</span><span class="s">&quot;97%&quot;</span><span class="nt">&gt;</span>
+</span><span class="line">  <span class="nt">&lt;tr&gt;</span>
+</span><span class="line">    <span class="nt">&lt;td</span> <span class="na">class=</span><span class="s">&quot;nametd&quot;</span><span class="nt">&gt;</span> 查询日期:<span class="nt">&lt;/td&gt;</span>
+</span><span class="line">    <span class="nt">&lt;td</span> <span class="na">class=</span><span class="s">&quot;tdjian&quot;</span> <span class="nt">&gt;&lt;input</span> <span class="na">name=</span><span class="s">&quot;Pu00011_Input.trade_date&quot;</span> <span class="na">type=</span><span class="s">&quot;text&quot;</span> <span class="na">size=</span><span class="s">&quot;8&quot;</span> <span class="na">maxlength=</span><span class="s">&quot;8&quot;</span><span class="nt">&gt;</span>
+</span><span class="line">      <span class="nt">&lt;img</span>  <span class="na">align=</span><span class="s">&quot;absmiddle&quot;</span> <span class="na">src=</span><span class="s">&quot;/PublicWeb/include/images/calendar/show.gif&quot;</span> <span class="na">id=</span><span class="s">&quot;Pu00011_Input.trade_date.img&quot;</span> <span class="na">onClick=</span><span class="s">&#39;swapCalendar(document.all(&quot;Pu00011_Input.trade_date&quot;))&#39;</span> <span class="na">valign=</span><span class="s">&quot;bottom&quot;</span><span class="nt">&gt;</span>
+</span><span class="line">    <span class="nt">&lt;/td&gt;</span>
+</span><span class="line">    <span class="nt">&lt;td</span> <span class="na">class=</span><span class="s">&quot;nametd&quot;</span><span class="nt">&gt;</span> 品　　种:<span class="nt">&lt;/td&gt;</span>
+</span><span class="line">    <span class="nt">&lt;td</span> <span class="na">class=</span><span class="s">&quot;tdjian&quot;</span><span class="nt">&gt;&lt;select</span> <span class="na">name=</span><span class="s">&quot;Pu00011_Input.variety&quot;</span><span class="nt">&gt;</span>
+</span><span class="line">      <span class="nt">&lt;option</span> <span class="na">selected</span> <span class="na">value=</span><span class="s">&quot;all&quot;</span><span class="nt">&gt;</span>全部<span class="nt">&lt;/option&gt;</span>
+</span><span class="line">      <span class="nt">&lt;option</span> <span class="na">value=</span><span class="s">&quot;a&quot;</span><span class="nt">&gt;</span>豆一<span class="nt">&lt;/option&gt;</span>
+</span><span class="line">      <span class="nt">&lt;option</span> <span class="na">value=</span><span class="s">&quot;b&quot;</span><span class="nt">&gt;</span>豆二<span class="nt">&lt;/option&gt;</span>
+</span><span class="line">      <span class="nt">&lt;option</span> <span class="na">value=</span><span class="s">&quot;c&quot;</span><span class="nt">&gt;</span>玉米<span class="nt">&lt;/option&gt;</span>
+</span><span class="line">      <span class="nt">&lt;option</span> <span class="na">value=</span><span class="s">&quot;j&quot;</span><span class="nt">&gt;</span>焦炭<span class="nt">&lt;/option&gt;</span>
+</span><span class="line">      <span class="nt">&lt;option</span> <span class="na">value=</span><span class="s">&quot;l&quot;</span><span class="nt">&gt;</span>聚乙烯<span class="nt">&lt;/option&gt;</span>
+</span><span class="line">      <span class="nt">&lt;option</span> <span class="na">value=</span><span class="s">&quot;m&quot;</span><span class="nt">&gt;</span>豆粕<span class="nt">&lt;/option&gt;</span>
+</span><span class="line">      <span class="nt">&lt;option</span> <span class="na">value=</span><span class="s">&quot;p&quot;</span><span class="nt">&gt;</span>棕榈油<span class="nt">&lt;/option&gt;</span>
+</span><span class="line">      <span class="nt">&lt;option</span> <span class="na">value=</span><span class="s">&quot;v&quot;</span><span class="nt">&gt;</span>聚氯乙烯<span class="nt">&lt;/option&gt;</span>
+</span><span class="line">      <span class="nt">&lt;option</span> <span class="na">value=</span><span class="s">&quot;y&quot;</span><span class="nt">&gt;</span>豆油<span class="nt">&lt;/option&gt;</span>
+</span><span class="line">      <span class="nt">&lt;option</span> <span class="na">value=</span><span class="s">&quot;s&quot;</span><span class="nt">&gt;</span>大豆<span class="nt">&lt;/option&gt;</span>
+</span><span class="line">    <span class="nt">&lt;/select&gt;&lt;/td&gt;</span>
+</span><span class="line">  <span class="nt">&lt;/tr&gt;</span>
+</span><span class="line">  <span class="nt">&lt;tr&gt;</span>
+</span><span class="line">    <span class="nt">&lt;td</span> <span class="na">class=</span><span class="s">&quot;nametd&quot;</span><span class="nt">&gt;</span> <span class="nt">&lt;p&gt;</span> 行情类型:<span class="nt">&lt;/p&gt;</span>      <span class="nt">&lt;/td&gt;</span>
+</span><span class="line">    <span class="nt">&lt;td</span> <span class="na">class=</span><span class="s">&quot;tdjian&quot;</span> <span class="na">colspan=</span><span class="s">&quot;3&quot;</span><span class="nt">&gt;</span> <span class="nt">&lt;input</span> <span class="na">name=</span><span class="s">&quot;Pu00011_Input.trade_type&quot;</span> <span class="na">type=</span><span class="s">&quot;radio&quot;</span> <span class="na">value=</span><span class="s">&quot;0&quot;</span> <span class="na">checked</span><span class="nt">&gt;</span>期货行情
+</span><span class="line">    <span class="c">&lt;!--hide option</span>
+</span><span class="line"><span class="c">      &lt;input name=&quot;Pu00011_Input.trade_type&quot; type=&quot;radio&quot; value=&quot;1&quot;&gt;期权行情</span>
+</span><span class="line"><span class="c">     --&gt;</span>
+</span><span class="line">    <span class="nt">&lt;/td&gt;</span>
+</span><span class="line">  <span class="nt">&lt;/tr&gt;</span>
+</span><span class="line"><span class="nt">&lt;/table&gt;</span>
+</span><span class="line"><span class="nt">&lt;script </span><span class="na">language=</span><span class="s">&quot;javascript&quot;</span><span class="nt">&gt;</span>
+</span><span class="line"> <span class="nx">calendarImages</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;/PublicWeb/include/images/calendar/prev_year.gif&quot;</span><span class="p">,</span> <span class="s2">&quot;/PublicWeb/include/images/calendar/prev_month.gif&quot;</span><span class="p">,</span> <span class="s2">&quot;/PublicWeb/include/images/calendar/next_month.gif&quot;</span><span class="p">,</span> <span class="s2">&quot;/PublicWeb/include/images/calendar/next_year.gif&quot;</span><span class="p">,</span> <span class="s2">&quot;/PublicWeb/include/images/calendar/show.gif&quot;</span><span class="p">,</span> <span class="s2">&quot;/PublicWeb/include/images/calendar/hide.gif&quot;</span><span class="p">]</span>
+</span><span class="line">  <span class="nx">getCalendar</span><span class="p">(</span><span class="nb">document</span><span class="p">.</span><span class="nx">all</span><span class="p">(</span><span class="s2">&quot;Pu00011_Input.trade_date&quot;</span><span class="p">),</span> <span class="s1">&#39;20130208&#39;</span><span class="p">);</span>
+</span><span class="line"><span class="nt">&lt;/script&gt;</span>
+</span><span class="line"><span class="nt">&lt;table</span> <span class="na">border=</span><span class="s">&quot;0&quot;</span> <span class="na">align=</span><span class="s">&quot;center&quot;</span> <span class="na">cellpadding=</span><span class="s">&quot;5&quot;</span> <span class="na">cellspacing=</span><span class="s">&quot;0&quot;</span><span class="nt">&gt;</span>
+</span><span class="line">  <span class="nt">&lt;tr&gt;</span>
+</span><span class="line">    <span class="nt">&lt;td&gt;&lt;input</span> <span class="na">name=</span><span class="s">&quot;Submit&quot;</span> <span class="na">type=</span><span class="s">&quot;submit&quot;</span> <span class="na">class=</span><span class="s">&quot;button&quot;</span> <span class="na">value=</span><span class="s">&quot;查 询&quot;</span> <span class="na">onClick=</span><span class="s">&quot;document.form1.action.value=&#39;Pu00011_result&#39;;document.form1.target=&#39;_blank&#39;;&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;&amp;nbsp;</span><span class="nt">&lt;input</span> <span class="na">name=</span><span class="s">&quot;Submit2&quot;</span> <span class="na">type=</span><span class="s">&quot;submit&quot;</span> <span class="na">class=</span><span class="s">&quot;downbutton&quot;</span> <span class="na">value=</span><span class="s">&quot;下载文本格式&quot;</span> <span class="na">onClick=</span><span class="s">&quot;document.form1.action.value=&#39;Pu00012_download&#39;;document.form1.target=&#39;_self&#39;;&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;&amp;nbsp;</span><span class="nt">&lt;input</span> <span class="na">name=</span><span class="s">&quot;Submit2&quot;</span> <span class="na">type=</span><span class="s">&quot;submit&quot;</span> <span class="na">class=</span><span class="s">&quot;button&quot;</span> <span class="na">value=</span><span class="s">&quot;打 印&quot;</span> <span class="na">onClick=</span><span class="s">&quot;document.form1.action.value=&#39;Pu00011_result&#39;;document.form1.target=&#39;_blank&#39;;&quot;</span><span class="nt">&gt;&lt;/td&gt;</span>
+</span><span class="line">  <span class="nt">&lt;/tr&gt;</span>
+</span><span class="line"><span class="nt">&lt;/table&gt;</span>
+</span><span class="line"><span class="nt">&lt;table</span> <span class="na">border=</span><span class="s">&quot;0&quot;</span> <span class="na">align=</span><span class="s">&quot;center&quot;</span> <span class="na">cellpadding=</span><span class="s">&quot;1&quot;</span> <span class="na">cellspacing=</span><span class="s">&quot;0&quot;</span> <span class="na">width=</span><span class="s">&quot;97%&quot;</span><span class="nt">&gt;</span>
+</span><span class="line">  <span class="nt">&lt;tr</span> <span class="na">align=</span><span class="s">&quot;left&quot;</span><span class="nt">&gt;</span>
+</span><span class="line">    <span class="nt">&lt;td</span> <span class="na">width=</span><span class="s">20</span> <span class="na">valign=</span><span class="s">top</span><span class="nt">&gt;</span>注：<span class="nt">&lt;/td&gt;</span>
+</span><span class="line">    <span class="nt">&lt;td&gt;</span>
+</span><span class="line">     日行情信息 在每日“结算后”发布。历史数据始自2000-05-08。
+</span><span class="line">    <span class="nt">&lt;/td&gt;</span>
+</span><span class="line">  <span class="nt">&lt;/tr&gt;</span>
+</span><span class="line"><span class="nt">&lt;/table&gt;</span>
+</span><span class="line">
+</span><span class="line">  <span class="nt">&lt;/form&gt;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<p>要看懂上面的代码需要点网络编程的知识，请参考w3shool上关于<a href="http://www.w3school.com.cn/tags/tag_form.asp">form标签</a>、<a href="http://www.w3school.com.cn/tags/tag_select.asp">select标签</a>、<a href="http://www.w3school.com.cn/tags/tag_input.asp">input标签</a>以及<a href="http://www.w3school.com.cn/htmldom/event_onclick.asp">onClick事件</a>的介绍。</p>
+
+<p>简单地说上面代码做了以下几件事：</p>
+
+<ul>
+  <li>整段代码定义了个表单，名为form1，用于向服务器传输数据，后面用input标签和select标签来定义传递的数据</li>
+  <li>用了一个input标签和onClick事件<code>onClick='swapCalendar(document.all("Pu00011_Input.trade_date"))'</code>来设置要查询的日期<code>Pu00011_Input.trade_date</code>。</li>
+  <li>用了一个select标签来选择查询的品种<code>Pu00011_Input.variety</code></li>
+  <li>用了一个input标签来设置行情类型<code>Pu00011_Input.trade_type</code>，从代码里看，Pu00011_Input.trade_type的值始终是0,代表期货行情;从下面注释掉的部分代码可以看出当<code>Pu00011_Input.trade_type</code>取0时，代表的是期权行情，估计网站还没实现这个功能</li>
+  <li>然后有一排三个button属性的input标签，所以它们是按钮形式的，并且都有onClick属性，当按下按钮时，会触发javascript脚本，脚本会设置action的值，比如“下载文本格式”这个按钮，按下它会把action的值设置成<code>Pu00012_download</code></li>
+</ul>
+
+<p>form向服务器传递数据，其实可以等价于用url地址传递参数。比如日期选择了2012年12月6日，品种选择了“豆一”，点击“下载文本格式”，那么对应的地址为<a href="http://www.dce.com.cn/PublicWeb/MainServlet?Pu00011_Input.trade_date=20121206&amp;Pu00011_Input.trade_type=0&amp;Pu00011_Input.variety=a&amp;action=Pu00012_download">http://www.dce.com.cn/PublicWeb/MainServlet?Pu00011_Input.trade_date=20121206&amp;Pu00011_Input.trade_type=0&amp;Pu00011_Input.variety=a&amp;action=Pu00012_download</a></p>
+
+<p>把地址复制到地址栏，就可以下载文本格式数据了。</p>
+
+<p>那么用R来读取数据的原理就是生成所需数据的url地址，然后用R读取，再经过整理，返回最终数据框。</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span> (dce.r)</span> <a href="http://yanping.me/cn/downloads/code/dce.r">download</a></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+<span class="line-number">7</span>
+<span class="line-number">8</span>
+<span class="line-number">9</span>
+<span class="line-number">10</span>
+<span class="line-number">11</span>
+<span class="line-number">12</span>
+<span class="line-number">13</span>
+<span class="line-number">14</span>
+<span class="line-number">15</span>
+<span class="line-number">16</span>
+<span class="line-number">17</span>
+<span class="line-number">18</span>
+<span class="line-number">19</span>
+<span class="line-number">20</span>
+<span class="line-number">21</span>
+<span class="line-number">22</span>
+<span class="line-number">23</span>
+<span class="line-number">24</span>
+<span class="line-number">25</span>
+<span class="line-number">26</span>
+<span class="line-number">27</span>
+<span class="line-number">28</span>
+<span class="line-number">29</span>
+<span class="line-number">30</span>
+<span class="line-number">31</span>
+<span class="line-number">32</span>
+<span class="line-number">33</span>
+<span class="line-number">34</span>
+<span class="line-number">35</span>
+<span class="line-number">36</span>
+<span class="line-number">37</span>
+<span class="line-number">38</span>
+<span class="line-number">39</span>
+<span class="line-number">40</span>
+<span class="line-number">41</span>
+<span class="line-number">42</span>
+<span class="line-number">43</span>
+</pre></td><td class="code"><pre><code class="r"><span class="line"><span class="c1"># 从大连商品交易所网站抓取价格数据 数据源</span>
+</span><span class="line"><span class="c1"># http://www.dce.com.cn/PublicWeb/MainServlet?action=Pu00011_search</span>
+</span><span class="line"><span class="c1"># Pu00011_Input.trade_date ： 查询的日期 </span>
+</span><span class="line"><span class="c1"># Pu00011_Input.trade_type ： 行情类别   0为期货，1为期权（未开通） </span>
+</span><span class="line"><span class="c1"># Pu00011_Input.variety ：期货品种代码，各代码表示的期货品种： </span>
+</span><span class="line"><span class="c1">#  all : 全部 a ： 豆一 b ： 豆二 c ： 玉米 j ：焦炭 l： 聚乙烯 </span>
+</span><span class="line"><span class="c1">#  m ： 豆粕 p ： 棕榈油 v ： 聚氯乙烯 y ： 豆油 s ： 大豆</span>
+</span><span class="line">
+</span><span class="line">
+</span><span class="line">getDceData <span class="o">&lt;-</span> <span class="kr">function</span><span class="p">(</span>dates<span class="p">,</span> contracts<span class="p">,</span> keep.dataFile <span class="o">=</span> <span class="k-Variable">T</span><span class="p">)</span> <span class="p">{</span>
+</span><span class="line">  dceDatabase <span class="o">&lt;-</span> data.frame<span class="p">()</span>
+</span><span class="line">  <span class="kr">for</span> <span class="p">(</span>date in dates<span class="p">)</span> <span class="p">{</span>
+</span><span class="line">    <span class="kr">for</span> <span class="p">(</span>type in contracts<span class="p">)</span> <span class="p">{</span>
+</span><span class="line">
+</span><span class="line">      str1 <span class="o">&lt;-</span> <span class="s">&quot;http://www.dce.com.cn/PublicWeb/MainServlet?Pu00011_Input.trade_date=&quot;</span>
+</span><span class="line">      str2 <span class="o">&lt;-</span> <span class="s">&quot;&amp;Pu00011_Input.trade_type=0&amp;Pu00011_Input.variety=&quot;</span>
+</span><span class="line">      str3 <span class="o">&lt;-</span> <span class="s">&quot;&amp;action=Pu00012_download&quot;</span>
+</span><span class="line">
+</span><span class="line">      url <span class="o">&lt;-</span> paste<span class="p">(</span>str1<span class="p">,</span> date<span class="p">,</span> str2<span class="p">,</span> type<span class="p">,</span> str3<span class="p">,</span> sep <span class="o">=</span> <span class="s">&quot;&quot;</span><span class="p">)</span>
+</span><span class="line">      fileName <span class="o">&lt;-</span> paste<span class="p">(</span><span class="s">&quot;dce.&quot;</span><span class="p">,</span> type<span class="p">,</span> date<span class="p">,</span> <span class="s">&quot;.txt&quot;</span><span class="p">,</span> sep <span class="o">=</span> <span class="s">&quot;&quot;</span><span class="p">)</span>
+</span><span class="line">      lines <span class="o">&lt;-</span> readLines<span class="p">(</span>url<span class="p">)</span>
+</span><span class="line">      <span class="c1"># 如果使用的是linux系统，就转换lines的编码</span>
+</span><span class="line">      <span class="kr">if</span> <span class="p">(</span>sessionInfo<span class="p">()$</span>R.version<span class="p">$</span>os <span class="o">==</span> <span class="s">&quot;linux-gnu&quot;</span><span class="p">)</span> <span class="p">{</span>
+</span><span class="line">        lines <span class="o">&lt;-</span> iconv<span class="p">(</span>lines<span class="p">,</span> from <span class="o">=</span> <span class="s">&quot;gb2312&quot;</span><span class="p">,</span> to <span class="o">=</span> <span class="s">&quot;UTF-8&quot;</span><span class="p">)</span>
+</span><span class="line">      <span class="p">}</span>
+</span><span class="line">      <span class="c1"># 当输入的日期不是交易日或数据文件里合约数据为空时跳过本次循环</span>
+</span><span class="line">      <span class="kr">if</span> <span class="p">(</span>any<span class="p">(</span>lines <span class="o">==</span> <span class="s">&quot;&lt;html&gt;&quot;</span><span class="p">)</span> <span class="o">|</span> length<span class="p">(</span>lines<span class="p">)</span> <span class="o">==</span> <span class="m">5</span><span class="p">)</span> <span class="p">{</span>
+</span><span class="line">        next
+</span><span class="line">      <span class="p">}</span> <span class="kr">else</span> <span class="p">{</span>
+</span><span class="line">        content <span class="o">&lt;-</span> lines<span class="p">[</span><span class="m">4</span>:<span class="p">(</span>length<span class="p">(</span>lines<span class="p">)</span> <span class="o">-</span> <span class="m">2</span><span class="p">)]</span>
+</span><span class="line">        writeLines<span class="p">(</span>content<span class="p">,</span> fileName<span class="p">)</span>
+</span><span class="line">        data <span class="o">&lt;-</span> read.table<span class="p">(</span>fileName<span class="p">,</span> header <span class="o">=</span> <span class="k-Variable">T</span><span class="p">,</span> na.strings <span class="o">=</span> <span class="s">&quot;-&quot;</span><span class="p">)</span>
+</span><span class="line">        <span class="kr">if</span> <span class="p">(</span>!keep.dataFile<span class="p">)</span> <span class="p">{</span>
+</span><span class="line">          file.remove<span class="p">(</span>fileName<span class="p">)</span>
+</span><span class="line">        <span class="p">}</span>
+</span><span class="line">        data<span class="p">$</span>date <span class="o">&lt;-</span> date
+</span><span class="line">        dceDatabase <span class="o">&lt;-</span> rbind<span class="p">(</span>dceDatabase<span class="p">,</span> data<span class="p">)</span>
+</span><span class="line">      <span class="p">}</span>
+</span><span class="line">    <span class="p">}</span>
+</span><span class="line">  <span class="p">}</span>
+</span><span class="line">  <span class="kr">return</span><span class="p">(</span>dceDatabase<span class="p">)</span>
+</span><span class="line"><span class="p">}</span>
+</span><span class="line">
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<p>调用举例：</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span /></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+</pre></td><td class="code"><pre><code class="r"><span class="line">source<span class="p">(</span><span class="s">&quot;dce.r&quot;</span><span class="p">)</span>
+</span><span class="line">d1 <span class="o">&lt;-</span> getDceData<span class="p">(</span><span class="s">&quot;20121206&quot;</span><span class="p">,</span><span class="s">&quot;a&quot;</span><span class="p">)</span>
+</span><span class="line">d2 <span class="o">&lt;-</span> getDceData<span class="p">(</span>c<span class="p">(</span><span class="s">&quot;20121204&quot;</span><span class="p">,</span><span class="s">&quot;20121205&quot;</span><span class="p">,</span><span class="s">&quot;20121206&quot;</span><span class="p">),</span> c<span class="p">(</span><span class="s">&quot;a&quot;</span><span class="p">,</span><span class="s">&quot;b&quot;</span><span class="p">),</span> keep.dataFile <span class="o">=</span> <span class="k-Variable">F</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[用jekyll和jQuery实现异步加载文章列表]]></title>
@@ -554,28 +807,28 @@
 </pre></td><td class="code"><pre><code class="javascript"><span class="line"><span class="nx">$</span><span class="p">(</span><span class="nb">document</span><span class="p">).</span><span class="nx">ready</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
 </span><span class="line">	<span class="kd">var</span> <span class="nx">post</span> <span class="o">=</span> <span class="p">{</span>
 </span><span class="line">	<span class="s2">&quot;list&quot;</span><span class="o">:</span><span class="p">[{</span>
-</span><span class="line">		<span class="s2">&quot;title&quot;</span><span class="o">:</span><span class="s2">&quot;用jekyll和jQuery实现异步加载文章列表&quot;</span><span class="p">,</span>
-</span><span class="line">		    <span class="s2">&quot;url&quot;</span><span class="o">:</span><span class="s2">&quot;http://chen.yanping.me/cn/blog/2012/10/10/new-post/&quot;</span><span class="p">,</span>
-</span><span class="line">		    <span class="s2">&quot;date&quot;</span><span class="o">:</span><span class="s2">&quot;10 Oct 2012&quot;</span>
+</span><span class="line">		<span class="s2">&quot;title&quot;</span><span class="o">:</span><span class="s2">&quot;用R获取大连商品交易所历史数据&quot;</span><span class="p">,</span>
+</span><span class="line">		    <span class="s2">&quot;url&quot;</span><span class="o">:</span><span class="s2">&quot;http://yanping.me/cn/blog/2013/02/09/get-dce-data/&quot;</span><span class="p">,</span>
+</span><span class="line">		    <span class="s2">&quot;date&quot;</span><span class="o">:</span><span class="s2">&quot;09 Feb 2013&quot;</span>
 </span><span class="line">		<span class="p">},</span>
 </span><span class="line">	<span class="p">{</span>
 </span><span class="line">		<span class="s2">&quot;title&quot;</span><span class="o">:</span><span class="s2">&quot;用jekyll和jQuery实现异步加载文章列表&quot;</span><span class="p">,</span>
-</span><span class="line">		    <span class="s2">&quot;url&quot;</span><span class="o">:</span><span class="s2">&quot;http://chen.yanping.me/cn/blog/2012/10/10/asynchronous-loading-post-list-with-jekyll-and-jQuery/&quot;</span><span class="p">,</span>
+</span><span class="line">		    <span class="s2">&quot;url&quot;</span><span class="o">:</span><span class="s2">&quot;http://yanping.me/cn/blog/2012/10/10/asynchronous-loading-post-list-with-jekyll-and-jQuery/&quot;</span><span class="p">,</span>
 </span><span class="line">		    <span class="s2">&quot;date&quot;</span><span class="o">:</span><span class="s2">&quot;10 Oct 2012&quot;</span>
 </span><span class="line">		<span class="p">},</span>
 </span><span class="line">	<span class="p">{</span>
 </span><span class="line">		<span class="s2">&quot;title&quot;</span><span class="o">:</span><span class="s2">&quot;在Windows下使用jekyll如何避免出现中文字符集错误&quot;</span><span class="p">,</span>
-</span><span class="line">		    <span class="s2">&quot;url&quot;</span><span class="o">:</span><span class="s2">&quot;http://chen.yanping.me/cn/blog/2012/10/09/chinese-charset-problems-with-jekyll/&quot;</span><span class="p">,</span>
+</span><span class="line">		    <span class="s2">&quot;url&quot;</span><span class="o">:</span><span class="s2">&quot;http://yanping.me/cn/blog/2012/10/09/chinese-charset-problems-with-jekyll/&quot;</span><span class="p">,</span>
 </span><span class="line">		    <span class="s2">&quot;date&quot;</span><span class="o">:</span><span class="s2">&quot;09 Oct 2012&quot;</span>
 </span><span class="line">		<span class="p">},</span>
 </span><span class="line">	<span class="p">{</span>
 </span><span class="line">		<span class="s2">&quot;title&quot;</span><span class="o">:</span><span class="s2">&quot;DecisionTools培训课程大纲&quot;</span><span class="p">,</span>
-</span><span class="line">		    <span class="s2">&quot;url&quot;</span><span class="o">:</span><span class="s2">&quot;http://chen.yanping.me/cn/blog/2012/06/10/palisade-training-course/&quot;</span><span class="p">,</span>
+</span><span class="line">		    <span class="s2">&quot;url&quot;</span><span class="o">:</span><span class="s2">&quot;http://yanping.me/cn/blog/2012/06/10/palisade-training-course/&quot;</span><span class="p">,</span>
 </span><span class="line">		    <span class="s2">&quot;date&quot;</span><span class="o">:</span><span class="s2">&quot;10 Jun 2012&quot;</span>
 </span><span class="line">		<span class="p">},</span>
 </span><span class="line">	<span class="p">{</span>
 </span><span class="line">		<span class="s2">&quot;title&quot;</span><span class="o">:</span><span class="s2">&quot;下一步学习的目标&quot;</span><span class="p">,</span>
-</span><span class="line">		    <span class="s2">&quot;url&quot;</span><span class="o">:</span><span class="s2">&quot;http://chen.yanping.me/cn/blog/2012/06/07/new-target/&quot;</span><span class="p">,</span>
+</span><span class="line">		    <span class="s2">&quot;url&quot;</span><span class="o">:</span><span class="s2">&quot;http://yanping.me/cn/blog/2012/06/07/new-target/&quot;</span><span class="p">,</span>
 </span><span class="line">		    <span class="s2">&quot;date&quot;</span><span class="o">:</span><span class="s2">&quot;07 Jun 2012&quot;</span>
 </span><span class="line">		<span class="p">}</span>
 </span><span class="line">	
@@ -797,32 +1050,32 @@
 <span class="line-number">32</span>
 </pre></td><td class="code"><pre><code class="javascript"><span class="line"><span class="p">[</span>
 </span><span class="line">    <span class="p">{</span>
-</span><span class="line">        <span class="s2">&quot;title&quot;</span><span class="o">:</span><span class="s2">&quot;用jekyll和jQuery实现异步加载文章列表&quot;</span><span class="p">,</span>
-</span><span class="line">        <span class="s2">&quot;url&quot;</span><span class="o">:</span><span class="s2">&quot;http://chen.yanping.me/cn/blog/2012/10/10/new-post/&quot;</span><span class="p">,</span>
-</span><span class="line">        <span class="s2">&quot;date&quot;</span><span class="o">:</span><span class="s2">&quot;10 Oct 2012&quot;</span>
+</span><span class="line">        <span class="s2">&quot;title&quot;</span><span class="o">:</span><span class="s2">&quot;用R获取大连商品交易所历史数据&quot;</span><span class="p">,</span>
+</span><span class="line">        <span class="s2">&quot;url&quot;</span><span class="o">:</span><span class="s2">&quot;http://yanping.me/cn/blog/2013/02/09/get-dce-data/&quot;</span><span class="p">,</span>
+</span><span class="line">        <span class="s2">&quot;date&quot;</span><span class="o">:</span><span class="s2">&quot;09 Feb 2013&quot;</span>
 </span><span class="line">    <span class="p">},</span>
 </span><span class="line">
 </span><span class="line">    <span class="p">{</span>
 </span><span class="line">        <span class="s2">&quot;title&quot;</span><span class="o">:</span><span class="s2">&quot;用jekyll和jQuery实现异步加载文章列表&quot;</span><span class="p">,</span>
-</span><span class="line">        <span class="s2">&quot;url&quot;</span><span class="o">:</span><span class="s2">&quot;http://chen.yanping.me/cn/blog/2012/10/10/asynchronous-loading-post-list-with-jekyll-and-jQuery/&quot;</span><span class="p">,</span>
+</span><span class="line">        <span class="s2">&quot;url&quot;</span><span class="o">:</span><span class="s2">&quot;http://yanping.me/cn/blog/2012/10/10/asynchronous-loading-post-list-with-jekyll-and-jQuery/&quot;</span><span class="p">,</span>
 </span><span class="line">        <span class="s2">&quot;date&quot;</span><span class="o">:</span><span class="s2">&quot;10 Oct 2012&quot;</span>
 </span><span class="line">    <span class="p">},</span>
 </span><span class="line">
 </span><span class="line">    <span class="p">{</span>
 </span><span class="line">        <span class="s2">&quot;title&quot;</span><span class="o">:</span><span class="s2">&quot;在Windows下使用jekyll如何避免出现中文字符集错误&quot;</span><span class="p">,</span>
-</span><span class="line">        <span class="s2">&quot;url&quot;</span><span class="o">:</span><span class="s2">&quot;http://chen.yanping.me/cn/blog/2012/10/09/chinese-charset-problems-with-jekyll/&quot;</span><span class="p">,</span>
+</span><span class="line">        <span class="s2">&quot;url&quot;</span><span class="o">:</span><span class="s2">&quot;http://yanping.me/cn/blog/2012/10/09/chinese-charset-problems-with-jekyll/&quot;</span><span class="p">,</span>
 </span><span class="line">        <span class="s2">&quot;date&quot;</span><span class="o">:</span><span class="s2">&quot;09 Oct 2012&quot;</span>
 </span><span class="line">    <span class="p">},</span>
 </span><span class="line">
 </span><span class="line">    <span class="p">{</span>
 </span><span class="line">        <span class="s2">&quot;title&quot;</span><span class="o">:</span><span class="s2">&quot;DecisionTools培训课程大纲&quot;</span><span class="p">,</span>
-</span><span class="line">        <span class="s2">&quot;url&quot;</span><span class="o">:</span><span class="s2">&quot;http://chen.yanping.me/cn/blog/2012/06/10/palisade-training-course/&quot;</span><span class="p">,</span>
+</span><span class="line">        <span class="s2">&quot;url&quot;</span><span class="o">:</span><span class="s2">&quot;http://yanping.me/cn/blog/2012/06/10/palisade-training-course/&quot;</span><span class="p">,</span>
 </span><span class="line">        <span class="s2">&quot;date&quot;</span><span class="o">:</span><span class="s2">&quot;10 Jun 2012&quot;</span>
 </span><span class="line">    <span class="p">},</span>
 </span><span class="line">
 </span><span class="line">    <span class="p">{</span>
 </span><span class="line">        <span class="s2">&quot;title&quot;</span><span class="o">:</span><span class="s2">&quot;下一步学习的目标&quot;</span><span class="p">,</span>
-</span><span class="line">        <span class="s2">&quot;url&quot;</span><span class="o">:</span><span class="s2">&quot;http://chen.yanping.me/cn/blog/2012/06/07/new-target/&quot;</span><span class="p">,</span>
+</span><span class="line">        <span class="s2">&quot;url&quot;</span><span class="o">:</span><span class="s2">&quot;http://yanping.me/cn/blog/2012/06/07/new-target/&quot;</span><span class="p">,</span>
 </span><span class="line">        <span class="s2">&quot;date&quot;</span><span class="o">:</span><span class="s2">&quot;07 Jun 2012&quot;</span>
 </span><span class="line">    <span class="p">}</span>
 </span><span class="line">
@@ -2628,74 +2881,6 @@ _layout.scss     # Override settings for base/_layout.scss to change the layout
 
 <h3 id="section-3">译者注</h3>
 <p><a href="http://jliblog.com/">李舰</a>曾经在第四届R语言会议（北京会场）上做了题为《 <em>R与高性能运算</em> 》的报告，报告slides及代码请见<a href="http://cos.name/2011/05/4th-china-r-beijing-summary/">会议纪要</a></p>
-
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Windows下安装Octopress]]></title>
-    <link href="http://yanping.me/cn/blog/2011/12/26/octopress-on-windows/"/>
-    <updated>2011-12-26T15:36:00+08:00</updated>
-    <id>http://yanping.me/cn/blog/2011/12/26/octopress-on-windows</id>
-    <content type="html"><![CDATA[<p>首先，我要感慨一下，有心栽花花不开，无心插柳柳成荫。</p>
-
-<p>最初我发现在windows下不能部署octopress，安装rvm不成功，跟<a href="http://yangzhiping.com" target="_blank">阳志平</a>交流后，他也说在windows不可以，到网上搜寻了一下，也没有人说在windows下安装成功。</p>
-
-<p>去上海参加<a href="http://cos.name/2011/11/4th-china-r-shanghai-summary/">R语言会议</a>时，见到怡轩和思喆的ubuntu，甚是羡慕，当初哥也玩过很长一段时间的，没玩明白呢就荒废了，现在决定捡起来。重新给硬盘分区太麻烦了，好在现在的电脑性能比3、4年前要强太多了，办公室的电脑随便哪台都是双核4G内存256G硬盘，用来打字上网淘宝人人开心微博就太浪费了<sup>[<a id="back_2_1" href="#fn_2_1">1</a>]</sup>，于是我决定在办公室的电脑上安装虚拟机virtualBox，在虚拟机里装ubuntu 10.04。这中间也遇到了些问题，我到ruby-taiwan上也发帖问过（请看<a href="http://ruby-taiwan.org/topics/37" target="_blank">当时的帖子</a>）。后来用wubi的方式在自己笔记本上安装了ubuntu11.10，用得挺爽，我的octopress博客也开张了，地址是<a href="http://chen.yanping.me/cn" target="_blank">http://chen.yanping.me/cn</a>。原来的wordpress博客暂停更新。</p>
-
-<p>因为大部分工作还是要在windows里完成，所以我还是想能在windows下使用Octopress。</p>
-
-<!--more-->
-
-<p>想起阳志平推荐的RailsInstaller<sup>[<a id="back_2_2" href="#fn_2_2">2</a>]</sup>，其中ruby的版本就是1.9.2，而Octopress就要求Ruby1.9.2的环境。于是打开Git Bash，按照<a href="http://octopress.org/docs/" target="_blank">官方指南</a>安装，</p>
-
-<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span /></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
-<span class="line-number">2</span>
-<span class="line-number">3</span>
-<span class="line-number">4</span>
-<span class="line-number">5</span>
-</pre></td><td class="code"><pre><code class="sh"><span class="line">git clone git://github.com/imathis/octopress.git octopress
-</span><span class="line"><span class="nb">cd </span>octopress    <span class="c"># If you use RVM, You&#39;ll be asked if you trust the .rvmrc file (say yes).</span>
-</span><span class="line">ruby --version  <span class="c"># Should report Ruby 1.9.2</span>
-</span><span class="line">gem install bundler
-</span><span class="line">bundle install
-</span></code></pre></td></tr></table></div></figure></notextile></div>
-
-<p><code>bundle install</code>不成功的话可以换成<code>bundle update</code>。下一步应该运行<code>rake install</code>了，结果返回信息：</p>
-
-<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span /></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
-</pre></td><td class="code"><pre><code class="sh"><span class="line">You have already activated rake 0.9.2.2, but your Gemfile requires rake 0.9.2. Using bundle <span class="nb">exec </span>may solve this.
-</span></code></pre></td></tr></table></div></figure></notextile></div>
-
-<p>换成<code>bundle exec rake install</code>就行了，于是后面所有要用到rake的命令，通过都用bundle exec rake代替。嫌麻烦的话也可以在bash的配置文件里添加命令的别名。如果你windows的用户名为user，bash的配置文件在C:\Documents and Settings\user下，也可以直接在git bash下输入<code>cd ~</code>，文件名为<code>.bash_profile</code>，在文件里添加一行</p>
-
-<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span /></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
-</pre></td><td class="code"><pre><code class="sh"><span class="line"><span class="nb">alias </span><span class="nv">rake</span><span class="o">=</span><span class="s1">&#39;bundle exec rake&#39;</span>
-</span></code></pre></td></tr></table></div></figure></notextile></div>
-<p>后面都和官方指南一样。但真正用起来的时候，发现不能使用中文（请看<a href="http://ruby-taiwan.org/topics/46" target="_blank">帖子</a>）。经论坛上laoyang945点拨，字符集不兼容的问题终于解决了，只要在<code>.bash_profile</code>再加两行</p>
-
-<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span /></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
-<span class="line-number">2</span>
-</pre></td><td class="code"><pre><code class="sh"><span class="line"><span class="nb">export   </span><span class="nv">LC_ALL</span><span class="o">=</span>zh_CN.UTF-8
-</span><span class="line"><span class="nb">export   </span><span class="nv">LANG</span><span class="o">=</span>zh_CN.UTF-8
-</span></code></pre></td></tr></table></div></figure></notextile></div>
-
-<p>另外，淘宝给我们送了一份圣诞大礼（请猛戳<a href="http://www.oschina.net/news/24321/rubygems-taobao-mirror?from=rss" target="_blank">淘宝提供RubyGems的国内镜像站点</a>），这样我可以修改下载的Octopress目录下的Gemfile文件，把第一行改成</p>
-
-<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span /></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
-</pre></td><td class="code"><pre><code class="ruby"><span class="line"><span class="n">source</span> <span class="s2">&quot;http://ruby.taobao.org/&quot;</span>
-</span></code></pre></td></tr></table></div></figure></notextile></div>
-<p>做这样的修改后，安装速度会大大提高。</p>
-
-<h3 id="section">脚注</h3>
-<ol>
-  <li>我所在的并不是技术公司，相反，那是个文人聚集的地方  [<a id="fn_2_1" href="#back_2_1">↩</a>] </li>
-  <li>关于在windows下搭建ruby环境，请看他的<a href="http://www.yangzhiping.com/tech/happy-ruby-ps1-windows.html">文章</a> [<a id="fn_2_2" href="#back_2_2">↩</a>] </li>
-</ol>
-
-<p class="warning">
-有人反映在win7下找不到<code>.bash_profile</code>文件，新建这个也没用。我暂时也没有win7的测试环境，论坛上有人提出了解决方法，更多的讨论请看<a href="http://ruby-taiwan.org/topics/46">http://ruby-taiwan.org/topics/46</a> 。
-</p>
 
 ]]></content>
   </entry>

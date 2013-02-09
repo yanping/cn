@@ -4,7 +4,7 @@
   <title><![CDATA[分类： R语言 | 雁起平沙的网络日志]]></title>
   <link href="http://yanping.me/cn/blog/categories/r语言/atom.xml" rel="self"/>
   <link href="http://yanping.me/cn/"/>
-  <updated>2012-10-21T06:35:32+08:00</updated>
+  <updated>2013-02-09T22:34:03+08:00</updated>
   <id>http://yanping.me/cn/</id>
   <author>
     <name><![CDATA[ypchen]]></name>
@@ -12,6 +12,202 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[用R获取大连商品交易所历史数据]]></title>
+    <link href="http://yanping.me/cn/blog/2012/12/09/get-dce-data/"/>
+    <updated>2012-12-09T20:00:00+08:00</updated>
+    <id>http://yanping.me/cn/blog/2012/12/09/get-dce-data</id>
+    <content type="html"><![CDATA[<p class="info">本文主要讨论如何用R语言从大连商品交易所网站上获取期货合约交易数据</p>
+
+<p>大商所的网站上有提供查询历史的<a href="http://www.dce.com.cn/portal/cate?cid=1261730308135">页面</a>。但是它只能对某一个品种查询某一天的报价，或者某一天所有品种的报价，如果我想批量获取交易数据，应该怎么做呢？</p>
+
+<p>首先剖析一下这个页面，用firefox的firebug查看日行情表的代码</p>
+
+<p><img src="http://i.imgur.com/PFZ4f1k.png" alt="日行情表" /></p>
+
+<p>可以看到，这个表实际上是用iframe实现的，查看页面的源文件可以查出这个iframe引用页面地址为<a href="http://www.dce.com.cn/PublicWeb/MainServlet?action=Data_service">http://www.dce.com.cn/PublicWeb/MainServlet?action=Data_service</a>。用上面的方法继续剖析这个页面，发现它引用了<a href="http://www.dce.com.cn/PublicWeb/MainServlet?action=Pu00011_search">http://www.dce.com.cn/PublicWeb/MainServlet?action=Pu00011_search</a>。</p>
+
+<p>先忽略无关的代码，只关注下面这部分</p>
+
+<p>```html
+&lt;form target="_blank" name="form1" action="/PublicWeb/MainServlet" method="post" onSubmit="return formcheck(this);"&gt;
+  <input type="hidden" name="action" value="Pu00011_result" />
+&lt;tr valign="top"&gt;
+&lt;td height="10"&gt;&lt;/td&gt;
+&lt;/tr&gt;
+  &lt;tr valign="top"&gt;
+    &lt;td height="133"&gt;
+	&lt;div class="title"&gt;日 行 情 表&lt;/div&gt;
+&lt;table border="0" align="center" cellpadding="3" cellspacing="1" width="97%"&gt;</p>
+<tr>
+    <td class="nametd"> 查询日期:</td>
+    <td class="tdjian"><input name="Pu00011_Input.trade_date" type="text" size="8" maxlength="8" />
+      <img align="absmiddle" src="http://yanping.me/cn/PublicWeb/include/images/calendar/show.gif" id="Pu00011_Input.trade_date.img" onClick="swapCalendar(document.all(&quot;Pu00011_Input.trade_date&quot;))" valign="bottom" />
+    </td>
+    <td class="nametd"> 品　　种:</td>
+    <td class="tdjian"><select name="Pu00011_Input.variety">
+      &lt;option selected value="all"&gt;全部
+      <option value="a">豆一</option>
+      <option value="b">豆二</option>
+      <option value="c">玉米</option>
+      <option value="j">焦炭</option>
+      <option value="l">聚乙烯</option>
+      <option value="m">豆粕</option>
+      <option value="p">棕榈油</option>
+      <option value="v">聚氯乙烯</option>
+      <option value="y">豆油</option>
+      <option value="s">大豆</option>
+    </select></td>
+  </tr>
+<tr>
+    <td class="nametd"> <p> 行情类型:</p>      </td>
+    <td class="tdjian" colspan="3"> &lt;input name="Pu00011_Input.trade_type" type="radio" value="0" checked&gt;期货行情
+    <!--hide option
+      <input name="Pu00011_Input.trade_type" type="radio" value="1">期权行情
+     --> 
+    </td>
+  </tr>
+<p>&lt;/table&gt;
+<script language="javascript">
+ calendarImages = ["/PublicWeb/include/images/calendar/prev_year.gif", "/PublicWeb/include/images/calendar/prev_month.gif", "/PublicWeb/include/images/calendar/next_month.gif", "/PublicWeb/include/images/calendar/next_year.gif", "/PublicWeb/include/images/calendar/show.gif", "/PublicWeb/include/images/calendar/hide.gif"]
+  getCalendar(document.all("Pu00011_Input.trade_date"), '20130208');
+</script>
+&lt;table border="0" align="center" cellpadding="5" cellspacing="0"&gt;</p>
+<tr>
+    <td><input name="Submit" type="submit" class="button" value="查 询" onClick="document.form1.action.value='Pu00011_result';document.form1.target='_blank';" />&nbsp;&nbsp;<input name="Submit2" type="submit" class="downbutton" value="下载文本格式" onClick="document.form1.action.value='Pu00012_download';document.form1.target='_self';" />&nbsp;&nbsp;<input name="Submit2" type="submit" class="button" value="打 印" onClick="document.form1.action.value='Pu00011_result';document.form1.target='_blank';" /></td>
+  </tr>
+<p>&lt;/table&gt; 
+&lt;table border="0" align="center" cellpadding="1" cellspacing="0" width="97%"&gt;
+  &lt;tr align="left"&gt;
+    &lt;td width=20 valign=top&gt;注：&lt;/td&gt;
+    &lt;td&gt;
+     日行情信息 在每日“结算后”发布。历史数据始自2000-05-08。
+    &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/table&gt;</p>
+
+<p>&lt;/form&gt;</p>
+
+<p>```</p>
+
+<p>要看懂上面的代码需要点网络编程的知识，请参考w3shool上关于<a href="http://www.w3school.com.cn/tags/tag_form.asp">form标签</a>、<a href="http://www.w3school.com.cn/tags/tag_select.asp">select标签</a>、<a href="http://www.w3school.com.cn/tags/tag_input.asp">input标签</a>以及<a href="http://www.w3school.com.cn/htmldom/event_onclick.asp">onClick事件</a>的介绍。</p>
+
+<p>简单地说上面代码做了以下几件事：</p>
+
+<ul>
+  <li>整段代码定义了个表单，名为form1，用于向服务器传输数据，后面用input标签和select标签来定义传递的数据</li>
+  <li>用了一个input标签和onClick事件<code>onClick='swapCalendar(document.all("Pu00011_Input.trade_date"))'</code>来设置要查询的日期<code>Pu00011_Input.trade_date</code>。</li>
+  <li>用了一个select标签来选择查询的品种<code>Pu00011_Input.variety</code></li>
+  <li>用了一个input标签来设置行情类型<code>Pu00011_Input.trade_type</code>，从代码里看，Pu00011_Input.trade_type的值始终是0,代表期货行情;从下面注释掉的部分代码可以看出当<code>Pu00011_Input.trade_type</code>取0时，代表的是期权行情，估计网站还没实现这个功能</li>
+  <li>然后有一排三个button属性的input标签，所以它们是按钮形式的，并且都有onClick属性，当按下按钮时，会触发javascript脚本，脚本会设置action的值，比如“下载文本格式”这个按钮，按下它会把action的值设置成<code>Pu00012_download</code></li>
+</ul>
+
+<p>form向服务器传递数据，其实可以等价于用url地址传递参数。比如日期选择了2012年12月6日，品种选择了“豆一”，点击“下载文本格式”，那么对应的地址为<a href="http://www.dce.com.cn/PublicWeb/MainServlet?Pu00011_Input.trade_date=20121206&amp;Pu00011_Input.trade_type=0&amp;Pu00011_Input.variety=a&amp;action=Pu00012_download">http://www.dce.com.cn/PublicWeb/MainServlet?Pu00011_Input.trade_date=20121206&amp;Pu00011_Input.trade_type=0&amp;Pu00011_Input.variety=a&amp;action=Pu00012_download</a></p>
+
+<p>把地址复制到地址栏，就可以下载文本格式数据了。</p>
+
+<p>那么用R来读取数据的原理就是生成所需数据的url地址，然后用R读取，再经过整理，返回最终数据框。</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span> (dce.r)</span> <a href='/downloads/code/dce.r'>download</a></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+</pre></td><td class='code'><pre><code class='r'><span class='line'><span class="c1"># 从大连商品交易所网站抓取价格数据 数据源</span>
+</span><span class='line'><span class="c1"># http://www.dce.com.cn/PublicWeb/MainServlet?action=Pu00011_search</span>
+</span><span class='line'><span class="c1"># Pu00011_Input.trade_date ： 查询的日期 </span>
+</span><span class='line'><span class="c1"># Pu00011_Input.trade_type ： 行情类别   0为期货，1为期权（未开通） </span>
+</span><span class='line'><span class="c1"># Pu00011_Input.variety ：期货品种代码，各代码表示的期货品种： </span>
+</span><span class='line'><span class="c1">#  all : 全部 a ： 豆一 b ： 豆二 c ： 玉米 j ：焦炭 l： 聚乙烯 </span>
+</span><span class='line'><span class="c1">#  m ： 豆粕 p ： 棕榈油 v ： 聚氯乙烯 y ： 豆油 s ： 大豆</span>
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'>getDceData <span class="o">&lt;-</span> <span class="kr">function</span><span class="p">(</span>dates<span class="p">,</span> contracts<span class="p">,</span> keep.dataFile <span class="o">=</span> <span class="k-Variable">T</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>  dceDatabase <span class="o">&lt;-</span> data.frame<span class="p">()</span>
+</span><span class='line'>  <span class="kr">for</span> <span class="p">(</span>date in dates<span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>    <span class="kr">for</span> <span class="p">(</span>type in contracts<span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>
+</span><span class='line'>      str1 <span class="o">&lt;-</span> <span class="s">&quot;http://www.dce.com.cn/PublicWeb/MainServlet?Pu00011_Input.trade_date=&quot;</span>
+</span><span class='line'>      str2 <span class="o">&lt;-</span> <span class="s">&quot;&amp;Pu00011_Input.trade_type=0&amp;Pu00011_Input.variety=&quot;</span>
+</span><span class='line'>      str3 <span class="o">&lt;-</span> <span class="s">&quot;&amp;action=Pu00012_download&quot;</span>
+</span><span class='line'>
+</span><span class='line'>      url <span class="o">&lt;-</span> paste<span class="p">(</span>str1<span class="p">,</span> date<span class="p">,</span> str2<span class="p">,</span> type<span class="p">,</span> str3<span class="p">,</span> sep <span class="o">=</span> <span class="s">&quot;&quot;</span><span class="p">)</span>
+</span><span class='line'>      fileName <span class="o">&lt;-</span> paste<span class="p">(</span><span class="s">&quot;dce.&quot;</span><span class="p">,</span> type<span class="p">,</span> date<span class="p">,</span> <span class="s">&quot;.txt&quot;</span><span class="p">,</span> sep <span class="o">=</span> <span class="s">&quot;&quot;</span><span class="p">)</span>
+</span><span class='line'>      lines <span class="o">&lt;-</span> readLines<span class="p">(</span>url<span class="p">)</span>
+</span><span class='line'>      <span class="c1"># 如果使用的是linux系统，就转换lines的编码</span>
+</span><span class='line'>      <span class="kr">if</span> <span class="p">(</span>sessionInfo<span class="p">()$</span>R.version<span class="p">$</span>os <span class="o">==</span> <span class="s">&quot;linux-gnu&quot;</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>        lines <span class="o">&lt;-</span> iconv<span class="p">(</span>lines<span class="p">,</span> from <span class="o">=</span> <span class="s">&quot;gb2312&quot;</span><span class="p">,</span> to <span class="o">=</span> <span class="s">&quot;UTF-8&quot;</span><span class="p">)</span>
+</span><span class='line'>      <span class="p">}</span>
+</span><span class='line'>      <span class="c1"># 当输入的日期不是交易日或数据文件里合约数据为空时跳过本次循环</span>
+</span><span class='line'>      <span class="kr">if</span> <span class="p">(</span>any<span class="p">(</span>lines <span class="o">==</span> <span class="s">&quot;&lt;html&gt;&quot;</span><span class="p">)</span> <span class="o">|</span> length<span class="p">(</span>lines<span class="p">)</span> <span class="o">==</span> <span class="m">5</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>        next
+</span><span class='line'>      <span class="p">}</span> <span class="kr">else</span> <span class="p">{</span>
+</span><span class='line'>        content <span class="o">&lt;-</span> lines<span class="p">[</span><span class="m">4</span>:<span class="p">(</span>length<span class="p">(</span>lines<span class="p">)</span> <span class="o">-</span> <span class="m">2</span><span class="p">)]</span>
+</span><span class='line'>        writeLines<span class="p">(</span>content<span class="p">,</span> fileName<span class="p">)</span>
+</span><span class='line'>        data <span class="o">&lt;-</span> read.table<span class="p">(</span>fileName<span class="p">,</span> header <span class="o">=</span> <span class="k-Variable">T</span><span class="p">,</span> na.strings <span class="o">=</span> <span class="s">&quot;-&quot;</span><span class="p">)</span>
+</span><span class='line'>        <span class="kr">if</span> <span class="p">(</span>!keep.dataFile<span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>          file.remove<span class="p">(</span>fileName<span class="p">)</span>
+</span><span class='line'>        <span class="p">}</span>
+</span><span class='line'>        data<span class="p">$</span>date <span class="o">&lt;-</span> date
+</span><span class='line'>        dceDatabase <span class="o">&lt;-</span> rbind<span class="p">(</span>dceDatabase<span class="p">,</span> data<span class="p">)</span>
+</span><span class='line'>      <span class="p">}</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'>  <span class="kr">return</span><span class="p">(</span>dceDatabase<span class="p">)</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>调用举例：</p>
+
+<p><code>r
+source("dce.r")
+d1 &lt;- getDceData("20121206","a")
+d2 &lt;- getDceData(c("20121204","20121205","20121206"), c("a","b"), keep.dataFile = F)
+</code></p>
+
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[下一步学习的目标]]></title>
@@ -290,96 +486,6 @@ R导论的10.8也是讲定制环境的。
 这种方法只能安装从CRAN能获取到的包。其他途径获取的包要单独安装。
 </span>
 </p>
-
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[用R处理大数据集]]></title>
-    <link href="http://yanping.me/cn/blog/2012/01/01/working-with-large-datasets/"/>
-    <updated>2012-01-01T15:36:00+08:00</updated>
-    <id>http://yanping.me/cn/blog/2012/01/01/working-with-large-datasets</id>
-    <content type="html"><![CDATA[<p><span class="info">
-本文翻译自<a href="http://www.manning.com/kabacoff/" target="_blank">R in Action</a>的附录G，如果对该书感兴趣，请自行购买或去图书馆阅读。
-</span>
-</p>
-
-<p>R会把所有的对象读存入虚拟内存中。对我们大多数用户来说，这种设计可以提高与R相互的速度，但是当分析大数据集时，这种设计会降低程序运行速度有时还会产生跟内存相关的错误。</p>
-
-<p>内存限制主要取决于R的build版（32位还是64位），而在32位的windows下，取决于操作系统的版本。以cannot allocate vectoe of size开头的出错信息表示无法分配充足的连续内存，而以cannot allocate vector of length开头的出错信息表示超越了地址限制（address limit）。在处理大数据集时，应尽量使用64位版的R。对于各种build版，向量中的元素个数最大为2147483647（请自行?Memory）。</p>
-
-<p>在处理大数据集时有三方面应该考虑：（a）提高程序的效率，保证执行速度；（b）把数据储存在外部，以解决内存限制问题；（c）使用专门的统计方法来有效处理大数据量的问题。</p>
-
-<p>下面将分别讨论。</p>
-
-<!--more-->
-
-<h3 id="section">高效编程</h3>
-<p>下面几条编程技巧来可以提高处理大数据集时的效率</p>
-
-<ul>
-  <li>尽量向量化运算。使用R内置的函数来处理向量、矩阵和list（例如函数<code>sapply</code>，<code>lapply</code>和<code>mapply</code>），尽量避免使用循环（for和while）;</li>
-  <li>使用矩阵，必要时才使用数据框，因为矩阵的开销更少；</li>
-  <li>使用<code>read.table()</code>函数族把外部数据导入数据框时，尽量显式设定<code>colClasses</code>和<code>nrows</code>选项，设定<code>comment.char = ""</code>，把不需要的列设置成NULL。这样可以减少占用的内存，同时加快处理速度。将外部数据导入矩阵时，使用<code>scan()</code>函数；</li>
-  <li>在处理全部数据前，用数据的子集测试程序，来优化程序，去掉bug；</li>
-  <li>删除临时对象和不再用的对象。调用<code>rm(list=ls())</code>可以删除内存中的所有对象。删除指定的对象可以用<code>rm(object)</code>；</li>
-  <li>在Jeromy Anglim的博客文章“R的内存管理：一些小窍门和技巧”(原文<a href="http://jeromyanglim.blogspot.com/2009/11/memory-management-in-r-few-tips-and.html">Memory Management in R: A Few Tips and Tricks </a>，被墙)中提到，使用函数<code>.ls.objects()</code>列出工作区内的对象占用的内存大小。这个函数会帮助你找到吃内存的大家伙。</li>
-  <li>profile你的程序，看看在每个函数中花的时间。你可以用<code>Rprof()</code>和<code>summaryRprof()</code>函数完成这项工作。<code>system.time()</code>函数也可以帮助你。<em>profr</em> 和 <em>prooftools</em> 包提供了若干函数来帮助分析profile的输出。</li>
-  <li>Rcpp包可以把R对象转成C++函数（原文是The Rcpp package can be used to transfer R objects to C++ functions and back when more optimized subroutines are needed. 后半句不知怎么翻译）</li>
-</ul>
-
-<p>处理大数据集，提高代码效率只能解决一部分问题。你也可以把数据存在外部存储并使用专门的统计分析方法。</p>
-
-<h3 id="section-1">把数据存储在内存之外</h3>
-<p>有几种包可以实现在内存之外存储数据。解决之道是把数据保存在外部数据库或者硬盘里的二进制文件中，然后在需要的时候部分地读取。下表描述了几种有用的包：</p>
-
-<table class="datalist">
-<tr>
-	<th><strong>包</strong></th>
-	<th><strong>描述</strong></th>
-</tr>
-<tr>
-	<td>ff</td>
-	<td>提供了一种数据结构，保存在硬盘中，但是操作起来就如同在内存中一样</td>
-</tr>
-<tr>
-	<td>bigmemory</td>
-	<td>支持大规模矩阵的创建、储存、读取和操作。矩阵被分配到共享内存或内存映射的文件中（memory-mapped files）</td>
-</tr>
-<tr>
-	<td>filehash</td>
-	<td>实现了简单的key-value数据库，在其中特征字符串key与存储在硬盘中的数据value相关联。</td>
-</tr>
-<tr>
-	<td>ncdf, ncdf4</td>
-	<td>Provides an interface to Unidata netCDF data files.
-</td>
-</tr>
-<tr>
-	<td>RODBC, RMySQL,<br /> 
-	ROracle, <br />
-	RPostgreSQL, <br />
-	RSQLite 
-	</td>
-	<td>可以用这些包读取外部关系数据库管理系统的数据</td>
-</tr>
-</table>
-<p>上面的包可以帮助客服R的内存限制。除此以外，当需要在有限时间内分析大数据集时，使用专门方法也是必须的。一些有用的方法将在下面介绍。</p>
-
-<h3 id="section-2">分析大数据集的包</h3>
-<p>R提供了几种分析大数据集的包：</p>
-
-<ul>
-  <li><em>biglm</em> 和 <em>speedglm</em> 包可以针对大数据集有效地拟合线性和广义线性模型。在处理大规模数据集时，这两个包提供了类似<code>lm()</code>和<code>glm()</code>的功能。</li>
-  <li>由 <em>bigmemory</em> 包可产生大规模矩阵，一些包可以提供分析这些大规模矩阵的函数。<em>bigannalytics</em> 包提供了k-means聚类、行统计量（column statistics）和一个对<code>biglm()</code>的封装。<em>bigtabulate</em> 包提供了<code>table()</code>、<code>split()</code>和<code>tapply()</code>的功能，<em>bigalgebra</em> 包提供了高等线性代数的函数。</li>
-  <li><em>biglars</em> 包提供了最小角回归（least-angle regression）、lasso以及针对大数据集的逐步回归，数据集因太大而不能读入到内存中，这时候要配合 <em>ff</em> 包使用。</li>
-  <li><em>Brobdingnag</em> 包可以用来处理大数字（大于2^1024）</li>
-</ul>
-
-<p>处理从GB到TB级的数据对于任何数据都是极大的挑战。如果想查看R的更多方法，请看CRAN task View: <em>High-Performance and Parallel Computing with R</em> （<a href="http://cran.r-project.org/web/view">http://cran.r-project.org/web/view</a>）。</p>
-
-<h3 id="section-3">译者注</h3>
-<p><a href="http://jliblog.com/">李舰</a>曾经在第四届R语言会议（北京会场）上做了题为《 <em>R与高性能运算</em> 》的报告，报告slides及代码请见<a href="http://cos.name/2011/05/4th-china-r-beijing-summary/">会议纪要</a></p>
 
 ]]></content>
   </entry>
