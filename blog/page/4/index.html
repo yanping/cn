@@ -9,7 +9,7 @@
   <meta name="author" content="ypchen">
 
   
-  <meta name="description" content="首先，我要感慨一下，有心栽花花不开，无心插柳柳成荫。 最初我发现在windows下不能部署octopress，安装rvm不成功，跟阳志平交流后，他也说在windows不可以，到网上搜寻了一下，也没有人说在windows下安装成功。 去上海参加R语言会议时，见到怡轩和思喆的ubuntu，甚是羡慕， &hellip;">
+  <meta name="description" content="本文翻译自R in Action的附录G，如果对该书感兴趣，请自行购买或去图书馆阅读。 R会把所有的对象读存入虚拟内存中。对我们大多数用户来说，这种设计可以提高与R相互的速度，但是当分析大数据集时，这种设计会降低程序运行速度有时还会产生跟内存相关的错误。 内存限制主要取决于R的build版（ &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -101,6 +101,60 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/cn/blog/2012/01/01/working-with-large-datasets/">用R处理大数据集</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-01-01T15:36:00+08:00" pubdate data-updated="true">Jan 1<span>st</span>, 2012</time>
+        
+         | <a href="/cn/blog/2012/01/01/working-with-large-datasets/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p><span class="info">
+本文翻译自<a href="http://www.manning.com/kabacoff/" target="_blank">R in Action</a>的附录G，如果对该书感兴趣，请自行购买或去图书馆阅读。
+</span>
+</p>
+
+<p>R会把所有的对象读存入虚拟内存中。对我们大多数用户来说，这种设计可以提高与R相互的速度，但是当分析大数据集时，这种设计会降低程序运行速度有时还会产生跟内存相关的错误。</p>
+
+<p>内存限制主要取决于R的build版（32位还是64位），而在32位的windows下，取决于操作系统的版本。以cannot allocate vectoe of size开头的出错信息表示无法分配充足的连续内存，而以cannot allocate vector of length开头的出错信息表示超越了地址限制（address limit）。在处理大数据集时，应尽量使用64位版的R。对于各种build版，向量中的元素个数最大为2147483647（请自行?Memory）。</p>
+
+<p>在处理大数据集时有三方面应该考虑：（a）提高程序的效率，保证执行速度；（b）把数据储存在外部，以解决内存限制问题；（c）使用专门的统计方法来有效处理大数据量的问题。</p>
+
+<p>下面将分别讨论。</p>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/cn/blog/2012/01/01/working-with-large-datasets/">阅读全文 &rarr;</a>
+    </footer>
+  
+
+
+    </article>
   
   
     <article>
@@ -429,66 +483,9 @@ github pages的<a target="_blank" href="http://pages.github.com/">官方主页</
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/cn/blog/2011/11/12/study-plan/">学习计划</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2011-11-12T14:36:00+08:00" pubdate data-updated="true">Nov 12<span>th</span>, 2011</time>
-        
-         | <a href="/cn/blog/2011/11/12/study-plan/#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>紧急任务</p>
-
-<ul>
-  <li>Predicting Stock Market return，为11月12-13日的<a href="http://cos.name/2011/09/chinar-2011-sh/" target="_blank">第四届R语言会议上海站</a>准备的</li>
-</ul>
-
-<p>中期任务</p>
-
-<ul>
-  <li>《我的第一本C++书》，对C++的全貌做一个简单了解，尤其是上学的时候学得不扎实的面向对象编程以及完全没了解的STL</li>
-  <li>The mathematics of derivatives， 对衍生品定价方面的数学做一个简单复习</li>
-</ul>
-
-<p>更远的计划</p>
-
-<ul>
-  <li>C++与面向对象数值计算，进一步熟悉C++，并学习用C++做数值计算</li>
-  <li>C++ design patterns and derivatives pricing，学习用C++做衍生品定价的设计模式</li>
-  <li>S. E. Shreve, Stochastic calculus and Finance I&amp;II</li>
-  <li>…… 前面的看完再说吧</li>
-</ul>
-
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
+    
+      <a class="prev" href="/cn/blog/page/5/">&larr; 前一页</a>
     
     <a href="/cn/blog/archives">文章列表</a>
     
@@ -513,12 +510,16 @@ github pages的<a target="_blank" href="http://pages.github.com/">官方主页</
 
 <section id="categories_tag">
 <h1>分类目录</h1>
-<span class='categories_tag'> <a href='/cn/blog/categories/github' style='font-size: 146.66666666666666%'>Github(7)</a>  <a href='/cn/blog/categories/javascript' style='font-size: 126.66666666666667%'>Javascript(4)</a>  <a href='/cn/blog/categories/jekyll' style='font-size: 160.0%'>Jekyll(9)</a>  <a href='/cn/blog/categories/latex' style='font-size: 106.66666666666667%'>Latex(1)</a>  <a href='/cn/blog/categories/markdown' style='font-size: 106.66666666666667%'>Markdown(1)</a>  <a href='/cn/blog/categories/octopress' style='font-size: 153.33333333333334%'>Octopress(8)</a>  <a href='/cn/blog/categories/r语言' style='font-size: 146.66666666666666%'>R语言(7)</a>  <a href='/cn/blog/categories/指数' style='font-size: 106.66666666666667%'>指数(1)</a>  <a href='/cn/blog/categories/金融工程' style='font-size: 120.0%'>金融工程(3)</a> </span>
+<span class='categories_tag'> <a href='/cn/blog/categories/github' style='font-size: 146.66666666666666%'>Github(7)</a>  <a href='/cn/blog/categories/javascript' style='font-size: 126.66666666666667%'>Javascript(4)</a>  <a href='/cn/blog/categories/jekyll' style='font-size: 160.0%'>Jekyll(9)</a>  <a href='/cn/blog/categories/latex' style='font-size: 106.66666666666667%'>Latex(1)</a>  <a href='/cn/blog/categories/markdown' style='font-size: 106.66666666666667%'>Markdown(1)</a>  <a href='/cn/blog/categories/octopress' style='font-size: 153.33333333333334%'>Octopress(8)</a>  <a href='/cn/blog/categories/r语言' style='font-size: 153.33333333333334%'>R语言(8)</a>  <a href='/cn/blog/categories/指数' style='font-size: 106.66666666666667%'>指数(1)</a>  <a href='/cn/blog/categories/金融工程' style='font-size: 126.66666666666667%'>金融工程(4)</a> </span>
 </section>
 
 <section>
   <h1>近期文章</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/cn/blog/2013/02/10/get-data-from-flash/" title="用R获取flash中的数据">用R获取flash中的数据</a>
+      </li>
     
       <li class="post">
         <a href="/cn/blog/2013/02/09/get-zce-data/" title="用R获取郑州商品交易所历史数据">用R获取郑州商品交易所历史数据</a>
@@ -542,10 +543,6 @@ github pages的<a target="_blank" href="http://pages.github.com/">官方主页</
     
       <li class="post">
         <a href="/cn/blog/2012/06/07/new-target/" title="下一步学习的目标">下一步学习的目标</a>
-      </li>
-    
-      <li class="post">
-        <a href="/cn/blog/2012/04/20/jekyll-with-js-and-json/" title="用jekyll生成包含json变量的js脚本">用jekyll生成包含json变量的js脚本</a>
       </li>
     
   </ul>

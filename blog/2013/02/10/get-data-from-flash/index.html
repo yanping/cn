@@ -5,13 +5,12 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>关于 - 雁起平沙的网络日志</title>
+  <title>用R获取flash中的数据 - 雁起平沙的网络日志</title>
   <meta name="author" content="ypchen">
 
   
-  <meta name="description" content="关于 资浅媒体人，堆文字的金融攻城师，不靠谱的经济分析师，IT文艺小青年，舞者中的程序猿。
-声明：所有言论仅代表个人观点，与所在单位无关。 我的兴趣 R语言，本站文章 金融工程 关于本站 使用Octopress框架，这是种基于Jekyll的博客框架。 markdown解析器用的kramdown &hellip;">
-  
+  <meta name="description" content="本文主要讨论如何用R语言从flash中获取数据">
+  <meta name="keywords" content="R语言, 金融数据, 金融工程">
 
   <!-- http://t.co/dKP3o1e -->
   <meta name="HandheldFriendly" content="True">
@@ -19,7 +18,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://yanping.me/cn/blog/about">
+  <link rel="canonical" href="http://yanping.me/cn/blog/2013/02/10/get-data-from-flash">
   <link href="/cn/favicon.png" rel="icon">
   <link href="/cn/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <script src="/cn/javascripts/modernizr-2.0.js"></script>
@@ -101,33 +100,155 @@
   <div id="main">
     <div id="content">
       <div>
-<article role="article">
+<article class="hentry" role="article">
   
   <header>
-    <h1 class="entry-title">关于</h1>
+    
+      <h1 class="entry-title">用R获取flash中的数据</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-02-10T02:00:00+08:00" pubdate data-updated="true">Feb 10<span>th</span>, 2013</time>
+        
+         | <a href="#disqus_thread">Comments</a>
+        
+      </p>
     
   </header>
+
+
+<div class="entry-content"><p class="info">本文主要讨论如何用R语言从flash中获取数据</p>
+
+<p>某天我需要获取<a href="http://ifsfd.fudan.edu.cn/fdurmb/indexchart1.jsp">复旦人民币汇率指数</a>的数据。此前我们介绍过从网页抓取数据的两种方法</p>
+
+<ol>
+  <li>用url给服务器提交参数获取数据文件，例如<a href="/cn/blog/2012/12/09/get-dce-data/">用R获取大连商品交易所历史数据</a>这篇文章里提到的方法</li>
+  <li>解析html代码以获取数据，例如<a href="/cn/blog/2013/02/09/get-zce-data/">用R获取郑州商品交易所历史数据</a>这篇文章里提到的方法</li>
+</ol>
+
+<p>而复旦的这个网页，不提供数据文件的下载，从html中也不能解析出数据。实际上，该网页中的flash向服务器发送请求，服务器返回数据给flash并显示出图形和表格。</p>
+
+<p>用<a href="http://cos.name/cn/topic/107729">http://cos.name/cn/topic/107729</a>中<a href="http://www.road2stat.com/">Xiao Nan版主</a>介绍的办法，我用chrome看了下页面</p>
+
+<p><img src="http://i.imgur.com/OqZSfRa.png" alt="network -&gt; XHR" /></p>
+
+<p>可以看到，上图中的表是从2012年12月12日到2013年2月10日的数据，对应的数据来自<a href="http://ifsfd.fudan.edu.cn/fdurmb/data?type=0%2C1%2C2&amp;df=2012%2F12%2F12&amp;dt=2013%2F02%2F10">http://ifsfd.fudan.edu.cn/fdurmb/data?type=0%2C1%2C2&amp;df=2012%2F12%2F12&amp;dt=2013%2F02%2F10</a>，打开这个链接，可以看出这是JSON格式，用R的rjson和RJSONIO包都可以解析JSON格式的数据。</p>
+
+<p>我们来研究一下上面的这个链接，<code>df=2012%2F12%2F12&amp;dt=2013%2F02%2F10</code>规定了从开始到结束的日期，如果开始日期是YYYY年MM月DD日，结束日期是yyyy年mm月dd日，那么对应的字符串是<code>df=YYYY%2FMM%2FDD&amp;dt=yyyy%2Fmm%2Fdd</code></p>
+
+<p>那么文本开头提出的问题，可用下面的代码解决</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span> (readFudan.r)</span> <a href="/cn/downloads/code/readFudan.r">download</a></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+<span class="line-number">7</span>
+<span class="line-number">8</span>
+<span class="line-number">9</span>
+<span class="line-number">10</span>
+<span class="line-number">11</span>
+<span class="line-number">12</span>
+<span class="line-number">13</span>
+</pre></td><td class="code"><pre><code class="r"><span class="line"><span class="c1"># 从复旦人民币汇率指数网站读取数据 http://ifsfd.fudan.edu.cn/fdurmb/indexchart1.jsp</span>
+</span><span class="line"><span class="c1"># 更多细节请看 http://cos.name/cn/topic/109132</span>
+</span><span class="line">
+</span><span class="line">require<span class="p">(</span>RCurl<span class="p">)</span>
+</span><span class="line">require<span class="p">(</span>rjson<span class="p">)</span>
+</span><span class="line">
+</span><span class="line">fdjson <span class="o">&lt;-</span> getURL<span class="p">(</span><span class="s">&quot;http://ifsfd.fudan.edu.cn/fdurmb/data?type=0%2C1%2C2&amp;df=2012%2F12%2F12&amp;dt=2013%2F02%2F10&quot;</span><span class="p">)</span>
+</span><span class="line">fdlist <span class="o">&lt;-</span> fromJSON<span class="p">(</span>fdjson<span class="p">)</span>
+</span><span class="line">fdm <span class="o">&lt;-</span> matrix<span class="p">(</span>unlist<span class="p">(</span>fdlist<span class="p">),</span>ncol<span class="o">=</span><span class="m">4</span><span class="p">,</span>byrow<span class="o">=</span><span class="k-Variable">T</span><span class="p">)</span>
+</span><span class="line">fddf <span class="o">&lt;-</span> data.frame<span class="p">(</span>fdm<span class="p">,</span> stringsAsFactors <span class="o">=</span> <span class="k-Variable">F</span><span class="p">)</span>
+</span><span class="line">fddf<span class="p">[,</span><span class="m">2</span>:<span class="m">4</span><span class="p">]</span> <span class="o">&lt;-</span> sapply<span class="p">(</span>fddf<span class="p">[,</span><span class="m">2</span>:<span class="m">4</span><span class="p">],</span>as.numeric<span class="p">)</span>
+</span><span class="line">colnames<span class="p">(</span>fddf<span class="p">)</span> <span class="o">&lt;-</span> c<span class="p">(</span><span class="s">&quot;date&quot;</span><span class="p">,</span><span class="s">&quot;人民币名义有效汇率指数&quot;</span><span class="p">,</span><span class="s">&quot;人民币实际有效汇率指数&quot;</span><span class="p">,</span><span class="s">&quot;人民币盯住一篮子货币模拟汇率指数&quot;</span><span class="p">)</span>
+</span><span class="line">write.csv<span class="p">(</span>fddf<span class="p">,</span><span class="s">&quot;fudan.csv&quot;</span><span class="p">,</span>row.names <span class="o">=</span> <span class="k-Variable">F</span> <span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
   
-  <p><img class="right" src="http://art.yanping.me/images/avatar.jpg" /></p>
 
-<p>资浅媒体人，堆文字的金融攻城师，不靠谱的经济分析师，IT文艺小青年，舞者中的程序猿。</p>
-<p>声明：所有言论仅代表个人观点，与所在单位无关。</p>
+<span class="byline author vcard"><span class="fn">ypchen</span>发布于</span>
 
-<h3 id="section">我的兴趣</h3>
-<ul>
-  <li><a href="http://r-project.org" target="_blank">R语言</a>，本站<a href="/cn/blog/categories/r%E8%AF%AD%E8%A8%80">文章</a></li>
-  <li><a href="/cn/blog/categories/%E9%87%91%E8%9E%8D%E5%B7%A5%E7%A8%8B" target="_blank">金融工程</a></li>
-</ul>
+      
 
-<h3 id="section-1">关于本站</h3>
-<ul>
-  <li>使用<a href="http://octopress.org" target="_blank">Octopress</a>框架，这是种基于<a href="http://github.com/mreid/jekyll/" target="_blank">Jekyll</a>的博客框架。</li>
-  <li>markdown解析器用的<a href="http://kramdown.rubyforge.org" target="_blank">kramdown</a></li>
-  <li>数学公式解析器用的<a href="http://mathjax.org" target="_blank">MathJax</a></li>
-</ul>
+
+
+
+
+
+
 
   
+
+
+<time datetime="2013-02-10T02:00:00+08:00" pubdate data-updated="true">Feb 10<span>th</span>, 2013</time>
+      
+
+<span class="categories">
+	分类：
+  
+    <a class='category' href='/cn/blog/categories/r语言/'>R语言</a>, <a class='category' href='/cn/blog/categories/金融工程/'>金融工程</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  
+  
+ 
+	<!-- JiaThis Button BEGIN -->
+	<div id="ckepop">
+		<span class="jiathis_txt">分享到： </span>
+		<a class="jiathis_button_tools_1"></a>
+		<a class="jiathis_button_tools_2"></a>
+		<a class="jiathis_button_tools_3"></a>
+		<a class="jiathis_button_tools_4"></a>
+		<a href="http://www.jiathis.com/share?uid=1558027" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank">更多</a>
+		<a class="jiathis_counter_style"></a>
+	</div>
+	
+	<!-- JiaThis Button END -->
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/cn/blog/2013/02/09/get-zce-data/" title="Previous Post: 用R获取郑州商品交易所历史数据">&laquo; 用R获取郑州商品交易所历史数据</a>
+      
+      
+    </p>
+  </footer>
 </article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
 
 </div>
 
@@ -244,7 +365,10 @@
       var disqus_shortname = 'ypchencn';
       
         
-        var disqus_script = 'count.js';
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://yanping.me/cn/blog/2013/02/10/get-data-from-flash/';
+        var disqus_url = 'http://yanping.me/cn/blog/2013/02/10/get-data-from-flash/';
+        var disqus_script = 'embed.js';
       
     (function () {
       var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;

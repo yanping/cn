@@ -1,5 +1,11 @@
 [
     {
+        "title":"用R获取flash中的数据",
+        "url":"http://yanping.me/cn/blog/2013/02/10/get-data-from-flash/",
+        "date":"10 Feb 2013"
+    },
+
+    {
         "title":"用R获取郑州商品交易所历史数据",
         "url":"http://yanping.me/cn/blog/2013/02/09/get-zce-data/",
         "date":"09 Feb 2013"
@@ -21,12 +27,6 @@
         "title":"在Windows下使用jekyll如何避免出现中文字符集错误",
         "url":"http://yanping.me/cn/blog/2012/10/09/chinese-charset-problems-with-jekyll/",
         "date":"09 Oct 2012"
-    },
-
-    {
-        "title":"DecisionTools培训课程大纲",
-        "url":"http://yanping.me/cn/blog/2012/06/10/palisade-training-course/",
-        "date":"10 Jun 2012"
     }
 
 ]

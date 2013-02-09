@@ -4,7 +4,7 @@
   <title><![CDATA[雁起平沙的网络日志]]></title>
   <link href="http://yanping.me/cn/atom.xml" rel="self"/>
   <link href="http://yanping.me/cn/"/>
-  <updated>2013-02-10T00:30:52+08:00</updated>
+  <updated>2013-02-10T01:30:13+08:00</updated>
   <id>http://yanping.me/cn/</id>
   <author>
     <name><![CDATA[ypchen]]></name>
@@ -12,6 +12,64 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[用R获取flash中的数据]]></title>
+    <link href="http://yanping.me/cn/blog/2013/02/10/get-data-from-flash/"/>
+    <updated>2013-02-10T02:00:00+08:00</updated>
+    <id>http://yanping.me/cn/blog/2013/02/10/get-data-from-flash</id>
+    <content type="html"><![CDATA[<p class="info">本文主要讨论如何用R语言从flash中获取数据</p>
+
+<p>某天我需要获取<a href="http://ifsfd.fudan.edu.cn/fdurmb/indexchart1.jsp">复旦人民币汇率指数</a>的数据。此前我们介绍过从网页抓取数据的两种方法</p>
+
+<ol>
+  <li>用url给服务器提交参数获取数据文件，例如<a href="http://yanping.me/cn/blog/2012/12/09/get-dce-data/">用R获取大连商品交易所历史数据</a>这篇文章里提到的方法</li>
+  <li>解析html代码以获取数据，例如<a href="http://yanping.me/cn/blog/2013/02/09/get-zce-data/">用R获取郑州商品交易所历史数据</a>这篇文章里提到的方法</li>
+</ol>
+
+<p>而复旦的这个网页，不提供数据文件的下载，从html中也不能解析出数据。实际上，该网页中的flash向服务器发送请求，服务器返回数据给flash并显示出图形和表格。</p>
+
+<p>用<a href="http://cos.name/cn/topic/107729">http://cos.name/cn/topic/107729</a>中<a href="http://www.road2stat.com/">Xiao Nan版主</a>介绍的办法，我用chrome看了下页面</p>
+
+<p><img src="http://i.imgur.com/OqZSfRa.png" alt="network -&gt; XHR" /></p>
+
+<p>可以看到，上图中的表是从2012年12月12日到2013年2月10日的数据，对应的数据来自<a href="http://ifsfd.fudan.edu.cn/fdurmb/data?type=0%2C1%2C2&amp;df=2012%2F12%2F12&amp;dt=2013%2F02%2F10">http://ifsfd.fudan.edu.cn/fdurmb/data?type=0%2C1%2C2&amp;df=2012%2F12%2F12&amp;dt=2013%2F02%2F10</a>，打开这个链接，可以看出这是JSON格式，用R的rjson和RJSONIO包都可以解析JSON格式的数据。</p>
+
+<p>我们来研究一下上面的这个链接，<code>df=2012%2F12%2F12&amp;dt=2013%2F02%2F10</code>规定了从开始到结束的日期，如果开始日期是YYYY年MM月DD日，结束日期是yyyy年mm月dd日，那么对应的字符串是<code>df=YYYY%2FMM%2FDD&amp;dt=yyyy%2Fmm%2Fdd</code></p>
+
+<p>那么文本开头提出的问题，可用下面的代码解决</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span> (readFudan.r)</span> <a href="http://yanping.me/cn/downloads/code/readFudan.r">download</a></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+<span class="line-number">7</span>
+<span class="line-number">8</span>
+<span class="line-number">9</span>
+<span class="line-number">10</span>
+<span class="line-number">11</span>
+<span class="line-number">12</span>
+<span class="line-number">13</span>
+</pre></td><td class="code"><pre><code class="r"><span class="line"><span class="c1"># 从复旦人民币汇率指数网站读取数据 http://ifsfd.fudan.edu.cn/fdurmb/indexchart1.jsp</span>
+</span><span class="line"><span class="c1"># 更多细节请看 http://cos.name/cn/topic/109132</span>
+</span><span class="line">
+</span><span class="line">require<span class="p">(</span>RCurl<span class="p">)</span>
+</span><span class="line">require<span class="p">(</span>rjson<span class="p">)</span>
+</span><span class="line">
+</span><span class="line">fdjson <span class="o">&lt;-</span> getURL<span class="p">(</span><span class="s">&quot;http://ifsfd.fudan.edu.cn/fdurmb/data?type=0%2C1%2C2&amp;df=2012%2F12%2F12&amp;dt=2013%2F02%2F10&quot;</span><span class="p">)</span>
+</span><span class="line">fdlist <span class="o">&lt;-</span> fromJSON<span class="p">(</span>fdjson<span class="p">)</span>
+</span><span class="line">fdm <span class="o">&lt;-</span> matrix<span class="p">(</span>unlist<span class="p">(</span>fdlist<span class="p">),</span>ncol<span class="o">=</span><span class="m">4</span><span class="p">,</span>byrow<span class="o">=</span><span class="k-Variable">T</span><span class="p">)</span>
+</span><span class="line">fddf <span class="o">&lt;-</span> data.frame<span class="p">(</span>fdm<span class="p">,</span> stringsAsFactors <span class="o">=</span> <span class="k-Variable">F</span><span class="p">)</span>
+</span><span class="line">fddf<span class="p">[,</span><span class="m">2</span>:<span class="m">4</span><span class="p">]</span> <span class="o">&lt;-</span> sapply<span class="p">(</span>fddf<span class="p">[,</span><span class="m">2</span>:<span class="m">4</span><span class="p">],</span>as.numeric<span class="p">)</span>
+</span><span class="line">colnames<span class="p">(</span>fddf<span class="p">)</span> <span class="o">&lt;-</span> c<span class="p">(</span><span class="s">&quot;date&quot;</span><span class="p">,</span><span class="s">&quot;人民币名义有效汇率指数&quot;</span><span class="p">,</span><span class="s">&quot;人民币实际有效汇率指数&quot;</span><span class="p">,</span><span class="s">&quot;人民币盯住一篮子货币模拟汇率指数&quot;</span><span class="p">)</span>
+</span><span class="line">write.csv<span class="p">(</span>fddf<span class="p">,</span><span class="s">&quot;fudan.csv&quot;</span><span class="p">,</span>row.names <span class="o">=</span> <span class="k-Variable">F</span> <span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[用R获取郑州商品交易所历史数据]]></title>
@@ -923,9 +981,14 @@
 </pre></td><td class="code"><pre><code class="javascript"><span class="line"><span class="nx">$</span><span class="p">(</span><span class="nb">document</span><span class="p">).</span><span class="nx">ready</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
 </span><span class="line">	<span class="kd">var</span> <span class="nx">post</span> <span class="o">=</span> <span class="p">{</span>
 </span><span class="line">	<span class="s2">&quot;list&quot;</span><span class="o">:</span><span class="p">[{</span>
+</span><span class="line">		<span class="s2">&quot;title&quot;</span><span class="o">:</span><span class="s2">&quot;用R获取flash中的数据&quot;</span><span class="p">,</span>
+</span><span class="line">		    <span class="s2">&quot;url&quot;</span><span class="o">:</span><span class="s2">&quot;http://yanping.me/cn/blog/2013/02/10/get-fudan-currency-index-data/&quot;</span><span class="p">,</span>
+</span><span class="line">		    <span class="s2">&quot;date&quot;</span><span class="o">:</span><span class="s2">&quot;10 Feb 2013&quot;</span>
+</span><span class="line">		<span class="p">},</span>
+</span><span class="line">	<span class="p">{</span>
 </span><span class="line">		<span class="s2">&quot;title&quot;</span><span class="o">:</span><span class="s2">&quot;用R获取郑州商品交易所历史数据&quot;</span><span class="p">,</span>
-</span><span class="line">		    <span class="s2">&quot;url&quot;</span><span class="o">:</span><span class="s2">&quot;http://yanping.me/cn/blog/2012/12/09/get-zce-data/&quot;</span><span class="p">,</span>
-</span><span class="line">		    <span class="s2">&quot;date&quot;</span><span class="o">:</span><span class="s2">&quot;09 Dec 2012&quot;</span>
+</span><span class="line">		    <span class="s2">&quot;url&quot;</span><span class="o">:</span><span class="s2">&quot;http://yanping.me/cn/blog/2013/02/09/get-zce-data/&quot;</span><span class="p">,</span>
+</span><span class="line">		    <span class="s2">&quot;date&quot;</span><span class="o">:</span><span class="s2">&quot;09 Feb 2013&quot;</span>
 </span><span class="line">		<span class="p">},</span>
 </span><span class="line">	<span class="p">{</span>
 </span><span class="line">		<span class="s2">&quot;title&quot;</span><span class="o">:</span><span class="s2">&quot;用R获取大连商品交易所历史数据&quot;</span><span class="p">,</span>
@@ -941,11 +1004,6 @@
 </span><span class="line">		<span class="s2">&quot;title&quot;</span><span class="o">:</span><span class="s2">&quot;在Windows下使用jekyll如何避免出现中文字符集错误&quot;</span><span class="p">,</span>
 </span><span class="line">		    <span class="s2">&quot;url&quot;</span><span class="o">:</span><span class="s2">&quot;http://yanping.me/cn/blog/2012/10/09/chinese-charset-problems-with-jekyll/&quot;</span><span class="p">,</span>
 </span><span class="line">		    <span class="s2">&quot;date&quot;</span><span class="o">:</span><span class="s2">&quot;09 Oct 2012&quot;</span>
-</span><span class="line">		<span class="p">},</span>
-</span><span class="line">	<span class="p">{</span>
-</span><span class="line">		<span class="s2">&quot;title&quot;</span><span class="o">:</span><span class="s2">&quot;DecisionTools培训课程大纲&quot;</span><span class="p">,</span>
-</span><span class="line">		    <span class="s2">&quot;url&quot;</span><span class="o">:</span><span class="s2">&quot;http://yanping.me/cn/blog/2012/06/10/palisade-training-course/&quot;</span><span class="p">,</span>
-</span><span class="line">		    <span class="s2">&quot;date&quot;</span><span class="o">:</span><span class="s2">&quot;10 Jun 2012&quot;</span>
 </span><span class="line">		<span class="p">}</span>
 </span><span class="line">	
 </span><span class="line">	<span class="p">]};</span>
@@ -1166,9 +1224,15 @@
 <span class="line-number">32</span>
 </pre></td><td class="code"><pre><code class="javascript"><span class="line"><span class="p">[</span>
 </span><span class="line">    <span class="p">{</span>
+</span><span class="line">        <span class="s2">&quot;title&quot;</span><span class="o">:</span><span class="s2">&quot;用R获取flash中的数据&quot;</span><span class="p">,</span>
+</span><span class="line">        <span class="s2">&quot;url&quot;</span><span class="o">:</span><span class="s2">&quot;http://yanping.me/cn/blog/2013/02/10/get-fudan-currency-index-data/&quot;</span><span class="p">,</span>
+</span><span class="line">        <span class="s2">&quot;date&quot;</span><span class="o">:</span><span class="s2">&quot;10 Feb 2013&quot;</span>
+</span><span class="line">    <span class="p">},</span>
+</span><span class="line">
+</span><span class="line">    <span class="p">{</span>
 </span><span class="line">        <span class="s2">&quot;title&quot;</span><span class="o">:</span><span class="s2">&quot;用R获取郑州商品交易所历史数据&quot;</span><span class="p">,</span>
-</span><span class="line">        <span class="s2">&quot;url&quot;</span><span class="o">:</span><span class="s2">&quot;http://yanping.me/cn/blog/2012/12/09/get-zce-data/&quot;</span><span class="p">,</span>
-</span><span class="line">        <span class="s2">&quot;date&quot;</span><span class="o">:</span><span class="s2">&quot;09 Dec 2012&quot;</span>
+</span><span class="line">        <span class="s2">&quot;url&quot;</span><span class="o">:</span><span class="s2">&quot;http://yanping.me/cn/blog/2013/02/09/get-zce-data/&quot;</span><span class="p">,</span>
+</span><span class="line">        <span class="s2">&quot;date&quot;</span><span class="o">:</span><span class="s2">&quot;09 Feb 2013&quot;</span>
 </span><span class="line">    <span class="p">},</span>
 </span><span class="line">
 </span><span class="line">    <span class="p">{</span>
@@ -1187,12 +1251,6 @@
 </span><span class="line">        <span class="s2">&quot;title&quot;</span><span class="o">:</span><span class="s2">&quot;在Windows下使用jekyll如何避免出现中文字符集错误&quot;</span><span class="p">,</span>
 </span><span class="line">        <span class="s2">&quot;url&quot;</span><span class="o">:</span><span class="s2">&quot;http://yanping.me/cn/blog/2012/10/09/chinese-charset-problems-with-jekyll/&quot;</span><span class="p">,</span>
 </span><span class="line">        <span class="s2">&quot;date&quot;</span><span class="o">:</span><span class="s2">&quot;09 Oct 2012&quot;</span>
-</span><span class="line">    <span class="p">},</span>
-</span><span class="line">
-</span><span class="line">    <span class="p">{</span>
-</span><span class="line">        <span class="s2">&quot;title&quot;</span><span class="o">:</span><span class="s2">&quot;DecisionTools培训课程大纲&quot;</span><span class="p">,</span>
-</span><span class="line">        <span class="s2">&quot;url&quot;</span><span class="o">:</span><span class="s2">&quot;http://yanping.me/cn/blog/2012/06/10/palisade-training-course/&quot;</span><span class="p">,</span>
-</span><span class="line">        <span class="s2">&quot;date&quot;</span><span class="o">:</span><span class="s2">&quot;10 Jun 2012&quot;</span>
 </span><span class="line">    <span class="p">}</span>
 </span><span class="line">
 </span><span class="line"><span class="p">]</span>
@@ -2846,67 +2904,6 @@ _layout.scss     # Override settings for base/_layout.scss to change the layout
 
 <h2 id="section-1">推荐文章</h2>
 <p>关于sass和scss，请看<a href="http://blog.visioncan.com/2011/sass-scss-your-css/" target="_blank">http://blog.visioncan.com/2011/sass-scss-your-css/</a></p>
-
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[如何升级R]]></title>
-    <link href="http://yanping.me/cn/blog/2012/01/06/updating-an-r-installation/"/>
-    <updated>2012-01-06T17:12:00+08:00</updated>
-    <id>http://yanping.me/cn/blog/2012/01/06/updating-an-r-installation</id>
-    <content type="html"><![CDATA[<p><span class="info">
-本文翻译自<a href="http://www.manning.com/kabacoff/" target="_blank">R in Action</a>的附录H，如果对该书感兴趣，请自行购买或去图书馆阅读。
-</span>
-</p>
-<p>R的函数<code>update.packages()</code>可以下载和升级安装的包，但是没有相应的函数升级R本身。如果你想把R从4.1.0版升级到5.1.1版，那你必须有点创造性。（实际上作者写书的时候R的版本还只是2.13.0，但是他说想这本书在若干年后仍然不显得过时）</p>
-
-<p>从CRAN（<a href="http://cran.r-project.org/bin">http://cran.r-project.org/bin</a>）下载并安装最新版的R相当简单。但是想在新安装时保留之前的个性化设置（比如之前安装的包）就复杂了。在我现在的安装中，安装了248个包。我实在是不想把这些包的名字写下来，然后在下次升级R的时候手动重装它们。</p>
-
-<p>关于如何方便简洁高效地升级R，网上有很多这方面的讨论。下面描述的方法既不简洁，也不高效，但是我发现它可以用在任何平台（Windows，Mac以及Linux）。</p>
-
-<!--more-->
-
-<p><code>installed.packages()</code>函数用来保存一份已安装包的列表到R目录之外。然后利用这个列表和<code>install.packges()</code>函数来下载和安装最新的包到新安装的R中。下面是步骤：</p>
-
-<ol>
-  <li>如果有自定义的配置文件<strong>Rprofile.site</strong>，就把它保存到R之外。</li>
-  <li>启动当前版本的R，运行下面的命令</li>
-</ol>
-
-<div class="bogus-wrapper"><notextile><figure class="code"> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
-<span class="line-number">2</span>
-</pre></td><td class="code"><pre><code class="r"><span class="line">	oldip <span class="o">&lt;-</span> installed.packages<span class="p">()[</span> <span class="p">,</span><span class="m">1</span><span class="p">]</span>
-</span><span class="line">	save<span class="p">(</span>oldip<span class="p">,</span> file<span class="o">=</span><span class="s">&quot;path/installedPackages.Rdata&quot;</span><span class="p">)</span>
-</span></code></pre></td></tr></table></div></figure></notextile></div>
-
-<p>其中<em>path</em>是R的安装目录。</p>
-
-<ol start="3">
-	<li> 下载并安装最新版的R。</li>
-	<li> 如果你保存了原来的<strong>Rprofile.site</strong>文件，把它复制到新的安装目录中。</li>
-	<li>启动新版的R，然后运行下面的命令	
-	
-<div class="bogus-wrapper"><notextile><figure class="code"> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
-<span class="line-number">2</span>
-<span class="line-number">3</span>
-<span class="line-number">4</span>
-</pre></td><td class="code"><pre><code class="r"><span class="line">	load<span class="p">(</span><span class="s">&quot;path/installedPackages.Rdata&quot;</span><span class="p">)</span>
-</span><span class="line">	newip <span class="o">&lt;-</span> installed.packages<span class="p">()[,</span><span class="m">1</span><span class="p">]</span>
-</span><span class="line">	<span class="kr">for</span><span class="p">(</span>i in setdiff<span class="p">(</span>oldip<span class="p">,</span> newip<span class="p">))</span>
-</span><span class="line">		install.packages<span class="p">(</span>i<span class="p">)</span>
-</span></code></pre></td></tr></table></div></figure></notextile></div>
-
-	</li>
-</ol>
-<ol start="6">
- 	<li>删除旧的安装（可选）</li>
-</ol>
-
-<p><span class="warning">
-这种方法只能安装从CRAN能获取到的包。其他途径获取的包要单独安装。
-</span>
-</p>
 
 ]]></content>
   </entry>
