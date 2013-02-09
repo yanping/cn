@@ -2,8 +2,8 @@ $(document).ready(function() {
 	var post = {
 	"list":[{
 		"title":"用R获取郑州商品交易所历史数据",
-		    "url":"http://yanping.me/cn/blog/2012/12/09/get-zce-data/",
-		    "date":"09 Dec 2012"
+		    "url":"http://yanping.me/cn/blog/2013/02/09/get-zce-data/",
+		    "date":"09 Feb 2013"
 		},
 	{
 		"title":"用R获取大连商品交易所历史数据",
