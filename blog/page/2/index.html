@@ -9,7 +9,7 @@
   <meta name="author" content="ypchen">
 
   
-  <meta name="description" content="本文译自道琼斯指数公司的指数学博客，原文地址：http://blog.djindexes.com/index.php/the-abcs-of-index-methodologies/ 如果我们研究各类市场指数，一个关键的信息来源就是指数的“方法论”。首先，这一文档解释了如何挑选股票（或其它金融工具 &hellip;">
+  <meta name="description" content="本文主要讨论如何用jekyll模板生成json，并以此整合在github上托管的不同网站的数据。 从去年年底接触github和jekyll到现在已经折腾五个月了，从最初用github托管纯静态网站，到现在依照别人的网站构架修改成自己喜欢的样子，这个过程也是个不断学习的过程。 &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -101,6 +101,53 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/cn/blog/2012/04/19/jekyll-with-json/">用jekyll生成json</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-04-19T22:30:00+08:00" pubdate data-updated="true">Apr 19<span>th</span>, 2012</time>
+        
+         | <a href="/cn/blog/2012/04/19/jekyll-with-json/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p class="info">本文主要讨论如何用jekyll模板生成json，并以此整合在github上托管的不同网站的数据。</p>
+
+<p>从去年年底接触github和jekyll到现在已经折腾五个月了，从最初用github托管纯静态网站，到现在依照别人的网站构架修改成自己喜欢的样子，这个过程也是个不断学习的过程。</p>
+
+<p>我在github上有三个网站，一个是<a href="http://yanping.me">主页</a>，一个<a href="http://yanping.me/cn">技术博客</a>，最后一个是<a href="http://art.yanping.me">文艺博客</a>。现在有个问题是，这三个网站对应的是github上三个不同的代码库，如果我要在<a href="http://yanping.me">主页</a>上列出另两个网站的文章列表，不能用jekyll提供的函数来做到，jekyll只能操作一个代码库的文本，不能跨代码库。我之前用的一个方法是用feedsky提供的发布脚本，效果请看<a href="http://inwake.com/ypchen/json-demo">http://inwake.com/ypchen/json-demo</a>。这样的缺点是很显然的，一是加载速度慢，二是我们没办法控制列表的格式和样式。有没有更直接的解决方法呢？</p>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/cn/blog/2012/04/19/jekyll-with-json/">阅读全文 &rarr;</a>
+    </footer>
+  
+
+
+    </article>
   
   
     <article>
@@ -563,56 +610,6 @@
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/cn/blog/2012/02/07/comment-sidebar/">给博客侧边栏添加近期评论</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2012-02-07T14:56:00+08:00" pubdate data-updated="true">Feb 7<span>th</span>, 2012</time>
-        
-         | <a href="/cn/blog/2012/02/07/comment-sidebar/#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p class="info">
-在我翻译的<a href="http://chen.yanping.me/cn/blog/2012/01/07/theming-and-customization/" target="_blank">为Octopress修改主题和自定义样式</a>一文后面，Eric Lau问我如何在博客侧边栏显示近期评论。本文就是针对这一问题的简短教程。
-</p>
-
-<h2 id="disquscom">第一步：在disqus.com获取代码</h2>
-<p>登录到disqus.com，选择评论所在的网站，进入Admin，选择Tools，在code中，是<strong>Extra Widgets</strong>的代码，提供了几种Widgets插件，分别是Combination（组合式）、Recent Comments（近期评论）、 Popular Threads（热门话题）、Top Commenters（最近评论人）。该工具可以根据用户设置的参数生成代码。</p>
-
-<p><img src="/cn/images/blog/12-02-07/tools-setting.png" /> </p>
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/cn/blog/2012/02/07/comment-sidebar/">阅读全文 &rarr;</a>
-    </footer>
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/cn/blog/page/3/">&larr; 前一页</a>
@@ -640,12 +637,16 @@
 
 <section id="categories_tag">
 <h1>分类目录</h1>
-<span class='categories_tag'> <a href='/cn/blog/categories/github' style='font-size: 146.66666666666666%'>Github(7)</a>  <a href='/cn/blog/categories/javascript' style='font-size: 126.66666666666667%'>Javascript(4)</a>  <a href='/cn/blog/categories/jekyll' style='font-size: 160.0%'>Jekyll(9)</a>  <a href='/cn/blog/categories/latex' style='font-size: 106.66666666666667%'>Latex(1)</a>  <a href='/cn/blog/categories/markdown' style='font-size: 106.66666666666667%'>Markdown(1)</a>  <a href='/cn/blog/categories/octopress' style='font-size: 153.33333333333334%'>Octopress(8)</a>  <a href='/cn/blog/categories/r语言' style='font-size: 140.0%'>R语言(6)</a>  <a href='/cn/blog/categories/指数' style='font-size: 106.66666666666667%'>指数(1)</a>  <a href='/cn/blog/categories/金融工程' style='font-size: 113.33333333333333%'>金融工程(2)</a> </span>
+<span class='categories_tag'> <a href='/cn/blog/categories/github' style='font-size: 146.66666666666666%'>Github(7)</a>  <a href='/cn/blog/categories/javascript' style='font-size: 126.66666666666667%'>Javascript(4)</a>  <a href='/cn/blog/categories/jekyll' style='font-size: 160.0%'>Jekyll(9)</a>  <a href='/cn/blog/categories/latex' style='font-size: 106.66666666666667%'>Latex(1)</a>  <a href='/cn/blog/categories/markdown' style='font-size: 106.66666666666667%'>Markdown(1)</a>  <a href='/cn/blog/categories/octopress' style='font-size: 153.33333333333334%'>Octopress(8)</a>  <a href='/cn/blog/categories/r语言' style='font-size: 146.66666666666666%'>R语言(7)</a>  <a href='/cn/blog/categories/指数' style='font-size: 106.66666666666667%'>指数(1)</a>  <a href='/cn/blog/categories/金融工程' style='font-size: 120.0%'>金融工程(3)</a> </span>
 </section>
 
 <section>
   <h1>近期文章</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/cn/blog/2012/12/09/get-zce-data/" title="用R获取郑州商品交易所历史数据">用R获取郑州商品交易所历史数据</a>
+      </li>
     
       <li class="post">
         <a href="/cn/blog/2012/12/09/get-dce-data/" title="用R获取大连商品交易所历史数据">用R获取大连商品交易所历史数据</a>
@@ -669,10 +670,6 @@
     
       <li class="post">
         <a href="/cn/blog/2012/04/20/jekyll-with-js-and-json/" title="用jekyll生成包含json变量的js脚本">用jekyll生成包含json变量的js脚本</a>
-      </li>
-    
-      <li class="post">
-        <a href="/cn/blog/2012/04/19/jekyll-with-json/" title="用jekyll生成json">用jekyll生成json</a>
       </li>
     
   </ul>

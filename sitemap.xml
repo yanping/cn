@@ -108,7 +108,11 @@
     </url>
     <url>
         <loc>http://yanping.me/cn/blog/2012/12/09/get-dce-data/</loc>
-        <lastmod>2013-02-09T22:33:37+08:00</lastmod>
+        <lastmod>2013-02-09T23:08:02+08:00</lastmod>
+    </url>
+    <url>
+        <loc>http://yanping.me/cn/blog/2012/12/09/get-zce-data/</loc>
+        <lastmod>2013-02-10T00:28:03+08:00</lastmod>
     </url>
     <url>
         <loc>http://yanping.me/cn/recent.json</loc>
@@ -116,7 +120,7 @@
     </url>
     <url>
         <loc>http://yanping.me/cn/blog/categories/</loc>
-        <lastmod>2013-02-09T22:33:37+08:00</lastmod>
+        <lastmod>2013-02-10T00:28:03+08:00</lastmod>
     </url>
     <url>
         <loc>http://yanping.me/cn/blog/about/</loc>
@@ -124,7 +128,7 @@
     </url>
     <url>
         <loc>http://yanping.me/cn/blog/archives/</loc>
-        <lastmod>2013-02-09T22:33:37+08:00</lastmod>
+        <lastmod>2013-02-10T00:28:03+08:00</lastmod>
     </url>
     <url>
         <loc>http://yanping.me/cn/downloads/code/portfolio_entry.html</loc>
@@ -132,7 +136,7 @@
     </url>
     <url>
         <loc>http://yanping.me/cn/</loc>
-        <lastmod>2013-02-09T22:33:37+08:00</lastmod>
+        <lastmod>2013-02-10T00:28:03+08:00</lastmod>
     </url>
     <url>
         <loc>http://yanping.me/cn/posts.js</loc>

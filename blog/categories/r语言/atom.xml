@@ -4,7 +4,7 @@
   <title><![CDATA[分类： R语言 | 雁起平沙的网络日志]]></title>
   <link href="http://yanping.me/cn/blog/categories/r语言/atom.xml" rel="self"/>
   <link href="http://yanping.me/cn/"/>
-  <updated>2013-02-09T22:34:03+08:00</updated>
+  <updated>2013-02-10T00:28:26+08:00</updated>
   <id>http://yanping.me/cn/</id>
   <author>
     <name><![CDATA[ypchen]]></name>
@@ -12,6 +12,87 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[用R获取郑州商品交易所历史数据]]></title>
+    <link href="http://yanping.me/cn/blog/2012/12/09/get-zce-data/"/>
+    <updated>2012-12-09T20:00:00+08:00</updated>
+    <id>http://yanping.me/cn/blog/2012/12/09/get-zce-data</id>
+    <content type="html"><![CDATA[<p class="info">本文主要讨论如何用R语言从郑州商品交易所网站上获取期货合约交易数据</p>
+
+<p>郑商所网站提供了查询每日行情的<a href="http://www.czce.com.cn/portal/jysj/mrhq/A091101index_1.htm">页面</a>，它提供的数据比大商所的要复杂一些，2010年至2013年的网页格式一样，地址也是同样的形式，请看</p>
+
+<ul>
+  <li><a href="http://www.czce.com.cn/portal/exchange/2010/datadaily/20100105.htm">http://www.czce.com.cn/portal/exchange/2010/datadaily/20100105.htm</a></li>
+  <li><a href="http://www.czce.com.cn/portal/exchange/2011/datadaily/20110105.htm">http://www.czce.com.cn/portal/exchange/2011/datadaily/20110105.htm</a></li>
+  <li><a href="http://www.czce.com.cn/portal/exchange/2012/datadaily/20120104.htm">http://www.czce.com.cn/portal/exchange/2012/datadaily/20120104.htm</a></li>
+  <li><a href="http://www.czce.com.cn/portal/exchange/2013/datadaily/20130104.htm">http://www.czce.com.cn/portal/exchange/2013/datadaily/20130104.htm</a></li>
+</ul>
+
+<p>打开网页可以看到，网页提供了“打印”，“Excel”和“txt”三个选项，只要把地址后面的<code>.html</code>改为<code>.txt</code>就可以得到文本格式的数据，那么就可以逐一下载数据文件，读入数据。</p>
+
+<p>这四年的数据可以这样获取：</p>
+
+<p>```r
+getZceData &lt;- function(dates){
+  require(RCurl)
+  zceDatabase &lt;- data.frame()
+  for (date in dates) {
+    str1 &lt;- “http://www.czce.com.cn/portal/exchange/”
+    str2 &lt;- “/datadaily/” 
+    date &lt;- as.character(date)
+    year &lt;- substr(date, 1, 4)
+    url &lt;- paste(str1, year, str2, date, “.txt”, sep = “”)
+    if (!url.exists(url)) {
+      next
+    } else {
+      colnames &lt;- c(“品种月份”, “昨结箿”, “今开盘”, “最高价”, “最低价”, 
+        “今收盘”, “今结算”, “涨跌1”, “涨跌2”, “成交量”, “空盘量”, 
+        “增减量”, “成交额”, “交割结算价”)
+      fileName &lt;- paste(“zce”, date, “.txt”, sep = “”)</p>
+
+<pre><code>  if (!file.exists(fileName)) {
+    download.file(url, fileName, quiet = T)
+  } 
+  zceData &lt;- read.table(fileName, header = F, skip = 1, sep = ",", col.names = colnames)
+  zceData &lt;- zceData[(zceData[, 1] != "小计") &amp; (zceData[, 1] != "总计"), ]
+  zceData$date &lt;- date
+  zceDatabase &lt;- rbind(zceDatabase, zceData) 
+}   }   return(zceDatabase) } 
+</code></pre>
+
+<p>```</p>
+
+<p>但是查询2009年及之前的数据返回的是网页形式，那就需要从网页上读取。</p>
+
+<p>看下面几个链接</p>
+
+<ul>
+  <li><a href="http://www.czce.com.cn/portal/exchange/jyxx/hq/hq20060106.html">http://www.czce.com.cn/portal/exchange/jyxx/hq/hq20060106.html</a></li>
+  <li><a href="http://www.czce.com.cn/portal/exchange/jyxx/hq/hq20070104.html">http://www.czce.com.cn/portal/exchange/jyxx/hq/hq20070104.html</a></li>
+  <li><a href="http://www.czce.com.cn/portal/exchange/jyxx/hq/hq20080104.html">http://www.czce.com.cn/portal/exchange/jyxx/hq/hq20080104.html</a></li>
+  <li><a href="http://www.czce.com.cn/portal/exchange/jyxx/hq/hq20090105.html">http://www.czce.com.cn/portal/exchange/jyxx/hq/hq20090105.html</a></li>
+</ul>
+
+<p>网页格式很统一，数据在被table标签包裹，并且是在第二个table标签中，XML包的<code>readHTMLTable</code>函数可以读取table标签中的内容，但是当网页中有汉字的时候，汉字会变成乱码，慎用！</p>
+
+<p>不过，本文的情况有点特殊，汉字只出现在table的第一行表头，以及“小计”、“总计”的行，这些行本来就是要去掉的，所以对我们没影响。</p>
+
+<p>下面只给出关键代码：</p>
+
+<p><code>r
+require(XML)
+require(stringr)
+url &lt;- "http://www.czce.com.cn/portal/exchange/jyxx/hq/hq20060106.html"
+tb &lt;-readHTMLTable(url)[[2]]
+tb &lt;- sapply(tb,str_trim)
+df &lt;-as.data.frame(apply(tb,2,function(x) iconv(x, from = "gb2312", to = "UTF-8")))
+</code></p>
+
+<p>再把第一列为NA的行去除就行了。</p>
+
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[用R获取大连商品交易所历史数据]]></title>
@@ -27,6 +108,8 @@
 <p><img src="http://i.imgur.com/PFZ4f1k.png" alt="日行情表" /></p>
 
 <p>可以看到，这个表实际上是用iframe实现的，查看页面的源文件可以查出这个iframe引用页面地址为<a href="http://www.dce.com.cn/PublicWeb/MainServlet?action=Data_service">http://www.dce.com.cn/PublicWeb/MainServlet?action=Data_service</a>。用上面的方法继续剖析这个页面，发现它引用了<a href="http://www.dce.com.cn/PublicWeb/MainServlet?action=Pu00011_search">http://www.dce.com.cn/PublicWeb/MainServlet?action=Pu00011_search</a>。</p>
+
+<!--more-->
 
 <p>先忽略无关的代码，只关注下面这部分</p>
 
@@ -99,7 +182,7 @@
   <li>整段代码定义了个表单，名为form1，用于向服务器传输数据，后面用input标签和select标签来定义传递的数据</li>
   <li>用了一个input标签和onClick事件<code>onClick='swapCalendar(document.all("Pu00011_Input.trade_date"))'</code>来设置要查询的日期<code>Pu00011_Input.trade_date</code>。</li>
   <li>用了一个select标签来选择查询的品种<code>Pu00011_Input.variety</code></li>
-  <li>用了一个input标签来设置行情类型<code>Pu00011_Input.trade_type</code>，从代码里看，Pu00011_Input.trade_type的值始终是0,代表期货行情;从下面注释掉的部分代码可以看出当<code>Pu00011_Input.trade_type</code>取0时，代表的是期权行情，估计网站还没实现这个功能</li>
+  <li>用了一个input标签来设置行情类型<code>Pu00011_Input.trade_type</code>，从代码里看，<code>Pu00011_Input.trade_type</code>的值始终是0,代表期货行情;从下面注释掉的部分代码可以看出当<code>Pu00011_Input.trade_type</code>取0时，代表的是期权行情，估计网站还没实现这个功能</li>
   <li>然后有一排三个button属性的input标签，所以它们是按钮形式的，并且都有onClick属性，当按下按钮时，会触发javascript脚本，脚本会设置action的值，比如“下载文本格式”这个按钮，按下它会把action的值设置成<code>Pu00012_download</code></li>
 </ul>
 
@@ -429,63 +512,6 @@ R导论的10.8也是讲定制环境的。
 </ul>
 
 <p>还有其他定制启动环境的方式，包括使用命令行选项和环境变量。查看<code>help(Startup)</code>以及R导论的附录B（<a href="http://cran.r-project.org/doc/manuals/R-intro.pdf">http://cran.r-project.org/doc/manuals/R-intro.pdf</a>，中文版地址<a href="http://cran.r-project.org/doc/contrib/Ding-R-intro_cn.pdf">http://cran.r-project.org/doc/contrib/Ding-R-intro_cn.pdf</a>）获取更多细节。</p>
-
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[如何升级R]]></title>
-    <link href="http://yanping.me/cn/blog/2012/01/06/updating-an-r-installation/"/>
-    <updated>2012-01-06T17:12:00+08:00</updated>
-    <id>http://yanping.me/cn/blog/2012/01/06/updating-an-r-installation</id>
-    <content type="html"><![CDATA[<p><span class="info">
-本文翻译自<a href="http://www.manning.com/kabacoff/" target="_blank">R in Action</a>的附录H，如果对该书感兴趣，请自行购买或去图书馆阅读。
-</span>
-</p>
-<p>R的函数<code>update.packages()</code>可以下载和升级安装的包，但是没有相应的函数升级R本身。如果你想把R从4.1.0版升级到5.1.1版，那你必须有点创造性。（实际上作者写书的时候R的版本还只是2.13.0，但是他说想这本书在若干年后仍然不显得过时）</p>
-
-<p>从CRAN（<a href="http://cran.r-project.org/bin">http://cran.r-project.org/bin</a>）下载并安装最新版的R相当简单。但是想在新安装时保留之前的个性化设置（比如之前安装的包）就复杂了。在我现在的安装中，安装了248个包。我实在是不想把这些包的名字写下来，然后在下次升级R的时候手动重装它们。</p>
-
-<p>关于如何方便简洁高效地升级R，网上有很多这方面的讨论。下面描述的方法既不简洁，也不高效，但是我发现它可以用在任何平台（Windows，Mac以及Linux）。</p>
-
-<!--more-->
-
-<p><code>installed.packages()</code>函数用来保存一份已安装包的列表到R目录之外。然后利用这个列表和<code>install.packges()</code>函数来下载和安装最新的包到新安装的R中。下面是步骤：</p>
-
-<ol>
-  <li>如果有自定义的配置文件<strong>Rprofile.site</strong>，就把它保存到R之外。</li>
-  <li>启动当前版本的R，运行下面的命令
- <div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class='r'><span class='line'> oldip <span class="o">&amp;</span>lt<span class="p">;</span><span class="o">-</span> installed.packages<span class="p">()[</span> <span class="p">,</span><span class="m">1</span><span class="p">]</span>
-</span><span class='line'> save<span class="p">(</span>oldip<span class="p">,</span> file<span class="o">=</span>”path<span class="o">/</span>installedPackages.Rdata”<span class="p">)</span>
-</span></code></pre></td></tr></table></div></figure></notextile></div>	
-其中<em>path</em>是R的安装目录。</li>
-</ol>
-
-<ol start="3">
-	<li> 下载并安装最新版的R。</li>
-	<li> 如果你保存了原来的<strong>Rprofile.site</strong>文件，把它复制到新的安装目录中。</li>
-	<li>启动新版的R，然后运行下面的命令	
-	<div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-</pre></td><td class='code'><pre><code class='r'><span class='line'>	load<span class="p">(</span><span class="s">&quot;path/installedPackages.Rdata&quot;</span><span class="p">)</span>
-</span><span class='line'>	newip <span class="o">&amp;</span>lt<span class="p">;</span><span class="o">-</span> installed.packages<span class="p">()[,</span><span class="m">1</span><span class="p">]</span>
-</span><span class='line'>	<span class="kr">for</span><span class="p">(</span>i in setdiff<span class="p">(</span>oldip<span class="p">,</span> newip<span class="p">))</span>
-</span><span class='line'>		install.packages<span class="p">(</span>i<span class="p">)</span>
-</span></code></pre></td></tr></table></div></figure></notextile></div>
-	</li>
-</ol>
-<ol start="6">
- 	<li>删除旧的安装（可选）</li>
-</ol>
-
-<p><span class="warning">
-这种方法只能安装从CRAN能获取到的包。其他途径获取的包要单独安装。
-</span>
-</p>
 
 ]]></content>
   </entry>

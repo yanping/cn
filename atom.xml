@@ -4,7 +4,7 @@
   <title><![CDATA[雁起平沙的网络日志]]></title>
   <link href="http://yanping.me/cn/atom.xml" rel="self"/>
   <link href="http://yanping.me/cn/"/>
-  <updated>2013-02-09T22:34:03+08:00</updated>
+  <updated>2013-02-10T00:28:26+08:00</updated>
   <id>http://yanping.me/cn/</id>
   <author>
     <name><![CDATA[ypchen]]></name>
@@ -12,6 +12,120 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[用R获取郑州商品交易所历史数据]]></title>
+    <link href="http://yanping.me/cn/blog/2012/12/09/get-zce-data/"/>
+    <updated>2012-12-09T20:00:00+08:00</updated>
+    <id>http://yanping.me/cn/blog/2012/12/09/get-zce-data</id>
+    <content type="html"><![CDATA[<p class="info">本文主要讨论如何用R语言从郑州商品交易所网站上获取期货合约交易数据</p>
+
+<p>郑商所网站提供了查询每日行情的<a href="http://www.czce.com.cn/portal/jysj/mrhq/A091101index_1.htm">页面</a>，它提供的数据比大商所的要复杂一些，2010年至2013年的网页格式一样，地址也是同样的形式，请看</p>
+
+<ul>
+  <li><a href="http://www.czce.com.cn/portal/exchange/2010/datadaily/20100105.htm">http://www.czce.com.cn/portal/exchange/2010/datadaily/20100105.htm</a></li>
+  <li><a href="http://www.czce.com.cn/portal/exchange/2011/datadaily/20110105.htm">http://www.czce.com.cn/portal/exchange/2011/datadaily/20110105.htm</a></li>
+  <li><a href="http://www.czce.com.cn/portal/exchange/2012/datadaily/20120104.htm">http://www.czce.com.cn/portal/exchange/2012/datadaily/20120104.htm</a></li>
+  <li><a href="http://www.czce.com.cn/portal/exchange/2013/datadaily/20130104.htm">http://www.czce.com.cn/portal/exchange/2013/datadaily/20130104.htm</a></li>
+</ul>
+
+<p>打开网页可以看到，网页提供了“打印”，“Excel”和“txt”三个选项，只要把地址后面的<code>.html</code>改为<code>.txt</code>就可以得到文本格式的数据，那么就可以逐一下载数据文件，读入数据。</p>
+
+<p>这四年的数据可以这样获取：</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span /></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+<span class="line-number">7</span>
+<span class="line-number">8</span>
+<span class="line-number">9</span>
+<span class="line-number">10</span>
+<span class="line-number">11</span>
+<span class="line-number">12</span>
+<span class="line-number">13</span>
+<span class="line-number">14</span>
+<span class="line-number">15</span>
+<span class="line-number">16</span>
+<span class="line-number">17</span>
+<span class="line-number">18</span>
+<span class="line-number">19</span>
+<span class="line-number">20</span>
+<span class="line-number">21</span>
+<span class="line-number">22</span>
+<span class="line-number">23</span>
+<span class="line-number">24</span>
+<span class="line-number">25</span>
+<span class="line-number">26</span>
+<span class="line-number">27</span>
+<span class="line-number">28</span>
+</pre></td><td class="code"><pre><code class="r"><span class="line">getZceData <span class="o">&lt;-</span> <span class="kr">function</span><span class="p">(</span>dates<span class="p">){</span>
+</span><span class="line">  require<span class="p">(</span>RCurl<span class="p">)</span>
+</span><span class="line">  zceDatabase <span class="o">&lt;-</span> data.frame<span class="p">()</span>
+</span><span class="line">  <span class="kr">for</span> <span class="p">(</span>date in dates<span class="p">)</span> <span class="p">{</span>
+</span><span class="line">    str1 <span class="o">&lt;-</span> <span class="s">&quot;http://www.czce.com.cn/portal/exchange/&quot;</span>
+</span><span class="line">    str2 <span class="o">&lt;-</span> <span class="s">&quot;/datadaily/&quot;</span>
+</span><span class="line">    date <span class="o">&lt;-</span> as.character<span class="p">(</span>date<span class="p">)</span>
+</span><span class="line">    year <span class="o">&lt;-</span> substr<span class="p">(</span>date<span class="p">,</span> <span class="m">1</span><span class="p">,</span> <span class="m">4</span><span class="p">)</span>
+</span><span class="line">    url <span class="o">&lt;-</span> paste<span class="p">(</span>str1<span class="p">,</span> year<span class="p">,</span> str2<span class="p">,</span> date<span class="p">,</span> <span class="s">&quot;.txt&quot;</span><span class="p">,</span> sep <span class="o">=</span> <span class="s">&quot;&quot;</span><span class="p">)</span>
+</span><span class="line">    <span class="kr">if</span> <span class="p">(</span>!url.exists<span class="p">(</span>url<span class="p">))</span> <span class="p">{</span>
+</span><span class="line">      next
+</span><span class="line">    <span class="p">}</span> <span class="kr">else</span> <span class="p">{</span>
+</span><span class="line">      colnames <span class="o">&lt;-</span> c<span class="p">(</span><span class="s">&quot;品种月份&quot;</span><span class="p">,</span> <span class="s">&quot;昨结箿&quot;</span><span class="p">,</span> <span class="s">&quot;今开盘&quot;</span><span class="p">,</span> <span class="s">&quot;最高价&quot;</span><span class="p">,</span> <span class="s">&quot;最低价&quot;</span><span class="p">,</span>
+</span><span class="line">        <span class="s">&quot;今收盘&quot;</span><span class="p">,</span> <span class="s">&quot;今结算&quot;</span><span class="p">,</span> <span class="s">&quot;涨跌1&quot;</span><span class="p">,</span> <span class="s">&quot;涨跌2&quot;</span><span class="p">,</span> <span class="s">&quot;成交量&quot;</span><span class="p">,</span> <span class="s">&quot;空盘量&quot;</span><span class="p">,</span>
+</span><span class="line">        <span class="s">&quot;增减量&quot;</span><span class="p">,</span> <span class="s">&quot;成交额&quot;</span><span class="p">,</span> <span class="s">&quot;交割结算价&quot;</span><span class="p">)</span>
+</span><span class="line">      fileName <span class="o">&lt;-</span> paste<span class="p">(</span><span class="s">&quot;zce&quot;</span><span class="p">,</span> date<span class="p">,</span> <span class="s">&quot;.txt&quot;</span><span class="p">,</span> sep <span class="o">=</span> <span class="s">&quot;&quot;</span><span class="p">)</span>
+</span><span class="line">
+</span><span class="line">      <span class="kr">if</span> <span class="p">(</span>!file.exists<span class="p">(</span>fileName<span class="p">))</span> <span class="p">{</span>
+</span><span class="line">        download.file<span class="p">(</span>url<span class="p">,</span> fileName<span class="p">,</span> quiet <span class="o">=</span> <span class="k-Variable">T</span><span class="p">)</span>
+</span><span class="line">      <span class="p">}</span>
+</span><span class="line">      zceData <span class="o">&lt;-</span> read.table<span class="p">(</span>fileName<span class="p">,</span> header <span class="o">=</span> <span class="k-Variable">F</span><span class="p">,</span> skip <span class="o">=</span> <span class="m">1</span><span class="p">,</span> sep <span class="o">=</span> <span class="s">&quot;,&quot;</span><span class="p">,</span> col.names <span class="o">=</span> colnames<span class="p">)</span>
+</span><span class="line">      zceData <span class="o">&lt;-</span> zceData<span class="p">[(</span>zceData<span class="p">[,</span> <span class="m">1</span><span class="p">]</span> <span class="o">!=</span> <span class="s">&quot;小计&quot;</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span>zceData<span class="p">[,</span> <span class="m">1</span><span class="p">]</span> <span class="o">!=</span> <span class="s">&quot;总计&quot;</span><span class="p">),</span> <span class="p">]</span>
+</span><span class="line">      zceData<span class="p">$</span>date <span class="o">&lt;-</span> date
+</span><span class="line">      zceDatabase <span class="o">&lt;-</span> rbind<span class="p">(</span>zceDatabase<span class="p">,</span> zceData<span class="p">)</span>
+</span><span class="line">    <span class="p">}</span>
+</span><span class="line">  <span class="p">}</span>
+</span><span class="line">  <span class="kr">return</span><span class="p">(</span>zceDatabase<span class="p">)</span>
+</span><span class="line"><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<p>但是查询2009年及之前的数据返回的是网页形式，那就需要从网页上读取。</p>
+
+<p>看下面几个链接</p>
+
+<ul>
+  <li><a href="http://www.czce.com.cn/portal/exchange/jyxx/hq/hq20060106.html">http://www.czce.com.cn/portal/exchange/jyxx/hq/hq20060106.html</a></li>
+  <li><a href="http://www.czce.com.cn/portal/exchange/jyxx/hq/hq20070104.html">http://www.czce.com.cn/portal/exchange/jyxx/hq/hq20070104.html</a></li>
+  <li><a href="http://www.czce.com.cn/portal/exchange/jyxx/hq/hq20080104.html">http://www.czce.com.cn/portal/exchange/jyxx/hq/hq20080104.html</a></li>
+  <li><a href="http://www.czce.com.cn/portal/exchange/jyxx/hq/hq20090105.html">http://www.czce.com.cn/portal/exchange/jyxx/hq/hq20090105.html</a></li>
+</ul>
+
+<p>网页格式很统一，数据在被table标签包裹，并且是在第二个table标签中，XML包的<code>readHTMLTable</code>函数可以读取table标签中的内容，但是当网页中有汉字的时候，汉字会变成乱码，慎用！</p>
+
+<p>不过，本文的情况有点特殊，汉字只出现在table的第一行表头，以及“小计”、“总计”的行，这些行本来就是要去掉的，所以对我们没影响。</p>
+
+<p>下面只给出关键代码：</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span /></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+</pre></td><td class="code"><pre><code class="r"><span class="line">require<span class="p">(</span>XML<span class="p">)</span>
+</span><span class="line">require<span class="p">(</span>stringr<span class="p">)</span>
+</span><span class="line">url <span class="o">&lt;-</span> <span class="s">&quot;http://www.czce.com.cn/portal/exchange/jyxx/hq/hq20060106.html&quot;</span>
+</span><span class="line">tb <span class="o">&lt;-</span>readHTMLTable<span class="p">(</span>url<span class="p">)[[</span><span class="m">2</span><span class="p">]]</span>
+</span><span class="line">tb <span class="o">&lt;-</span> sapply<span class="p">(</span>tb<span class="p">,</span>str_trim<span class="p">)</span>
+</span><span class="line">df <span class="o">&lt;-</span>as.data.frame<span class="p">(</span>apply<span class="p">(</span>tb<span class="p">,</span><span class="m">2</span><span class="p">,</span><span class="kr">function</span><span class="p">(</span>x<span class="p">)</span> iconv<span class="p">(</span>x<span class="p">,</span> from <span class="o">=</span> <span class="s">&quot;gb2312&quot;</span><span class="p">,</span> to <span class="o">=</span> <span class="s">&quot;UTF-8&quot;</span><span class="p">)))</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<p>再把第一列为NA的行去除就行了。</p>
+
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[用R获取大连商品交易所历史数据]]></title>
@@ -27,6 +141,8 @@
 <p><img src="http://i.imgur.com/PFZ4f1k.png" alt="日行情表" /></p>
 
 <p>可以看到，这个表实际上是用iframe实现的，查看页面的源文件可以查出这个iframe引用页面地址为<a href="http://www.dce.com.cn/PublicWeb/MainServlet?action=Data_service">http://www.dce.com.cn/PublicWeb/MainServlet?action=Data_service</a>。用上面的方法继续剖析这个页面，发现它引用了<a href="http://www.dce.com.cn/PublicWeb/MainServlet?action=Pu00011_search">http://www.dce.com.cn/PublicWeb/MainServlet?action=Pu00011_search</a>。</p>
+
+<!--more-->
 
 <p>先忽略无关的代码，只关注下面这部分</p>
 
@@ -154,7 +270,7 @@
   <li>整段代码定义了个表单，名为form1，用于向服务器传输数据，后面用input标签和select标签来定义传递的数据</li>
   <li>用了一个input标签和onClick事件<code>onClick='swapCalendar(document.all("Pu00011_Input.trade_date"))'</code>来设置要查询的日期<code>Pu00011_Input.trade_date</code>。</li>
   <li>用了一个select标签来选择查询的品种<code>Pu00011_Input.variety</code></li>
-  <li>用了一个input标签来设置行情类型<code>Pu00011_Input.trade_type</code>，从代码里看，Pu00011_Input.trade_type的值始终是0,代表期货行情;从下面注释掉的部分代码可以看出当<code>Pu00011_Input.trade_type</code>取0时，代表的是期权行情，估计网站还没实现这个功能</li>
+  <li>用了一个input标签来设置行情类型<code>Pu00011_Input.trade_type</code>，从代码里看，<code>Pu00011_Input.trade_type</code>的值始终是0,代表期货行情;从下面注释掉的部分代码可以看出当<code>Pu00011_Input.trade_type</code>取0时，代表的是期权行情，估计网站还没实现这个功能</li>
   <li>然后有一排三个button属性的input标签，所以它们是按钮形式的，并且都有onClick属性，当按下按钮时，会触发javascript脚本，脚本会设置action的值，比如“下载文本格式”这个按钮，按下它会把action的值设置成<code>Pu00012_download</code></li>
 </ul>
 
@@ -807,9 +923,14 @@
 </pre></td><td class="code"><pre><code class="javascript"><span class="line"><span class="nx">$</span><span class="p">(</span><span class="nb">document</span><span class="p">).</span><span class="nx">ready</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
 </span><span class="line">	<span class="kd">var</span> <span class="nx">post</span> <span class="o">=</span> <span class="p">{</span>
 </span><span class="line">	<span class="s2">&quot;list&quot;</span><span class="o">:</span><span class="p">[{</span>
+</span><span class="line">		<span class="s2">&quot;title&quot;</span><span class="o">:</span><span class="s2">&quot;用R获取郑州商品交易所历史数据&quot;</span><span class="p">,</span>
+</span><span class="line">		    <span class="s2">&quot;url&quot;</span><span class="o">:</span><span class="s2">&quot;http://yanping.me/cn/blog/2012/12/09/get-zce-data/&quot;</span><span class="p">,</span>
+</span><span class="line">		    <span class="s2">&quot;date&quot;</span><span class="o">:</span><span class="s2">&quot;09 Dec 2012&quot;</span>
+</span><span class="line">		<span class="p">},</span>
+</span><span class="line">	<span class="p">{</span>
 </span><span class="line">		<span class="s2">&quot;title&quot;</span><span class="o">:</span><span class="s2">&quot;用R获取大连商品交易所历史数据&quot;</span><span class="p">,</span>
-</span><span class="line">		    <span class="s2">&quot;url&quot;</span><span class="o">:</span><span class="s2">&quot;http://yanping.me/cn/blog/2013/02/09/get-dce-data/&quot;</span><span class="p">,</span>
-</span><span class="line">		    <span class="s2">&quot;date&quot;</span><span class="o">:</span><span class="s2">&quot;09 Feb 2013&quot;</span>
+</span><span class="line">		    <span class="s2">&quot;url&quot;</span><span class="o">:</span><span class="s2">&quot;http://yanping.me/cn/blog/2012/12/09/get-dce-data/&quot;</span><span class="p">,</span>
+</span><span class="line">		    <span class="s2">&quot;date&quot;</span><span class="o">:</span><span class="s2">&quot;09 Dec 2012&quot;</span>
 </span><span class="line">		<span class="p">},</span>
 </span><span class="line">	<span class="p">{</span>
 </span><span class="line">		<span class="s2">&quot;title&quot;</span><span class="o">:</span><span class="s2">&quot;用jekyll和jQuery实现异步加载文章列表&quot;</span><span class="p">,</span>
@@ -825,11 +946,6 @@
 </span><span class="line">		<span class="s2">&quot;title&quot;</span><span class="o">:</span><span class="s2">&quot;DecisionTools培训课程大纲&quot;</span><span class="p">,</span>
 </span><span class="line">		    <span class="s2">&quot;url&quot;</span><span class="o">:</span><span class="s2">&quot;http://yanping.me/cn/blog/2012/06/10/palisade-training-course/&quot;</span><span class="p">,</span>
 </span><span class="line">		    <span class="s2">&quot;date&quot;</span><span class="o">:</span><span class="s2">&quot;10 Jun 2012&quot;</span>
-</span><span class="line">		<span class="p">},</span>
-</span><span class="line">	<span class="p">{</span>
-</span><span class="line">		<span class="s2">&quot;title&quot;</span><span class="o">:</span><span class="s2">&quot;下一步学习的目标&quot;</span><span class="p">,</span>
-</span><span class="line">		    <span class="s2">&quot;url&quot;</span><span class="o">:</span><span class="s2">&quot;http://yanping.me/cn/blog/2012/06/07/new-target/&quot;</span><span class="p">,</span>
-</span><span class="line">		    <span class="s2">&quot;date&quot;</span><span class="o">:</span><span class="s2">&quot;07 Jun 2012&quot;</span>
 </span><span class="line">		<span class="p">}</span>
 </span><span class="line">	
 </span><span class="line">	<span class="p">]};</span>
@@ -1050,9 +1166,15 @@
 <span class="line-number">32</span>
 </pre></td><td class="code"><pre><code class="javascript"><span class="line"><span class="p">[</span>
 </span><span class="line">    <span class="p">{</span>
+</span><span class="line">        <span class="s2">&quot;title&quot;</span><span class="o">:</span><span class="s2">&quot;用R获取郑州商品交易所历史数据&quot;</span><span class="p">,</span>
+</span><span class="line">        <span class="s2">&quot;url&quot;</span><span class="o">:</span><span class="s2">&quot;http://yanping.me/cn/blog/2012/12/09/get-zce-data/&quot;</span><span class="p">,</span>
+</span><span class="line">        <span class="s2">&quot;date&quot;</span><span class="o">:</span><span class="s2">&quot;09 Dec 2012&quot;</span>
+</span><span class="line">    <span class="p">},</span>
+</span><span class="line">
+</span><span class="line">    <span class="p">{</span>
 </span><span class="line">        <span class="s2">&quot;title&quot;</span><span class="o">:</span><span class="s2">&quot;用R获取大连商品交易所历史数据&quot;</span><span class="p">,</span>
-</span><span class="line">        <span class="s2">&quot;url&quot;</span><span class="o">:</span><span class="s2">&quot;http://yanping.me/cn/blog/2013/02/09/get-dce-data/&quot;</span><span class="p">,</span>
-</span><span class="line">        <span class="s2">&quot;date&quot;</span><span class="o">:</span><span class="s2">&quot;09 Feb 2013&quot;</span>
+</span><span class="line">        <span class="s2">&quot;url&quot;</span><span class="o">:</span><span class="s2">&quot;http://yanping.me/cn/blog/2012/12/09/get-dce-data/&quot;</span><span class="p">,</span>
+</span><span class="line">        <span class="s2">&quot;date&quot;</span><span class="o">:</span><span class="s2">&quot;09 Dec 2012&quot;</span>
 </span><span class="line">    <span class="p">},</span>
 </span><span class="line">
 </span><span class="line">    <span class="p">{</span>
@@ -1071,12 +1193,6 @@
 </span><span class="line">        <span class="s2">&quot;title&quot;</span><span class="o">:</span><span class="s2">&quot;DecisionTools培训课程大纲&quot;</span><span class="p">,</span>
 </span><span class="line">        <span class="s2">&quot;url&quot;</span><span class="o">:</span><span class="s2">&quot;http://yanping.me/cn/blog/2012/06/10/palisade-training-course/&quot;</span><span class="p">,</span>
 </span><span class="line">        <span class="s2">&quot;date&quot;</span><span class="o">:</span><span class="s2">&quot;10 Jun 2012&quot;</span>
-</span><span class="line">    <span class="p">},</span>
-</span><span class="line">
-</span><span class="line">    <span class="p">{</span>
-</span><span class="line">        <span class="s2">&quot;title&quot;</span><span class="o">:</span><span class="s2">&quot;下一步学习的目标&quot;</span><span class="p">,</span>
-</span><span class="line">        <span class="s2">&quot;url&quot;</span><span class="o">:</span><span class="s2">&quot;http://yanping.me/cn/blog/2012/06/07/new-target/&quot;</span><span class="p">,</span>
-</span><span class="line">        <span class="s2">&quot;date&quot;</span><span class="o">:</span><span class="s2">&quot;07 Jun 2012&quot;</span>
 </span><span class="line">    <span class="p">}</span>
 </span><span class="line">
 </span><span class="line"><span class="p">]</span>
@@ -2791,96 +2907,6 @@ _layout.scss     # Override settings for base/_layout.scss to change the layout
 这种方法只能安装从CRAN能获取到的包。其他途径获取的包要单独安装。
 </span>
 </p>
-
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[用R处理大数据集]]></title>
-    <link href="http://yanping.me/cn/blog/2012/01/01/working-with-large-datasets/"/>
-    <updated>2012-01-01T15:36:00+08:00</updated>
-    <id>http://yanping.me/cn/blog/2012/01/01/working-with-large-datasets</id>
-    <content type="html"><![CDATA[<p><span class="info">
-本文翻译自<a href="http://www.manning.com/kabacoff/" target="_blank">R in Action</a>的附录G，如果对该书感兴趣，请自行购买或去图书馆阅读。
-</span>
-</p>
-
-<p>R会把所有的对象读存入虚拟内存中。对我们大多数用户来说，这种设计可以提高与R相互的速度，但是当分析大数据集时，这种设计会降低程序运行速度有时还会产生跟内存相关的错误。</p>
-
-<p>内存限制主要取决于R的build版（32位还是64位），而在32位的windows下，取决于操作系统的版本。以cannot allocate vectoe of size开头的出错信息表示无法分配充足的连续内存，而以cannot allocate vector of length开头的出错信息表示超越了地址限制（address limit）。在处理大数据集时，应尽量使用64位版的R。对于各种build版，向量中的元素个数最大为2147483647（请自行?Memory）。</p>
-
-<p>在处理大数据集时有三方面应该考虑：（a）提高程序的效率，保证执行速度；（b）把数据储存在外部，以解决内存限制问题；（c）使用专门的统计方法来有效处理大数据量的问题。</p>
-
-<p>下面将分别讨论。</p>
-
-<!--more-->
-
-<h3 id="section">高效编程</h3>
-<p>下面几条编程技巧来可以提高处理大数据集时的效率</p>
-
-<ul>
-  <li>尽量向量化运算。使用R内置的函数来处理向量、矩阵和list（例如函数<code>sapply</code>，<code>lapply</code>和<code>mapply</code>），尽量避免使用循环（for和while）;</li>
-  <li>使用矩阵，必要时才使用数据框，因为矩阵的开销更少；</li>
-  <li>使用<code>read.table()</code>函数族把外部数据导入数据框时，尽量显式设定<code>colClasses</code>和<code>nrows</code>选项，设定<code>comment.char = ""</code>，把不需要的列设置成NULL。这样可以减少占用的内存，同时加快处理速度。将外部数据导入矩阵时，使用<code>scan()</code>函数；</li>
-  <li>在处理全部数据前，用数据的子集测试程序，来优化程序，去掉bug；</li>
-  <li>删除临时对象和不再用的对象。调用<code>rm(list=ls())</code>可以删除内存中的所有对象。删除指定的对象可以用<code>rm(object)</code>；</li>
-  <li>在Jeromy Anglim的博客文章“R的内存管理：一些小窍门和技巧”(原文<a href="http://jeromyanglim.blogspot.com/2009/11/memory-management-in-r-few-tips-and.html">Memory Management in R: A Few Tips and Tricks </a>，被墙)中提到，使用函数<code>.ls.objects()</code>列出工作区内的对象占用的内存大小。这个函数会帮助你找到吃内存的大家伙。</li>
-  <li>profile你的程序，看看在每个函数中花的时间。你可以用<code>Rprof()</code>和<code>summaryRprof()</code>函数完成这项工作。<code>system.time()</code>函数也可以帮助你。<em>profr</em> 和 <em>prooftools</em> 包提供了若干函数来帮助分析profile的输出。</li>
-  <li>Rcpp包可以把R对象转成C++函数（原文是The Rcpp package can be used to transfer R objects to C++ functions and back when more optimized subroutines are needed. 后半句不知怎么翻译）</li>
-</ul>
-
-<p>处理大数据集，提高代码效率只能解决一部分问题。你也可以把数据存在外部存储并使用专门的统计分析方法。</p>
-
-<h3 id="section-1">把数据存储在内存之外</h3>
-<p>有几种包可以实现在内存之外存储数据。解决之道是把数据保存在外部数据库或者硬盘里的二进制文件中，然后在需要的时候部分地读取。下表描述了几种有用的包：</p>
-
-<table class="datalist">
-<tr>
-	<th><strong>包</strong></th>
-	<th><strong>描述</strong></th>
-</tr>
-<tr>
-	<td>ff</td>
-	<td>提供了一种数据结构，保存在硬盘中，但是操作起来就如同在内存中一样</td>
-</tr>
-<tr>
-	<td>bigmemory</td>
-	<td>支持大规模矩阵的创建、储存、读取和操作。矩阵被分配到共享内存或内存映射的文件中（memory-mapped files）</td>
-</tr>
-<tr>
-	<td>filehash</td>
-	<td>实现了简单的key-value数据库，在其中特征字符串key与存储在硬盘中的数据value相关联。</td>
-</tr>
-<tr>
-	<td>ncdf, ncdf4</td>
-	<td>Provides an interface to Unidata netCDF data files.
-</td>
-</tr>
-<tr>
-	<td>RODBC, RMySQL,<br /> 
-	ROracle, <br />
-	RPostgreSQL, <br />
-	RSQLite 
-	</td>
-	<td>可以用这些包读取外部关系数据库管理系统的数据</td>
-</tr>
-</table>
-<p>上面的包可以帮助客服R的内存限制。除此以外，当需要在有限时间内分析大数据集时，使用专门方法也是必须的。一些有用的方法将在下面介绍。</p>
-
-<h3 id="section-2">分析大数据集的包</h3>
-<p>R提供了几种分析大数据集的包：</p>
-
-<ul>
-  <li><em>biglm</em> 和 <em>speedglm</em> 包可以针对大数据集有效地拟合线性和广义线性模型。在处理大规模数据集时，这两个包提供了类似<code>lm()</code>和<code>glm()</code>的功能。</li>
-  <li>由 <em>bigmemory</em> 包可产生大规模矩阵，一些包可以提供分析这些大规模矩阵的函数。<em>bigannalytics</em> 包提供了k-means聚类、行统计量（column statistics）和一个对<code>biglm()</code>的封装。<em>bigtabulate</em> 包提供了<code>table()</code>、<code>split()</code>和<code>tapply()</code>的功能，<em>bigalgebra</em> 包提供了高等线性代数的函数。</li>
-  <li><em>biglars</em> 包提供了最小角回归（least-angle regression）、lasso以及针对大数据集的逐步回归，数据集因太大而不能读入到内存中，这时候要配合 <em>ff</em> 包使用。</li>
-  <li><em>Brobdingnag</em> 包可以用来处理大数字（大于2^1024）</li>
-</ul>
-
-<p>处理从GB到TB级的数据对于任何数据都是极大的挑战。如果想查看R的更多方法，请看CRAN task View: <em>High-Performance and Parallel Computing with R</em> （<a href="http://cran.r-project.org/web/view">http://cran.r-project.org/web/view</a>）。</p>
-
-<h3 id="section-3">译者注</h3>
-<p><a href="http://jliblog.com/">李舰</a>曾经在第四届R语言会议（北京会场）上做了题为《 <em>R与高性能运算</em> 》的报告，报告slides及代码请见<a href="http://cos.name/2011/05/4th-china-r-beijing-summary/">会议纪要</a></p>
 
 ]]></content>
   </entry>
