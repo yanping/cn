@@ -4,7 +4,7 @@
   <title><![CDATA[分类： R语言 | 雁起平沙的网络日志]]></title>
   <link href="http://yanping.me/cn/blog/categories/r语言/atom.xml" rel="self"/>
   <link href="http://yanping.me/cn/"/>
-  <updated>2013-02-10T01:48:08+08:00</updated>
+  <updated>2013-02-13T14:54:47+08:00</updated>
   <id>http://yanping.me/cn/</id>
   <author>
     <name><![CDATA[ypchen]]></name>
@@ -143,15 +143,16 @@
 <span class='line-number'>58</span>
 <span class='line-number'>59</span>
 <span class='line-number'>60</span>
+<span class='line-number'>61</span>
 </pre></td><td class='code'><pre><code class='r'><span class='line'><span class="c1"># cntrade R语言版 </span>
 </span><span class='line'><span class="c1"># 作者：陈堰平（新华指数有限责任公司，chen@yanping.me） </span>
 </span><span class='line'><span class="c1"># 使用网易股票数据接口 原stata版的作者为：</span>
 </span><span class='line'><span class="c1">#   李春涛（中南财经政法大学，chtl@znufe.edu.cn） </span>
 </span><span class='line'><span class="c1">#   张璇（中南财经政法大学，zhangx@znufe.edu.cn） </span>
 </span><span class='line'><span class="c1"># example: </span>
-</span><span class='line'><span class="c1">#   cntrade(c(&#39;600000&#39;, &#39;000008&#39;), path =&#39;D:/stockprice&#39;, start = &#39;20010104&#39;, end = &#39;20120124&#39;)</span>
+</span><span class='line'><span class="c1">#   cntrade(c(&#39;600000&#39;, &#39;000008&#39;), path =&#39;D:/stockprice&#39;, start = 20010104, end = 20120124)</span>
 </span><span class='line'>
-</span><span class='line'>cntrade <span class="o">&lt;-</span> <span class="kr">function</span><span class="p">(</span>tickers<span class="p">,</span> path <span class="o">=</span> <span class="s">&quot;&quot;</span><span class="p">,</span> start <span class="o">=</span> <span class="s">&quot;19910101&quot;</span><span class="p">,</span> end <span class="o">=</span> <span class="s">&quot;&quot;</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>cntrade <span class="o">&lt;-</span> <span class="kr">function</span><span class="p">(</span>tickers<span class="p">,</span> path <span class="o">=</span> <span class="s">&quot;&quot;</span><span class="p">,</span> start <span class="o">=</span> <span class="m">19910101</span><span class="p">,</span> end <span class="o">=</span> <span class="s">&quot;&quot;</span><span class="p">)</span> <span class="p">{</span>
 </span><span class='line'>
 </span><span class='line'>  address <span class="o">&lt;-</span> <span class="s">&quot;http://quotes.money.163.com/service/chddata.html&quot;</span>
 </span><span class='line'>  field <span class="o">&lt;-</span> <span class="s">&quot;&amp;fields=TCLOSE;HIGH;LOW;TOPEN;LCLOSE;CHG;PCHG;TURNOVER;VOTURNOVER;VATURNOVER;TCAP;MCAP&quot;</span>
@@ -176,6 +177,7 @@
 </span><span class='line'>  <span class="p">}</span>
 </span><span class='line'>
 </span><span class='line'>  count <span class="o">&lt;-</span> <span class="m">0</span>
+</span><span class='line'>  tickers <span class="o">&lt;-</span> as.character<span class="p">(</span>tickers<span class="p">)</span>
 </span><span class='line'>  <span class="kr">for</span> <span class="p">(</span>name in tickers<span class="p">)</span> <span class="p">{</span>
 </span><span class='line'>    <span class="kr">while</span> <span class="p">(</span>nchar<span class="p">(</span>name<span class="p">)</span> <span class="o">&lt;</span> <span class="m">6</span><span class="p">)</span> <span class="p">{</span>
 </span><span class='line'>      name <span class="o">&lt;-</span> paste<span class="p">(</span><span class="s">&quot;0&quot;</span><span class="p">,</span> name<span class="p">,</span> sep <span class="o">=</span> <span class="s">&quot;&quot;</span><span class="p">)</span>
@@ -205,6 +207,17 @@
 </span><span class='line'><span class="p">}</span>
 </span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
+<p>调用举例</p>
+
+<p><code>r
+cntrade(c('600000', '000001', '600810'), path = "d:\temp", start = 19990101, end = 20121231)
+cntrade(c(600000, 000001, 600810))
+cntrade('000002', start = 19990101)
+cntrade(000002, end = 19990101)
+cntrade(c(2, 16))
+</code></p>
+
+<p>stata版的介绍请看<a href="http://blog.sina.com.cn/s/blog_6af14ae20101ggnz.html">http://blog.sina.com.cn/s/blog_6af14ae20101ggnz.html</a></p>
 ]]></content>
   </entry>
   

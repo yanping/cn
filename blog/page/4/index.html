@@ -9,7 +9,8 @@
   <meta name="author" content="ypchen">
 
   
-  <meta name="description" content="本文翻译自R in Action的附录H，如果对该书感兴趣，请自行购买或去图书馆阅读。 R的函数update.packages()可以下载和升级安装的包，但是没有相应的函数升级R本身。如果你想把R从4.1.0版升级到5.1.1版，那你必须有点创造性。（实际上作者写书的时候R的版本还只是2.13. &hellip;">
+  <meta name="description" content="本文翻译自Octopress的帮助文档Theming &amp; Customization。
+本人水平有限，不当之处请指正，欢迎留言给出修改意见。 Octopress在 .themes 目录提供了一个默认主题。当你安装Octopress时，HTML和Javascripts被复制到 / &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -101,6 +102,62 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/cn/blog/2012/01/07/theming-and-customization/">为Octopress修改主题和自定义样式</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-01-07T21:16:00+08:00" pubdate data-updated="true">Jan 7<span>th</span>, 2012</time>
+        
+         | <a href="/cn/blog/2012/01/07/theming-and-customization/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p class="info">
+本文翻译自Octopress的帮助文档<a href="http://octopress.org/docs/theme" target="_blank">Theming &amp; Customization</a>。
+本人水平有限，不当之处请指正，欢迎留言给出修改意见。
+</p>
+
+<p>Octopress在 <code>.themes</code> 目录提供了一个默认主题。当你安装Octopress时，HTML和Javascripts被复制到 <code>/source</code>，Sass样式表被复制到 <code>/sass</code>。
+你可以随意修改上述文件，不过我还是设计了一些模式，来让自定制变得更简单，更新Octopress更方便。</p>
+
+<p>本文分成两部分：</p>
+
+<ol>
+  <li><a href="/cn/blog/2012/01/07/theming-and-customization/#theme">自定义模板</a> - <em>学习如何修改HEAD，sidebar，header，navigation 以及footer</em></li>
+  <li><a href="/cn/blog/2012/01/07/theming-and-customization/#styles">修改样式</a> - <em>学习如何修改颜色和布局，控制样式</em></li>
+</ol>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/cn/blog/2012/01/07/theming-and-customization/">阅读全文 &rarr;</a>
+    </footer>
+  
+
+
+    </article>
   
   
     <article>
@@ -413,56 +470,6 @@ github pages的<a target="_blank" href="http://pages.github.com/">官方主页</
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/cn/blog/2011/12/03/hello-octopress/">你好！octopress</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2011-12-03T10:36:00+08:00" pubdate data-updated="true">Dec 3<span>rd</span>, 2011</time>
-        
-         | <a href="/cn/blog/2011/12/03/hello-octopress/#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>第一次使用octopress，看看好不好用。</p>
-
-<ul>
-  <li><a href="http://colors4.us/blog/categories/octopress/" target="_blank">Octopress博客从零开始</a></li>
-  <li><a href="http://blog.fangjian.me/posts/2011/12/18/migrate-wordpress-to-octopress/" target="_blank">从Wordpress到Octopress</a></li>
-  <li><a href="http://hychen.wuweig.org/blog/2011/12/04/octopress-source-drafts-publish-management-process/" target="_blank">关于octopress代码的管理</a></li>
-  <li><a href="http://shanewfx.github.com/blog/2012/02/16/bulid-blog-by-octopress/" target="_blank">搭Blog 学Git，windows下使用Octopress</a></li>
-  <li><a href="http://shanewfx.github.com/blog/2012/02/16/clone-blog-from-github/" target="_blank">维护Github上的博客</a></li>
-  <li><a href="http://fancyoung.com/blog/octopress-study/" target="_blank">技术博客利器——Octopress</a></li>
-  <li><a href="http://madeye.me/2011/12/17/setup-octopress-on-windows/" target="_blank">在Cygwin中搭建Octopress环境</a></li>
-  <li><a href="http://rednaxelafx.github.com/blog/2011/09/04/test-page/" target="_blank">关于Octopress的设置</a></li>
-</ul>
-
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/cn/blog/page/5/">&larr; 前一页</a>
@@ -490,12 +497,16 @@ github pages的<a target="_blank" href="http://pages.github.com/">官方主页</
 
 <section id="categories_tag">
 <h1>分类目录</h1>
-<span class='categories_tag'> <a href='/cn/blog/categories/github' style='font-size: 146.66666666666666%'>Github(7)</a>  <a href='/cn/blog/categories/javascript' style='font-size: 126.66666666666667%'>Javascript(4)</a>  <a href='/cn/blog/categories/jekyll' style='font-size: 160.0%'>Jekyll(9)</a>  <a href='/cn/blog/categories/latex' style='font-size: 106.66666666666667%'>Latex(1)</a>  <a href='/cn/blog/categories/markdown' style='font-size: 106.66666666666667%'>Markdown(1)</a>  <a href='/cn/blog/categories/octopress' style='font-size: 153.33333333333334%'>Octopress(8)</a>  <a href='/cn/blog/categories/r语言' style='font-size: 160.0%'>R语言(9)</a>  <a href='/cn/blog/categories/指数' style='font-size: 106.66666666666667%'>指数(1)</a>  <a href='/cn/blog/categories/金融工程' style='font-size: 133.33333333333334%'>金融工程(5)</a> </span>
+<span class='categories_tag'> <a href='/cn/blog/categories/github' style='font-size: 142.0%'>Github(7)</a>  <a href='/cn/blog/categories/javascript' style='font-size: 130.0%'>Javascript(5)</a>  <a href='/cn/blog/categories/jekyll' style='font-size: 160.0%'>Jekyll(10)</a>  <a href='/cn/blog/categories/latex' style='font-size: 106.0%'>Latex(1)</a>  <a href='/cn/blog/categories/markdown' style='font-size: 106.0%'>Markdown(1)</a>  <a href='/cn/blog/categories/octopress' style='font-size: 148.0%'>Octopress(8)</a>  <a href='/cn/blog/categories/r语言' style='font-size: 154.0%'>R语言(9)</a>  <a href='/cn/blog/categories/指数' style='font-size: 106.0%'>指数(1)</a>  <a href='/cn/blog/categories/金融工程' style='font-size: 130.0%'>金融工程(5)</a> </span>
 </section>
 
 <section>
   <h1>近期文章</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/cn/blog/2013/02/13/generate-tags-with-js-in-jekyll-blog/" title="用js在jekyll博客中实现标签云和标签页">用js在jekyll博客中实现标签云和标签页</a>
+      </li>
     
       <li class="post">
         <a href="/cn/blog/2013/02/10/get-data-from-flash/" title="用R获取flash中的数据">用R获取flash中的数据</a>
@@ -519,10 +530,6 @@ github pages的<a target="_blank" href="http://pages.github.com/">官方主页</
     
       <li class="post">
         <a href="/cn/blog/2012/10/09/chinese-charset-problems-with-jekyll/" title="在Windows下使用jekyll如何避免出现中文字符集错误">在Windows下使用jekyll如何避免出现中文字符集错误</a>
-      </li>
-    
-      <li class="post">
-        <a href="/cn/blog/2012/06/10/palisade-training-course/" title="DecisionTools培训课程大纲">DecisionTools培训课程大纲</a>
       </li>
     
   </ul>

@@ -4,7 +4,7 @@
   <title><![CDATA[雁起平沙的网络日志]]></title>
   <link href="http://yanping.me/cn/atom.xml" rel="self"/>
   <link href="http://yanping.me/cn/"/>
-  <updated>2013-02-10T01:48:08+08:00</updated>
+  <updated>2013-02-13T14:54:47+08:00</updated>
   <id>http://yanping.me/cn/</id>
   <author>
     <name><![CDATA[ypchen]]></name>
@@ -12,6 +12,267 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[用js在jekyll博客中实现标签云和标签页]]></title>
+    <link href="http://yanping.me/cn/blog/2013/02/13/generate-tags-with-js-in-jekyll-blog/"/>
+    <updated>2013-02-13T15:30:00+08:00</updated>
+    <id>http://yanping.me/cn/blog/2013/02/13/generate-tags-with-js-in-jekyll-blog</id>
+    <content type="html"><![CDATA[<p class="info">本文主要讨论在jekyll博客中借助javascript和json，实现标签云和标签页。标签云可以用jquery.tagcloud.js插件实现，标签页则使用jQuery读取json数据文件，用地址传递参数给js函数，使用的是异步加载技术，请看<a href="http://art.yanping.me/tags/">演示页面</a>。</p>
+
+<h2 id="section">标签云</h2>
+
+<p>先做点准备工作，加载jquery。因为我的博客里还加载了其他的js库，在另外一个js库中也定义了$符号的话，那么我们在使用$符号时就发生了冲突。所以在加载jquery时还要解决$命名冲突。请看<a href="http://www.cnblogs.com/RascallySnake/archive/2010/05/07/1729417.html">这篇文章</a>，我用的办法是定义jQuery的别名：</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span /></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+</pre></td><td class="code"><pre><code class="html"><span class="line"><span class="nt">&lt;script </span><span class="na">src=</span><span class="s">&quot;/js/jquery-1.7.1.min.js&quot;</span> <span class="na">type=</span><span class="s">&quot;text/javascript&quot;</span> <span class="na">charset=</span><span class="s">&quot;utf-8&quot;</span><span class="nt">&gt;&lt;/script&gt;</span>
+</span><span class="line"><span class="nt">&lt;script </span><span class="na">type=</span><span class="s">&quot;text/javascript&quot;</span><span class="nt">&gt;</span>
+</span><span class="line">  <span class="kd">var</span> <span class="nx">jq</span> <span class="o">=</span> <span class="nx">jQuery</span><span class="p">.</span><span class="nx">noConflict</span><span class="p">();</span>
+</span><span class="line"><span class="nt">&lt;/script&gt;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<p>下面是标签云的代码：</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span /></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+<span class="line-number">7</span>
+<span class="line-number">8</span>
+<span class="line-number">9</span>
+<span class="line-number">10</span>
+<span class="line-number">11</span>
+<span class="line-number">12</span>
+<span class="line-number">13</span>
+<span class="line-number">14</span>
+<span class="line-number">15</span>
+<span class="line-number">16</span>
+<span class="line-number">17</span>
+<span class="line-number">18</span>
+</pre></td><td class="code"><pre><code class="html"><span class="line"><span class="nt">&lt;script </span><span class="na">src=</span><span class="s">&quot;/js/jquery.tagcloud.js&quot;</span> <span class="na">type=</span><span class="s">&quot;text/javascript&quot;</span> <span class="na">charset=</span><span class="s">&quot;utf-8&quot;</span><span class="nt">&gt;&lt;/script&gt;</span>
+</span><span class="line"><span class="nt">&lt;script </span><span class="na">language=</span><span class="s">&quot;javascript&quot;</span><span class="nt">&gt;</span>
+</span><span class="line">  <span class="nx">jq</span><span class="p">.</span><span class="nx">fn</span><span class="p">.</span><span class="nx">tagcloud</span><span class="p">.</span><span class="nx">defaults</span> <span class="o">=</span> <span class="p">{</span>
+</span><span class="line">    <span class="nx">size</span><span class="o">:</span> <span class="p">{</span>
+</span><span class="line">      <span class="nx">start</span><span class="o">:</span> <span class="mi">12</span><span class="p">,</span>
+</span><span class="line">      <span class="nx">end</span><span class="o">:</span> <span class="mi">22</span><span class="p">,</span>
+</span><span class="line">      <span class="nx">unit</span><span class="o">:</span> <span class="s1">&#39;px&#39;</span>
+</span><span class="line">    <span class="p">},</span>
+</span><span class="line">    <span class="nx">color</span><span class="o">:</span> <span class="p">{</span>
+</span><span class="line">      <span class="nx">start</span><span class="o">:</span> <span class="s1">&#39;#7CCD7C&#39;</span><span class="p">,</span>
+</span><span class="line">      <span class="nx">end</span><span class="o">:</span> <span class="s1">&#39;#CD0000&#39;</span>
+</span><span class="line">    <span class="p">}</span>
+</span><span class="line">  <span class="p">};</span>
+</span><span class="line">
+</span><span class="line">  <span class="nx">jq</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+</span><span class="line">    <span class="nx">jq</span><span class="p">(</span><span class="s1">&#39;#tag_cloud a&#39;</span><span class="p">).</span><span class="nx">tagcloud</span><span class="p">();</span>
+</span><span class="line">  <span class="p">});</span>
+</span><span class="line"><span class="nt">&lt;/script&gt;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<h2 id="section-1">标签页</h2>
+
+<p>最初，我是在谢益辉的博客里看到的<a href="http://yihui.name/cn/tags/">用js实现标签云</a>。可以看到，这个标签页上，在标签云之后跟着各个标签的文章列表，如果我只想看到某个标签的文章列表，要怎么做呢？</p>
+
+<p>前面我写了篇文章<a href="http://yanping.me/cn/blog/2012/10/10/asynchronous-loading-post-list-with-jekyll-and-jQuery/">《用jekyll和jQuery实现异步加载文章列表》</a>，使用jQuery异步加载文章列表。同样的，我们也可以编写个函数加载某个标签的所有文章的列表。</p>
+
+<p>首先，生成文章列表数据的json模板是：</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span /></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+<span class="line-number">7</span>
+<span class="line-number">8</span>
+<span class="line-number">9</span>
+<span class="line-number">10</span>
+<span class="line-number">11</span>
+<span class="line-number">12</span>
+<span class="line-number">13</span>
+</pre></td><td class="code"><pre><code class="html"><span class="line">---
+</span><span class="line">layout: nil
+</span><span class="line">---
+</span><span class="line">
+</span><span class="line">[
+</span><span class="line">{% for post in site.posts %}
+</span><span class="line">  {&quot;title&quot;:&quot;{{post.title}}&quot;,
+</span><span class="line">  &quot;url&quot;:&quot;{{site.url}}{{post.url}}&quot;,
+</span><span class="line">  &quot;date&quot;:&quot;{{ post.date | date:&#39;%Y-%m-%d&#39; }}&quot;,
+</span><span class="line">  &quot;tags&quot;:[{% for tag in post.tags %}&quot;{{tag}}&quot;{% if forloop.last == false %} ,{% endif %}{% endfor %}]}
+</span><span class="line">  {% if forloop.last == false %},{% endif %}{% endfor %}
+</span><span class="line">]
+</span><span class="line">
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<p>用jekyll处理之后得到的json文件在<a href="http://art.yanping.me/post.json">这里</a>。</p>
+
+<p>定义javascript函数showTag()，异步加载某一个标签的文章列表</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span /></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+<span class="line-number">7</span>
+<span class="line-number">8</span>
+<span class="line-number">9</span>
+<span class="line-number">10</span>
+<span class="line-number">11</span>
+<span class="line-number">12</span>
+<span class="line-number">13</span>
+<span class="line-number">14</span>
+<span class="line-number">15</span>
+<span class="line-number">16</span>
+<span class="line-number">17</span>
+<span class="line-number">18</span>
+<span class="line-number">19</span>
+<span class="line-number">20</span>
+<span class="line-number">21</span>
+<span class="line-number">22</span>
+<span class="line-number">23</span>
+<span class="line-number">24</span>
+<span class="line-number">25</span>
+<span class="line-number">26</span>
+<span class="line-number">27</span>
+</pre></td><td class="code"><pre><code class="html"><span class="line"><span class="nt">&lt;script </span><span class="na">type=</span><span class="s">&quot;text/javascript&quot;</span><span class="nt">&gt;</span>
+</span><span class="line">  <span class="kd">function</span> <span class="nx">showTag</span><span class="p">(</span><span class="nx">tagStr</span><span class="p">)</span> <span class="p">{</span>
+</span><span class="line">    <span class="nx">jq</span><span class="p">.</span><span class="nx">getJSON</span><span class="p">(</span><span class="s2">&quot;../post.json&quot;</span><span class="p">,</span>
+</span><span class="line">    <span class="kd">function</span><span class="p">(</span><span class="nx">data</span><span class="p">)</span> <span class="p">{</span>
+</span><span class="line">      <span class="nx">jq</span><span class="p">(</span><span class="s1">&#39;#show-tag&#39;</span><span class="p">).</span><span class="nx">empty</span><span class="p">(</span><span class="nx">content</span><span class="p">);</span>
+</span><span class="line">      <span class="kd">var</span> <span class="nx">content</span> <span class="o">=</span> <span class="s2">&quot;&lt;h2&gt;分类：&quot;</span> <span class="o">+</span> <span class="nx">tagStr</span> <span class="o">+</span> <span class="s2">&quot;&lt;/h2&gt;&lt;ul class=\&quot;posts\&quot;&gt;&quot;</span><span class="p">;</span>
+</span><span class="line">      <span class="kd">var</span> <span class="nx">count</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span><span class="line">      <span class="nx">jq</span><span class="p">.</span><span class="nx">each</span><span class="p">(</span><span class="nx">data</span><span class="p">,</span>
+</span><span class="line">      <span class="kd">function</span><span class="p">(</span><span class="nx">i</span><span class="p">,</span> <span class="nx">item</span><span class="p">)</span> <span class="p">{</span>
+</span><span class="line">        <span class="nx">jq</span><span class="p">.</span><span class="nx">each</span><span class="p">(</span><span class="nx">item</span><span class="p">.</span><span class="nx">tags</span><span class="p">,</span>
+</span><span class="line">        <span class="kd">function</span><span class="p">(</span><span class="nx">j</span><span class="p">,</span> <span class="nx">tag</span><span class="p">)</span> <span class="p">{</span>
+</span><span class="line">          <span class="k">if</span> <span class="p">(</span><span class="nx">tag</span> <span class="o">==</span> <span class="nx">tagStr</span><span class="p">)</span> <span class="p">{</span>
+</span><span class="line">            <span class="nx">content</span> <span class="o">+=</span> <span class="s2">&quot;&lt;li class=\&quot;listing-item\&quot;&gt;&lt;time datetime=\&quot;&quot;</span> <span class="o">+</span> <span class="nx">item</span><span class="p">.</span><span class="nx">date</span> <span class="o">+</span> <span class="s2">&quot;\&quot;&gt;&quot;</span> <span class="o">+</span> <span class="nx">item</span><span class="p">.</span><span class="nx">date</span> <span class="o">+</span> <span class="s2">&quot;&lt;/time&gt;&lt;a href=\&quot;&quot;</span> <span class="o">+</span> <span class="nx">item</span><span class="p">.</span><span class="nx">url</span> <span class="o">+</span> <span class="s2">&quot;\&quot;&gt;&quot;</span> <span class="o">+</span> <span class="nx">item</span><span class="p">.</span><span class="nx">title</span> <span class="o">+</span> <span class="s2">&quot;&lt;/a&gt;&lt;/li&gt;&quot;</span><span class="p">;</span>
+</span><span class="line">            <span class="nx">count</span><span class="o">++</span><span class="p">;</span>
+</span><span class="line">          <span class="p">}</span>
+</span><span class="line">
+</span><span class="line">        <span class="p">});</span>
+</span><span class="line">      <span class="p">});</span>
+</span><span class="line">      <span class="k">if</span> <span class="p">(</span><span class="nx">count</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+</span><span class="line">        <span class="nx">content</span> <span class="o">+=</span> <span class="s2">&quot;&lt;/ul&gt;&quot;</span><span class="p">;</span>
+</span><span class="line">        <span class="nx">postNumStr</span> <span class="o">=</span> <span class="s2">&quot;&lt;span&gt;（&quot;</span> <span class="o">+</span> <span class="nx">count</span> <span class="o">+</span> <span class="s2">&quot;篇文章）&lt;/span&gt;&quot;</span><span class="p">;</span>
+</span><span class="line">        <span class="nx">jq</span><span class="p">(</span><span class="s1">&#39;#show-tag&#39;</span><span class="p">).</span><span class="nx">append</span><span class="p">(</span><span class="nx">content</span><span class="p">);</span>
+</span><span class="line">        <span class="nx">jq</span><span class="p">(</span><span class="s1">&#39;#show-tag&gt;h2&#39;</span><span class="p">).</span><span class="nx">append</span><span class="p">(</span><span class="nx">postNumStr</span><span class="p">);</span>
+</span><span class="line">      <span class="p">}</span>
+</span><span class="line">    <span class="p">});</span>
+</span><span class="line">  <span class="p">}</span>
+</span><span class="line"><span class="nt">&lt;/script&gt;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<p>而标签页的核心代码为</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span /></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+<span class="line-number">7</span>
+<span class="line-number">8</span>
+<span class="line-number">9</span>
+<span class="line-number">10</span>
+<span class="line-number">11</span>
+<span class="line-number">12</span>
+<span class="line-number">13</span>
+</pre></td><td class="code"><pre><code class="html"><span class="line"><span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">&quot;tag_cloud&quot;</span><span class="nt">&gt;</span>
+</span><span class="line">  {% for tag in site.tags %}
+</span><span class="line">  <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">&quot;javascript:;&quot;</span> <span class="na">onclick=</span><span class="s">&quot;showTag(&#39;{{ tag[0] }}&#39;)&quot;</span> <span class="na">title=</span><span class="s">&quot;{{ tag[0] }}&quot;</span> <span class="na">rel=</span><span class="s">&quot;{{ tag[1].size }}&quot;</span><span class="nt">&gt;</span>
+</span><span class="line">    {{ tag[0] }}
+</span><span class="line">  <span class="nt">&lt;/a&gt;</span>
+</span><span class="line">  {% endfor %}
+</span><span class="line">  <span class="nt">&lt;/div&gt;</span>
+</span><span class="line">
+</span><span class="line"><span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">&quot;show-tag&quot;</span><span class="nt">&gt;</span>
+</span><span class="line">  <span class="nt">&lt;div</span> <span class="na">style=</span><span class="s">&quot;text-align:center&quot;</span><span class="nt">&gt;</span>
+</span><span class="line">    <span class="nt">&lt;img</span> <span class="na">src=</span><span class="s">&quot;/images/loading.gif&quot;</span><span class="nt">/&gt;</span><span class="ni">&amp;nbsp;&amp;nbsp;</span>loading...
+</span><span class="line">  <span class="nt">&lt;/div&gt;</span>
+</span><span class="line"><span class="nt">&lt;/div&gt;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<p>戳<a href="https://raw.github.com/yanping/art/gh-pages/tags/index.html">这里</a>查看完整代码。</p>
+
+<p>下面这段代码用url地址来传递参数</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span /></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+<span class="line-number">7</span>
+<span class="line-number">8</span>
+<span class="line-number">9</span>
+<span class="line-number">10</span>
+</pre></td><td class="code"><pre><code class="html"><span class="line"><span class="nt">&lt;script </span><span class="na">type=</span><span class="s">&quot;text/javascript&quot;</span><span class="nt">&gt;</span>
+</span><span class="line">  <span class="kd">var</span> <span class="nx">href</span> <span class="o">=</span> <span class="nb">window</span><span class="p">.</span><span class="nx">location</span><span class="p">.</span><span class="nx">href</span><span class="p">;</span>
+</span><span class="line">  <span class="kd">var</span> <span class="nx">pos</span> <span class="o">=</span> <span class="nx">href</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span><span class="s1">&#39;?tag=&#39;</span><span class="p">);</span>
+</span><span class="line">  <span class="kd">var</span> <span class="nx">paraStr</span> <span class="o">=</span> <span class="nx">href</span><span class="p">.</span><span class="nx">substring</span><span class="p">(</span><span class="nx">pos</span> <span class="o">+</span> <span class="mi">5</span><span class="p">);</span>
+</span><span class="line">  <span class="k">if</span> <span class="p">(</span><span class="nx">pos</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+</span><span class="line">    <span class="nx">showTag</span><span class="p">(</span><span class="nb">decodeURI</span><span class="p">(</span><span class="nx">paraStr</span><span class="p">));</span>
+</span><span class="line">  <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span><span class="line">    <span class="nx">showTag</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">);</span>
+</span><span class="line">  <span class="p">}</span>
+</span><span class="line"><span class="nt">&lt;/script&gt;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<p>post模板里的标签列表部分代码：</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span /></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+<span class="line-number">7</span>
+<span class="line-number">8</span>
+<span class="line-number">9</span>
+<span class="line-number">10</span>
+<span class="line-number">11</span>
+<span class="line-number">12</span>
+</pre></td><td class="code"><pre><code class="html"><span class="line">{% if page.tags != empty %}
+</span><span class="line"><span class="nt">&lt;ul</span> <span class="na">class=</span><span class="s">&quot;tags emphnext&quot;</span><span class="nt">&gt;</span>
+</span><span class="line">  <span class="nt">&lt;li&gt;</span>标签：<span class="nt">&lt;/li&gt;</span>
+</span><span class="line">  {% for tag in page.tags %}
+</span><span class="line">  <span class="nt">&lt;li&gt;</span>
+</span><span class="line">    <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">&quot;{{ site.baseurl }}/tags/?tag={{tag | cgi}}&quot;</span><span class="nt">&gt;</span>
+</span><span class="line">      {{ tag }}
+</span><span class="line">    <span class="nt">&lt;/a&gt;</span>
+</span><span class="line">    {% if forloop.last == false %}, {%endif %}
+</span><span class="line">  <span class="nt">&lt;/li&gt;</span>
+</span><span class="line">  {% endfor %}
+</span><span class="line"><span class="nt">&lt;/ul&gt;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<p>侧面栏上标签列表的代码：</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span /></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+<span class="line-number">7</span>
+</pre></td><td class="code"><pre><code class="html"><span class="line"><span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">&quot;tag_sidebar&quot;</span><span class="nt">&gt;</span>
+</span><span class="line">  {% for tag in site.tags %}
+</span><span class="line">  <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">&quot;{{site.baseurl}}/tags/?tag={{tag[0] | cgi}}&quot;</span> <span class="na">title=</span><span class="s">&quot;{{ tag[0] }}&quot;</span><span class="nt">&gt;</span>
+</span><span class="line">    {{ tag[0] }}<span class="nt">&lt;sup&gt;</span>{{ tag[1].size }}<span class="nt">&lt;/sup&gt;</span><span class="ni">&amp;nbsp;</span>
+</span><span class="line">  <span class="nt">&lt;/a&gt;</span>
+</span><span class="line">  {% endfor %}
+</span><span class="line"><span class="nt">&lt;/div&gt;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[用R获取flash中的数据]]></title>
@@ -143,15 +404,16 @@
 <span class="line-number">58</span>
 <span class="line-number">59</span>
 <span class="line-number">60</span>
+<span class="line-number">61</span>
 </pre></td><td class="code"><pre><code class="r"><span class="line"><span class="c1"># cntrade R语言版 </span>
 </span><span class="line"><span class="c1"># 作者：陈堰平（新华指数有限责任公司，chen@yanping.me） </span>
 </span><span class="line"><span class="c1"># 使用网易股票数据接口 原stata版的作者为：</span>
 </span><span class="line"><span class="c1">#   李春涛（中南财经政法大学，chtl@znufe.edu.cn） </span>
 </span><span class="line"><span class="c1">#   张璇（中南财经政法大学，zhangx@znufe.edu.cn） </span>
 </span><span class="line"><span class="c1"># example: </span>
-</span><span class="line"><span class="c1">#   cntrade(c(&#39;600000&#39;, &#39;000008&#39;), path =&#39;D:/stockprice&#39;, start = &#39;20010104&#39;, end = &#39;20120124&#39;)</span>
+</span><span class="line"><span class="c1">#   cntrade(c(&#39;600000&#39;, &#39;000008&#39;), path =&#39;D:/stockprice&#39;, start = 20010104, end = 20120124)</span>
 </span><span class="line">
-</span><span class="line">cntrade <span class="o">&lt;-</span> <span class="kr">function</span><span class="p">(</span>tickers<span class="p">,</span> path <span class="o">=</span> <span class="s">&quot;&quot;</span><span class="p">,</span> start <span class="o">=</span> <span class="s">&quot;19910101&quot;</span><span class="p">,</span> end <span class="o">=</span> <span class="s">&quot;&quot;</span><span class="p">)</span> <span class="p">{</span>
+</span><span class="line">cntrade <span class="o">&lt;-</span> <span class="kr">function</span><span class="p">(</span>tickers<span class="p">,</span> path <span class="o">=</span> <span class="s">&quot;&quot;</span><span class="p">,</span> start <span class="o">=</span> <span class="m">19910101</span><span class="p">,</span> end <span class="o">=</span> <span class="s">&quot;&quot;</span><span class="p">)</span> <span class="p">{</span>
 </span><span class="line">
 </span><span class="line">  address <span class="o">&lt;-</span> <span class="s">&quot;http://quotes.money.163.com/service/chddata.html&quot;</span>
 </span><span class="line">  field <span class="o">&lt;-</span> <span class="s">&quot;&amp;fields=TCLOSE;HIGH;LOW;TOPEN;LCLOSE;CHG;PCHG;TURNOVER;VOTURNOVER;VATURNOVER;TCAP;MCAP&quot;</span>
@@ -176,6 +438,7 @@
 </span><span class="line">  <span class="p">}</span>
 </span><span class="line">
 </span><span class="line">  count <span class="o">&lt;-</span> <span class="m">0</span>
+</span><span class="line">  tickers <span class="o">&lt;-</span> as.character<span class="p">(</span>tickers<span class="p">)</span>
 </span><span class="line">  <span class="kr">for</span> <span class="p">(</span>name in tickers<span class="p">)</span> <span class="p">{</span>
 </span><span class="line">    <span class="kr">while</span> <span class="p">(</span>nchar<span class="p">(</span>name<span class="p">)</span> <span class="o">&lt;</span> <span class="m">6</span><span class="p">)</span> <span class="p">{</span>
 </span><span class="line">      name <span class="o">&lt;-</span> paste<span class="p">(</span><span class="s">&quot;0&quot;</span><span class="p">,</span> name<span class="p">,</span> sep <span class="o">=</span> <span class="s">&quot;&quot;</span><span class="p">)</span>
@@ -205,6 +468,21 @@
 </span><span class="line"><span class="p">}</span>
 </span></code></pre></td></tr></table></div></figure></notextile></div>
 
+<p>调用举例</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span /></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+</pre></td><td class="code"><pre><code class="r"><span class="line">cntrade<span class="p">(</span>c<span class="p">(</span><span class="s">&#39;600000&#39;</span><span class="p">,</span> <span class="s">&#39;000001&#39;</span><span class="p">,</span> <span class="s">&#39;600810&#39;</span><span class="p">),</span> path <span class="o">=</span> <span class="s">&quot;d:\temp&quot;</span><span class="p">,</span> start <span class="o">=</span> <span class="m">19990101</span><span class="p">,</span> end <span class="o">=</span> <span class="m">20121231</span><span class="p">)</span>
+</span><span class="line">cntrade<span class="p">(</span>c<span class="p">(</span><span class="m">600000</span><span class="p">,</span> <span class="m">000001</span><span class="p">,</span> <span class="m">600810</span><span class="p">))</span>
+</span><span class="line">cntrade<span class="p">(</span><span class="s">&#39;000002&#39;</span><span class="p">,</span> start <span class="o">=</span> <span class="m">19990101</span><span class="p">)</span>
+</span><span class="line">cntrade<span class="p">(</span><span class="m">000002</span><span class="p">,</span> end <span class="o">=</span> <span class="m">19990101</span><span class="p">)</span>
+</span><span class="line">cntrade<span class="p">(</span>c<span class="p">(</span><span class="m">2</span><span class="p">,</span> <span class="m">16</span><span class="p">))</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<p>stata版的介绍请看<a href="http://blog.sina.com.cn/s/blog_6af14ae20101ggnz.html">http://blog.sina.com.cn/s/blog_6af14ae20101ggnz.html</a></p>
 ]]></content>
   </entry>
   
@@ -1118,8 +1396,18 @@
 </pre></td><td class="code"><pre><code class="javascript"><span class="line"><span class="nx">$</span><span class="p">(</span><span class="nb">document</span><span class="p">).</span><span class="nx">ready</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
 </span><span class="line">	<span class="kd">var</span> <span class="nx">post</span> <span class="o">=</span> <span class="p">{</span>
 </span><span class="line">	<span class="s2">&quot;list&quot;</span><span class="o">:</span><span class="p">[{</span>
+</span><span class="line">		<span class="s2">&quot;title&quot;</span><span class="o">:</span><span class="s2">&quot;用js在jekyll博客中实现标签云和标签页&quot;</span><span class="p">,</span>
+</span><span class="line">		    <span class="s2">&quot;url&quot;</span><span class="o">:</span><span class="s2">&quot;http://yanping.me/cn/blog/2013/02/13/generate-tags-with-js-in-jekyll-blog/&quot;</span><span class="p">,</span>
+</span><span class="line">		    <span class="s2">&quot;date&quot;</span><span class="o">:</span><span class="s2">&quot;13 Feb 2013&quot;</span>
+</span><span class="line">		<span class="p">},</span>
+</span><span class="line">	<span class="p">{</span>
 </span><span class="line">		<span class="s2">&quot;title&quot;</span><span class="o">:</span><span class="s2">&quot;用R获取flash中的数据&quot;</span><span class="p">,</span>
 </span><span class="line">		    <span class="s2">&quot;url&quot;</span><span class="o">:</span><span class="s2">&quot;http://yanping.me/cn/blog/2013/02/10/get-data-from-flash/&quot;</span><span class="p">,</span>
+</span><span class="line">		    <span class="s2">&quot;date&quot;</span><span class="o">:</span><span class="s2">&quot;10 Feb 2013&quot;</span>
+</span><span class="line">		<span class="p">},</span>
+</span><span class="line">	<span class="p">{</span>
+</span><span class="line">		<span class="s2">&quot;title&quot;</span><span class="o">:</span><span class="s2">&quot;R语言版的cntrade程序&quot;</span><span class="p">,</span>
+</span><span class="line">		    <span class="s2">&quot;url&quot;</span><span class="o">:</span><span class="s2">&quot;http://yanping.me/cn/blog/2013/02/10/cntrade-r-version/&quot;</span><span class="p">,</span>
 </span><span class="line">		    <span class="s2">&quot;date&quot;</span><span class="o">:</span><span class="s2">&quot;10 Feb 2013&quot;</span>
 </span><span class="line">		<span class="p">},</span>
 </span><span class="line">	<span class="p">{</span>
@@ -1131,16 +1419,6 @@
 </span><span class="line">		<span class="s2">&quot;title&quot;</span><span class="o">:</span><span class="s2">&quot;用R获取大连商品交易所历史数据&quot;</span><span class="p">,</span>
 </span><span class="line">		    <span class="s2">&quot;url&quot;</span><span class="o">:</span><span class="s2">&quot;http://yanping.me/cn/blog/2012/12/09/get-dce-data/&quot;</span><span class="p">,</span>
 </span><span class="line">		    <span class="s2">&quot;date&quot;</span><span class="o">:</span><span class="s2">&quot;09 Dec 2012&quot;</span>
-</span><span class="line">		<span class="p">},</span>
-</span><span class="line">	<span class="p">{</span>
-</span><span class="line">		<span class="s2">&quot;title&quot;</span><span class="o">:</span><span class="s2">&quot;用jekyll和jQuery实现异步加载文章列表&quot;</span><span class="p">,</span>
-</span><span class="line">		    <span class="s2">&quot;url&quot;</span><span class="o">:</span><span class="s2">&quot;http://yanping.me/cn/blog/2012/10/10/asynchronous-loading-post-list-with-jekyll-and-jQuery/&quot;</span><span class="p">,</span>
-</span><span class="line">		    <span class="s2">&quot;date&quot;</span><span class="o">:</span><span class="s2">&quot;10 Oct 2012&quot;</span>
-</span><span class="line">		<span class="p">},</span>
-</span><span class="line">	<span class="p">{</span>
-</span><span class="line">		<span class="s2">&quot;title&quot;</span><span class="o">:</span><span class="s2">&quot;在Windows下使用jekyll如何避免出现中文字符集错误&quot;</span><span class="p">,</span>
-</span><span class="line">		    <span class="s2">&quot;url&quot;</span><span class="o">:</span><span class="s2">&quot;http://yanping.me/cn/blog/2012/10/09/chinese-charset-problems-with-jekyll/&quot;</span><span class="p">,</span>
-</span><span class="line">		    <span class="s2">&quot;date&quot;</span><span class="o">:</span><span class="s2">&quot;09 Oct 2012&quot;</span>
 </span><span class="line">		<span class="p">}</span>
 </span><span class="line">	
 </span><span class="line">	<span class="p">]};</span>
@@ -1361,8 +1639,20 @@
 <span class="line-number">32</span>
 </pre></td><td class="code"><pre><code class="javascript"><span class="line"><span class="p">[</span>
 </span><span class="line">    <span class="p">{</span>
+</span><span class="line">        <span class="s2">&quot;title&quot;</span><span class="o">:</span><span class="s2">&quot;用js在jekyll博客中实现标签云和标签页&quot;</span><span class="p">,</span>
+</span><span class="line">        <span class="s2">&quot;url&quot;</span><span class="o">:</span><span class="s2">&quot;http://yanping.me/cn/blog/2013/02/13/generate-tags-with-js-in-jekyll-blog/&quot;</span><span class="p">,</span>
+</span><span class="line">        <span class="s2">&quot;date&quot;</span><span class="o">:</span><span class="s2">&quot;13 Feb 2013&quot;</span>
+</span><span class="line">    <span class="p">},</span>
+</span><span class="line">
+</span><span class="line">    <span class="p">{</span>
 </span><span class="line">        <span class="s2">&quot;title&quot;</span><span class="o">:</span><span class="s2">&quot;用R获取flash中的数据&quot;</span><span class="p">,</span>
 </span><span class="line">        <span class="s2">&quot;url&quot;</span><span class="o">:</span><span class="s2">&quot;http://yanping.me/cn/blog/2013/02/10/get-data-from-flash/&quot;</span><span class="p">,</span>
+</span><span class="line">        <span class="s2">&quot;date&quot;</span><span class="o">:</span><span class="s2">&quot;10 Feb 2013&quot;</span>
+</span><span class="line">    <span class="p">},</span>
+</span><span class="line">
+</span><span class="line">    <span class="p">{</span>
+</span><span class="line">        <span class="s2">&quot;title&quot;</span><span class="o">:</span><span class="s2">&quot;R语言版的cntrade程序&quot;</span><span class="p">,</span>
+</span><span class="line">        <span class="s2">&quot;url&quot;</span><span class="o">:</span><span class="s2">&quot;http://yanping.me/cn/blog/2013/02/10/cntrade-r-version/&quot;</span><span class="p">,</span>
 </span><span class="line">        <span class="s2">&quot;date&quot;</span><span class="o">:</span><span class="s2">&quot;10 Feb 2013&quot;</span>
 </span><span class="line">    <span class="p">},</span>
 </span><span class="line">
@@ -1376,18 +1666,6 @@
 </span><span class="line">        <span class="s2">&quot;title&quot;</span><span class="o">:</span><span class="s2">&quot;用R获取大连商品交易所历史数据&quot;</span><span class="p">,</span>
 </span><span class="line">        <span class="s2">&quot;url&quot;</span><span class="o">:</span><span class="s2">&quot;http://yanping.me/cn/blog/2012/12/09/get-dce-data/&quot;</span><span class="p">,</span>
 </span><span class="line">        <span class="s2">&quot;date&quot;</span><span class="o">:</span><span class="s2">&quot;09 Dec 2012&quot;</span>
-</span><span class="line">    <span class="p">},</span>
-</span><span class="line">
-</span><span class="line">    <span class="p">{</span>
-</span><span class="line">        <span class="s2">&quot;title&quot;</span><span class="o">:</span><span class="s2">&quot;用jekyll和jQuery实现异步加载文章列表&quot;</span><span class="p">,</span>
-</span><span class="line">        <span class="s2">&quot;url&quot;</span><span class="o">:</span><span class="s2">&quot;http://yanping.me/cn/blog/2012/10/10/asynchronous-loading-post-list-with-jekyll-and-jQuery/&quot;</span><span class="p">,</span>
-</span><span class="line">        <span class="s2">&quot;date&quot;</span><span class="o">:</span><span class="s2">&quot;10 Oct 2012&quot;</span>
-</span><span class="line">    <span class="p">},</span>
-</span><span class="line">
-</span><span class="line">    <span class="p">{</span>
-</span><span class="line">        <span class="s2">&quot;title&quot;</span><span class="o">:</span><span class="s2">&quot;在Windows下使用jekyll如何避免出现中文字符集错误&quot;</span><span class="p">,</span>
-</span><span class="line">        <span class="s2">&quot;url&quot;</span><span class="o">:</span><span class="s2">&quot;http://yanping.me/cn/blog/2012/10/09/chinese-charset-problems-with-jekyll/&quot;</span><span class="p">,</span>
-</span><span class="line">        <span class="s2">&quot;date&quot;</span><span class="o">:</span><span class="s2">&quot;09 Oct 2012&quot;</span>
 </span><span class="line">    <span class="p">}</span>
 </span><span class="line">
 </span><span class="line"><span class="p">]</span>
@@ -2650,107 +2928,6 @@ pandoc -s –webtex -t -t s5 <a href="http://johnmacfarlane.net/pandoc/demo/SLID
 <p><em>Matrix</em> 包提供的函数使R可以处理高密度矩阵或稀疏矩阵。它提供了对BLAS（Basic Linear Algebra Subroutines）、Lapack（dense matrix）、TAUCS（sparse matrix）和UMFPACK（sparse matrix）的高效调用。</p>
 
 <p>最后，<em>matrixStats</em> 包提供了对矩阵的行和列的操作方法，例如计数、求和、中心趋势、离差（dispersion）等。每一个函数都进过了优化，使得可以高速高效地运行。</p>
-
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[定制R启动环境]]></title>
-    <link href="http://yanping.me/cn/blog/2012/01/09/customizing-the-startup-environment/"/>
-    <updated>2012-01-09T22:16:00+08:00</updated>
-    <id>http://yanping.me/cn/blog/2012/01/09/customizing-the-startup-environment</id>
-    <content type="html"><![CDATA[<p class="info">
-本文翻译自<a href="http://www.manning.com/kabacoff/" target="_blank">R in Action</a>的附录B，如果对该书感兴趣，请自行购买或去图书馆阅读。<br />
-R导论的10.8也是讲定制环境的。
-</p>
-
-<p>程序员最喜欢做的事之一是定制启动环境，好让程序按照他们喜欢方式工作。定制启动环境可以让你设置R的选项、指定工作目录、加载常用的包、加载用户自己写的函数、设置CRAN下载网址以及其它操作。</p>
-
-<p>你可以通过编辑位置位置初始化文件（Rprofile.site）或者目录初始化文件（.Rprofile）来定制R环境。这两个是纯文本文件，包含启动时要执行的R代码。</p>
-
-<!--more-->
-
-<p>在启动的时候，R会从<em>R_HOME</em>/etc这个目录寻找Rprofile.site来调用，其中 <em>R_HOME</em> 是环境变量。然后R会在当前工作目录寻找.Rprofile文件来调用。如果R没有找到这个文件，就会在用户的主目录寻找。你可以用<code>Sys.getenv("R_HOME")</code>、<code>Sys.getenv("HOME")</code>和<code>getwd()</code>分别查看<em>R_HOME</em> 、<em>HOME</em>以及当前工作目录。</p>
-
-<p>你可以在这些文件里放两个特殊的函数，<code>.First()</code>函数在启动R会话的时候执行，<code>.Last()</code>函数在结束会话的时候执行。Rprofile.site文件的例子如下：</p>
-
-<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span>Sample Rprofile.site file   </span></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
-<span class="line-number">2</span>
-<span class="line-number">3</span>
-<span class="line-number">4</span>
-<span class="line-number">5</span>
-<span class="line-number">6</span>
-<span class="line-number">7</span>
-<span class="line-number">8</span>
-<span class="line-number">9</span>
-<span class="line-number">10</span>
-<span class="line-number">11</span>
-<span class="line-number">12</span>
-<span class="line-number">13</span>
-<span class="line-number">14</span>
-<span class="line-number">15</span>
-<span class="line-number">16</span>
-<span class="line-number">17</span>
-<span class="line-number">18</span>
-<span class="line-number">19</span>
-<span class="line-number">20</span>
-<span class="line-number">21</span>
-<span class="line-number">22</span>
-<span class="line-number">23</span>
-<span class="line-number">24</span>
-<span class="line-number">25</span>
-<span class="line-number">26</span>
-<span class="line-number">27</span>
-<span class="line-number">28</span>
-<span class="line-number">29</span>
-<span class="line-number">30</span>
-<span class="line-number">31</span>
-<span class="line-number">32</span>
-</pre></td><td class="code"><pre><code class="r"><span class="line"><span class="c1"># 设置常用选项</span>
-</span><span class="line">options<span class="p">(</span>papersize<span class="o">=</span><span class="s">&quot;a4&quot;</span><span class="p">)</span>
-</span><span class="line">options<span class="p">(</span>editor<span class="o">=</span><span class="s">&quot;notepad&quot;</span><span class="p">)</span>
-</span><span class="line">options<span class="p">(</span>pager<span class="o">=</span><span class="s">&quot;internal&quot;</span><span class="p">)</span>
-</span><span class="line">options<span class="p">(</span>tab.width <span class="o">=</span> <span class="m">2</span><span class="p">)</span>
-</span><span class="line">options<span class="p">(</span>width <span class="o">=</span> <span class="m">130</span><span class="p">)</span>
-</span><span class="line">options<span class="p">(</span>graphics.record<span class="o">=</span><span class="kc">TRUE</span><span class="p">)</span>
-</span><span class="line">options<span class="p">(</span>show.signif.stars<span class="o">=</span><span class="kc">FALSE</span><span class="p">)</span>
-</span><span class="line">
-</span><span class="line"><span class="c1"># 设置R交互提示信息</span>
-</span><span class="line">options<span class="p">(</span>prompt<span class="o">=</span><span class="s">&quot;&gt; &quot;</span><span class="p">)</span>
-</span><span class="line">options<span class="p">(</span>continue<span class="o">=</span><span class="s">&quot;+ &quot;</span><span class="p">)</span>
-</span><span class="line">
-</span><span class="line"><span class="m">.</span>libPaths<span class="p">(</span><span class="s">&quot;C:/my_R_library&quot;</span><span class="p">)</span> <span class="c1"># 设置包的本地库（library）路径</span>
-</span><span class="line">
-</span><span class="line"><span class="c1"># 设置CRAN镜像默认地址</span>
-</span><span class="line">local<span class="p">({</span>r <span class="o">&lt;-</span> getOption<span class="p">(</span><span class="s">&quot;repos&quot;</span><span class="p">)</span>
-</span><span class="line">     r<span class="p">[</span><span class="s">&quot;CRAN&quot;</span><span class="p">]</span> <span class="o">&lt;-</span> <span class="s">&quot;http://cran.case.edu/&quot;</span>
-</span><span class="line">     options<span class="p">(</span>repos<span class="o">=</span>r<span class="p">)})</span>
-</span><span class="line">
-</span><span class="line"><span class="c1"># 启动函数</span>
-</span><span class="line"><span class="m">.</span>First <span class="o">&lt;-</span> <span class="kr">function</span><span class="p">(){</span>
-</span><span class="line"> library<span class="p">(</span>lattice<span class="p">)</span>
-</span><span class="line"> library<span class="p">(</span>Hmisc<span class="p">)</span>
-</span><span class="line"> source<span class="p">(</span><span class="s">&quot;C:/mydir/myfunctions.R&quot;</span><span class="p">)</span>
-</span><span class="line"> cat<span class="p">(</span><span class="s">&quot;\nWelcome at&quot;</span><span class="p">,</span> date<span class="p">(),</span> <span class="s">&quot;\n&quot;</span><span class="p">)</span>
-</span><span class="line"><span class="p">}</span>
-</span><span class="line">
-</span><span class="line"><span class="c1"># 会话结束函数</span>
-</span><span class="line"><span class="m">.</span>Last <span class="o">&lt;-</span> <span class="kr">function</span><span class="p">(){</span>
-</span><span class="line"> cat<span class="p">(</span><span class="s">&quot;\nGoodbye at &quot;</span><span class="p">,</span> date<span class="p">(),</span> <span class="s">&quot;\n&quot;</span><span class="p">)</span>
-</span><span class="line"><span class="p">}</span>
-</span></code></pre></td></tr></table></div></figure></notextile></div>
-
-<p>关于这个文件，你需要注意以下几点：</p>
-
-<ul>
-  <li>设置.libPaths值允许你在R的安装目录之外创建包的本地库。这再升级时很有用，可以保留之前安装的包。</li>
-  <li>设置CRAN镜像网站可以让你在使用<code>install.packages()</code>命令时不用每次都选择。</li>
-  <li><code>.First()</code>函数是一个很好的地方，来加载你常用的包，运行常用的用户编写的函数。</li>
-  <li><code>.Last()</code>函数一个很好的地方做清理活动，包括保存命令历史、程序输出和数据文件。</li>
-</ul>
-
-<p>还有其他定制启动环境的方式，包括使用命令行选项和环境变量。查看<code>help(Startup)</code>以及R导论的附录B（<a href="http://cran.r-project.org/doc/manuals/R-intro.pdf">http://cran.r-project.org/doc/manuals/R-intro.pdf</a>，中文版地址<a href="http://cran.r-project.org/doc/contrib/Ding-R-intro_cn.pdf">http://cran.r-project.org/doc/contrib/Ding-R-intro_cn.pdf</a>）获取更多细节。</p>
 
 ]]></content>
   </entry>

@@ -116,11 +116,15 @@
     </url>
     <url>
         <loc>http://yanping.me/cn/blog/2013/02/10/cntrade-r-version/</loc>
-        <lastmod>2013-02-10T01:47:58+08:00</lastmod>
+        <lastmod>2013-02-13T13:33:33+08:00</lastmod>
     </url>
     <url>
         <loc>http://yanping.me/cn/blog/2013/02/10/get-data-from-flash/</loc>
         <lastmod>2013-02-10T01:29:58+08:00</lastmod>
+    </url>
+    <url>
+        <loc>http://yanping.me/cn/blog/2013/02/13/generate-tags-with-js-in-jekyll-blog/</loc>
+        <lastmod>2013-02-13T14:53:29+08:00</lastmod>
     </url>
     <url>
         <loc>http://yanping.me/cn/recent.json</loc>
@@ -128,7 +132,7 @@
     </url>
     <url>
         <loc>http://yanping.me/cn/blog/categories/</loc>
-        <lastmod>2013-02-10T01:47:58+08:00</lastmod>
+        <lastmod>2013-02-13T14:53:29+08:00</lastmod>
     </url>
     <url>
         <loc>http://yanping.me/cn/blog/about/</loc>
@@ -136,7 +140,7 @@
     </url>
     <url>
         <loc>http://yanping.me/cn/blog/archives/</loc>
-        <lastmod>2013-02-10T01:47:58+08:00</lastmod>
+        <lastmod>2013-02-13T14:53:29+08:00</lastmod>
     </url>
     <url>
         <loc>http://yanping.me/cn/downloads/code/portfolio_entry.html</loc>
@@ -144,7 +148,7 @@
     </url>
     <url>
         <loc>http://yanping.me/cn/</loc>
-        <lastmod>2013-02-10T01:47:58+08:00</lastmod>
+        <lastmod>2013-02-13T14:53:29+08:00</lastmod>
     </url>
     <url>
         <loc>http://yanping.me/cn/posts.js</loc>

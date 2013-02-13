@@ -4,9 +4,9 @@
 #   李春涛（中南财经政法大学，chtl@znufe.edu.cn） 
 #   张璇（中南财经政法大学，zhangx@znufe.edu.cn） 
 # example: 
-#   cntrade(c('600000', '000008'), path ='D:/stockprice', start = '20010104', end = '20120124')
+#   cntrade(c('600000', '000008'), path ='D:/stockprice', start = 20010104, end = 20120124)
 
-cntrade <- function(tickers, path = "", start = "19910101", end = "") {
+cntrade <- function(tickers, path = "", start = 19910101, end = "") {
   
   address <- "http://quotes.money.163.com/service/chddata.html"
   field <- "&fields=TCLOSE;HIGH;LOW;TOPEN;LCLOSE;CHG;PCHG;TURNOVER;VOTURNOVER;VATURNOVER;TCAP;MCAP"
@@ -31,6 +31,7 @@ cntrade <- function(tickers, path = "", start = "19910101", end = "") {
   }
   
   count <- 0
+  tickers <- as.character(tickers)
   for (name in tickers) {
     while (nchar(name) < 6) {
       name <- paste("0", name, sep = "")
