@@ -4,7 +4,7 @@
   <title><![CDATA[分类： javascript | 雁起平沙的网络日志]]></title>
   <link href="http://yanping.me/cn/blog/categories/javascript/atom.xml" rel="self"/>
   <link href="http://yanping.me/cn/"/>
-  <updated>2013-02-13T14:54:47+08:00</updated>
+  <updated>2013-02-14T11:13:47+08:00</updated>
   <id>http://yanping.me/cn/</id>
   <author>
     <name><![CDATA[ypchen]]></name>
@@ -59,6 +59,8 @@
 <p>最初，我是在谢益辉的博客里看到的<a href="http://yihui.name/cn/tags/">用js实现标签云</a>。可以看到，这个标签页上，在标签云之后跟着各个标签的文章列表，如果我只想看到某个标签的文章列表，要怎么做呢？</p>
 
 <p>前面我写了篇文章<a href="/blog/2012/10/10/asynchronous-loading-post-list-with-jekyll-and-jQuery/">《用jekyll和jQuery实现异步加载文章列表》</a>，使用jQuery异步加载文章列表。同样的，我们也可以编写个函数加载某个标签的所有文章的列表。</p>
+
+<!--more-->
 
 <p>首先，生成文章列表数据的json模板是：</p>
 
@@ -615,28 +617,26 @@ perPageItem: 100
 <p>在客户端页面这样调用：</p>
 
 <p>```html
-	&lt;div class="section" id="blog2-posts-list"&gt;
-	&lt;p&gt;我还有个文艺点儿的<a href="http://art.yanping.me" target="_blank">博客</a>，写写跟技术无关的东西。近期内容：&lt;/p&gt;
-	&lt;/div&gt;</p>
+&lt;div class="section" id="blog2-posts-list"&gt;</p>
+<p>我还有个文艺点儿的<a href="http://art.yanping.me" target="_blank">博客</a>，写写跟技术无关的东西。近期内容：</p>
+<p>&lt;/div&gt;</p>
 
-<pre><code>&lt;script src="http://art.yanping.me/posts2.js" type="text/javascript"&gt;&lt;/script&gt;
+<script src="http://art.yanping.me/posts2.js" type="text/javascript"></script>
 
-&lt;!-- 下面定义数据调用方法 --&gt;
-&lt;script type="text/javascript"&gt;
-	$(document).ready(function() {
-		var content ="&lt;ul class=\"compact recent\"&gt;";
-		$.each(post.list,function(i,item){
+<!-- 下面定义数据调用方法 -->
+<script type="text/javascript">
+  $(document).ready(function() {
+    var content ="<ul class=\"compact recent\">";
+      $.each(post.list,function(i,item){
+        content += "<li><span class=\"date\">"+ item.date + "</span><a href=\""+item.url+"\">"+ item.title +"</a></li>";
+     });
 
-		content += "&lt;li&gt;&lt;span class=\"date\"&gt;"+ item.date + "&lt;/span&gt;&lt;a href=\""+item.url+"\"&gt;"+ item.title +"&lt;/a&gt;&lt;/li&gt;";
+  content +="</ul>";
+  $("#blog2-posts-list").append(content);		
+ });		
+</script>
 
-		});
-
-		content +="&lt;/ul&gt;";
-		$("#blog2-posts-list").append(content);
-	
-	});		
-&lt;/script&gt; ```
-</code></pre>
+<p>```</p>
 
 <p>我尝试了几种json数据的定义形式，<a href="http://inwake.com/ypchen/json-demo/2.html">示例1</a>、<a href="http://inwake.com/ypchen/json-demo/3.html">示例2</a>、<a href="http://inwake.com/ypchen/json-demo/4.html">示例3</a>和<a href="http://inwake.com/ypchen/json-demo/5.html">示例4</a>，只有最后一种没有办法完成调用，这是因为数据的读取和使用分别在两个<code>&lt;script&gt;</code>标签里，数据必须定义成全局变量才能在后面被引用。</p>
 
@@ -664,7 +664,7 @@ perPageItem: 100
 
 <!--more-->
 
-<p>我看到在很多jekyll的博客里，都能自动生成rss.xml和atom.xml，其实说白了，只要是本文文件，jekyll都能用模板操作。后来我听说了json，听说可以用jquery调用json，既然jekyll可以操作本文，那么可不可以用jekyll来生成我们规定格式的json文件呢？例如在<a href="http://yanping.me/cn">技术博客</a>和<a href="http://art.yanping.me">文艺博客</a>各生成一个包含文章信息的json文件，再用jquery或ajax来调用。这里面涉及到一个是否跨域的问题，一开始我只能确定<a href="http://yanping.me">主页</a>和<a href="http://yanping.me/cn">技术博客</a>是同域的，可我忘了<a href="http://art.yanping.me">文艺博客</a>的真正地址是<a href="http://yanping.github.com/art">http://yanping.github.com/art</a>，或者说是<a href="http://chen.yanping.me/art">http://chen.yanping.me/art</a>，<a href="http://artn.yanping.me/">http://artn.yanping.me/</a>只不过是我后来给它绑定的域名，还特定用了javascript来限定了只能用这个域名访问，因为用前两个地址访问都显示不正常（关于这点，请看<a href="http://chen.yanping.me/cn/blog/2012/02/06/github-pages-domain-3/">这里</a>）。所以说，只要是在同一个github账户下建立的网站，它们就是同域的。</p>
+<p>我看到在很多jekyll的博客里，都能自动生成rss.xml和atom.xml，其实说白了，只要是本文文件，jekyll都能用模板操作。后来我听说了json，听说可以用jquery调用json，既然jekyll可以操作本文，那么可不可以用jekyll来生成我们规定格式的json文件呢？例如在<a href="http://yanping.me/cn">技术博客</a>和<a href="http://art.yanping.me">文艺博客</a>各生成一个包含文章信息的json文件，再用jquery或ajax来调用。这里面涉及到一个是否跨域的问题，一开始我只能确定<a href="http://yanping.me">主页</a>和<a href="http://yanping.me/cn">技术博客</a>是同域的，可我忘了<a href="http://art.yanping.me">文艺博客</a>的真正地址是<a href="http://yanping.github.com/art">http://yanping.github.com/art</a>，或者说是<a href="http://chen.yanping.me/art">http://chen.yanping.me/art</a>，<a href="http://art.yanping.me/">http://art.yanping.me/</a>只不过是我后来给它绑定的域名，还特定用了javascript来限定了只能用这个域名访问，因为用前两个地址访问都显示不正常（关于这点，请看<a href="http://chen.yanping.me/cn/blog/2012/02/06/github-pages-domain-3/">这里</a>）。所以说，只要是在同一个github账户下建立的网站，它们就是同域的。</p>
 
 <h2 id="json">生成json</h2>
 

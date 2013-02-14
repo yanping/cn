@@ -163,40 +163,96 @@
 
 <p>我们来创建一个layout文件。我们以包含所有元素的全局layout文件开始。在<code>_layouts</code>目录下创建名为default.html的新文件（叫什么名字无所谓），加入下面的代码：</p>
 
-<div><script src="https://gist.github.com/1481001.js?file="></script>
-<noscript><pre><code>&lt;!DOCTYPE html&gt;
-&lt;html&gt;
-&lt;head&gt;
-  &lt;meta charset=utf-8 /&gt;
-  &lt;title&gt; {% if page.title %} {{ page.title }} | {% endif %} John Doe, Photographer &lt;/title&gt;
-  &lt;link rel=&quot;stylesheet&quot; href=&quot;/css/styles.css&quot; /&gt;
-&lt;/head&gt;
-&lt;body&gt;
- 
-  &lt;div id=&quot;main&quot;&gt;
- 
-    &lt;header&gt;
-      &lt;h1&gt; John Doe Photograghy &lt;/h1&gt;
-    &lt;header&gt;
- 
-    &lt;nav role=&quot;navigation&quot;&gt;
-      &lt;ul&gt;
-        &lt;li&gt;&lt;a href=&quot;/&quot;&gt;Home&lt;/a&gt;&lt;/li&gt;
-        &lt;li&gt;&lt;a href=&quot;/portfolio/&quot;&gt;Portfolio&lt;/a&gt;&lt;/li&gt;
-        &lt;li&gt;&lt;a href=&quot;/about&quot;&gt;About&lt;/a&gt;&lt;/li&gt;
-        &lt;li&gt;&lt;a href=&quot;/contact&quot;&gt;Contact&lt;/a&gt;&lt;/li&gt;
-      &lt;/ul&gt;
-    &lt;/nav&gt;
- 
-    {{ content }}
- 
-    &lt;footer&gt;
-      &lt;p&gt;@copy; John Doe Photography 2011 | All Rights Reserved. &lt;/p&gt;
-    &lt;/footer&gt;
- 
-  &lt;/div&gt;
-&lt;/body&gt;
-&lt;/html&gt;</code></pre></noscript></div>
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span> (default.html)</span> <a href="/cn/downloads/code/./2011-12-15/default.html">download</a></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+<span class="line-number">7</span>
+<span class="line-number">8</span>
+<span class="line-number">9</span>
+<span class="line-number">10</span>
+<span class="line-number">11</span>
+<span class="line-number">12</span>
+<span class="line-number">13</span>
+<span class="line-number">14</span>
+<span class="line-number">15</span>
+<span class="line-number">16</span>
+<span class="line-number">17</span>
+<span class="line-number">18</span>
+<span class="line-number">19</span>
+<span class="line-number">20</span>
+<span class="line-number">21</span>
+<span class="line-number">22</span>
+<span class="line-number">23</span>
+<span class="line-number">24</span>
+<span class="line-number">25</span>
+<span class="line-number">26</span>
+<span class="line-number">27</span>
+<span class="line-number">28</span>
+<span class="line-number">29</span>
+<span class="line-number">30</span>
+<span class="line-number">31</span>
+<span class="line-number">32</span>
+<span class="line-number">33</span>
+<span class="line-number">34</span>
+<span class="line-number">35</span>
+<span class="line-number">36</span>
+<span class="line-number">37</span>
+<span class="line-number">38</span>
+<span class="line-number">39</span>
+<span class="line-number">40</span>
+<span class="line-number">41</span>
+<span class="line-number">42</span>
+<span class="line-number">43</span>
+<span class="line-number">44</span>
+</pre></td><td class="code"><pre><code class="html"><span class="line"><span class="cp">&lt;!DOCTYPE html&gt;</span>
+</span><span class="line"><span class="nt">&lt;html&gt;</span>
+</span><span class="line">
+</span><span class="line">  <span class="nt">&lt;head&gt;</span>
+</span><span class="line">    <span class="nt">&lt;meta</span> <span class="na">charset=</span><span class="s">utf-8</span> <span class="nt">/&gt;</span>
+</span><span class="line">    <span class="nt">&lt;title&gt;</span>
+</span><span class="line">      {% if page.title %} {{ page.title }} | {% endif %} John Doe, Photographer
+</span><span class="line">    <span class="nt">&lt;/title&gt;</span>
+</span><span class="line">    <span class="nt">&lt;link</span> <span class="na">rel=</span><span class="s">&quot;stylesheet&quot;</span> <span class="na">href=</span><span class="s">&quot;/css/styles.css&quot;</span> <span class="nt">/&gt;</span>
+</span><span class="line">  <span class="nt">&lt;/head&gt;</span>
+</span><span class="line">
+</span><span class="line">  <span class="nt">&lt;body&gt;</span>
+</span><span class="line">    <span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">&quot;main&quot;</span><span class="nt">&gt;</span>
+</span><span class="line">      <span class="nt">&lt;header&gt;</span>
+</span><span class="line">        <span class="nt">&lt;h1&gt;</span>
+</span><span class="line">          John Doe Photograghy
+</span><span class="line">        <span class="nt">&lt;/h1&gt;</span>
+</span><span class="line">        <span class="nt">&lt;header&gt;</span>
+</span><span class="line">          <span class="nt">&lt;nav</span> <span class="na">role=</span><span class="s">&quot;navigation&quot;</span><span class="nt">&gt;</span>
+</span><span class="line">            <span class="nt">&lt;ul&gt;</span>
+</span><span class="line">              <span class="nt">&lt;li&gt;</span>
+</span><span class="line">                <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">&quot;/&quot;</span><span class="nt">&gt;</span> Home <span class="nt">&lt;/a&gt;</span>
+</span><span class="line">              <span class="nt">&lt;/li&gt;</span>
+</span><span class="line">              <span class="nt">&lt;li&gt;</span>
+</span><span class="line">                <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">&quot;/portfolio/&quot;</span><span class="nt">&gt;</span> Portfolio <span class="nt">&lt;/a&gt;</span>
+</span><span class="line">              <span class="nt">&lt;/li&gt;</span>
+</span><span class="line">              <span class="nt">&lt;li&gt;</span>
+</span><span class="line">                <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">&quot;/about&quot;</span><span class="nt">&gt;</span> About <span class="nt">&lt;/a&gt;</span>
+</span><span class="line">              <span class="nt">&lt;/li&gt;</span>
+</span><span class="line">              <span class="nt">&lt;li&gt;</span>
+</span><span class="line">                <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">&quot;/contact&quot;</span><span class="nt">&gt;</span> Contact <span class="nt">&lt;/a&gt;</span>
+</span><span class="line">              <span class="nt">&lt;/li&gt;</span>
+</span><span class="line">            <span class="nt">&lt;/ul&gt;</span>
+</span><span class="line">          <span class="nt">&lt;/nav&gt;</span>
+</span><span class="line">          {{ content }}
+</span><span class="line">          <span class="nt">&lt;footer&gt;</span>
+</span><span class="line">            <span class="nt">&lt;p&gt;</span>
+</span><span class="line">              @copy; John Doe Photography 2011 | All Rights Reserved.
+</span><span class="line">            <span class="nt">&lt;/p&gt;</span>
+</span><span class="line">          <span class="nt">&lt;/footer&gt;</span>
+</span><span class="line">    <span class="nt">&lt;/div&gt;</span>
+</span><span class="line">  <span class="nt">&lt;/body&gt;</span>
+</span><span class="line">
+</span><span class="line"><span class="nt">&lt;/html&gt;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
 
 <p>下面是要注意的：</p>
 
@@ -482,7 +538,7 @@
 
 <p>相当简单，是吧？注意到，我们创建了一个自定义的YAML front matter域：image。这是该条目（entry）的图片地址。这样我们就可以在这个文件里构建整个条目的HTML。但是如果我们想修改怎么办？那我们必须返回到每个条目里进行修改。我们可以不用这样做，而使用portfolio_entry模板来表示它们。这个模板长什么样呢？也是相当简单：</p>
 
-<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span> (portfolio_entry.html)</span> <a href="/cn/downloads/code/portfolio_entry.html">download</a></figcaption>
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span> (portfolio_entry.html)</span> <a href="/cn/downloads/code/./2011-12-15/portfolio_entry.html">download</a></figcaption>
  <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
 <span class="line-number">2</span>
 <span class="line-number">3</span>
@@ -509,30 +565,46 @@
 
 <p>帖子（文章）页面建立起来了，但是合集（portfolio）主页怎么办呢？当我写我们的默认layout里的导航栏时，我注意到我们要的是 <code>/portfolio/</code>。那么我们在根目录创建名为<code>portfolio</code>的目录，打开里面的index.html文件。</p>
 
-<div><script src="https://gist.github.com/1481016.js?file="></script>
-<noscript><pre><code>---
-layout: default
-title: Portfolio
----
- 
-&lt;section class=&quot;content&quot;&gt;
-  &lt;h2&gt;Portfolio&lt;/h2&gt;
- 
-  &lt;p&gt;Check out my images below!&lt;/p&gt;
-&lt;/section&gt;
- 
-&lt;ul class=&quot;entries&quot;&gt;
-  {% for post in site.posts %}
- 
-  &lt;li&gt;
-    &lt;a href=&quot;{{ post.url }}&quot;&gt;
-      &lt;img src=&quot;{{ post.image }}&quot; /&gt;
-      &lt;h3&gt;{{ post.title }}&lt;/h3&gt;
-    &lt;/a&gt;
-  &lt;/li&gt;
- 
-  {% endfor %}
-&lt;/ul&gt;</code></pre></noscript></div>
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span> (index.html)</span> <a href="/cn/downloads/code/./2011-12-15/index.html">download</a></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+<span class="line-number">7</span>
+<span class="line-number">8</span>
+<span class="line-number">9</span>
+<span class="line-number">10</span>
+<span class="line-number">11</span>
+<span class="line-number">12</span>
+<span class="line-number">13</span>
+<span class="line-number">14</span>
+<span class="line-number">15</span>
+<span class="line-number">16</span>
+<span class="line-number">17</span>
+<span class="line-number">18</span>
+<span class="line-number">19</span>
+</pre></td><td class="code"><pre><code class="html"><span class="line">---
+</span><span class="line">layout: default
+</span><span class="line">title: Portfolio
+</span><span class="line">---
+</span><span class="line">
+</span><span class="line"><span class="nt">&lt;section</span> <span class="na">class =</span><span class="err"> </span><span class="s">&quot;content&quot;</span> <span class="nt">&gt;</span>
+</span><span class="line">  <span class="nt">&lt;h2</span> <span class="nt">&gt;</span> Portfolio <span class="nt">&lt; /h2&gt;</span>
+</span><span class="line">  <span class="nt">&lt;p&gt;</span>Check out my images below!<span class="nt">&lt;/p &gt;</span>
+</span><span class="line"><span class="nt">&lt;/section&gt;</span>
+</span><span class="line"><span class="nt">&lt;ul</span> <span class="na">class=</span><span class="s">&quot;entries&quot;</span><span class="nt">&gt;</span>
+</span><span class="line">{% for post in site.posts %}
+</span><span class="line"><span class="nt">&lt;li&gt;</span>
+</span><span class="line">  <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">&quot;{{ post.url }}&quot;</span><span class="nt">&gt;</span>
+</span><span class="line">    <span class="nt">&lt;img</span> <span class="na">src=</span><span class="s">&quot;{{ post.image }}&quot;</span> <span class="nt">/ &gt;</span>
+</span><span class="line">    <span class="nt">&lt;h3</span> <span class="nt">&gt;</span> {{ post.title }} <span class="nt">&lt; /h3&gt;</span>
+</span><span class="line">  <span class="nt">&lt;/a &gt;</span>
+</span><span class="line"><span class="nt">&lt;/li&gt;</span>
+</span><span class="line">{% endfor %}
+</span><span class="line"><span class="nt">&lt;/ul &gt;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
 
 <p>这是我们最复杂的一块了。记住，这不是模板：这是一个“正常的”文件，但是同样可以包含Liquid标签。我们把layout设置成default，把title设定成“Portfolio”。</p>
 
