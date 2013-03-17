@@ -4,7 +4,7 @@
   <title><![CDATA[分类： octopress | 雁起平沙的网络日志]]></title>
   <link href="http://yanping.me/cn/blog/categories/octopress/atom.xml" rel="self"/>
   <link href="http://yanping.me/cn/"/>
-  <updated>2013-02-14T11:13:47+08:00</updated>
+  <updated>2013-03-17T19:16:37+08:00</updated>
   <id>http://yanping.me/cn/</id>
   <author>
     <name><![CDATA[ypchen]]></name>
@@ -121,25 +121,25 @@
 </span><span class='line'><span class="o">---</span>
 </span><span class='line'>
 </span><span class='line'><span class="nx">$</span><span class="p">(</span><span class="nb">document</span><span class="p">).</span><span class="nx">ready</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-</span><span class='line'>	<span class="kd">var</span> <span class="nx">post</span> <span class="o">=</span> <span class="p">{</span>
-</span><span class='line'>	<span class="s2">&quot;list&quot;</span><span class="o">:</span><span class="p">[{</span><span class="o">%</span> <span class="k">for</span> <span class="nx">post</span> <span class="k">in</span> <span class="nx">site</span><span class="p">.</span><span class="nx">posts</span> <span class="nx">limit</span><span class="o">:</span><span class="mi">5</span> <span class="o">%</span><span class="p">}{</span>
-</span><span class='line'>		<span class="s2">&quot;title&quot;</span><span class="o">:</span><span class="s2">&quot;{{post.title}}&quot;</span><span class="p">,</span>
-</span><span class='line'>		    <span class="s2">&quot;url&quot;</span><span class="o">:</span><span class="s2">&quot;{{site.url}}{{post.url}}&quot;</span><span class="p">,</span>
-</span><span class='line'>		    <span class="s2">&quot;date&quot;</span><span class="o">:</span><span class="s2">&quot;{{post.date|date_to_string}}&quot;</span>
-</span><span class='line'>		<span class="p">}{</span><span class="o">%</span> <span class="k">if</span> <span class="nx">forloop</span><span class="p">.</span><span class="nx">last</span> <span class="o">==</span> <span class="kc">false</span> <span class="o">%</span><span class="p">},{</span><span class="o">%</span> <span class="nx">endif</span> <span class="o">%</span><span class="p">}</span>
-</span><span class='line'>	<span class="p">{</span><span class="o">%</span> <span class="nx">endfor</span> <span class="o">%</span><span class="p">}</span>
-</span><span class='line'>	<span class="p">]};</span>
+</span><span class='line'>  <span class="kd">var</span> <span class="nx">post</span> <span class="o">=</span> <span class="p">{</span>
+</span><span class='line'>    <span class="s2">&quot;list&quot;</span><span class="o">:</span> <span class="p">[{</span><span class="o">%</span> <span class="k">for</span> <span class="nx">post</span> <span class="k">in</span> <span class="nx">site</span><span class="p">.</span><span class="nx">posts</span> <span class="nx">limit</span><span class="o">:</span> <span class="mi">5</span> <span class="o">%</span><span class="p">}</span> <span class="p">{</span>
+</span><span class='line'>      <span class="s2">&quot;title&quot;</span><span class="o">:</span> <span class="s2">&quot;{{post.title}}&quot;</span><span class="p">,</span>
+</span><span class='line'>      <span class="s2">&quot;url&quot;</span><span class="o">:</span> <span class="s2">&quot;{{site.url}}{{post.url}}&quot;</span><span class="p">,</span>
+</span><span class='line'>      <span class="s2">&quot;date&quot;</span><span class="o">:</span> <span class="s2">&quot;{{post.date|date_to_string}}&quot;</span>
+</span><span class='line'>    <span class="p">}</span> <span class="p">{</span><span class="o">%</span> <span class="k">if</span> <span class="nx">forloop</span><span class="p">.</span><span class="nx">last</span> <span class="o">==</span> <span class="kc">false</span> <span class="o">%</span><span class="p">},{</span><span class="o">%</span> <span class="nx">endif</span> <span class="o">%</span><span class="p">}</span> <span class="p">{</span><span class="o">%</span> <span class="nx">endfor</span> <span class="o">%</span><span class="p">}]</span>
+</span><span class='line'>  <span class="p">};</span>
 </span><span class='line'>
-</span><span class='line'>	<span class="kd">var</span> <span class="nx">content</span> <span class="o">=</span><span class="s2">&quot;&lt;ul class=\&quot;compact recent\&quot;&gt;&quot;</span><span class="p">;</span>
-</span><span class='line'>	<span class="nx">$</span><span class="p">.</span><span class="nx">each</span><span class="p">(</span><span class="nx">post</span><span class="p">.</span><span class="nx">list</span><span class="p">,</span><span class="kd">function</span><span class="p">(</span><span class="nx">i</span><span class="p">,</span><span class="nx">item</span><span class="p">){</span>
+</span><span class='line'>  <span class="kd">var</span> <span class="nx">content</span> <span class="o">=</span> <span class="s2">&quot;&lt;ul class=\&quot;compact recent\&quot;&gt;&quot;</span><span class="p">;</span>
+</span><span class='line'>  <span class="nx">$</span><span class="p">.</span><span class="nx">each</span><span class="p">(</span><span class="nx">post</span><span class="p">.</span><span class="nx">list</span><span class="p">,</span>
+</span><span class='line'>  <span class="kd">function</span><span class="p">(</span><span class="nx">i</span><span class="p">,</span> <span class="nx">item</span><span class="p">)</span> <span class="p">{</span>
 </span><span class='line'>
-</span><span class='line'>	<span class="nx">content</span> <span class="o">+=</span> <span class="s2">&quot;&lt;li&gt;&lt;span class=\&quot;date\&quot;&gt;&quot;</span><span class="o">+</span> <span class="nx">item</span><span class="p">.</span><span class="nx">date</span> <span class="o">+</span> <span class="s2">&quot;&lt;/span&gt;&lt;a href=\&quot;&quot;</span><span class="o">+</span><span class="nx">item</span><span class="p">.</span><span class="nx">url</span><span class="o">+</span><span class="s2">&quot;\&quot;&gt;&quot;</span><span class="o">+</span> <span class="nx">item</span><span class="p">.</span><span class="nx">title</span> <span class="o">+</span><span class="s2">&quot;&lt;/a&gt;&lt;/li&gt;&quot;</span><span class="p">;</span>
+</span><span class='line'>    <span class="nx">content</span> <span class="o">+=</span> <span class="s2">&quot;&lt;li&gt;&lt;span class=\&quot;date\&quot;&gt;&quot;</span> <span class="o">+</span> <span class="nx">item</span><span class="p">.</span><span class="nx">date</span> <span class="o">+</span> <span class="s2">&quot;&lt;/span&gt;&lt;a href=\&quot;&quot;</span> <span class="o">+</span> <span class="nx">item</span><span class="p">.</span><span class="nx">url</span> <span class="o">+</span> <span class="s2">&quot;\&quot;&gt;&quot;</span> <span class="o">+</span> <span class="nx">item</span><span class="p">.</span><span class="nx">title</span> <span class="o">+</span> <span class="s2">&quot;&lt;/a&gt;&lt;/li&gt;&quot;</span><span class="p">;</span>
 </span><span class='line'>
-</span><span class='line'>	<span class="p">});</span>
-</span><span class='line'>	
-</span><span class='line'>	<span class="nx">content</span> <span class="o">+=</span><span class="s2">&quot;&lt;/ul&gt;&quot;</span><span class="p">;</span>
-</span><span class='line'>	<span class="nx">$</span><span class="p">(</span><span class="s2">&quot;#blog1-posts-list .loading&quot;</span><span class="p">).</span><span class="nx">remove</span><span class="p">();</span>
-</span><span class='line'>	<span class="nx">$</span><span class="p">(</span><span class="s2">&quot;#blog1-posts-list&quot;</span><span class="p">).</span><span class="nx">append</span><span class="p">(</span><span class="nx">content</span><span class="p">);</span>
+</span><span class='line'>  <span class="p">});</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="nx">content</span> <span class="o">+=</span> <span class="s2">&quot;&lt;/ul&gt;&quot;</span><span class="p">;</span>
+</span><span class='line'>  <span class="nx">$</span><span class="p">(</span><span class="s2">&quot;#blog1-posts-list .loading&quot;</span><span class="p">).</span><span class="nx">remove</span><span class="p">();</span>
+</span><span class='line'>  <span class="nx">$</span><span class="p">(</span><span class="s2">&quot;#blog1-posts-list&quot;</span><span class="p">).</span><span class="nx">append</span><span class="p">(</span><span class="nx">content</span><span class="p">);</span>
 </span><span class='line'><span class="p">});</span>
 </span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
@@ -183,50 +183,42 @@
 <span class='line-number'>35</span>
 <span class='line-number'>36</span>
 <span class='line-number'>37</span>
-<span class='line-number'>38</span>
-<span class='line-number'>39</span>
-<span class='line-number'>40</span>
-<span class='line-number'>41</span>
 </pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="nx">$</span><span class="p">(</span><span class="nb">document</span><span class="p">).</span><span class="nx">ready</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-</span><span class='line'>	<span class="kd">var</span> <span class="nx">post</span> <span class="o">=</span> <span class="p">{</span>
-</span><span class='line'>	<span class="s2">&quot;list&quot;</span><span class="o">:</span><span class="p">[{</span>
-</span><span class='line'>		<span class="s2">&quot;title&quot;</span><span class="o">:</span><span class="s2">&quot;用js在jekyll博客中实现标签云和标签页&quot;</span><span class="p">,</span>
-</span><span class='line'>		    <span class="s2">&quot;url&quot;</span><span class="o">:</span><span class="s2">&quot;http://yanping.me/cn/blog/2013/02/13/generate-tags-with-js-in-jekyll-blog/&quot;</span><span class="p">,</span>
-</span><span class='line'>		    <span class="s2">&quot;date&quot;</span><span class="o">:</span><span class="s2">&quot;13 Feb 2013&quot;</span>
-</span><span class='line'>		<span class="p">},</span>
-</span><span class='line'>	<span class="p">{</span>
-</span><span class='line'>		<span class="s2">&quot;title&quot;</span><span class="o">:</span><span class="s2">&quot;用R获取flash中的数据&quot;</span><span class="p">,</span>
-</span><span class='line'>		    <span class="s2">&quot;url&quot;</span><span class="o">:</span><span class="s2">&quot;http://yanping.me/cn/blog/2013/02/10/get-data-from-flash/&quot;</span><span class="p">,</span>
-</span><span class='line'>		    <span class="s2">&quot;date&quot;</span><span class="o">:</span><span class="s2">&quot;10 Feb 2013&quot;</span>
-</span><span class='line'>		<span class="p">},</span>
-</span><span class='line'>	<span class="p">{</span>
-</span><span class='line'>		<span class="s2">&quot;title&quot;</span><span class="o">:</span><span class="s2">&quot;R语言版的cntrade程序&quot;</span><span class="p">,</span>
-</span><span class='line'>		    <span class="s2">&quot;url&quot;</span><span class="o">:</span><span class="s2">&quot;http://yanping.me/cn/blog/2013/02/10/cntrade-r-version/&quot;</span><span class="p">,</span>
-</span><span class='line'>		    <span class="s2">&quot;date&quot;</span><span class="o">:</span><span class="s2">&quot;10 Feb 2013&quot;</span>
-</span><span class='line'>		<span class="p">},</span>
-</span><span class='line'>	<span class="p">{</span>
-</span><span class='line'>		<span class="s2">&quot;title&quot;</span><span class="o">:</span><span class="s2">&quot;用R获取郑州商品交易所历史数据&quot;</span><span class="p">,</span>
-</span><span class='line'>		    <span class="s2">&quot;url&quot;</span><span class="o">:</span><span class="s2">&quot;http://yanping.me/cn/blog/2013/02/09/get-zce-data/&quot;</span><span class="p">,</span>
-</span><span class='line'>		    <span class="s2">&quot;date&quot;</span><span class="o">:</span><span class="s2">&quot;09 Feb 2013&quot;</span>
-</span><span class='line'>		<span class="p">},</span>
-</span><span class='line'>	<span class="p">{</span>
-</span><span class='line'>		<span class="s2">&quot;title&quot;</span><span class="o">:</span><span class="s2">&quot;用R获取大连商品交易所历史数据&quot;</span><span class="p">,</span>
-</span><span class='line'>		    <span class="s2">&quot;url&quot;</span><span class="o">:</span><span class="s2">&quot;http://yanping.me/cn/blog/2012/12/09/get-dce-data/&quot;</span><span class="p">,</span>
-</span><span class='line'>		    <span class="s2">&quot;date&quot;</span><span class="o">:</span><span class="s2">&quot;09 Dec 2012&quot;</span>
-</span><span class='line'>		<span class="p">}</span>
-</span><span class='line'>	
-</span><span class='line'>	<span class="p">]};</span>
+</span><span class='line'>  <span class="kd">var</span> <span class="nx">post</span> <span class="o">=</span> <span class="p">{</span>
+</span><span class='line'>    <span class="s2">&quot;list&quot;</span><span class="o">:</span> <span class="p">[</span> <span class="p">{</span>
+</span><span class='line'>      <span class="s2">&quot;title&quot;</span><span class="o">:</span> <span class="s2">&quot;用js在jekyll博客中实现标签云和标签页&quot;</span><span class="p">,</span>
+</span><span class='line'>      <span class="s2">&quot;url&quot;</span><span class="o">:</span> <span class="s2">&quot;http://yanping.me/cn/blog/2013/02/13/generate-tags-with-js-in-jekyll-blog/&quot;</span><span class="p">,</span>
+</span><span class='line'>      <span class="s2">&quot;date&quot;</span><span class="o">:</span> <span class="s2">&quot;13 Feb 2013&quot;</span>
+</span><span class='line'>    <span class="p">}</span> <span class="p">,</span>  <span class="p">{</span>
+</span><span class='line'>      <span class="s2">&quot;title&quot;</span><span class="o">:</span> <span class="s2">&quot;用R获取flash中的数据&quot;</span><span class="p">,</span>
+</span><span class='line'>      <span class="s2">&quot;url&quot;</span><span class="o">:</span> <span class="s2">&quot;http://yanping.me/cn/blog/2013/02/10/get-data-from-flash/&quot;</span><span class="p">,</span>
+</span><span class='line'>      <span class="s2">&quot;date&quot;</span><span class="o">:</span> <span class="s2">&quot;10 Feb 2013&quot;</span>
+</span><span class='line'>    <span class="p">}</span> <span class="p">,</span>  <span class="p">{</span>
+</span><span class='line'>      <span class="s2">&quot;title&quot;</span><span class="o">:</span> <span class="s2">&quot;R语言版的cntrade程序&quot;</span><span class="p">,</span>
+</span><span class='line'>      <span class="s2">&quot;url&quot;</span><span class="o">:</span> <span class="s2">&quot;http://yanping.me/cn/blog/2013/02/10/cntrade-r-version/&quot;</span><span class="p">,</span>
+</span><span class='line'>      <span class="s2">&quot;date&quot;</span><span class="o">:</span> <span class="s2">&quot;10 Feb 2013&quot;</span>
+</span><span class='line'>    <span class="p">}</span> <span class="p">,</span>  <span class="p">{</span>
+</span><span class='line'>      <span class="s2">&quot;title&quot;</span><span class="o">:</span> <span class="s2">&quot;用R获取郑州商品交易所历史数据&quot;</span><span class="p">,</span>
+</span><span class='line'>      <span class="s2">&quot;url&quot;</span><span class="o">:</span> <span class="s2">&quot;http://yanping.me/cn/blog/2013/02/09/get-zce-data/&quot;</span><span class="p">,</span>
+</span><span class='line'>      <span class="s2">&quot;date&quot;</span><span class="o">:</span> <span class="s2">&quot;09 Feb 2013&quot;</span>
+</span><span class='line'>    <span class="p">}</span> <span class="p">,</span>  <span class="p">{</span>
+</span><span class='line'>      <span class="s2">&quot;title&quot;</span><span class="o">:</span> <span class="s2">&quot;用R获取大连商品交易所历史数据&quot;</span><span class="p">,</span>
+</span><span class='line'>      <span class="s2">&quot;url&quot;</span><span class="o">:</span> <span class="s2">&quot;http://yanping.me/cn/blog/2012/12/09/get-dce-data/&quot;</span><span class="p">,</span>
+</span><span class='line'>      <span class="s2">&quot;date&quot;</span><span class="o">:</span> <span class="s2">&quot;09 Dec 2012&quot;</span>
+</span><span class='line'>    <span class="p">}</span>  <span class="p">]</span>
+</span><span class='line'>  <span class="p">};</span>
 </span><span class='line'>
-</span><span class='line'>	<span class="kd">var</span> <span class="nx">content</span> <span class="o">=</span><span class="s2">&quot;&lt;ul class=\&quot;compact recent\&quot;&gt;&quot;</span><span class="p">;</span>
-</span><span class='line'>	<span class="nx">$</span><span class="p">.</span><span class="nx">each</span><span class="p">(</span><span class="nx">post</span><span class="p">.</span><span class="nx">list</span><span class="p">,</span><span class="kd">function</span><span class="p">(</span><span class="nx">i</span><span class="p">,</span><span class="nx">item</span><span class="p">){</span>
+</span><span class='line'>  <span class="kd">var</span> <span class="nx">content</span> <span class="o">=</span> <span class="s2">&quot;&lt;ul class=\&quot;compact recent\&quot;&gt;&quot;</span><span class="p">;</span>
+</span><span class='line'>  <span class="nx">$</span><span class="p">.</span><span class="nx">each</span><span class="p">(</span><span class="nx">post</span><span class="p">.</span><span class="nx">list</span><span class="p">,</span>
+</span><span class='line'>  <span class="kd">function</span><span class="p">(</span><span class="nx">i</span><span class="p">,</span> <span class="nx">item</span><span class="p">)</span> <span class="p">{</span>
 </span><span class='line'>
-</span><span class='line'>	<span class="nx">content</span> <span class="o">+=</span> <span class="s2">&quot;&lt;li&gt;&lt;span class=\&quot;date\&quot;&gt;&quot;</span><span class="o">+</span> <span class="nx">item</span><span class="p">.</span><span class="nx">date</span> <span class="o">+</span> <span class="s2">&quot;&lt;/span&gt;&lt;a href=\&quot;&quot;</span><span class="o">+</span><span class="nx">item</span><span class="p">.</span><span class="nx">url</span><span class="o">+</span><span class="s2">&quot;\&quot;&gt;&quot;</span><span class="o">+</span> <span class="nx">item</span><span class="p">.</span><span class="nx">title</span> <span class="o">+</span><span class="s2">&quot;&lt;/a&gt;&lt;/li&gt;&quot;</span><span class="p">;</span>
+</span><span class='line'>    <span class="nx">content</span> <span class="o">+=</span> <span class="s2">&quot;&lt;li&gt;&lt;span class=\&quot;date\&quot;&gt;&quot;</span> <span class="o">+</span> <span class="nx">item</span><span class="p">.</span><span class="nx">date</span> <span class="o">+</span> <span class="s2">&quot;&lt;/span&gt;&lt;a href=\&quot;&quot;</span> <span class="o">+</span> <span class="nx">item</span><span class="p">.</span><span class="nx">url</span> <span class="o">+</span> <span class="s2">&quot;\&quot;&gt;&quot;</span> <span class="o">+</span> <span class="nx">item</span><span class="p">.</span><span class="nx">title</span> <span class="o">+</span> <span class="s2">&quot;&lt;/a&gt;&lt;/li&gt;&quot;</span><span class="p">;</span>
 </span><span class='line'>
-</span><span class='line'>	<span class="p">});</span>
-</span><span class='line'>	
-</span><span class='line'>	<span class="nx">content</span> <span class="o">+=</span><span class="s2">&quot;&lt;/ul&gt;&quot;</span><span class="p">;</span>
-</span><span class='line'>	<span class="nx">$</span><span class="p">(</span><span class="s2">&quot;#blog1-posts-list .loading&quot;</span><span class="p">).</span><span class="nx">remove</span><span class="p">();</span>
-</span><span class='line'>	<span class="nx">$</span><span class="p">(</span><span class="s2">&quot;#blog1-posts-list&quot;</span><span class="p">).</span><span class="nx">append</span><span class="p">(</span><span class="nx">content</span><span class="p">);</span>
+</span><span class='line'>  <span class="p">});</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="nx">content</span> <span class="o">+=</span> <span class="s2">&quot;&lt;/ul&gt;&quot;</span><span class="p">;</span>
+</span><span class='line'>  <span class="nx">$</span><span class="p">(</span><span class="s2">&quot;#blog1-posts-list .loading&quot;</span><span class="p">).</span><span class="nx">remove</span><span class="p">();</span>
+</span><span class='line'>  <span class="nx">$</span><span class="p">(</span><span class="s2">&quot;#blog1-posts-list&quot;</span><span class="p">).</span><span class="nx">append</span><span class="p">(</span><span class="nx">content</span><span class="p">);</span>
 </span><span class='line'><span class="p">});</span>
 </span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
@@ -450,26 +442,28 @@
 
 <p>```html
 &lt;div class="section" id="blog1-posts-list"&gt;
-		&lt;h1 id="id165"&gt;博客&lt;/h1&gt;
-		&lt;p&gt;我现在主要更新的是托管在github上的<a href="http://chen.yanping.me/cn" target="_blank">Octopress博客</a>，主要记录自己在学习过程中的心得体会。近期内容：&lt;/p&gt;</p>
+  &lt;h1 id="id165"&gt;博客&lt;/h1&gt;</p>
+<p>
+    我现在主要更新的是托管在github上的
+    <a href="http://chen.yanping.me/cn" target="_blank">Octopress博客</a>
+    ，主要记录自己在学习过程中的心得体会。近期内容：
+  </p>
+<p>&lt;/div&gt;
+<script type="text/javascript">
+  $(document).ready(function() {
+    $.getJSON("/cn/recent.json",
+    function(data) {
+      var content = "&lt;ul class=\"compact recent\"&gt;";
+      $.each(data,
+      function(i, item) {</script></p>
 
-<pre><code>&lt;/div&gt;
+<pre><code>    content += "&lt;li&gt;&lt;span class=\"date\"&gt;" + item.date + "&lt;/span&gt;&lt;a href=\"" + item.url + "\"&gt;" + item.title + "&lt;/a&gt;&lt;/li&gt;";
 
-	&lt;script type="text/javascript"&gt;
-	$(document).ready(function() {
-		$.getJSON("/cn/recent.json",function(data){
-			var content ="&lt;ul class=\"compact recent\"&gt;";
-			$.each(data,function(i,item){
-			
-			content += "&lt;li&gt;&lt;span class=\"date\"&gt;"+ item.date + "&lt;/span&gt;&lt;a href=\""+item.url+"\"&gt;"+ item.title +"&lt;/a&gt;&lt;/li&gt;";
-			
-			});
-			
-			content +="&lt;/ul&gt;";
-			$("#blog1-posts-list").append(content);
-		});
-	});	
-&lt;/script&gt; ```
+  });
+
+  content += "&lt;/ul&gt;";
+  $("#blog1-posts-list").append(content);
+});   }); &lt;/script&gt; ```
 </code></pre>
 
 <p>别忘了加载jquery脚本，在我主页里是这句：</p>
