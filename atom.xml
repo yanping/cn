@@ -4,7 +4,7 @@
   <title><![CDATA[雁起平沙的网络日志]]></title>
   <link href="http://yanping.me/cn/atom.xml" rel="self"/>
   <link href="http://yanping.me/cn/"/>
-  <updated>2013-03-17T19:16:37+08:00</updated>
+  <updated>2013-03-17T19:30:04+08:00</updated>
   <id>http://yanping.me/cn/</id>
   <author>
     <name><![CDATA[ypchen]]></name>
@@ -2267,6 +2267,11 @@ pandoc -s –webtex -t -t s5 <a href="http://johnmacfarlane.net/pandoc/demo/SLID
 <span class="line-number">155</span>
 <span class="line-number">156</span>
 <span class="line-number">157</span>
+<span class="line-number">158</span>
+<span class="line-number">159</span>
+<span class="line-number">160</span>
+<span class="line-number">161</span>
+<span class="line-number">162</span>
 </pre></td><td class="code"><pre><code class="scss"><span class="line"><span class="c1">// This File is imported last, and will override other styles in the cascade</span>
 </span><span class="line"><span class="c1">// Add styles here to make changes without digging in too much</span>
 </span><span class="line">
@@ -2350,6 +2355,11 @@ pandoc -s –webtex -t -t s5 <a href="http://johnmacfarlane.net/pandoc/demo/SLID
 </span><span class="line"><span class="cm">/* -----侧边栏样式----- */</span>
 </span><span class="line">
 </span><span class="line"><span class="nn">#blogroll</span> <span class="nt">a</span><span class="p">{</span>
+</span><span class="line">    <span class="nt">text-decoration</span><span class="nd">:none</span><span class="o">;</span>
+</span><span class="line">
+</span><span class="line"><span class="p">}</span>
+</span><span class="line">
+</span><span class="line"><span class="nn">#recent_posts</span> <span class="nt">a</span><span class="p">{</span>
 </span><span class="line">    <span class="nt">text-decoration</span><span class="nd">:none</span><span class="o">;</span>
 </span><span class="line">
 </span><span class="line"><span class="p">}</span>
