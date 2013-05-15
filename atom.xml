@@ -4,7 +4,7 @@
   <title><![CDATA[雁起平沙的网络日志]]></title>
   <link href="http://yanping.me/cn/atom.xml" rel="self"/>
   <link href="http://yanping.me/cn/"/>
-  <updated>2013-04-15T23:15:56+08:00</updated>
+  <updated>2013-05-16T03:36:08+08:00</updated>
   <id>http://yanping.me/cn/</id>
   <author>
     <name><![CDATA[ypchen]]></name>
@@ -12,6 +12,55 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[《R语言编程艺术》即将上市]]></title>
+    <link href="http://yanping.me/cn/blog/2013/05/15/the-art-of-r-programming-published/"/>
+    <updated>2013-05-15T19:30:00+08:00</updated>
+    <id>http://yanping.me/cn/blog/2013/05/15/the-art-of-r-programming-published</id>
+    <content type="html"><![CDATA[<p><img src="http://i.imgur.com/dzhMLFx.jpg" title="Hosted by imgur.com" style="float:right;margin:0 0 20px 30px" /></p>
+
+<p>经历千辛万苦之后，<em>The Art of R Programming</em>这本书终于被我们翻译成了《R语言编程艺术》。去年五月份机械工业出版社的<a href="http://weibo.com/maywuyi">吴怡</a>编辑与统计之都洽谈翻译本书，到现在已经整整一年了。这本书与其他R语言图书有很大的不同，它是由著名计算机科学家兼统计学家Norman Matloff撰写，从编程的角度来讲解R语言，并且深入浅出，非常适合入门，也可作为有R语言使用经验的人进阶。也正由于这本书的特别之处，使得翻译过程异常艰难，好在我们还有统计之都各位大佬的支持，很多把握不准的术语都是求助于他们，在此表示感谢。我在译者序中对本书做了详细介绍。</p>
+
+<h2 id="section">译者序</h2>
+
+<p>R是一种用于统计计算和统计作图的开源软件，同时也是种编程语言，它广泛应用于企业和学术界的数据分析领域，正在成为最通用语言之一。由于近几年数据挖掘、大数据等概念的走红，R也越来越多地被人关注。截止到本文完成之日，CRAN（<a href="http://cran.r-project.org/">http://cran.r-project.org/</a>）上共有4383个包，涉及统计、化学、经济、生物、医学、心理、社会学等各个学科。不同类型的公司，比如Google、辉瑞、默克、美国银行、洲际酒店集团和壳牌公司都在使用它，同时以S语言环境为基础的R语言由于其鲜明的特色，一出现就受到了统计专业人士的青睐，成为国外大学里相当标准的统计软件。</p>
+
+<p>一直以来，国内外关于R语言的著作都是以统计学专业的视角来介绍R语言的，对R语言本身的特性讲解得并不详尽，而软件自带的官方文档又显得过于技术，不那么亲民。另一方面，很多接触R的朋友都来自非计算机专业，没有接受过编程训练，他们使用R的时候，写出来的代码通常只能算是一条条命令的集合，面对更复杂的问题，常常束手无策。记得在某届R语言大会上，有位SAS阵营的朋友说，他看到演讲者所展示的代码里只有函数调用，没有编程的东西，所以他觉得R不能算一种编程语言。其实，他错了，此时你手里这本《R语言编程艺术》，覆盖了其他大部分R语言图书没有涉及到的编程主题。这本书就如同R语言的九阳神功秘籍，当神功练成，任督二脉一旦打通，再学习针对某一领域应用的函数或包就如庖丁解牛一般。顺便提一下，据微博上的小道消息，前面提到的那位朋友最近也开始学R了。</p>
+
+<p><strong>本书的特点表现在以下几个方面：</strong></p>
+
+<ul>
+  <li>第一，对读者的统计学知识和编程水平要求并不高。与很多R语言书籍不同，这本书并不需要很深的统计学功底，它从纯语言的角度入手来讲解R。对于有一定编程经验却没什么统计学背景的人来说，读这本书会比较顺畅，读者就可以重点专注R语言的特性在数据分析方面的应用。在有的地方，作者也会提醒那些有其他语言编程经验的人应该注意R语言有什么不同之处。而对于没有编程经验又想使用R做数据分析的人来说，这本书也是学习编程的绝佳教材。</li>
+  <li>第二，专注于R语言编程。作者没有把这本书定位为菜谱式的手册，也不像有些R语言图书那样介绍完统计学某方面应用之后简单地把R语言代码摆出来。翻开这本书的目录，你几乎看不到统计学的术语。本书系统介绍了R语言的各种数据结构和编程结构、面向对象编程方法、socket网络编程、并行计算、代码调试、程序性能提升以及R语言与其他语言的接口等主题。书中也提到了不少编程的小技巧，这都是作者多年编程经验的总结。</li>
+  <li>第三，丰富的案例分析。作者Matloff教授是位计算机科学家，同时他也是位统计学家，有多年的教学经验，也做过统计学方法论的顾问。除了正文中的例子之外，本书还有44个扩展案例，很多案例源自作者亲身参与过的咨询项目。虽然本书没有讲解任何统计模型，但是扩展案例都是和数据分析相关的，比如鲍鱼数据的重编码（第二章）、寻找离群值（第三章）、文本词汇索引表（第四章）、汉语方言学习助手（第五章）等等。通过学习这些案例，读者不仅能学到R语言的每种概念如何运作，也会学到如何把这些概念组合到一起成为有用的程序。比如第十章介绍了socket网络编程之后，就用一个扩展案例讲解如何用socket实现并行计算，这为第十六章详细讲解并行计算做好了铺垫。在很多案例里，作者讨论了好几种设计方案，并比较了这几种方案的不同之处，以回答“为什么这样做？”，这对于缺少编程经验的人来说，是非常好的安排。</li>
+</ul>
+
+<p>本书第一章简要介绍了R语言的几种数据结构和编程基础，其余章节可分为三大部分。</p>
+
+<ul>
+  <li>第一部分 （第二至六章）详细介绍R的几种主要的数据结构：向量、矩阵、列表、数据框和因子。对很多人来说，R复杂多变的数据结构真的是一只拦路虎。而本书从最简单的向量开始，一步一步引导读者认识并掌握各种数据结构。</li>
+  <li>第二部分（第七至十三章）涉及编程方面： 编程结构和面向对象特性、输入/输出、 字符串处理以及绘图。值得一提的是第十三章，这章主要讲解的是R语言的调试。很多朋友在实际工作中有这样的经历，你可能用了一个小时就写好代码，却用了一天的时间来调试。可是到目前为止还没有在其他图书上看到与R语言调试相关的内容，甚至也很少见到关于其他编程语言调试的图书。本书刚好填补了这方面的空白。如果读者仔细读完第十三章，并实践其中的调试技巧，一定能事半功倍，也就能少熬点儿夜，有延长寿命的功效。本书的作者同时也著有《调式的艺术》（The Art of Debugging），相信他在R语言调试方面的功力也是相当深厚的。</li>
+  <li>第三部分介绍的是更高级的内容，比如执行速度和性能的提升（第十四章）、R语言与C/C++或python混合编程（第十五章）以及R语言并行计算（第十六章） ，虽然最后一部分属于编程的高级内容，但如果读者从前往后一直学下来，随着能力的提高，也是可以读懂的。</li>
+</ul>
+
+<p>本人从2007年开始接触R语言，那时候市面上几乎没有R语言方面的书籍。当时我关于R语言的所有信息几乎都是来自统计之都（<a href="http://cos.name">http://cos.name</a>）和谢益辉的博客（<a href="http://yihui.name">http://yihui.name</a>）。2008年冬天，统计之都成功举办了“第一届中国R语言会议”，来自各地的R语言用户们齐聚一堂，交流心得。从那以后，每年的R语言会议都会在北京和上海举办。这几年来统计之都的队伍也逐渐壮大，比如本书的其他三位主要译者：邱怡轩、潘岚锋和熊熹，当年他们参加R语言会议的时候还是人大统计学院大一大二的学生，后来也成为R语言社区的领军人物。去年我们接到本书的翻译任务时，他们三人分别收到了普度大学、爱荷华州立大学以及明尼苏达大学的录取通知，现在已经在美国留学深造。希望有越来越多的人加入统计之都的大家庭，和大家一起成长，为中国统计事业的发展尽自己的一份力。</p>
+
+<p>在翻译过程中，几位译者力求忠实于原文，同时也兼顾中文表达的流畅，不过译文中仍可能有不当之处，欢迎读者予以指正。</p>
+
+<p>除了本人以及前面提到的三位译者之外，统计之都的三位老朋友林宇、严紫丹和程豪也参与了本书部分章节的校审和初稿翻译，在此表示感谢。全书译文最后由本人统稿，如有错误之处，均由本人承担。</p>
+
+<p>也感谢机械工业出版社的吴怡女士，她给予了我们细心帮助。</p>
+
+<p>读者可以在统计之都的图书出版栏目（网址是<a href="http://cos.name/books/">http://cos.name/books/</a>）查看本书的页面，您可以在这里下载本书的数据和代码，也可以留言提问。</p>
+
+<div style="width:300px;text-align:right;float:right">
+陈堰平<br />
+2013年3月于新华通讯社第三工作区
+</div>
+
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[用js在jekyll博客中实现标签云和标签页]]></title>
@@ -408,7 +457,7 @@
 <span class="line-number">60</span>
 <span class="line-number">61</span>
 </pre></td><td class="code"><pre><code class="r"><span class="line"><span class="c1"># cntrade R语言版 </span>
-</span><span class="line"><span class="c1"># 作者：陈堰平（新华指数有限责任公司，chen@yanping.me） </span>
+</span><span class="line"><span class="c1"># 作者：陈堰平（统计之都，chen@yanping.me） </span>
 </span><span class="line"><span class="c1"># 使用网易股票数据接口 原stata版的作者为：</span>
 </span><span class="line"><span class="c1">#   李春涛（中南财经政法大学，chtl@znufe.edu.cn） </span>
 </span><span class="line"><span class="c1">#   张璇（中南财经政法大学，zhangx@znufe.edu.cn） </span>
@@ -1396,6 +1445,10 @@
 </pre></td><td class="code"><pre><code class="javascript"><span class="line"><span class="nx">$</span><span class="p">(</span><span class="nb">document</span><span class="p">).</span><span class="nx">ready</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
 </span><span class="line">  <span class="kd">var</span> <span class="nx">post</span> <span class="o">=</span> <span class="p">{</span>
 </span><span class="line">    <span class="s2">&quot;list&quot;</span><span class="o">:</span> <span class="p">[</span> <span class="p">{</span>
+</span><span class="line">      <span class="s2">&quot;title&quot;</span><span class="o">:</span> <span class="s2">&quot;《R语言编程艺术》即将上市&quot;</span><span class="p">,</span>
+</span><span class="line">      <span class="s2">&quot;url&quot;</span><span class="o">:</span> <span class="s2">&quot;http://yanping.me/cn/blog/2013/05/15/the-art-of-r-programming-published/&quot;</span><span class="p">,</span>
+</span><span class="line">      <span class="s2">&quot;date&quot;</span><span class="o">:</span> <span class="s2">&quot;15 May 2013&quot;</span>
+</span><span class="line">    <span class="p">}</span> <span class="p">,</span>  <span class="p">{</span>
 </span><span class="line">      <span class="s2">&quot;title&quot;</span><span class="o">:</span> <span class="s2">&quot;用js在jekyll博客中实现标签云和标签页&quot;</span><span class="p">,</span>
 </span><span class="line">      <span class="s2">&quot;url&quot;</span><span class="o">:</span> <span class="s2">&quot;http://yanping.me/cn/blog/2013/02/13/generate-tags-with-js-in-jekyll-blog/&quot;</span><span class="p">,</span>
 </span><span class="line">      <span class="s2">&quot;date&quot;</span><span class="o">:</span> <span class="s2">&quot;13 Feb 2013&quot;</span>
@@ -1411,10 +1464,6 @@
 </span><span class="line">      <span class="s2">&quot;title&quot;</span><span class="o">:</span> <span class="s2">&quot;用R获取郑州商品交易所历史数据&quot;</span><span class="p">,</span>
 </span><span class="line">      <span class="s2">&quot;url&quot;</span><span class="o">:</span> <span class="s2">&quot;http://yanping.me/cn/blog/2013/02/09/get-zce-data/&quot;</span><span class="p">,</span>
 </span><span class="line">      <span class="s2">&quot;date&quot;</span><span class="o">:</span> <span class="s2">&quot;09 Feb 2013&quot;</span>
-</span><span class="line">    <span class="p">}</span> <span class="p">,</span>  <span class="p">{</span>
-</span><span class="line">      <span class="s2">&quot;title&quot;</span><span class="o">:</span> <span class="s2">&quot;用R获取大连商品交易所历史数据&quot;</span><span class="p">,</span>
-</span><span class="line">      <span class="s2">&quot;url&quot;</span><span class="o">:</span> <span class="s2">&quot;http://yanping.me/cn/blog/2012/12/09/get-dce-data/&quot;</span><span class="p">,</span>
-</span><span class="line">      <span class="s2">&quot;date&quot;</span><span class="o">:</span> <span class="s2">&quot;09 Dec 2012&quot;</span>
 </span><span class="line">    <span class="p">}</span>  <span class="p">]</span>
 </span><span class="line">  <span class="p">};</span>
 </span><span class="line">
@@ -1629,6 +1678,12 @@
 <span class="line-number">32</span>
 </pre></td><td class="code"><pre><code class="javascript"><span class="line"><span class="p">[</span>
 </span><span class="line">    <span class="p">{</span>
+</span><span class="line">        <span class="s2">&quot;title&quot;</span><span class="o">:</span><span class="s2">&quot;《R语言编程艺术》即将上市&quot;</span><span class="p">,</span>
+</span><span class="line">        <span class="s2">&quot;url&quot;</span><span class="o">:</span><span class="s2">&quot;http://yanping.me/cn/blog/2013/05/15/the-art-of-r-programming-published/&quot;</span><span class="p">,</span>
+</span><span class="line">        <span class="s2">&quot;date&quot;</span><span class="o">:</span><span class="s2">&quot;15 May 2013&quot;</span>
+</span><span class="line">    <span class="p">},</span>
+</span><span class="line">
+</span><span class="line">    <span class="p">{</span>
 </span><span class="line">        <span class="s2">&quot;title&quot;</span><span class="o">:</span><span class="s2">&quot;用js在jekyll博客中实现标签云和标签页&quot;</span><span class="p">,</span>
 </span><span class="line">        <span class="s2">&quot;url&quot;</span><span class="o">:</span><span class="s2">&quot;http://yanping.me/cn/blog/2013/02/13/generate-tags-with-js-in-jekyll-blog/&quot;</span><span class="p">,</span>
 </span><span class="line">        <span class="s2">&quot;date&quot;</span><span class="o">:</span><span class="s2">&quot;13 Feb 2013&quot;</span>
@@ -1650,12 +1705,6 @@
 </span><span class="line">        <span class="s2">&quot;title&quot;</span><span class="o">:</span><span class="s2">&quot;用R获取郑州商品交易所历史数据&quot;</span><span class="p">,</span>
 </span><span class="line">        <span class="s2">&quot;url&quot;</span><span class="o">:</span><span class="s2">&quot;http://yanping.me/cn/blog/2013/02/09/get-zce-data/&quot;</span><span class="p">,</span>
 </span><span class="line">        <span class="s2">&quot;date&quot;</span><span class="o">:</span><span class="s2">&quot;09 Feb 2013&quot;</span>
-</span><span class="line">    <span class="p">},</span>
-</span><span class="line">
-</span><span class="line">    <span class="p">{</span>
-</span><span class="line">        <span class="s2">&quot;title&quot;</span><span class="o">:</span><span class="s2">&quot;用R获取大连商品交易所历史数据&quot;</span><span class="p">,</span>
-</span><span class="line">        <span class="s2">&quot;url&quot;</span><span class="o">:</span><span class="s2">&quot;http://yanping.me/cn/blog/2012/12/09/get-dce-data/&quot;</span><span class="p">,</span>
-</span><span class="line">        <span class="s2">&quot;date&quot;</span><span class="o">:</span><span class="s2">&quot;09 Dec 2012&quot;</span>
 </span><span class="line">    <span class="p">}</span>
 </span><span class="line">
 </span><span class="line"><span class="p">]</span>
@@ -2837,105 +2886,6 @@ pandoc -s –webtex -t -t s5 <a href="http://johnmacfarlane.net/pandoc/demo/SLID
 </span><span class="line"><span class="nt">&lt;/script&gt;</span>
 </span></code></pre></td></tr></table></div></figure></notextile></div>
 <p>注意：域名末尾的<code>/</code>一定要有，我之前就因为没发现这点，所以才浪费了很长时间。</p>
-
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[R的矩阵代数]]></title>
-    <link href="http://yanping.me/cn/blog/2012/01/10/matrix-algebra-in-r/"/>
-    <updated>2012-01-10T14:00:00+08:00</updated>
-    <id>http://yanping.me/cn/blog/2012/01/10/matrix-algebra-in-r</id>
-    <content type="html"><![CDATA[<p class="info">
-本文翻译自<a target="_blank" href="http://www.manning.com/kabacoff/">R in Action</a>的附录E，如果对该书感兴趣，请自行购买或去图书馆阅读。<br />
-更多的例子请看<a href="http://yishuo.org/2011/08/matrix-operations/">http://yishuo.org/2011/08/matrix-operations/</a>
-</p>
-
-<p>书中描述的很多函数都是在矩阵上的操作。矩阵的处理根植于R语言底层。下表描述了求解线性代数问题中重要的操作符和函数。下表中，A和B是矩阵，x和b是向量，k是标量。</p>
-
-<table class="datalist">
-<caption>矩阵代数的R函数和操作符</caption>
-<tr>
-	<th>操作符或函数</th><th>描述</th>
-</tr>
-<tr>
-	<td>+ -<code> *</code> / ^</td><td>对应元素相加、相减、相乘、相除、求幂</td>
-</tr>
-<tr>
-	<td>A <code>%*%</code> B</td><td>矩阵相乘</td>
-</tr>
-<tr>
-	<td>A <code>%o%</code> B</td><td>矩阵的外积。<code>AB'</code></td>
-</tr>
-<tr>
-	<td>cbind(A, B, ...)</td><td>横向组合矩阵或向量</td>
-</tr>
-<tr>
-	<td>col(A)</td><td>求A的Choleski因子。如果<code>R &lt;- chol(A)</code>，则<code>chol(A)</code>包含上三角因子，并有<code>R'R=A</code></td>
-</tr>
-<tr>
-	<td>colMeans(A)</td><td>返回一个向量，包含A每列的均值</td>
-</tr>
-<tr>
-	<td>crossprod(A)</td><td><code>A'A</code></td>
-</tr>
-<tr>
-	<td>crossprod(A,B)&nbsp;&nbsp;&nbsp;&nbsp;</td><td><code>A'B</code></td>
-</tr>
-<tr>
-	<td>colSums(A)</td><td>返回一个向量，包含A每列的和</td>
-</tr>
-<tr>
-	<td>diag(A)</td><td>返回一个向量，包含主对角线元素</td>
-</tr>
-<tr>
-	<td>diag(x)</td><td>以x为主对角线元素创建对角矩阵</td>
-</tr>
-<tr>
-	<td>diag(k)</td><td>如果k是标量，则创建一个k &times; k的单位矩阵</td>
-</tr>
-<tr>
-	<td>eigen(A)</td><td>A的特征值和特征向量。如果<code>y &lt;- eigen(A)</code>，则<br />
-	<code>y$val</code>是A的特征值，<code>y$vec</code>是A的特征向量
-	</td>
-</tr>
-<tr>
-	<td>ginv(A)</td><td>A的Moore-Penrose广义逆。（需要MASS包）</td>
-</tr>
-<tr>
-	<td>qr(A)</td><td>A的QR分解。如果<code>y &lt;- qr(A)</code>，则<br />
-	<code>y$qr</code>有一个包含分解值的上三角矩阵和一个包含分解值信息的下三角矩阵，<code>y$rank</code>是A的秩，<code>y$qraux</code>是包含Q其他信息的向量，<code>y$pivot</code>包含旋转策略的信息。
-	</td>
-</tr>
-<tr>
-	<td>rbind(A, B, ...)</td><td>纵向组合矩阵或向量</td>
-</tr>
-<tr>
-	<td>rowMeans(A)</td><td>返回一个向量，包含A每行的均值</td>
-</tr>
-<tr>
-	<td>rowSums(A)</td><td>返回一个向量，包含A每行的和</td>
-</tr>
-<tr>
-	<td>solve(A)</td><td>求A的逆，其中A是方阵</td>
-</tr>
-<tr>
-	<td>solve(A, b)</td><td>解出方程b=Ax里的向量x</td>
-</tr>
-
-<tr>
-	<td>svd(A)</td><td>A的奇异值分解。如果<code>y &lt;- svd(A)</code>，则	<code>y$d</code>是包含A的奇异值的向量，矩阵<code>y$u</code>的列向量包含A的左奇异值向量，矩阵<code>y$v</code>的列向量包含A的右奇异值向量。</td></tr>
-
-<tr>
-	<td>t(A)</td><td>求A的转置</td>
-</tr>
-</table>
-
-<p>还有一些用户贡献的包专门用于矩阵代数。<em>matlab</em> 包封装了类似MATLAB语言的矩阵操作函数和变量。这些函数可以帮助用户将MATLAB程序移植到R语言代码。<a href="http://mathesaurus.sourceforge.net/octave-r.html">http://mathesaurus.sourceforge.net/octave-r.html</a>上有一份很有用的清单可以帮助你将MATLAB语句转化为R语句。</p>
-
-<p><em>Matrix</em> 包提供的函数使R可以处理高密度矩阵或稀疏矩阵。它提供了对BLAS（Basic Linear Algebra Subroutines）、Lapack（dense matrix）、TAUCS（sparse matrix）和UMFPACK（sparse matrix）的高效调用。</p>
-
-<p>最后，<em>matrixStats</em> 包提供了对矩阵的行和列的操作方法，例如计数、求和、中心趋势、离差（dispersion）等。每一个函数都进过了优化，使得可以高速高效地运行。</p>
 
 ]]></content>
   </entry>

@@ -1,5 +1,11 @@
 [
     {
+        "title":"《R语言编程艺术》即将上市",
+        "url":"http://yanping.me/cn/blog/2013/05/15/the-art-of-r-programming-published/",
+        "date":"15 May 2013"
+    },
+
+    {
         "title":"用js在jekyll博客中实现标签云和标签页",
         "url":"http://yanping.me/cn/blog/2013/02/13/generate-tags-with-js-in-jekyll-blog/",
         "date":"13 Feb 2013"
@@ -21,12 +27,6 @@
         "title":"用R获取郑州商品交易所历史数据",
         "url":"http://yanping.me/cn/blog/2013/02/09/get-zce-data/",
         "date":"09 Feb 2013"
-    },
-
-    {
-        "title":"用R获取大连商品交易所历史数据",
-        "url":"http://yanping.me/cn/blog/2012/12/09/get-dce-data/",
-        "date":"09 Dec 2012"
     }
 
 ]

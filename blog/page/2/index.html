@@ -9,8 +9,7 @@
   <meta name="author" content="ypchen">
 
   
-  <meta name="description" content="本人近期将推出《DecisionTools高级应用：数量风险建模与决策分析》课程，有需要培训的团体或个人与我联系。 课程目标
-DecisionTools是一套在Microsoft Excel量身定制集成程序，从而使用户可以在一个软件包中针对不确定因素完成风险优化及决策分析的操作。 &hellip;">
+  <meta name="description" content="在windows下使用jekyll时经常会遇到字符集错误，比如遇到提示Liquid error: incompatible character encodings: UTF-8 and GBK。本文将介绍几种解决方案。 1. 修改bash的字符集：在C:\Documents and &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -104,6 +103,57 @@ DecisionTools是一套在Microsoft Excel量身定制集成程序，从而使用�
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/cn/blog/2012/10/09/chinese-charset-problems-with-jekyll/">在Windows下使用jekyll如何避免出现中文字符集错误</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-10-09T21:30:00+08:00" pubdate data-updated="true">Oct 9<span>th</span>, 2012</time>
+        
+         | <a href="/cn/blog/2012/10/09/chinese-charset-problems-with-jekyll/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p class="info">在windows下使用jekyll时经常会遇到字符集错误，比如遇到提示<span style="font-family: Menlo,Monaco,'Andale Mono','lucida console','Courier New',monospace;">Liquid error: incompatible character encodings: UTF-8 and GBK</span>。本文将介绍几种解决方案。</p>
+
+<p>1. <strong>修改bash的字符集：</strong>在<code>C:\Documents and Settings\用户名</code>下，找到文件<code>.bash_profile</code>，后面加两行</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span /></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+</pre></td><td class="code"><pre><code class="sh"><span class="line"><span class="nb">set </span><span class="nv">LC_ALL</span><span class="o">=</span>en_US.UTF-8
+</span><span class="line"><span class="nb">set </span><span class="nv">LANG</span><span class="o">=</span>en_US.UTF-8
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/cn/blog/2012/10/09/chinese-charset-problems-with-jekyll/">阅读全文 &rarr;</a>
+    </footer>
+  
+
+
+    </article>
   
   
     <article>
@@ -414,61 +464,6 @@ DecisionTools是一套在Microsoft Excel量身定制集成程序，从而使用�
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/cn/blog/2012/03/13/pandoc/">黑魔法利器pandoc</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2012-03-13T00:30:00+08:00" pubdate data-updated="true">Mar 13<span>th</span>, 2012</time>
-        
-         | <a href="/cn/blog/2012/03/13/pandoc/#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><h2 id="pandoc">pandoc是什么？</h2>
-
-<p>如果你需要把文件从一种标记语言格式转换到另一种格式，<a href="http://johnmacfarlane.net/pandoc" target="_blank">pandoc</a>会是你的瑞士军刀。它可以把<a href="http://daringfireball.net/projects/markdown/">markdown</a>、 <a href="http://docutils.sourceforge.net/docs/ref/rst/introduction.html">reStructuredText</a>、 <a href="http://redcloth.org/textile">textile</a>、 <a href="http://www.w3.org/TR/html40/">HTML</a>、或者<a href="http://www.latex-project.org/">LaTeX</a>转换成：</p>
-
-<ul>
-<li>HTML格式: XHTML, HTML5, 以及HTML幻灯片<a href="http://www.w3.org/Talks/Tools/Slidy">Slidy</a>， <a href="http://meyerweb.com/eric/tools/s5/">S5</a>，或者<a href="http://paulrouget.com/dzslides/">DZSlides</a>.</li>
-<li>文字处理软件格式： Microsoft Word <a href="http://www.microsoft.com/interop/openup/openxml/default.aspx">docx</a>, OpenOffice/LibreOffice <a href="http://en.wikipedia.org/wiki/OpenDocument">ODT</a>, <a href="http://opendocument.xml.org/">OpenDocument XML</a></li>
-<li>电子书： <a href="http://en.wikipedia.org/wiki/EPUB">EPUB</a></li>
-<li>文档格式： <a href="http://www.docbook.org/">DocBook</a>, <a href="http://www.gnu.org/software/texinfo/">GNU TexInfo</a>, <a href="http://www.gnu.org/software/groff/groff.html">Groff man</a> pages</li>
-<li>TeX格式： <a href="http://www.latex-project.org/">LaTeX</a>, <a href="http://www.pragma-ade.nl/">ConTeXt</a>, LaTeX Beamer slides</li>
-<li><a href="http://en.wikipedia.org/wiki/Portable_Document_Format">PDF</a> via LaTeX</li>
-<li>轻量级标记语言格式： <a href="http://daringfireball.net/projects/markdown/">Markdown</a>, <a href="http://docutils.sourceforge.net/docs/ref/rst/introduction.html">reStructuredText</a>, <a href="http://www.methods.co.nz/asciidoc/">AsciiDoc</a>, <a href="http://www.mediawiki.org/wiki/Help:Formatting">MediaWiki markup</a>, Emacs <a href="http://orgmode.org">Org-Mode</a>, <a href="http://redcloth.org/textile">Textile</a></li>
-</ul>
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/cn/blog/2012/03/13/pandoc/">阅读全文 &rarr;</a>
-    </footer>
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/cn/blog/page/3/">&larr; 前一页</a>
@@ -496,12 +491,16 @@ DecisionTools是一套在Microsoft Excel量身定制集成程序，从而使用�
 
 <section id="categories_tag">
 <h1>分类目录</h1>
-<span class='categories_tag'> <a href='/cn/blog/categories/github' style='font-size: 142.0%'>Github(7)</a>  <a href='/cn/blog/categories/javascript' style='font-size: 130.0%'>Javascript(5)</a>  <a href='/cn/blog/categories/jekyll' style='font-size: 160.0%'>Jekyll(10)</a>  <a href='/cn/blog/categories/latex' style='font-size: 106.0%'>Latex(1)</a>  <a href='/cn/blog/categories/markdown' style='font-size: 106.0%'>Markdown(1)</a>  <a href='/cn/blog/categories/octopress' style='font-size: 148.0%'>Octopress(8)</a>  <a href='/cn/blog/categories/r语言' style='font-size: 154.0%'>R语言(9)</a>  <a href='/cn/blog/categories/指数' style='font-size: 106.0%'>指数(1)</a>  <a href='/cn/blog/categories/金融工程' style='font-size: 130.0%'>金融工程(5)</a> </span>
+<span class='categories_tag'> <a href='/cn/blog/categories/github' style='font-size: 142.0%'>Github(7)</a>  <a href='/cn/blog/categories/javascript' style='font-size: 130.0%'>Javascript(5)</a>  <a href='/cn/blog/categories/jekyll' style='font-size: 160.0%'>Jekyll(10)</a>  <a href='/cn/blog/categories/latex' style='font-size: 106.0%'>Latex(1)</a>  <a href='/cn/blog/categories/markdown' style='font-size: 106.0%'>Markdown(1)</a>  <a href='/cn/blog/categories/octopress' style='font-size: 148.0%'>Octopress(8)</a>  <a href='/cn/blog/categories/r语言' style='font-size: 160.0%'>R语言(10)</a>  <a href='/cn/blog/categories/指数' style='font-size: 106.0%'>指数(1)</a>  <a href='/cn/blog/categories/金融工程' style='font-size: 130.0%'>金融工程(5)</a> </span>
 </section>
 
 <section>
   <h1>近期文章</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/cn/blog/2013/05/15/the-art-of-r-programming-published/" title="《R语言编程艺术》即将上市">《R语言编程艺术》即将上市</a>
+      </li>
     
       <li class="post">
         <a href="/cn/blog/2013/02/13/generate-tags-with-js-in-jekyll-blog/" title="用js在jekyll博客中实现标签云和标签页">用js在jekyll博客中实现标签云和标签页</a>
@@ -525,10 +524,6 @@ DecisionTools是一套在Microsoft Excel量身定制集成程序，从而使用�
     
       <li class="post">
         <a href="/cn/blog/2012/10/10/asynchronous-loading-post-list-with-jekyll-and-jQuery/" title="用jekyll和jQuery实现异步加载文章列表">用jekyll和jQuery实现异步加载文章列表</a>
-      </li>
-    
-      <li class="post">
-        <a href="/cn/blog/2012/10/09/chinese-charset-problems-with-jekyll/" title="在Windows下使用jekyll如何避免出现中文字符集错误">在Windows下使用jekyll如何避免出现中文字符集错误</a>
       </li>
     
   </ul>

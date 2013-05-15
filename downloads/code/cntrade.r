@@ -1,5 +1,5 @@
 # cntrade R语言版 
-# 作者：陈堰平（新华指数有限责任公司，chen@yanping.me） 
+# 作者：陈堰平（统计之都，chen@yanping.me） 
 # 使用网易股票数据接口 原stata版的作者为：
 #   李春涛（中南财经政法大学，chtl@znufe.edu.cn） 
 #   张璇（中南财经政法大学，zhangx@znufe.edu.cn） 

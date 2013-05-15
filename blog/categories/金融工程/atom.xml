@@ -4,7 +4,7 @@
   <title><![CDATA[分类： 金融工程 | 雁起平沙的网络日志]]></title>
   <link href="http://yanping.me/cn/blog/categories/金融工程/atom.xml" rel="self"/>
   <link href="http://yanping.me/cn/"/>
-  <updated>2013-04-15T23:15:56+08:00</updated>
+  <updated>2013-05-16T03:36:08+08:00</updated>
   <id>http://yanping.me/cn/</id>
   <author>
     <name><![CDATA[ypchen]]></name>
@@ -145,7 +145,7 @@
 <span class='line-number'>60</span>
 <span class='line-number'>61</span>
 </pre></td><td class='code'><pre><code class='r'><span class='line'><span class="c1"># cntrade R语言版 </span>
-</span><span class='line'><span class="c1"># 作者：陈堰平（新华指数有限责任公司，chen@yanping.me） </span>
+</span><span class='line'><span class="c1"># 作者：陈堰平（统计之都，chen@yanping.me） </span>
 </span><span class='line'><span class="c1"># 使用网易股票数据接口 原stata版的作者为：</span>
 </span><span class='line'><span class="c1">#   李春涛（中南财经政法大学，chtl@znufe.edu.cn） </span>
 </span><span class='line'><span class="c1">#   张璇（中南财经政法大学，zhangx@znufe.edu.cn） </span>

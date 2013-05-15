@@ -5,12 +5,12 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>用R获取flash中的数据 - 雁起平沙的网络日志</title>
+  <title>《R语言编程艺术》即将上市 - 雁起平沙的网络日志</title>
   <meta name="author" content="ypchen">
 
   
-  <meta name="description" content="本文主要讨论如何用R语言从flash中获取数据">
-  <meta name="keywords" content="R语言, 金融数据, 金融工程">
+  <meta name="description" content="《R语言编程艺术》即将上市，本文是这本书的译者序">
+  <meta name="keywords" content="R语言">
 
   <!-- http://t.co/dKP3o1e -->
   <meta name="HandheldFriendly" content="True">
@@ -18,7 +18,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://yanping.me/cn/blog/2013/02/10/get-data-from-flash">
+  <link rel="canonical" href="http://yanping.me/cn/blog/2013/05/15/the-art-of-r-programming-published">
   <link href="/cn/favicon.png" rel="icon">
   <link href="/cn/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <script src="/cn/javascripts/modernizr-2.0.js"></script>
@@ -106,7 +106,7 @@
   
   <header>
     
-      <h1 class="entry-title">用R获取flash中的数据</h1>
+      <h1 class="entry-title">《R语言编程艺术》即将上市</h1>
     
     
       <p class="meta">
@@ -122,7 +122,7 @@
   
 
 
-<time datetime="2013-02-10T02:00:00+08:00" pubdate data-updated="true">Feb 10<span>th</span>, 2013</time>
+<time datetime="2013-05-15T19:30:00+08:00" pubdate data-updated="true">May 15<span>th</span>, 2013</time>
         
          | <a href="#disqus_thread">Comments</a>
         
@@ -131,55 +131,46 @@
   </header>
 
 
-<div class="entry-content"><p class="info">本文主要讨论如何用R语言从flash中获取数据</p>
+<div class="entry-content"><p><img src="http://i.imgur.com/dzhMLFx.jpg" title="Hosted by imgur.com" style="float:right;margin:0 0 20px 30px" /></p>
 
-<p>某天我需要获取<a href="http://ifsfd.fudan.edu.cn/fdurmb/indexchart1.jsp">复旦人民币汇率指数</a>的数据。此前我们介绍过从网页抓取数据的两种方法</p>
+<p>经历千辛万苦之后，<em>The Art of R Programming</em>这本书终于被我们翻译成了《R语言编程艺术》。去年五月份机械工业出版社的<a href="http://weibo.com/maywuyi">吴怡</a>编辑与统计之都洽谈翻译本书，到现在已经整整一年了。这本书与其他R语言图书有很大的不同，它是由著名计算机科学家兼统计学家Norman Matloff撰写，从编程的角度来讲解R语言，并且深入浅出，非常适合入门，也可作为有R语言使用经验的人进阶。也正由于这本书的特别之处，使得翻译过程异常艰难，好在我们还有统计之都各位大佬的支持，很多把握不准的术语都是求助于他们，在此表示感谢。我在译者序中对本书做了详细介绍。</p>
 
-<ol>
-  <li>用url给服务器提交参数获取数据文件，例如<a href="/cn/blog/2012/12/09/get-dce-data/">用R获取大连商品交易所历史数据</a>这篇文章里提到的方法</li>
-  <li>解析html代码以获取数据，例如<a href="/cn/blog/2013/02/09/get-zce-data/">用R获取郑州商品交易所历史数据</a>这篇文章里提到的方法</li>
-</ol>
+<h2 id="section">译者序</h2>
 
-<p>而复旦的这个网页，不提供数据文件的下载，从html中也不能解析出数据。实际上，该网页中的flash向服务器发送请求，服务器返回数据给flash并显示出图形和表格。</p>
+<p>R是一种用于统计计算和统计作图的开源软件，同时也是种编程语言，它广泛应用于企业和学术界的数据分析领域，正在成为最通用语言之一。由于近几年数据挖掘、大数据等概念的走红，R也越来越多地被人关注。截止到本文完成之日，CRAN（<a href="http://cran.r-project.org/">http://cran.r-project.org/</a>）上共有4383个包，涉及统计、化学、经济、生物、医学、心理、社会学等各个学科。不同类型的公司，比如Google、辉瑞、默克、美国银行、洲际酒店集团和壳牌公司都在使用它，同时以S语言环境为基础的R语言由于其鲜明的特色，一出现就受到了统计专业人士的青睐，成为国外大学里相当标准的统计软件。</p>
 
-<p>用<a href="http://cos.name/cn/topic/107729">http://cos.name/cn/topic/107729</a>中<a href="http://www.road2stat.com/">Xiao Nan版主</a>介绍的办法，我用chrome看了下页面</p>
+<p>一直以来，国内外关于R语言的著作都是以统计学专业的视角来介绍R语言的，对R语言本身的特性讲解得并不详尽，而软件自带的官方文档又显得过于技术，不那么亲民。另一方面，很多接触R的朋友都来自非计算机专业，没有接受过编程训练，他们使用R的时候，写出来的代码通常只能算是一条条命令的集合，面对更复杂的问题，常常束手无策。记得在某届R语言大会上，有位SAS阵营的朋友说，他看到演讲者所展示的代码里只有函数调用，没有编程的东西，所以他觉得R不能算一种编程语言。其实，他错了，此时你手里这本《R语言编程艺术》，覆盖了其他大部分R语言图书没有涉及到的编程主题。这本书就如同R语言的九阳神功秘籍，当神功练成，任督二脉一旦打通，再学习针对某一领域应用的函数或包就如庖丁解牛一般。顺便提一下，据微博上的小道消息，前面提到的那位朋友最近也开始学R了。</p>
 
-<p><img src="http://i.imgur.com/OqZSfRa.png" alt="network -&gt; XHR" /></p>
+<p><strong>本书的特点表现在以下几个方面：</strong></p>
 
-<p>可以看到，上图中的表是从2012年12月12日到2013年2月10日的数据，对应的数据来自<a href="http://ifsfd.fudan.edu.cn/fdurmb/data?type=0%2C1%2C2&amp;df=2012%2F12%2F12&amp;dt=2013%2F02%2F10">http://ifsfd.fudan.edu.cn/fdurmb/data?type=0%2C1%2C2&amp;df=2012%2F12%2F12&amp;dt=2013%2F02%2F10</a>，打开这个链接，可以看出这是JSON格式，用R的rjson和RJSONIO包都可以解析JSON格式的数据。</p>
+<ul>
+  <li>第一，对读者的统计学知识和编程水平要求并不高。与很多R语言书籍不同，这本书并不需要很深的统计学功底，它从纯语言的角度入手来讲解R。对于有一定编程经验却没什么统计学背景的人来说，读这本书会比较顺畅，读者就可以重点专注R语言的特性在数据分析方面的应用。在有的地方，作者也会提醒那些有其他语言编程经验的人应该注意R语言有什么不同之处。而对于没有编程经验又想使用R做数据分析的人来说，这本书也是学习编程的绝佳教材。</li>
+  <li>第二，专注于R语言编程。作者没有把这本书定位为菜谱式的手册，也不像有些R语言图书那样介绍完统计学某方面应用之后简单地把R语言代码摆出来。翻开这本书的目录，你几乎看不到统计学的术语。本书系统介绍了R语言的各种数据结构和编程结构、面向对象编程方法、socket网络编程、并行计算、代码调试、程序性能提升以及R语言与其他语言的接口等主题。书中也提到了不少编程的小技巧，这都是作者多年编程经验的总结。</li>
+  <li>第三，丰富的案例分析。作者Matloff教授是位计算机科学家，同时他也是位统计学家，有多年的教学经验，也做过统计学方法论的顾问。除了正文中的例子之外，本书还有44个扩展案例，很多案例源自作者亲身参与过的咨询项目。虽然本书没有讲解任何统计模型，但是扩展案例都是和数据分析相关的，比如鲍鱼数据的重编码（第二章）、寻找离群值（第三章）、文本词汇索引表（第四章）、汉语方言学习助手（第五章）等等。通过学习这些案例，读者不仅能学到R语言的每种概念如何运作，也会学到如何把这些概念组合到一起成为有用的程序。比如第十章介绍了socket网络编程之后，就用一个扩展案例讲解如何用socket实现并行计算，这为第十六章详细讲解并行计算做好了铺垫。在很多案例里，作者讨论了好几种设计方案，并比较了这几种方案的不同之处，以回答“为什么这样做？”，这对于缺少编程经验的人来说，是非常好的安排。</li>
+</ul>
 
-<p>我们来研究一下上面的这个链接，<code>df=2012%2F12%2F12&amp;dt=2013%2F02%2F10</code>规定了从开始到结束的日期，如果开始日期是YYYY年MM月DD日，结束日期是yyyy年mm月dd日，那么对应的字符串是<code>df=YYYY%2FMM%2FDD&amp;dt=yyyy%2Fmm%2Fdd</code></p>
+<p>本书第一章简要介绍了R语言的几种数据结构和编程基础，其余章节可分为三大部分。</p>
 
-<p>那么文本开头提出的问题，可用下面的代码解决</p>
+<ul>
+  <li>第一部分 （第二至六章）详细介绍R的几种主要的数据结构：向量、矩阵、列表、数据框和因子。对很多人来说，R复杂多变的数据结构真的是一只拦路虎。而本书从最简单的向量开始，一步一步引导读者认识并掌握各种数据结构。</li>
+  <li>第二部分（第七至十三章）涉及编程方面： 编程结构和面向对象特性、输入/输出、 字符串处理以及绘图。值得一提的是第十三章，这章主要讲解的是R语言的调试。很多朋友在实际工作中有这样的经历，你可能用了一个小时就写好代码，却用了一天的时间来调试。可是到目前为止还没有在其他图书上看到与R语言调试相关的内容，甚至也很少见到关于其他编程语言调试的图书。本书刚好填补了这方面的空白。如果读者仔细读完第十三章，并实践其中的调试技巧，一定能事半功倍，也就能少熬点儿夜，有延长寿命的功效。本书的作者同时也著有《调式的艺术》（The Art of Debugging），相信他在R语言调试方面的功力也是相当深厚的。</li>
+  <li>第三部分介绍的是更高级的内容，比如执行速度和性能的提升（第十四章）、R语言与C/C++或python混合编程（第十五章）以及R语言并行计算（第十六章） ，虽然最后一部分属于编程的高级内容，但如果读者从前往后一直学下来，随着能力的提高，也是可以读懂的。</li>
+</ul>
 
-<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span> (readFudan.r)</span> <a href="/cn/downloads/code/readFudan.r">download</a></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
-<span class="line-number">2</span>
-<span class="line-number">3</span>
-<span class="line-number">4</span>
-<span class="line-number">5</span>
-<span class="line-number">6</span>
-<span class="line-number">7</span>
-<span class="line-number">8</span>
-<span class="line-number">9</span>
-<span class="line-number">10</span>
-<span class="line-number">11</span>
-<span class="line-number">12</span>
-<span class="line-number">13</span>
-</pre></td><td class="code"><pre><code class="r"><span class="line"><span class="c1"># 从复旦人民币汇率指数网站读取数据 http://ifsfd.fudan.edu.cn/fdurmb/indexchart1.jsp</span>
-</span><span class="line"><span class="c1"># 更多细节请看 http://cos.name/cn/topic/109132</span>
-</span><span class="line">
-</span><span class="line">require<span class="p">(</span>RCurl<span class="p">)</span>
-</span><span class="line">require<span class="p">(</span>rjson<span class="p">)</span>
-</span><span class="line">
-</span><span class="line">fdjson <span class="o">&lt;-</span> getURL<span class="p">(</span><span class="s">&quot;http://ifsfd.fudan.edu.cn/fdurmb/data?type=0%2C1%2C2&amp;df=2012%2F12%2F12&amp;dt=2013%2F02%2F10&quot;</span><span class="p">)</span>
-</span><span class="line">fdlist <span class="o">&lt;-</span> fromJSON<span class="p">(</span>fdjson<span class="p">)</span>
-</span><span class="line">fdm <span class="o">&lt;-</span> matrix<span class="p">(</span>unlist<span class="p">(</span>fdlist<span class="p">),</span>ncol<span class="o">=</span><span class="m">4</span><span class="p">,</span>byrow<span class="o">=</span><span class="k-Variable">T</span><span class="p">)</span>
-</span><span class="line">fddf <span class="o">&lt;-</span> data.frame<span class="p">(</span>fdm<span class="p">,</span> stringsAsFactors <span class="o">=</span> <span class="k-Variable">F</span><span class="p">)</span>
-</span><span class="line">fddf<span class="p">[,</span><span class="m">2</span>:<span class="m">4</span><span class="p">]</span> <span class="o">&lt;-</span> sapply<span class="p">(</span>fddf<span class="p">[,</span><span class="m">2</span>:<span class="m">4</span><span class="p">],</span>as.numeric<span class="p">)</span>
-</span><span class="line">colnames<span class="p">(</span>fddf<span class="p">)</span> <span class="o">&lt;-</span> c<span class="p">(</span><span class="s">&quot;date&quot;</span><span class="p">,</span><span class="s">&quot;人民币名义有效汇率指数&quot;</span><span class="p">,</span><span class="s">&quot;人民币实际有效汇率指数&quot;</span><span class="p">,</span><span class="s">&quot;人民币盯住一篮子货币模拟汇率指数&quot;</span><span class="p">)</span>
-</span><span class="line">write.csv<span class="p">(</span>fddf<span class="p">,</span><span class="s">&quot;fudan.csv&quot;</span><span class="p">,</span>row.names <span class="o">=</span> <span class="k-Variable">F</span> <span class="p">)</span>
-</span></code></pre></td></tr></table></div></figure></notextile></div>
+<p>本人从2007年开始接触R语言，那时候市面上几乎没有R语言方面的书籍。当时我关于R语言的所有信息几乎都是来自统计之都（<a href="http://cos.name">http://cos.name</a>）和谢益辉的博客（<a href="http://yihui.name">http://yihui.name</a>）。2008年冬天，统计之都成功举办了“第一届中国R语言会议”，来自各地的R语言用户们齐聚一堂，交流心得。从那以后，每年的R语言会议都会在北京和上海举办。这几年来统计之都的队伍也逐渐壮大，比如本书的其他三位主要译者：邱怡轩、潘岚锋和熊熹，当年他们参加R语言会议的时候还是人大统计学院大一大二的学生，后来也成为R语言社区的领军人物。去年我们接到本书的翻译任务时，他们三人分别收到了普度大学、爱荷华州立大学以及明尼苏达大学的录取通知，现在已经在美国留学深造。希望有越来越多的人加入统计之都的大家庭，和大家一起成长，为中国统计事业的发展尽自己的一份力。</p>
+
+<p>在翻译过程中，几位译者力求忠实于原文，同时也兼顾中文表达的流畅，不过译文中仍可能有不当之处，欢迎读者予以指正。</p>
+
+<p>除了本人以及前面提到的三位译者之外，统计之都的三位老朋友林宇、严紫丹和程豪也参与了本书部分章节的校审和初稿翻译，在此表示感谢。全书译文最后由本人统稿，如有错误之处，均由本人承担。</p>
+
+<p>也感谢机械工业出版社的吴怡女士，她给予了我们细心帮助。</p>
+
+<p>读者可以在统计之都的图书出版栏目（网址是<a href="http://cos.name/books/">http://cos.name/books/</a>）查看本书的页面，您可以在这里下载本书的数据和代码，也可以留言提问。</p>
+
+<div style="width:300px;text-align:right;float:right">
+陈堰平<br />
+2013年3月于新华通讯社第三工作区
+</div>
 
 </div>
 
@@ -203,13 +194,13 @@
   
 
 
-<time datetime="2013-02-10T02:00:00+08:00" pubdate data-updated="true">Feb 10<span>th</span>, 2013</time>
+<time datetime="2013-05-15T19:30:00+08:00" pubdate data-updated="true">May 15<span>th</span>, 2013</time>
       
 
 <span class="categories">
 	分类：
   
-    <a class='category' href='/cn/blog/categories/r语言/'>R语言</a>, <a class='category' href='/cn/blog/categories/金融工程/'>金融工程</a>
+    <a class='category' href='/cn/blog/categories/r语言/'>R语言</a>
   
 </span>
 
@@ -239,10 +230,8 @@
     
     <p class="meta">
       
-        <a class="basic-alignment left" href="/cn/blog/2013/02/10/cntrade-r-version/" title="Previous Post: R语言版的cntrade程序">&laquo; R语言版的cntrade程序</a>
+        <a class="basic-alignment left" href="/cn/blog/2013/02/13/generate-tags-with-js-in-jekyll-blog/" title="Previous Post: 用js在jekyll博客中实现标签云和标签页">&laquo; 用js在jekyll博客中实现标签云和标签页</a>
       
-      
-        <a class="basic-alignment right" href="/cn/blog/2013/02/13/generate-tags-with-js-in-jekyll-blog/" title="next Post: 用js在jekyll博客中实现标签云和标签页">用js在jekyll博客中实现标签云和标签页 &raquo;</a>
       
     </p>
   </footer>
@@ -360,8 +349,8 @@
       
         
         // var disqus_developer = 1;
-        var disqus_identifier = 'http://yanping.me/cn/blog/2013/02/10/get-data-from-flash/';
-        var disqus_url = 'http://yanping.me/cn/blog/2013/02/10/get-data-from-flash/';
+        var disqus_identifier = 'http://yanping.me/cn/blog/2013/05/15/the-art-of-r-programming-published/';
+        var disqus_url = 'http://yanping.me/cn/blog/2013/05/15/the-art-of-r-programming-published/';
         var disqus_script = 'embed.js';
       
     (function () {

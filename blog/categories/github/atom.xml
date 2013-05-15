@@ -4,7 +4,7 @@
   <title><![CDATA[分类： github | 雁起平沙的网络日志]]></title>
   <link href="http://yanping.me/cn/blog/categories/github/atom.xml" rel="self"/>
   <link href="http://yanping.me/cn/"/>
-  <updated>2013-04-15T23:15:56+08:00</updated>
+  <updated>2013-05-16T03:36:08+08:00</updated>
   <id>http://yanping.me/cn/</id>
   <author>
     <name><![CDATA[ypchen]]></name>
@@ -186,6 +186,10 @@
 </pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="nx">$</span><span class="p">(</span><span class="nb">document</span><span class="p">).</span><span class="nx">ready</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
 </span><span class='line'>  <span class="kd">var</span> <span class="nx">post</span> <span class="o">=</span> <span class="p">{</span>
 </span><span class='line'>    <span class="s2">&quot;list&quot;</span><span class="o">:</span> <span class="p">[</span> <span class="p">{</span>
+</span><span class='line'>      <span class="s2">&quot;title&quot;</span><span class="o">:</span> <span class="s2">&quot;《R语言编程艺术》即将上市&quot;</span><span class="p">,</span>
+</span><span class='line'>      <span class="s2">&quot;url&quot;</span><span class="o">:</span> <span class="s2">&quot;http://yanping.me/cn/blog/2013/05/15/the-art-of-r-programming-published/&quot;</span><span class="p">,</span>
+</span><span class='line'>      <span class="s2">&quot;date&quot;</span><span class="o">:</span> <span class="s2">&quot;15 May 2013&quot;</span>
+</span><span class='line'>    <span class="p">}</span> <span class="p">,</span>  <span class="p">{</span>
 </span><span class='line'>      <span class="s2">&quot;title&quot;</span><span class="o">:</span> <span class="s2">&quot;用js在jekyll博客中实现标签云和标签页&quot;</span><span class="p">,</span>
 </span><span class='line'>      <span class="s2">&quot;url&quot;</span><span class="o">:</span> <span class="s2">&quot;http://yanping.me/cn/blog/2013/02/13/generate-tags-with-js-in-jekyll-blog/&quot;</span><span class="p">,</span>
 </span><span class='line'>      <span class="s2">&quot;date&quot;</span><span class="o">:</span> <span class="s2">&quot;13 Feb 2013&quot;</span>
@@ -201,10 +205,6 @@
 </span><span class='line'>      <span class="s2">&quot;title&quot;</span><span class="o">:</span> <span class="s2">&quot;用R获取郑州商品交易所历史数据&quot;</span><span class="p">,</span>
 </span><span class='line'>      <span class="s2">&quot;url&quot;</span><span class="o">:</span> <span class="s2">&quot;http://yanping.me/cn/blog/2013/02/09/get-zce-data/&quot;</span><span class="p">,</span>
 </span><span class='line'>      <span class="s2">&quot;date&quot;</span><span class="o">:</span> <span class="s2">&quot;09 Feb 2013&quot;</span>
-</span><span class='line'>    <span class="p">}</span> <span class="p">,</span>  <span class="p">{</span>
-</span><span class='line'>      <span class="s2">&quot;title&quot;</span><span class="o">:</span> <span class="s2">&quot;用R获取大连商品交易所历史数据&quot;</span><span class="p">,</span>
-</span><span class='line'>      <span class="s2">&quot;url&quot;</span><span class="o">:</span> <span class="s2">&quot;http://yanping.me/cn/blog/2012/12/09/get-dce-data/&quot;</span><span class="p">,</span>
-</span><span class='line'>      <span class="s2">&quot;date&quot;</span><span class="o">:</span> <span class="s2">&quot;09 Dec 2012&quot;</span>
 </span><span class='line'>    <span class="p">}</span>  <span class="p">]</span>
 </span><span class='line'>  <span class="p">};</span>
 </span><span class='line'>
@@ -404,6 +404,12 @@
 <span class='line-number'>32</span>
 </pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="p">[</span>
 </span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>        <span class="s2">&quot;title&quot;</span><span class="o">:</span><span class="s2">&quot;《R语言编程艺术》即将上市&quot;</span><span class="p">,</span>
+</span><span class='line'>        <span class="s2">&quot;url&quot;</span><span class="o">:</span><span class="s2">&quot;http://yanping.me/cn/blog/2013/05/15/the-art-of-r-programming-published/&quot;</span><span class="p">,</span>
+</span><span class='line'>        <span class="s2">&quot;date&quot;</span><span class="o">:</span><span class="s2">&quot;15 May 2013&quot;</span>
+</span><span class='line'>    <span class="p">},</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="p">{</span>
 </span><span class='line'>        <span class="s2">&quot;title&quot;</span><span class="o">:</span><span class="s2">&quot;用js在jekyll博客中实现标签云和标签页&quot;</span><span class="p">,</span>
 </span><span class='line'>        <span class="s2">&quot;url&quot;</span><span class="o">:</span><span class="s2">&quot;http://yanping.me/cn/blog/2013/02/13/generate-tags-with-js-in-jekyll-blog/&quot;</span><span class="p">,</span>
 </span><span class='line'>        <span class="s2">&quot;date&quot;</span><span class="o">:</span><span class="s2">&quot;13 Feb 2013&quot;</span>
@@ -425,12 +431,6 @@
 </span><span class='line'>        <span class="s2">&quot;title&quot;</span><span class="o">:</span><span class="s2">&quot;用R获取郑州商品交易所历史数据&quot;</span><span class="p">,</span>
 </span><span class='line'>        <span class="s2">&quot;url&quot;</span><span class="o">:</span><span class="s2">&quot;http://yanping.me/cn/blog/2013/02/09/get-zce-data/&quot;</span><span class="p">,</span>
 </span><span class='line'>        <span class="s2">&quot;date&quot;</span><span class="o">:</span><span class="s2">&quot;09 Feb 2013&quot;</span>
-</span><span class='line'>    <span class="p">},</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="p">{</span>
-</span><span class='line'>        <span class="s2">&quot;title&quot;</span><span class="o">:</span><span class="s2">&quot;用R获取大连商品交易所历史数据&quot;</span><span class="p">,</span>
-</span><span class='line'>        <span class="s2">&quot;url&quot;</span><span class="o">:</span><span class="s2">&quot;http://yanping.me/cn/blog/2012/12/09/get-dce-data/&quot;</span><span class="p">,</span>
-</span><span class='line'>        <span class="s2">&quot;date&quot;</span><span class="o">:</span><span class="s2">&quot;09 Dec 2012&quot;</span>
 </span><span class='line'>    <span class="p">}</span>
 </span><span class='line'>
 </span><span class='line'><span class="p">]</span>
