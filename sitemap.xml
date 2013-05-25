@@ -131,12 +131,16 @@
         <lastmod>2013-05-16T03:34:11+08:00</lastmod>
     </url>
     <url>
+        <loc>http://yanping.me/cn/blog/2013/05/25/software-engineers-guide-to-getting/</loc>
+        <lastmod>2013-05-25T12:54:40+08:00</lastmod>
+    </url>
+    <url>
         <loc>http://yanping.me/cn/recent.json</loc>
         <lastmod>2012-04-19T23:30:08+08:00</lastmod>
     </url>
     <url>
         <loc>http://yanping.me/cn/blog/categories/</loc>
-        <lastmod>2013-05-16T03:34:11+08:00</lastmod>
+        <lastmod>2013-05-25T12:54:40+08:00</lastmod>
     </url>
     <url>
         <loc>http://yanping.me/cn/blog/about/</loc>
@@ -144,11 +148,11 @@
     </url>
     <url>
         <loc>http://yanping.me/cn/blog/archives/</loc>
-        <lastmod>2013-05-16T03:34:11+08:00</lastmod>
+        <lastmod>2013-05-25T12:54:40+08:00</lastmod>
     </url>
     <url>
         <loc>http://yanping.me/cn/downloads/code/2011-12-15/</loc>
-        <lastmod>2013-05-16T03:34:11+08:00</lastmod>
+        <lastmod>2013-05-25T12:54:40+08:00</lastmod>
     </url>
     <url>
         <loc>http://yanping.me/cn/downloads/code/2011-12-15/portfolio_entry.html</loc>
@@ -156,7 +160,7 @@
     </url>
     <url>
         <loc>http://yanping.me/cn/</loc>
-        <lastmod>2013-05-16T03:34:11+08:00</lastmod>
+        <lastmod>2013-05-25T12:54:40+08:00</lastmod>
     </url>
     <url>
         <loc>http://yanping.me/cn/posts.js</loc>

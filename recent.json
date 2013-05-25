@@ -1,5 +1,11 @@
 [
     {
+        "title":"【译文】软件工程师如何修炼数据科学",
+        "url":"http://yanping.me/cn/blog/2013/05/25/software-engineers-guide-to-getting/",
+        "date":"25 May 2013"
+    },
+
+    {
         "title":"《R语言编程艺术》即将上市",
         "url":"http://yanping.me/cn/blog/2013/05/15/the-art-of-r-programming-published/",
         "date":"15 May 2013"
@@ -21,12 +27,6 @@
         "title":"R语言版的cntrade程序",
         "url":"http://yanping.me/cn/blog/2013/02/10/cntrade-r-version/",
         "date":"10 Feb 2013"
-    },
-
-    {
-        "title":"用R获取郑州商品交易所历史数据",
-        "url":"http://yanping.me/cn/blog/2013/02/09/get-zce-data/",
-        "date":"09 Feb 2013"
     }
 
 ]

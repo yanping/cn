@@ -4,7 +4,7 @@
   <title><![CDATA[分类： jekyll | 雁起平沙的网络日志]]></title>
   <link href="http://yanping.me/cn/blog/categories/jekyll/atom.xml" rel="self"/>
   <link href="http://yanping.me/cn/"/>
-  <updated>2013-05-16T03:36:08+08:00</updated>
+  <updated>2013-05-25T13:07:49+08:00</updated>
   <id>http://yanping.me/cn/</id>
   <author>
     <name><![CDATA[ypchen]]></name>
@@ -519,6 +519,10 @@ set LANG=en_US.UTF-8
 </pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="nx">$</span><span class="p">(</span><span class="nb">document</span><span class="p">).</span><span class="nx">ready</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
 </span><span class='line'>  <span class="kd">var</span> <span class="nx">post</span> <span class="o">=</span> <span class="p">{</span>
 </span><span class='line'>    <span class="s2">&quot;list&quot;</span><span class="o">:</span> <span class="p">[</span> <span class="p">{</span>
+</span><span class='line'>      <span class="s2">&quot;title&quot;</span><span class="o">:</span> <span class="s2">&quot;【译文】软件工程师如何修炼数据科学&quot;</span><span class="p">,</span>
+</span><span class='line'>      <span class="s2">&quot;url&quot;</span><span class="o">:</span> <span class="s2">&quot;http://yanping.me/cn/blog/2013/05/25/software-engineers-guide-to-getting/&quot;</span><span class="p">,</span>
+</span><span class='line'>      <span class="s2">&quot;date&quot;</span><span class="o">:</span> <span class="s2">&quot;25 May 2013&quot;</span>
+</span><span class='line'>    <span class="p">}</span> <span class="p">,</span>  <span class="p">{</span>
 </span><span class='line'>      <span class="s2">&quot;title&quot;</span><span class="o">:</span> <span class="s2">&quot;《R语言编程艺术》即将上市&quot;</span><span class="p">,</span>
 </span><span class='line'>      <span class="s2">&quot;url&quot;</span><span class="o">:</span> <span class="s2">&quot;http://yanping.me/cn/blog/2013/05/15/the-art-of-r-programming-published/&quot;</span><span class="p">,</span>
 </span><span class='line'>      <span class="s2">&quot;date&quot;</span><span class="o">:</span> <span class="s2">&quot;15 May 2013&quot;</span>
@@ -534,10 +538,6 @@ set LANG=en_US.UTF-8
 </span><span class='line'>      <span class="s2">&quot;title&quot;</span><span class="o">:</span> <span class="s2">&quot;R语言版的cntrade程序&quot;</span><span class="p">,</span>
 </span><span class='line'>      <span class="s2">&quot;url&quot;</span><span class="o">:</span> <span class="s2">&quot;http://yanping.me/cn/blog/2013/02/10/cntrade-r-version/&quot;</span><span class="p">,</span>
 </span><span class='line'>      <span class="s2">&quot;date&quot;</span><span class="o">:</span> <span class="s2">&quot;10 Feb 2013&quot;</span>
-</span><span class='line'>    <span class="p">}</span> <span class="p">,</span>  <span class="p">{</span>
-</span><span class='line'>      <span class="s2">&quot;title&quot;</span><span class="o">:</span> <span class="s2">&quot;用R获取郑州商品交易所历史数据&quot;</span><span class="p">,</span>
-</span><span class='line'>      <span class="s2">&quot;url&quot;</span><span class="o">:</span> <span class="s2">&quot;http://yanping.me/cn/blog/2013/02/09/get-zce-data/&quot;</span><span class="p">,</span>
-</span><span class='line'>      <span class="s2">&quot;date&quot;</span><span class="o">:</span> <span class="s2">&quot;09 Feb 2013&quot;</span>
 </span><span class='line'>    <span class="p">}</span>  <span class="p">]</span>
 </span><span class='line'>  <span class="p">};</span>
 </span><span class='line'>
@@ -737,6 +737,12 @@ set LANG=en_US.UTF-8
 <span class='line-number'>32</span>
 </pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="p">[</span>
 </span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>        <span class="s2">&quot;title&quot;</span><span class="o">:</span><span class="s2">&quot;【译文】软件工程师如何修炼数据科学&quot;</span><span class="p">,</span>
+</span><span class='line'>        <span class="s2">&quot;url&quot;</span><span class="o">:</span><span class="s2">&quot;http://yanping.me/cn/blog/2013/05/25/software-engineers-guide-to-getting/&quot;</span><span class="p">,</span>
+</span><span class='line'>        <span class="s2">&quot;date&quot;</span><span class="o">:</span><span class="s2">&quot;25 May 2013&quot;</span>
+</span><span class='line'>    <span class="p">},</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="p">{</span>
 </span><span class='line'>        <span class="s2">&quot;title&quot;</span><span class="o">:</span><span class="s2">&quot;《R语言编程艺术》即将上市&quot;</span><span class="p">,</span>
 </span><span class='line'>        <span class="s2">&quot;url&quot;</span><span class="o">:</span><span class="s2">&quot;http://yanping.me/cn/blog/2013/05/15/the-art-of-r-programming-published/&quot;</span><span class="p">,</span>
 </span><span class='line'>        <span class="s2">&quot;date&quot;</span><span class="o">:</span><span class="s2">&quot;15 May 2013&quot;</span>
@@ -758,12 +764,6 @@ set LANG=en_US.UTF-8
 </span><span class='line'>        <span class="s2">&quot;title&quot;</span><span class="o">:</span><span class="s2">&quot;R语言版的cntrade程序&quot;</span><span class="p">,</span>
 </span><span class='line'>        <span class="s2">&quot;url&quot;</span><span class="o">:</span><span class="s2">&quot;http://yanping.me/cn/blog/2013/02/10/cntrade-r-version/&quot;</span><span class="p">,</span>
 </span><span class='line'>        <span class="s2">&quot;date&quot;</span><span class="o">:</span><span class="s2">&quot;10 Feb 2013&quot;</span>
-</span><span class='line'>    <span class="p">},</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="p">{</span>
-</span><span class='line'>        <span class="s2">&quot;title&quot;</span><span class="o">:</span><span class="s2">&quot;用R获取郑州商品交易所历史数据&quot;</span><span class="p">,</span>
-</span><span class='line'>        <span class="s2">&quot;url&quot;</span><span class="o">:</span><span class="s2">&quot;http://yanping.me/cn/blog/2013/02/09/get-zce-data/&quot;</span><span class="p">,</span>
-</span><span class='line'>        <span class="s2">&quot;date&quot;</span><span class="o">:</span><span class="s2">&quot;09 Feb 2013&quot;</span>
 </span><span class='line'>    <span class="p">}</span>
 </span><span class='line'>
 </span><span class='line'><span class="p">]</span>
