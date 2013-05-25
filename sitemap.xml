@@ -54,11 +54,11 @@
     </url>
     <url>
         <loc>http://yanping.me/cn/blog/2012/02/07/comment-sidebar/</loc>
-        <lastmod>2012-04-19T21:37:02+08:00</lastmod>
+        <lastmod>2013-05-25T16:44:46+08:00</lastmod>
     </url>
     <url>
         <loc>http://yanping.me/cn/blog/2012/03/08/a-piece-of-javascript/</loc>
-        <lastmod>2012-04-19T21:37:02+08:00</lastmod>
+        <lastmod>2013-05-25T16:45:04+08:00</lastmod>
     </url>
     <url>
         <loc>http://yanping.me/cn/blog/2012/03/10/octopress-with-latex/</loc>
@@ -74,7 +74,7 @@
     </url>
     <url>
         <loc>http://yanping.me/cn/blog/2012/03/18/github-pages-step-by-step/</loc>
-        <lastmod>2012-10-21T06:31:36+08:00</lastmod>
+        <lastmod>2013-05-25T16:45:28+08:00</lastmod>
     </url>
     <url>
         <loc>http://yanping.me/cn/blog/2012/03/30/the-abcs-of-index-methodologies/</loc>
@@ -82,7 +82,7 @@
     </url>
     <url>
         <loc>http://yanping.me/cn/blog/2012/04/19/jekyll-with-json/</loc>
-        <lastmod>2013-02-22T00:43:53+08:00</lastmod>
+        <lastmod>2013-05-25T16:45:52+08:00</lastmod>
     </url>
     <url>
         <loc>http://yanping.me/cn/blog/2012/04/20/jekyll-with-js-and-json/</loc>
@@ -104,7 +104,7 @@
         <loc>
             http://yanping.me/cn/blog/2012/10/10/asynchronous-loading-post-list-with-jekyll-and-jQuery/
         </loc>
-        <lastmod>2013-02-22T00:33:07+08:00</lastmod>
+        <lastmod>2013-05-25T16:46:09+08:00</lastmod>
     </url>
     <url>
         <loc>http://yanping.me/cn/blog/2012/12/09/get-dce-data/</loc>
@@ -132,7 +132,7 @@
     </url>
     <url>
         <loc>http://yanping.me/cn/blog/2013/05/25/software-engineers-guide-to-getting/</loc>
-        <lastmod>2013-05-25T12:54:40+08:00</lastmod>
+        <lastmod>2013-05-25T13:13:30+08:00</lastmod>
     </url>
     <url>
         <loc>http://yanping.me/cn/recent.json</loc>
@@ -140,19 +140,19 @@
     </url>
     <url>
         <loc>http://yanping.me/cn/blog/categories/</loc>
-        <lastmod>2013-05-25T12:54:40+08:00</lastmod>
+        <lastmod>2013-05-25T16:46:09+08:00</lastmod>
     </url>
     <url>
         <loc>http://yanping.me/cn/blog/about/</loc>
-        <lastmod>2013-04-15T22:40:30+08:00</lastmod>
+        <lastmod>2013-05-25T16:43:10+08:00</lastmod>
     </url>
     <url>
         <loc>http://yanping.me/cn/blog/archives/</loc>
-        <lastmod>2013-05-25T12:54:40+08:00</lastmod>
+        <lastmod>2013-05-25T16:46:09+08:00</lastmod>
     </url>
     <url>
         <loc>http://yanping.me/cn/downloads/code/2011-12-15/</loc>
-        <lastmod>2013-05-25T12:54:40+08:00</lastmod>
+        <lastmod>2013-05-25T16:46:09+08:00</lastmod>
     </url>
     <url>
         <loc>http://yanping.me/cn/downloads/code/2011-12-15/portfolio_entry.html</loc>
@@ -160,7 +160,7 @@
     </url>
     <url>
         <loc>http://yanping.me/cn/</loc>
-        <lastmod>2013-05-25T12:54:40+08:00</lastmod>
+        <lastmod>2013-05-25T16:46:09+08:00</lastmod>
     </url>
     <url>
         <loc>http://yanping.me/cn/posts.js</loc>

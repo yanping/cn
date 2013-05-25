@@ -4,7 +4,7 @@
   <title><![CDATA[分类： 数据科学 | 雁起平沙的网络日志]]></title>
   <link href="http://yanping.me/cn/blog/categories/数据科学/atom.xml" rel="self"/>
   <link href="http://yanping.me/cn/"/>
-  <updated>2013-05-25T13:07:49+08:00</updated>
+  <updated>2013-05-25T16:46:28+08:00</updated>
   <id>http://yanping.me/cn/</id>
   <author>
     <name><![CDATA[ypchen]]></name>
@@ -33,7 +33,7 @@
 <p>入门很关键。两年前，我和几个同事组成了学习小组，一起学习<a href="http://stats202.com/" target="_blank">Stats 202</a>的课件。 这让我很兴趣，并且从那开始接触数据分析。 学习小组的5名成员中只有2名选择在这一领域研究的更深入（<a href="http://analytical-solution.com/2012/11/05/data-science-is-not-for-everyone/" target="_blank">数据科学并不适合所有人</a>）。<br /></p>
 <ul>
 <li><b>学习基础的统计学：</b><a href="http://stats202.com/" target="_blank">Stats 202</a>的课件非常适合入门</li>
-<li><b>学习统计工具：</b> 作为一只菜鸟，我花了3个月的时间潜心学习 <a href="http://cran.r-project.org/" target="_blank">R</a> ，并获得了不少乐趣 <a href="http://www.rcasts.com/2011/03/why-learn-r.html" target="_blank">为什么学R</a>？</li>
+<li><b>学习统计工具：</b> 作为一只菜鸟，我花了3个月的时间潜心学习。请看<a href="http://cran.r-project.org/" target="_blank">R</a> ，并获得了不少乐趣 <a href="http://www.rcasts.com/2011/03/why-learn-r.html" target="_blank">为什么学R</a>？</li>
 <li><b>解决问题：</b>好奇心是数据科学的关键。如果你对国家经济、犯罪率统计以及体育比赛结果有疑问，那就找找数据自己解答你的疑问吧。</li>
 <li><b>学习Unix工具：</b>我选择阅读 <a href="http://shop.oreilly.com/product/9780596802363.do" target="_blank">O'Reilly's Data Analysis with Open Source Tools (A hands-on guide for programmers and data scientists)</a></li>
 <li><b>学习SQL和脚本语言：</b> 我会Java, Ruby和SQL。Python is on my list.</li>
@@ -65,6 +65,8 @@
 <li>Statistical Methods in Finance STATS240P</li>
 <li><a href="http://www.stanford.edu/class/stats315b/" target="_blank">Modern Applied Statistics: Data Mining&nbsp;STATS315B</a></li>
 </ul>
+
+<!--more-->
 
 <h2>2. 专注</h2>
 

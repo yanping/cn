@@ -1,0 +1,695 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[分类： 网站设计 | 雁起平沙的网络日志]]></title>
+  <link href="http://yanping.me/cn/blog/categories/网站设计/atom.xml" rel="self"/>
+  <link href="http://yanping.me/cn/"/>
+  <updated>2013-05-25T16:46:28+08:00</updated>
+  <id>http://yanping.me/cn/</id>
+  <author>
+    <name><![CDATA[ypchen]]></name>
+    <email><![CDATA[chen@yanping.me]]></email>
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[用jekyll和jQuery实现异步加载文章列表]]></title>
+    <link href="http://yanping.me/cn/blog/2012/10/10/asynchronous-loading-post-list-with-jekyll-and-jQuery/"/>
+    <updated>2012-10-10T23:30:00+08:00</updated>
+    <id>http://yanping.me/cn/blog/2012/10/10/asynchronous-loading-post-list-with-jekyll-and-jQuery</id>
+    <content type="html"><![CDATA[<p class="info">本文主要讨论如何用基于jQuery的插件waypoint，实现异步加载jekyll模板生成的json文件，生成文章列表。</p>
+
+<p>我在<a href="http://art.yanping.me/archives/">另一个博客的文章列表</a>里使用了异步加载的技术，不过直接看页面的html源代码是看不出来的。编译之前的代码在<a href="https://github.com/yanping/art/blob/gh-pages/archives/index.html">这里</a>。</p>
+
+<p>首先，生成文章列表数据的json模板是：</p>
+
+<p>```
+—
+layout: nil
+—</p>
+
+<p>[
+{% for post in site.posts %}
+  {“title”:”{{post.title}}”, 
+  “url”:”{{site.url}}{{post.url}}”, 
+  “date”:”{{ post.date | date:’%Y-%m-%d’ }}”, 
+  “tags”:[{% for tag in post.tags %}”{{tag}}”{% if forloop.last == false %} ,{% endif %}{% endfor %}]}
+  {% if forloop.last == false %},{% endif %}{% endfor %}
+]
+```</p>
+
+<p>这在前面的<a href="http://chen.yanping.me/cn/blog/2012/04/19/jekyll-with-json/">文章</a>里提到过。</p>
+
+<p>头部YAML数据部分：</p>
+
+<h2 id="yaml">```yaml</h2>
+<p>layout: default
+title: 全部文章
+initItem: 50
+perPageItem: 100
+—
+```</p>
+
+<p><code>initItem</code>是初始加载时显示的文章主题数，<code>perPageItem</code>是每次页面下拉到底部时读取json数据并新生成的文章主题数。</p>
+
+<p>初始加载网页时，文章主题列表是静态的html，由jekyll生成：</p>
+
+<p><code>html
+&lt;ul class="posts"&gt;
+{% for post in site.posts limit:page.initItem %}
+  &lt;li class="listing-item"&gt;
+    &lt;time datetime="{{ post.date | date:"%Y-%m-%d" }}"&gt;{{ post.date | date:"%Y-%m-%d" }}&lt;/time&gt;
+    &lt;a href="{{site.baseurl}}{{ post.url }}" title="{{ post.title }}"&gt;{{ post.title }}&lt;/a&gt;
+  &lt;/li&gt;{% endfor %}
+&lt;/ul&gt;
+</code></p>
+
+<p>上面的<code>limit:page.initItem</code>限定了列表的项数不超过<code>initItem</code>。当向下拉页面，waypoint会捕捉到页面下拉到底部的事件，并调用<em>getJSON</em>方法来读取json数据，形成文章列表。</p>
+
+<!--more-->
+
+<p>```html
+{% if site.posts.size &gt; page.initItem %}
+<script src="http://yanping.me/cn/js/jquery-1.7.1.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="http://yanping.me/cn/js/waypoints.min.js" type="text/javascript"></script>
+<script type="text/javascript">
+  $(document).ready(function() {
+    // 关于waypoint，请看 http://imakewebthings.com/jquery-waypoints/
+    var $loading = $("&lt;div class='loading' style='text-align:center'&gt;<img src="http://yanping.me/cn/images/loading.gif" />&lt;/div&gt;"),
+    $footer = $('footer'),
+    opts = {
+      offset: '100%'
+    };</script></p>
+
+<pre><code>var count = {{ page.initItem }}; // 初始文章数
+var count_sup = 0; // 循环上界，初始为0
+$footer.waypoint(function(event, direction) {
+  $footer.waypoint('remove');
+  $('.posts').append($loading);
+  $.getJSON("../post.json", function(data) {
+    var content = "";
+    count_sup = count + {{ page.perPageItem }}; // 循环上界每次增加page.perPageItem项
+    var delta = 0; // 局部计数器
+    $.each(data, function(i, item) {
+      if (i &gt;= count &amp; i &lt; count_sup) {
+        content += "&lt;li class='listing-item'&gt;&lt;time datetime='" + item.date + "'&gt;" + item.date + "&lt;/time&gt;";
+        content += "&lt;a href='" + item.url + "' title='" + item.title + "'&gt;" + item.title + "&lt;/a&gt;&lt;/li&gt;";
+        delta++;
+      }
+    });
+    count += delta;
+    $('div.loading').remove();
+    $(".posts").append(content);
+    if (count &lt; data.length) $footer.waypoint(opts);
+  });
+}, opts);   }); &lt;/script&gt; {% endif %} ```
+</code></pre>
+
+<p>关于这段代码，要注意以下几点：</p>
+
+<ol>
+  <li>上面的代码一开始有个判断语句，当文章数不大于<code>initItem</code>时，后面的js代码不会进入最终生成的html中。</li>
+  <li>充分利用Liquid模板的特性，在js代码中，也引用了Liquid模板数据<code>{{ page.initItem }}</code>和<code>{{ page.perPageItem }}</code></li>
+  <li><code>.getJSON()</code>读取数据形成列表之后，语句</li>
+</ol>
+
+<p><code>
+ if (count &lt; data.length) $footer.waypoint(opts);
+</code></p>
+
+<p>是要判断已经加载的文章主题数是否到达总数，如果比总数小，就会在新的底部<code>$footer</code>上注册为<em>waypoint</em>，然后再向下拉页面，到达底部还会触发事件，然后接着读取数据，直到数据已经读取完毕。</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[用jekyll生成json]]></title>
+    <link href="http://yanping.me/cn/blog/2012/04/19/jekyll-with-json/"/>
+    <updated>2012-04-19T22:30:00+08:00</updated>
+    <id>http://yanping.me/cn/blog/2012/04/19/jekyll-with-json</id>
+    <content type="html"><![CDATA[<p class="info">本文主要讨论如何用jekyll模板生成json，并以此整合在github上托管的不同网站的数据。</p>
+
+<p>从去年年底接触github和jekyll到现在已经折腾五个月了，从最初用github托管纯静态网站，到现在依照别人的网站构架修改成自己喜欢的样子，这个过程也是个不断学习的过程。</p>
+
+<p>我在github上有三个网站，一个是<a href="http://yanping.me">主页</a>，一个<a href="http://yanping.me/cn">技术博客</a>，最后一个是<a href="http://art.yanping.me">文艺博客</a>。现在有个问题是，这三个网站对应的是github上三个不同的代码库，如果我要在<a href="http://yanping.me">主页</a>上列出另两个网站的文章列表，不能用jekyll提供的函数来做到，jekyll只能操作一个代码库的文本，不能跨代码库。我之前用的一个方法是用feedsky提供的发布脚本，效果请看<a href="http://inwake.com/ypchen/json-demo">http://inwake.com/ypchen/json-demo</a>。这样的缺点是很显然的，一是加载速度慢，二是我们没办法控制列表的格式和样式。有没有更直接的解决方法呢？</p>
+
+<!--more-->
+
+<p>我看到在很多jekyll的博客里，都能自动生成rss.xml和atom.xml，其实说白了，只要是本文文件，jekyll都能用模板操作。后来我听说了json，听说可以用jquery调用json，既然jekyll可以操作本文，那么可不可以用jekyll来生成我们规定格式的json文件呢？例如在<a href="http://yanping.me/cn">技术博客</a>和<a href="http://art.yanping.me">文艺博客</a>各生成一个包含文章信息的json文件，再用jquery或ajax来调用。这里面涉及到一个是否跨域的问题，一开始我只能确定<a href="http://yanping.me">主页</a>和<a href="http://yanping.me/cn">技术博客</a>是同域的，可我忘了<a href="http://art.yanping.me">文艺博客</a>的真正地址是<a href="http://yanping.github.com/art">http://yanping.github.com/art</a>，或者说是<a href="http://chen.yanping.me/art">http://chen.yanping.me/art</a>，<a href="http://art.yanping.me/">http://art.yanping.me/</a>只不过是我后来给它绑定的域名，还特定用了javascript来限定了只能用这个域名访问，因为用前两个地址访问都显示不正常（关于这点，请看<a href="http://chen.yanping.me/cn/blog/2012/02/06/github-pages-domain-3/">这里</a>）。所以说，只要是在同一个github账户下建立的网站，它们就是同域的。</p>
+
+<h2 id="json">生成json</h2>
+
+<p>例如我在网站代码库里建立这样的json文件模板：</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>recent.json  (recent.json)</span> <a href='/downloads/code/../../recent.json'>download</a></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="o">---</span>
+</span><span class='line'><span class="nx">layout</span><span class="o">:</span> <span class="nx">nil</span>
+</span><span class='line'><span class="o">---</span>
+</span><span class='line'>
+</span><span class='line'><span class="p">[{</span><span class="o">%</span> <span class="k">for</span> <span class="nx">post</span> <span class="k">in</span> <span class="nx">site</span><span class="p">.</span><span class="nx">posts</span> <span class="nx">limit</span><span class="o">:</span><span class="mi">5</span> <span class="o">%</span><span class="p">}</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>        <span class="s2">&quot;title&quot;</span><span class="o">:</span><span class="s2">&quot;{{post.title}}&quot;</span><span class="p">,</span>
+</span><span class='line'>        <span class="s2">&quot;url&quot;</span><span class="o">:</span><span class="s2">&quot;{{site.url}}{{post.url}}&quot;</span><span class="p">,</span>
+</span><span class='line'>        <span class="s2">&quot;date&quot;</span><span class="o">:</span><span class="s2">&quot;{{post.date|date_to_string}}&quot;</span>
+</span><span class='line'>    <span class="p">}{</span><span class="o">%</span> <span class="k">if</span> <span class="nx">forloop</span><span class="p">.</span><span class="nx">last</span> <span class="o">==</span> <span class="kc">false</span> <span class="o">%</span><span class="p">},{</span><span class="o">%</span> <span class="nx">endif</span> <span class="o">%</span><span class="p">}</span>
+</span><span class='line'><span class="p">{</span><span class="o">%</span> <span class="nx">endfor</span> <span class="o">%</span><span class="p">}</span>
+</span><span class='line'><span class="p">]</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>在使用原生的jekyll时没有问题，但是在使用octopress时就出现了<a href="http://ruby-taiwan.org/topics/230">问题</a>：octopress自动把英文的双引号"变成了<code>&amp;#8220;</code>和<code>&amp;#8221;</code>，经过浏览器的解释对应的是“和”。有人提出在双引号前加<code>\</code>，在网页里的确是显示的原来的引号，但是一看代码，还是字符引用。</p>
+
+<p>昨晚想了很久，网上找资料也没找到，没办法，只好去看octopress里的代码。我可是ruby小白啊，一点都不懂，连猜带蒙终于搞定了。其实最简单粗暴的办法就是把octopress目录下<code>/plugins/octopress_filters.rb</code>里的第19行行首加<code>#</code>注释掉：</p>
+
+<p><code>ruby
+	#		RubyPants.new(input).to_html
+</code></p>
+
+<p>RubyPants这个插件就是替换引号的元凶，你可以打开它卡看看里面的注释。</p>
+
+<p>经过上面的处理后，octopress也可以正常输出json文件了，请看</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>recent.json  (recent.json)</span> <a href='/downloads/code/../../../public/cn/recent.json'>download</a></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="p">[</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>        <span class="s2">&quot;title&quot;</span><span class="o">:</span><span class="s2">&quot;【译文】软件工程师如何修炼数据科学&quot;</span><span class="p">,</span>
+</span><span class='line'>        <span class="s2">&quot;url&quot;</span><span class="o">:</span><span class="s2">&quot;http://yanping.me/cn/blog/2013/05/25/software-engineers-guide-to-getting/&quot;</span><span class="p">,</span>
+</span><span class='line'>        <span class="s2">&quot;date&quot;</span><span class="o">:</span><span class="s2">&quot;25 May 2013&quot;</span>
+</span><span class='line'>    <span class="p">},</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>        <span class="s2">&quot;title&quot;</span><span class="o">:</span><span class="s2">&quot;《R语言编程艺术》即将上市&quot;</span><span class="p">,</span>
+</span><span class='line'>        <span class="s2">&quot;url&quot;</span><span class="o">:</span><span class="s2">&quot;http://yanping.me/cn/blog/2013/05/15/the-art-of-r-programming-published/&quot;</span><span class="p">,</span>
+</span><span class='line'>        <span class="s2">&quot;date&quot;</span><span class="o">:</span><span class="s2">&quot;15 May 2013&quot;</span>
+</span><span class='line'>    <span class="p">},</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>        <span class="s2">&quot;title&quot;</span><span class="o">:</span><span class="s2">&quot;用js在jekyll博客中实现标签云和标签页&quot;</span><span class="p">,</span>
+</span><span class='line'>        <span class="s2">&quot;url&quot;</span><span class="o">:</span><span class="s2">&quot;http://yanping.me/cn/blog/2013/02/13/generate-tags-with-js-in-jekyll-blog/&quot;</span><span class="p">,</span>
+</span><span class='line'>        <span class="s2">&quot;date&quot;</span><span class="o">:</span><span class="s2">&quot;13 Feb 2013&quot;</span>
+</span><span class='line'>    <span class="p">},</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>        <span class="s2">&quot;title&quot;</span><span class="o">:</span><span class="s2">&quot;用R获取flash中的数据&quot;</span><span class="p">,</span>
+</span><span class='line'>        <span class="s2">&quot;url&quot;</span><span class="o">:</span><span class="s2">&quot;http://yanping.me/cn/blog/2013/02/10/get-data-from-flash/&quot;</span><span class="p">,</span>
+</span><span class='line'>        <span class="s2">&quot;date&quot;</span><span class="o">:</span><span class="s2">&quot;10 Feb 2013&quot;</span>
+</span><span class='line'>    <span class="p">},</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>        <span class="s2">&quot;title&quot;</span><span class="o">:</span><span class="s2">&quot;R语言版的cntrade程序&quot;</span><span class="p">,</span>
+</span><span class='line'>        <span class="s2">&quot;url&quot;</span><span class="o">:</span><span class="s2">&quot;http://yanping.me/cn/blog/2013/02/10/cntrade-r-version/&quot;</span><span class="p">,</span>
+</span><span class='line'>        <span class="s2">&quot;date&quot;</span><span class="o">:</span><span class="s2">&quot;10 Feb 2013&quot;</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="p">]</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<h2 id="json-1">调用json</h2>
+
+<p>可以用ajax或jquery来调用json文件，后者更容易一些，这里给出一个例子，效果见我的<a href="http://yanping.me">主页</a></p>
+
+<p>```html
+&lt;div class="section" id="blog1-posts-list"&gt;
+  &lt;h1 id="id165"&gt;博客&lt;/h1&gt;</p>
+<p>
+    我现在主要更新的是托管在github上的
+    <a href="http://chen.yanping.me/cn" target="_blank">Octopress博客</a>
+    ，主要记录自己在学习过程中的心得体会。近期内容：
+  </p>
+<p>&lt;/div&gt;
+<script type="text/javascript">
+  $(document).ready(function() {
+    $.getJSON("/cn/recent.json",
+    function(data) {
+      var content = "&lt;ul class=\"compact recent\"&gt;";
+      $.each(data,
+      function(i, item) {</script></p>
+
+<pre><code>    content += "&lt;li&gt;&lt;span class=\"date\"&gt;" + item.date + "&lt;/span&gt;&lt;a href=\"" + item.url + "\"&gt;" + item.title + "&lt;/a&gt;&lt;/li&gt;";
+
+  });
+
+  content += "&lt;/ul&gt;";
+  $("#blog1-posts-list").append(content);
+});   }); &lt;/script&gt; ```
+</code></pre>
+
+<p>别忘了加载jquery脚本，在我主页里是这句：</p>
+
+<p><code>html
+&lt;script src="http://yanping.me/cn/files/js/jquery-1.7.1.min.js" type="text/javascript"&gt;&lt;/script&gt; 
+</code></p>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Github Pages极简教程]]></title>
+    <link href="http://yanping.me/cn/blog/2012/03/18/github-pages-step-by-step/"/>
+    <updated>2012-03-18T00:30:00+08:00</updated>
+    <id>http://yanping.me/cn/blog/2012/03/18/github-pages-step-by-step</id>
+    <content type="html"><![CDATA[<p>我写这篇文章的目的是帮助没有用过gihub和jekyll的童鞋尽快掌握使用流程。学习使用github网页的最好办法就是clone别人的代码，看懂他们的代码，并修改成自己喜欢的样子。这篇文章介绍了从最初安装软件到使用的过程。</p>
+
+<p>先假设读者对ruby完全没有了解，仅对html有初步的了解（<code>&lt;title&gt;</code>等标签知道是什么意思，如果懂点儿CSS更好）。基本的linux命令（<code>ls</code>、<code>cd</code>、<code>mkdir</code>、<code>rm</code>等，不会也没关系，就用到这几个命令，自己百度一下就好）。</p>
+
+<p>本文标题所说的“极简”是基于下面的原则：</p>
+
+<ul>
+  <li>安装尽量少的软件</li>
+  <li>使用尽量少的命令</li>
+  <li>接触尽量少的概念</li>
+</ul>
+
+<p>如果想了解用Github Pages写博客的理念，可以看这篇文章</p>
+
+<ul>
+  <li><a href="http://www.yangzhiping.com/tech/writing-space.html" target="_blank">《理想的写作环境：git+github+markdown+jekyll》</a></li>
+</ul>
+
+<!--more-->
+
+<p>下面开始一步步讲解Github Pages的使用流程：</p>
+
+<p id="git"><strong>一、</strong>如果想在本地预览页面，跳过这步到<a href="#ruby">二</a>；如果不想在本地预览，则在windows下安装<a href="http://code.google.com/p/msysgit/downloads/list" target="_blank">msysgit</a>，最新版本为Git-1.7.9-preview20120201.exe，然后按照<a href="http://beiyuu.com/github-pages/#github" target="_blank">BeiYuu的博文</a>里的过程配置git和github，再到<a href="#install-jekyll">四</a></p>
+
+<p>如果你的系统是linux的，按照<a href="http://help.github.com/linux-set-up-git/" target="_blank">Git Hub官方帮助文件</a>操作，然后跳到<a href="#install-jekyll">四</a>。</p>
+
+<blockquote>
+  <p>如果想深入了解Git，请看<a href="http://www.kuqin.com/managetool/20110705/92113.html" target="_blank">10篇写给Git初学者的最佳教程</a>。</p>
+</blockquote>
+
+<p id="ruby"><strong>二、在windows下安装ruby环境</strong>。推荐安装<a href="http://railsinstaller.org/" target="_blank">RailsInstaller</a>，里面包含了<a href="http://ruby-lang.org/" target="_blank">Ruby</a>、<a href="http://rubyonrails.org/" target="_blank">Rails</a>、<a href="http://gembundler.com/" target="_blank">Bundler</a>、<a href="http://git-scm.com/" target="_blank">Git</a>、<a href="http://sqlite.org/" target="_blank">Sqlite</a>、<a href="https://github.com/rails-sqlserver/tiny_tds" target="_blank">TinyTDS</a>、<a href="https://github.com/rails-sqlserver/activerecord-sqlserver-adapter" target="_blank">SQL Server support</a>和<a href="https://github.com/oneclick/rubyinstaller/wiki/Development-Kit" target="_blank">DevKit</a>。</p>
+
+<p>不过最近的RailsInstaller里包含的ruby版本升到了1.9.3，如果以后要使用<a href="http://www.octopress.org" target="_blank">Octopress</a>的话必须使用ruby1.9.2，建议使用以前的版本，我把以前的版本放到了<a href="http://inwake.com/ypchen/files/upload/railsinstaller-2.0.1.exe" target="_blank">这里</a>。</p>
+
+<p><strong id="git-hub">三、紧接着上一步，配置git和github</strong></p>
+
+<p>在RailsInstaller安装结束时安装程序会提示是否配置Git环境（这样的话给配置git和github带来极大的方便，又减少了几条命令）。选择”是”，然后出现下面的提示</p>
+
+<p><img src="http://i.imgur.com/321mb.png" alt="git config" class="center" /></p>
+
+<p>填写github注册时的用户名和邮箱，就完成了公钥和密钥的生成，在<code>C:\Documents and Settings\用户名</code>下，有个隐藏目录名为<code>.ssh</code>，id_rsa.pub文件就是公钥，id_rsa就是密钥。</p>
+
+<p>在Github网站找到 “Account Settings” &gt; Click “SSH Keys” &gt; Click “Add SSH key”</p>
+
+<p><img src="https://github-images.s3.amazonaws.com/help/userbar-account-settings.png" alt="set-up-SSH" class="center" /></p>
+
+<p>用文本编辑器打开id_rsa.pub文件，并把里面的内容（包括空格和新行）复制出来，填到Github的账户设置的SSH设置里。</p>
+
+<p><img src="https://github-images.s3.amazonaws.com/help/ssh-key-paste.png" alt="set-up-SSH-2" class="center" /></p>
+
+<p>在开始菜单里找到RailsInstaller –&gt; Git Bash，执行它，就打开了下面的命令窗口，以后的操作都是在这个窗口下进行的</p>
+
+<p><img src="http://i.imgur.com/jnO1n.png" alt="git-bash" class="center" /></p>
+
+<p><strong>注意</strong>: 在窗口里我们可以看到当前路径显示为<code>/c/Sites</code>，其实它表示的是<code>C:\Sites</code>，这个目录是RailsInstaller在安装的时候建的。</p>
+
+<p>用下面的命令测试一下git是否连接正常</p>
+
+<pre><code> ssh -T git@github.com
+</code></pre>
+
+<p>想了解普通配置方法的，可进一步阅读：</p>
+
+<ul>
+  <li>Github上的<a href="http://help.github.com/set-up-git-redirect" target="_blank">帮助</a></li>
+  <li><a href="http://beiyuu.com/github-pages/#github" target="_blank">BeiYuu的博文</a></li>
+  <li><a href="http://www.pizn.me/2011/10/02/start-github-on-window.html" target="_blank">window下建立github连接</a></li>
+</ul>
+
+<p id="install-jekyll"><strong>四、安装jekyll和相关的包</strong></p>
+
+<p>稍微对配置做一下修改，把淘宝的镜像加到gem的镜像列表里</p>
+
+<pre><code>gem sources --remove http://rubygems.org/
+gem sources -a http://ruby.taobao.org/
+</code></pre>
+
+<p>然后用<code>gem sources -l</code>看看现在源列表</p>
+
+<pre><code>*** CURRENT SOURCES ***
+
+http://ruby.taobao.org
+</code></pre>
+
+<p>如果是上面这样就可以安装jekyll了</p>
+
+<pre><code>gem install jekyll
+</code></pre>
+
+<p>Jekyll需要用到directory_watcher、liquid、open4、maruku和classifier这几个包，用上面的命令可以自动安装。Jekyll默认用maruku来解析markdown语言，你也可以用别的程序来解析，比如rdiscount或kramdown，都给装上吧：</p>
+
+<pre><code>gem install rdiscount kramdown
+</code></pre>
+
+<p>以上命令涉及到<code>gem install</code>的时候，如果你用的是linux系统，就要用<code>sudo gem install</code>代替。</p>
+
+<p id="gh-pages"><strong>五、建立github pages</strong>。</p>
+
+<p>这一步是本文的重点，也是本文异于网络上其他文章的地方，我在这里用到了Github提供的Github pages generator的功能，减少了使用的命令数量，也绕开了远程代码库这个概念（省略了与git remote相关的操作，不过随着github使用的加深，这些概念也是不能避免的）</p>
+
+<ul>
+  <li>在github.com上创建代码库，比如新建一个名为example的代码库：登录到自己的Github账户，选择New repository</li>
+</ul>
+
+<p><img src="http://i.imgur.com/V4fSb.png" alt="New repository" class="center" /></p>
+
+<p><img src="http://i.imgur.com/ZOCi9.png" alt="New repository" class="center" /></p>
+
+<p><img src="http://i.imgur.com/5waH7.png" alt="New repository" class="center" /></p>
+
+<ul>
+  <li>在线生成pages: 点上图中的Admin</li>
+</ul>
+
+<p><img src="http://i.imgur.com/CCND9.png" alt="features" /> </p>
+
+<p><img src="http://i.imgur.com/gi0Ii.png" alt="Automatic GH pages generator" class="center" /></p>
+
+<p>接下来的页面可以不用填，直接点Create Page，马上会转到一个404页面，不要慌，要过一会系统才会帮你把网页生成好。如下图：</p>
+
+<p><img src="http://i.imgur.com/CcGw5.png" alt="Automatic GH pages generator" class="center" /> </p>
+
+<ul>
+  <li>
+    <p>克隆自己的代码库</p>
+
+    <pre><code>  git clone git@github.com:yanping/example.git
+</code></pre>
+  </li>
+</ul>
+
+<p>这样git会把存放在github上的代码库文件下载到本地的，生成名为example的目录。删除该目录下的index.html，这是系统生成的，不是我想要的页面，注意不要把.git目录删除，这是个隐藏目录，里面包含这个代码库的配置信息，以上的步骤都是为了得到这些配置信息且避免了使用命令。</p>
+
+<p>要注意的几点</p>
+
+<blockquote>
+  <ul>
+    <li>我的github用户名为yanping，如果我建立名为yanping.github.com的代码库，必须在master分支下的才可以看到页面。在本例中我建的是普通的项目代码库，系统自动生成的github pages是在gh-pages这个分支下的。在以上的操作中，我并没有对分支进行任何操作，都是系统自动完成的。</li>
+    <li>创建个人主页面username.github.com的步骤请看<a href="http://www.worldhello.net/gotgithub/03-project-hosting/050-homepage.html#user-homepage" target="_blank">GotGithub教程</a></li>
+    <li>git@github.com:yanping/example.git 是example的路径，它的规则是 <strong>git@github.com:用户名/代码库名.git</strong></li>
+  </ul>
+</blockquote>
+
+<ul>
+  <li>
+    <p>克隆别人的代码库。在本地另一位置，克隆别人的代码库，比如</p>
+
+    <pre><code>  git clone git@github.com:mojombo/mojombo.github.com.git
+</code></pre>
+  </li>
+</ul>
+
+<p>删掉.git目录，然后把文件都复制到自己的本地代码库example下</p>
+
+<ul>
+  <li>
+    <p>删除_post下的文件（可保留一两篇作为模板），修改example里的文件，尤其是配置信息，比如_config.yml、disqus的配置，CNAME文件等，更进一步，按照自己的喜好修改网页的布局和样式，这些都可在后期慢慢摸索。然后执行下面的操作</p>
+
+    <ul>
+      <li><code>git add .</code>表示添加当前目录下的所有文件</li>
+      <li><code>git commit -am "message"</code> 表示提交所有更改，这是提交到本地，”message” 换成自己的注释信息</li>
+      <li><code>git push</code> 把在本地的更改提交到远程服务器</li>
+    </ul>
+  </li>
+</ul>
+
+<p>要写博客的时候，在_post里新建一个markdown文件，文件名和文件里面的头部信息（学名叫YAML front matter）按照模板的格式改，编辑好内容后，再依次执行上面三条命令。</p>
+
+<p>如果你不熟悉markdown语法，请看<a href="http://wowubuntu.com/markdown/" target="_blank">这里</a>。</p>
+
+<p>进一步阅读:</p>
+
+<ul>
+  <li>Github Pages的<a href="http://pages.github.com/" target="_blank">官方说明文件</a></li>
+  <li><a href="https://github.com/mojombo/jekyll/wiki/sites">jekyll主页上提供的示例网站</a>，可以clone他们的网站折腾一翻</li>
+  <li><a href="http://www.pizn.me/2011/09/22/create-github-page.html" target="_blank">在github上建立pages的过程</a></li>
+  <li>关于jekyll静态网站的介绍，请看我翻译的<a href="http://chen.yanping.me/cn/blog/2011/12/15/building-static-sites-with-jekyll/" target="_blank">文章</a></li>
+  <li><a href="http://www.soimort.org/tech-blog/2011/11/19/introduction-to-jekyll_zh.html" target="_blank">像黑客一样写博客——Jekyll入门</a></li>
+</ul>
+
+<p>其他技巧：</p>
+
+<ul>
+  <li><a href="http://www.pizn.me/2012/01/16/the-seo-for-jekyll-blog.html" target="_blank">优化Jekyll站点的SEO技巧</a></li>
+  <li><a href="http://www.pizn.me/2012/02/23/use-category-plugin-for-jekyll-blog.html" target="_blank">为Jekyll博客添加category 分类</a></li>
+  <li><a href="http://www.pizn.me/2012/03/01/some-tips-for-jekyll-blog.html" target="_blank">搭建Jekyll博客的一些小技巧</a></li>
+</ul>
+
+<p id="code"><strong>六、关于代码高亮</strong>（如果你不贴代码，请跳过这步）</p>
+
+<ul>
+  <li>用js插件：<a href="http://mihai.bazon.net/projects/javascript-syntax-highlighting-engine" target="_blank">DlHightLight</a>或<a href="http://code.google.com/p/google-code-prettify/" target="_blank">Google Code Prettify</a></li>
+  <li>用<a href="https://gist.github.com/" target="_blank">gist</a>：强烈推荐菜鸟使用，省心省事，支持语言多</li>
+  <li>用<a href="http://pygments.org" target="_blank">pygment</a>：要安装python以及python的包管理软件，又是个大坑，不建议菜鸟使用，尤其是使用windows的</li>
+</ul>
+
+<p id="latex"><strong>七、关于公式</strong>（如果你不贴公式，请跳过）</p>
+
+<ul>
+  <li>使用maruku来解析markdown文件，可以把LaTeX解析成图片，优点是网页加载速度快。但是在windows下安装复杂，且需要安装有LaTeX</li>
+  <li><a href="http://www.mathjax.org/" target="_blank">Mathjax</a>，请看我博文的<a href="http://chen.yanping.me/cn/blog/2012/03/10/octopress-with-latex/" target="_blank">介绍</a>，缺点是动态加载，速度慢。</li>
+</ul>
+
+<p id="comment"><strong>八、评论</strong></p>
+
+<p>国外的<a href="http://disqus.com" target="_blank">Disqus</a>和国内的<a href="http://uyan.cc/" target="_blank">友言</a></p>
+
+<p>其他社会化服务</p>
+
+<ul>
+  <li>分享：国内的<a href="http://jiathis.com" target="_blank">jiathis</a>和国外的<a href="http://addthis.com" target="_blank">addthis</a></li>
+  <li>图片：国内的<a href="http://www.yupoo.com/" target="_blank">yupoo</a> 、<a href="http://www.poco.cn/" target="_blank">poco</a>，国外的<a href="http://www.flickr.com/" target="_blank">Flickr</a>、<a href="http://imgur.com" target="_blank">imgur</a></li>
+</ul>
+
+<p id="domain"><strong>九、关于域名</strong></p>
+
+<p>在本地代码库里新建名为CNAME的文本文件，把域名地址放进去。假设你的域名是domain.com，可以用命令</p>
+
+<pre><code>echo 'domain.com' &gt; CNAME
+</code></pre>
+
+<p>然后</p>
+
+<pre><code>git add CNAME
+git commit -am "CNAME file added"
+git push
+</code></pre>
+
+<p>接着在自己的域名注册商那里改一下指向就行了。如果想对github域名绑定的机制有更多的了解，请看我的三篇博文:<a href="http://chen.yanping.me/cn/blog/2011/12/04/github-pages-domain/" target="_blank">文1</a>，<a href="http://chen.yanping.me/cn/blog/2011/12/26/github-pages-domain-2/" target="_blank">文2</a>和<a href="http://chen.yanping.me/cn/blog/2012/02/06/github-pages-domain-3/" target="_blank">文3</a></p>
+
+<p><strong>十、其他可供选择的模板</strong>，推荐两款比较好用的</p>
+
+<ul>
+  <li><a href="http://www.octopress.org">Octopress</a>：windows下的<a href="http://sinosmond.github.com/blog/2012/03/12/install-and-deploy-octopress-to-github-on-windows7-from-scratch/" target="_blank">教程1</a>、<a href="http://tonytonyjan.heroku.com/2012/03/01/install-octopress-on-windows/" target="_blank">教程2</a>，<a href="http://www.yangzhiping.com/tech/octopress.html" target="_blank">ubuntu下的教程</a></li>
+  <li><a href="http://jekyllbootstrap.com/" target="_blank">Jekyll Bootstrap</a></li>
+</ul>
+
+<p><strong>十一、常犯的错误</strong></p>
+
+<ul>
+  <li>明明要给是要做项目主页，却在master分支下上传页面。只有名为username.github.com的是个人主代码库，username是你的github用户名，向这个代码库推送的网页默认的是master分支，直接就可以浏览。其他代码库都是项目代码库</li>
+  <li>clone别人的代码库到本地后，没有把它的.git目录删除</li>
+  <li>没有把别人页面里的配置部分彻底改掉，比如disqus的配置，CNAME文件，<code>&lt;title&gt;</code>等</li>
+</ul>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[一段有用的javascript代码]]></title>
+    <link href="http://yanping.me/cn/blog/2012/03/08/a-piece-of-javascript/"/>
+    <updated>2012-03-08T14:30:00+08:00</updated>
+    <id>http://yanping.me/cn/blog/2012/03/08/a-piece-of-javascript</id>
+    <content type="html"><![CDATA[<p>有没有发现网速不给力的时候disqus评论框加载很慢？菜鸟安装不上pygments，要实现语法高亮肿么办？用markdown写的文章链接都是原页面打开的有木有啊？我在<a href="http://beiyuu.com" target="_blank">BeiYuu</a>的博客里发现了一段js代码，正好可以解决上面的三个问题。代码如下：</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='html'><span class='line'><span class="ni">&amp;lt;</span>div id=&quot;disqus_container&quot;<span class="ni">&amp;gt;</span>
+</span><span class='line'>    <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">&quot;#&quot;</span> <span class="na">class=</span><span class="s">&quot;comment&quot;</span> <span class="na">onclick=</span><span class="s">&quot;return false;&quot;</span><span class="nt">&gt;</span>点击查看评论<span class="nt">&lt;/a&gt;</span>
+</span><span class='line'>    <span class="ni">&amp;lt;</span>div id=&quot;disqus_thread&quot;<span class="ni">&amp;gt;&amp;lt;</span>/div<span class="ni">&amp;gt;</span>
+</span><span class='line'><span class="ni">&amp;lt;</span>/div<span class="ni">&amp;gt;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>上面这段html用来代替你原来的disqus评论框的代码，页面加载的时候只看到一个“点击查看评论”的链接。</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="o">&lt;</span><span class="nx">script</span> <span class="nx">type</span><span class="o">=</span><span class="s2">&quot;text/javascript&quot;</span><span class="o">&gt;</span>
+</span><span class='line'>    <span class="nx">BYB</span><span class="p">.</span><span class="nx">readyFunction</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(){</span>
+</span><span class='line'>        <span class="nx">$</span><span class="p">(</span><span class="nb">document</span><span class="p">).</span><span class="nx">ready</span><span class="p">(</span><span class="kd">function</span><span class="p">(){</span>
+</span><span class='line'>            <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;pre&#39;</span><span class="p">).</span><span class="nx">addClass</span><span class="p">(</span><span class="s1">&#39;prettyprint linenums&#39;</span><span class="p">)</span> <span class="c1">//添加Google code Hight需要的class&lt;/script&gt;&lt;/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nx">pre</span><span class="o">&gt;&lt;</span><span class="nx">code</span><span class="o">&gt;</span>		<span class="c1">// 加载评论框</span>
+</span><span class='line'>        <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#disqus_container .comment&#39;</span><span class="p">).</span><span class="nx">on</span><span class="p">(</span><span class="s1">&#39;click&#39;</span><span class="p">,</span><span class="kd">function</span><span class="p">(){</span>
+</span><span class='line'>            <span class="nx">$</span><span class="p">(</span><span class="k">this</span><span class="p">).</span><span class="nx">html</span><span class="p">(</span><span class="s1">&#39;加载中...&#39;</span><span class="p">);</span>
+</span><span class='line'>            <span class="kd">var</span> <span class="nx">disqus_shortname</span> <span class="o">=</span> <span class="s1">&#39;disqus_name&#39;</span><span class="p">;</span>   <span class="c1">// 注意把disqus_name修改成自己网站的disqus名</span>
+</span><span class='line'>            <span class="kd">var</span> <span class="nx">that</span> <span class="o">=</span> <span class="k">this</span><span class="p">;</span>
+</span><span class='line'>            <span class="nx">BYB</span><span class="p">.</span><span class="nx">includeScript</span><span class="p">(</span><span class="s1">&#39;http://&#39;</span> <span class="o">+</span> <span class="nx">disqus_shortname</span> <span class="o">+</span> <span class="s1">&#39;.disqus.com/embed.js&#39;</span><span class="p">,</span><span class="kd">function</span><span class="p">(){</span><span class="nx">$</span><span class="p">(</span><span class="nx">that</span><span class="p">).</span><span class="nx">remove</span><span class="p">()});</span>
+</span><span class='line'>        <span class="p">});</span>
+</span><span class='line'>
+</span><span class='line'>		<span class="c1">// 这段代码是用来提取文章中链接到其他网站的链接</span>
+</span><span class='line'>		<span class="c1">// 然后给这写链接加上外链的样式，并且修改为在新窗口打开(target=_blank)</span>
+</span><span class='line'>        <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;.entry a&#39;</span><span class="p">).</span><span class="nx">each</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">index</span><span class="p">,</span><span class="nx">element</span><span class="p">){</span>
+</span><span class='line'>            <span class="kd">var</span> <span class="nx">href</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="k">this</span><span class="p">).</span><span class="nx">attr</span><span class="p">(</span><span class="s1">&#39;href&#39;</span><span class="p">);</span>
+</span><span class='line'>            <span class="k">if</span><span class="p">(</span><span class="nx">href</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span><span class="s1">&#39;#&#39;</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">){</span>
+</span><span class='line'>            <span class="p">}</span><span class="k">else</span> <span class="k">if</span> <span class="p">(</span> <span class="nx">href</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span> <span class="o">||</span> <span class="nx">href</span><span class="p">.</span><span class="nx">toLowerCase</span><span class="p">().</span><span class="nx">indexOf</span><span class="p">(</span><span class="s1">&#39;beiyuu.com&#39;</span><span class="p">)</span><span class="o">&amp;</span><span class="nx">gt</span><span class="p">;</span><span class="o">-</span><span class="mi">1</span> <span class="p">){</span>
+</span><span class='line'>            <span class="p">}</span><span class="k">else</span><span class="p">{</span>
+</span><span class='line'>                <span class="nx">$</span><span class="p">(</span><span class="k">this</span><span class="p">).</span><span class="nx">attr</span><span class="p">(</span><span class="s1">&#39;target&#39;</span><span class="p">,</span><span class="s1">&#39;_blank&#39;</span><span class="p">);</span>
+</span><span class='line'>                <span class="nx">$</span><span class="p">(</span><span class="k">this</span><span class="p">).</span><span class="nx">addClass</span><span class="p">(</span><span class="s1">&#39;external&#39;</span><span class="p">);</span>
+</span><span class='line'>            <span class="p">}</span>
+</span><span class='line'>        <span class="p">});</span>
+</span><span class='line'>		
+</span><span class='line'>		<span class="c1">// 导入Prettify的javascript</span>
+</span><span class='line'>        <span class="nx">BYB</span><span class="p">.</span><span class="nx">includeScript</span><span class="p">(</span><span class="s1">&#39;/js/prettify/prettify.js&#39;</span><span class="p">,</span><span class="kd">function</span><span class="p">(){</span><span class="nx">prettyPrint</span><span class="p">()});</span>
+</span><span class='line'>    <span class="p">});</span>
+</span><span class='line'><span class="p">};</span> <span class="o">&amp;</span><span class="nx">lt</span><span class="p">;</span><span class="err">/script&amp;gt; </span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+</code></pre>
+
+<p>他是用Google Code Prettify来实现语法高亮，使用也比较方便，只需要在<code>&lt;pre&gt;</code>的标签上加入prettyprint即可。当初我在windows下安装pygments也是折腾了很久也没成功，如果你跟我一样是菜鸟，还是尽量别往这坑里跳了，用Prettify或者gist吧，没必要再去学怎么使用python。</p>
+
+<p>以上代码都是BeiYuu针对自己网站的样式写的，看官如果要用的话，请修改相应的样式名称。</p>
+
+<h3 id="section">参考资料</h3>
+<p>BeiYuu写的建github博客的教程 <a href="http://beiyuu.com/github-pages/">http://beiyuu.com/github-pages/</a></p>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[给博客侧边栏添加近期评论]]></title>
+    <link href="http://yanping.me/cn/blog/2012/02/07/comment-sidebar/"/>
+    <updated>2012-02-07T14:56:00+08:00</updated>
+    <id>http://yanping.me/cn/blog/2012/02/07/comment-sidebar</id>
+    <content type="html"><![CDATA[<p class="info">
+在我翻译的<a href="http://chen.yanping.me/cn/blog/2012/01/07/theming-and-customization/" target="_blank">为Octopress修改主题和自定义样式</a>一文后面，Eric Lau问我如何在博客侧边栏显示近期评论。本文就是针对这一问题的简短教程。
+</p>
+
+<h2 id="disquscom">第一步：在disqus.com获取代码</h2>
+<p>登录到disqus.com，选择评论所在的网站，进入Admin，选择Tools，在code中，是<strong>Extra Widgets</strong>的代码，提供了几种Widgets插件，分别是Combination（组合式）、Recent Comments（近期评论）、 Popular Threads（热门话题）、Top Commenters（最近评论人）。该工具可以根据用户设置的参数生成代码。</p>
+
+<p><img src="/images/blog/12-02-07/tools-setting.png"> </p>
+
+<!-- more -->
+
+<h2 id="octopress">第二步：把代码添加到octopress</h2>
+<p>按照<a href="http://chen.yanping.me/cn/blog/2012/01/07/theming-and-customization/" target="_blank">为Octopress修改主题和自定义样式</a>一文的描述，在sidebar里添加一个section，比如叫做recent_comments.html，代码如下：</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>recent_comments.html (../source/_includes/custom/asides/recent_comments.html) </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='html'><span class='line'><span class="nt">&lt;section</span> <span class="na">id=</span><span class="s">&quot;comment_sidebar&quot;</span><span class="nt">&gt;</span>
+</span><span class='line'><span class="nt">&lt;h1&gt;</span>近期评论<span class="nt">&lt;/h1&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="nt">&lt;script </span><span class="na">type=</span><span class="s">&quot;text/javascript&quot;</span> <span class="na">src=</span><span class="s">&quot;http://ypchencn.disqus.com/recent_comments_widget.js?num_items=5&amp;hide_avatars=0&amp;avatar_size=32&amp;excerpt_length=20&quot;</span><span class="nt">&gt;&lt;/script&gt;&lt;a</span> <span class="na">href=</span><span class="s">&quot;http://disqus.com/&quot;</span><span class="nt">&gt;</span>Powered by Disqus<span class="nt">&lt;/a&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="nt">&lt;/section&gt;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<h2 id="configyml">第三步：修改_config.yml</h2>
+<p>按照<a href="http://chen.yanping.me/cn/blog/2012/01/07/theming-and-customization/" target="_blank">为Octopress修改主题和自定义样式</a>一文的描述，修改_config.yml，以决定评论插件出现的位置。</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>Sidebar configuration (_config.yml) </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+</pre></td><td class='code'><pre><code class='yaml'><span class='line'><span class="c1"># list each of the sidebar modules you want to include, in the order you want them to appear.</span>
+</span><span class='line'><span class="c1"># To add custom asides, create files in /source/_includes/custom/asides/ and add them to the list like ‘custom/asides/custom_aside_name.html’</span>
+</span><span class='line'><span class="l-Scalar-Plain">default_asides</span><span class="p-Indicator">:</span>     <span class="p-Indicator">[</span><span class="nv">asides/recent_posts.html</span><span class="p-Indicator">,</span> <span class="nv">custom/asides/recent_comments.html</span><span class="p-Indicator">,</span> <span class="nv">custom/asides/blogroll.html</span><span class="p-Indicator">,</span><span class="nv">custom/asides/weibo.html</span><span class="p-Indicator">,</span> <span class="nv">custom/asides/copyleft.html</span><span class="p-Indicator">,</span><span class="nv">custom/asides/feed.html</span><span class="p-Indicator">]</span><span class="l-Scalar-Plain">&lt;/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="l-Scalar-Plain">&lt;h1 id=&quot;each-layout-uses-the-default-asides-but-they-can-have-their-own-asides-instead-simply-uncomment-the-lines-below&quot;&gt;Each layout uses the default asides, but they can have their own asides instead. Simply uncomment the lines below&lt;/h1&gt;</span>
+</span><span class='line'><span class="l-Scalar-Plain">&lt;p&gt;# and add an array with the asides you want to use.&lt;/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="l-Scalar-Plain">&lt;p&gt;blog_index_asides</span><span class="p-Indicator">:</span>  <span class="p-Indicator">[</span><span class="nv">custom/asides/about.html</span><span class="p-Indicator">,</span> <span class="nv">asides/recent_posts.html</span><span class="p-Indicator">,</span> <span class="nv">custom/asides/recent_comments.html</span><span class="p-Indicator">,</span> <span class="nv">custom/asides/blogroll.html</span><span class="p-Indicator">,</span> <span class="nv">custom/asides/weibo.html</span><span class="p-Indicator">,</span> <span class="nv">custom/asides/copyleft.html</span><span class="p-Indicator">,</span> <span class="nv">custom/asides/feed.html</span><span class="p-Indicator">]</span>
+</span><span class='line'><span class="l-Scalar-Plain">post_asides</span><span class="p-Indicator">:</span>        <span class="p-Indicator">[</span><span class="nv">asides/recent_posts.html</span><span class="p-Indicator">,</span> <span class="nv">custom/asides/recent_comments.html</span><span class="p-Indicator">,</span> <span class="nv">custom/asides/blogroll.html</span><span class="p-Indicator">,</span> <span class="nv">custom/asides/weibo.html</span><span class="p-Indicator">,</span> <span class="nv">custom/asides/copyleft.html</span><span class="p-Indicator">,</span> <span class="nv">custom/asides/feed.html</span><span class="p-Indicator">]</span>
+</span><span class='line'><span class="c1"># page_asides:</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+]]></content>
+  </entry>
+  
+</feed>
