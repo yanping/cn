@@ -4,7 +4,7 @@
   <title><![CDATA[分类： R语言 | 雁起平沙的网络日志]]></title>
   <link href="http://yanping.me/cn/blog/categories/r语言/atom.xml" rel="self"/>
   <link href="http://yanping.me/cn/"/>
-  <updated>2013-05-26T11:59:59+08:00</updated>
+  <updated>2013-05-26T13:21:37+08:00</updated>
   <id>http://yanping.me/cn/</id>
   <author>
     <name><![CDATA[ypchen]]></name>
@@ -18,7 +18,11 @@
     <link href="http://yanping.me/cn/blog/2013/05/15/the-art-of-r-programming-published/"/>
     <updated>2013-05-15T19:30:00+08:00</updated>
     <id>http://yanping.me/cn/blog/2013/05/15/the-art-of-r-programming-published</id>
-    <content type="html"><![CDATA[<p><img src="http://i.imgur.com/dzhMLFx.jpg" title="Hosted by imgur.com" style="float:right;margin:0 0 20px 30px" /></p>
+    <content type="html"><![CDATA[<p style="height:0">
+<a class="fancybox" style="text-decoration: none;" rel="gallery1" href="http://cos.name/wp-content/uploads/2013/05/art-of-r-big.jpg" title="The Art of R Programming">
+    <img src="http://i.imgur.com/dzhMLFx.jpg" title="Hosted by imgur.com" style="float:right;margin:0 0 10px 20px" />
+</a>
+</p>
 
 <p>经历千辛万苦之后，<em>The Art of R Programming</em>这本书终于被我们翻译成了《R语言编程艺术》。去年五月份机械工业出版社的<a href="http://weibo.com/maywuyi">吴怡</a>编辑与统计之都洽谈翻译本书，到现在已经整整一年了。这本书与其他R语言图书有很大的不同，它是由著名计算机科学家兼统计学家Norman Matloff撰写，从编程的角度来讲解R语言，并且深入浅出，非常适合入门，也可作为有R语言使用经验的人进阶。也正由于这本书的特别之处，使得翻译过程异常艰难，好在我们还有统计之都各位大佬的支持，很多把握不准的术语都是求助于他们，在此表示感谢。我在译者序中对本书做了详细介绍。</p>
 
@@ -35,6 +39,8 @@
   <li>第二，专注于R语言编程。作者没有把这本书定位为菜谱式的手册，也不像有些R语言图书那样介绍完统计学某方面应用之后简单地把R语言代码摆出来。翻开这本书的目录，你几乎看不到统计学的术语。本书系统介绍了R语言的各种数据结构和编程结构、面向对象编程方法、socket网络编程、并行计算、代码调试、程序性能提升以及R语言与其他语言的接口等主题。书中也提到了不少编程的小技巧，这都是作者多年编程经验的总结。</li>
   <li>第三，丰富的案例分析。作者Matloff教授是位计算机科学家，同时他也是位统计学家，有多年的教学经验，也做过统计学方法论的顾问。除了正文中的例子之外，本书还有44个扩展案例，很多案例源自作者亲身参与过的咨询项目。虽然本书没有讲解任何统计模型，但是扩展案例都是和数据分析相关的，比如鲍鱼数据的重编码（第二章）、寻找离群值（第三章）、文本词汇索引表（第四章）、汉语方言学习助手（第五章）等等。通过学习这些案例，读者不仅能学到R语言的每种概念如何运作，也会学到如何把这些概念组合到一起成为有用的程序。比如第十章介绍了socket网络编程之后，就用一个扩展案例讲解如何用socket实现并行计算，这为第十六章详细讲解并行计算做好了铺垫。在很多案例里，作者讨论了好几种设计方案，并比较了这几种方案的不同之处，以回答“为什么这样做？”，这对于缺少编程经验的人来说，是非常好的安排。</li>
 </ul>
+
+<!--more-->
 
 <p>本书第一章简要介绍了R语言的几种数据结构和编程基础，其余章节可分为三大部分。</p>
 

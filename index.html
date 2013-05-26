@@ -31,6 +31,10 @@
 
 <script src="/cn/javascripts/jquery-1.7.1.min.js" type="text/javascript"></script> 
 
+  <!-- Add fancyBox main JS and CSS files -->
+  <script type="text/javascript" src="/cn/assets/fancybox/jquery.fancybox.pack.js"></script>
+  <link rel="stylesheet" type="text/css" href="/cn/assets/fancybox/jquery.fancybox.css" media="screen" />
+
 	<!-- mathjax config similar to math.stackexchange -->
 
 <script type="text/x-mathjax-config">
@@ -94,7 +98,7 @@
   <li><a href="/cn/blog/archives">文章列表</a></li>
   <li><a href="/cn/blog/categories">分类目录</a></li>
   <li><a href="/cn/blog/categories/金融工程">金融工程</a></li>
-  <li><a href="/cn/blog/categories/r语言">R语言</a></li>
+  <li><a href="/cn/blog/r-lang">R语言</a></li>
   <li><a href="/cn/blog/categories/数据科学">数据科学</a></li>
   <li><a href="/cn/blog/categories/网站设计">网站设计</a></li>
   <li><a href="/cn/blog/about">关于本站</a></li>
@@ -225,7 +229,11 @@
   </header>
 
 
-  <div class="entry-content"><p><img src="http://i.imgur.com/dzhMLFx.jpg" title="Hosted by imgur.com" style="float:right;margin:0 0 20px 30px" /></p>
+  <div class="entry-content"><p style="height:0">
+<a class="fancybox" style="text-decoration: none;" rel="gallery1" href="http://cos.name/wp-content/uploads/2013/05/art-of-r-big.jpg" title="The Art of R Programming">
+    <img src="http://i.imgur.com/dzhMLFx.jpg" title="Hosted by imgur.com" style="float:right;margin:0 0 10px 20px" />
+</a>
+</p>
 
 <p>经历千辛万苦之后，<em>The Art of R Programming</em>这本书终于被我们翻译成了《R语言编程艺术》。去年五月份机械工业出版社的<a href="http://weibo.com/maywuyi">吴怡</a>编辑与统计之都洽谈翻译本书，到现在已经整整一年了。这本书与其他R语言图书有很大的不同，它是由著名计算机科学家兼统计学家Norman Matloff撰写，从编程的角度来讲解R语言，并且深入浅出，非常适合入门，也可作为有R语言使用经验的人进阶。也正由于这本书的特别之处，使得翻译过程异常艰难，好在我们还有统计之都各位大佬的支持，很多把握不准的术语都是求助于他们，在此表示感谢。我在译者序中对本书做了详细介绍。</p>
 
@@ -243,31 +251,12 @@
   <li>第三，丰富的案例分析。作者Matloff教授是位计算机科学家，同时他也是位统计学家，有多年的教学经验，也做过统计学方法论的顾问。除了正文中的例子之外，本书还有44个扩展案例，很多案例源自作者亲身参与过的咨询项目。虽然本书没有讲解任何统计模型，但是扩展案例都是和数据分析相关的，比如鲍鱼数据的重编码（第二章）、寻找离群值（第三章）、文本词汇索引表（第四章）、汉语方言学习助手（第五章）等等。通过学习这些案例，读者不仅能学到R语言的每种概念如何运作，也会学到如何把这些概念组合到一起成为有用的程序。比如第十章介绍了socket网络编程之后，就用一个扩展案例讲解如何用socket实现并行计算，这为第十六章详细讲解并行计算做好了铺垫。在很多案例里，作者讨论了好几种设计方案，并比较了这几种方案的不同之处，以回答“为什么这样做？”，这对于缺少编程经验的人来说，是非常好的安排。</li>
 </ul>
 
-<p>本书第一章简要介绍了R语言的几种数据结构和编程基础，其余章节可分为三大部分。</p>
-
-<ul>
-  <li>第一部分 （第二至六章）详细介绍R的几种主要的数据结构：向量、矩阵、列表、数据框和因子。对很多人来说，R复杂多变的数据结构真的是一只拦路虎。而本书从最简单的向量开始，一步一步引导读者认识并掌握各种数据结构。</li>
-  <li>第二部分（第七至十三章）涉及编程方面： 编程结构和面向对象特性、输入/输出、 字符串处理以及绘图。值得一提的是第十三章，这章主要讲解的是R语言的调试。很多朋友在实际工作中有这样的经历，你可能用了一个小时就写好代码，却用了一天的时间来调试。可是到目前为止还没有在其他图书上看到与R语言调试相关的内容，甚至也很少见到关于其他编程语言调试的图书。本书刚好填补了这方面的空白。如果读者仔细读完第十三章，并实践其中的调试技巧，一定能事半功倍，也就能少熬点儿夜，有延长寿命的功效。本书的作者同时也著有《调式的艺术》（The Art of Debugging），相信他在R语言调试方面的功力也是相当深厚的。</li>
-  <li>第三部分介绍的是更高级的内容，比如执行速度和性能的提升（第十四章）、R语言与C/C++或python混合编程（第十五章）以及R语言并行计算（第十六章） ，虽然最后一部分属于编程的高级内容，但如果读者从前往后一直学下来，随着能力的提高，也是可以读懂的。</li>
-</ul>
-
-<p>本人从2007年开始接触R语言，那时候市面上几乎没有R语言方面的书籍。当时我关于R语言的所有信息几乎都是来自统计之都（<a href="http://cos.name">http://cos.name</a>）和谢益辉的博客（<a href="http://yihui.name">http://yihui.name</a>）。2008年冬天，统计之都成功举办了“第一届中国R语言会议”，来自各地的R语言用户们齐聚一堂，交流心得。从那以后，每年的R语言会议都会在北京和上海举办。这几年来统计之都的队伍也逐渐壮大，比如本书的其他三位主要译者：邱怡轩、潘岚锋和熊熹，当年他们参加R语言会议的时候还是人大统计学院大一大二的学生，后来也成为R语言社区的领军人物。去年我们接到本书的翻译任务时，他们三人分别收到了普度大学、爱荷华州立大学以及明尼苏达大学的录取通知，现在已经在美国留学深造。希望有越来越多的人加入统计之都的大家庭，和大家一起成长，为中国统计事业的发展尽自己的一份力。</p>
-
-<p>在翻译过程中，几位译者力求忠实于原文，同时也兼顾中文表达的流畅，不过译文中仍可能有不当之处，欢迎读者予以指正。</p>
-
-<p>除了本人以及前面提到的三位译者之外，统计之都的三位老朋友林宇、严紫丹和程豪也参与了本书部分章节的校审和初稿翻译，在此表示感谢。全书译文最后由本人统稿，如有错误之处，均由本人承担。</p>
-
-<p>也感谢机械工业出版社的吴怡女士，她给予了我们细心帮助。</p>
-
-<p>读者可以在统计之都的图书出版栏目（网址是<a href="http://cos.name/books/">http://cos.name/books/</a>）查看本书的页面，您可以在这里下载本书的数据和代码，也可以留言提问。</p>
-
-<div style="width:300px;text-align:right;float:right">
-陈堰平<br />
-2013年3月于新华通讯社第三工作区
-</div>
-
 </div>
   
+  
+    <footer>
+      <a rel="full-article" href="/cn/blog/2013/05/15/the-art-of-r-programming-published/">阅读全文 &rarr;</a>
+    </footer>
   
 
 
@@ -953,8 +942,14 @@
   <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
 </p>
 
-
-
+<script type="text/javascript">
+$(document).ready(function() {
+  $(".fancybox").fancybox({
+    openEffect  : 'none',
+    closeEffect : 'none'
+  });
+});
+</script>
 </footer>
   
 

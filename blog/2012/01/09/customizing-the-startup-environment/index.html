@@ -32,6 +32,10 @@ R导论的10.8也是讲定制环境的。 程序员最喜欢做的事之一是�
 
 <script src="/cn/javascripts/jquery-1.7.1.min.js" type="text/javascript"></script> 
 
+  <!-- Add fancyBox main JS and CSS files -->
+  <script type="text/javascript" src="/cn/assets/fancybox/jquery.fancybox.pack.js"></script>
+  <link rel="stylesheet" type="text/css" href="/cn/assets/fancybox/jquery.fancybox.css" media="screen" />
+
 	<!-- mathjax config similar to math.stackexchange -->
 
 <script type="text/x-mathjax-config">
@@ -95,7 +99,7 @@ R导论的10.8也是讲定制环境的。 程序员最喜欢做的事之一是�
   <li><a href="/cn/blog/archives">文章列表</a></li>
   <li><a href="/cn/blog/categories">分类目录</a></li>
   <li><a href="/cn/blog/categories/金融工程">金融工程</a></li>
-  <li><a href="/cn/blog/categories/r语言">R语言</a></li>
+  <li><a href="/cn/blog/r-lang">R语言</a></li>
   <li><a href="/cn/blog/categories/数据科学">数据科学</a></li>
   <li><a href="/cn/blog/categories/网站设计">网站设计</a></li>
   <li><a href="/cn/blog/about">关于本站</a></li>
@@ -396,8 +400,14 @@ R导论的10.8也是讲定制环境的。
   <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
 </p>
 
-
-
+<script type="text/javascript">
+$(document).ready(function() {
+  $(".fancybox").fancybox({
+    openEffect  : 'none',
+    closeEffect : 'none'
+  });
+});
+</script>
 </footer>
   
 

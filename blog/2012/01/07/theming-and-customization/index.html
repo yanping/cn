@@ -32,6 +32,10 @@
 
 <script src="/cn/javascripts/jquery-1.7.1.min.js" type="text/javascript"></script> 
 
+  <!-- Add fancyBox main JS and CSS files -->
+  <script type="text/javascript" src="/cn/assets/fancybox/jquery.fancybox.pack.js"></script>
+  <link rel="stylesheet" type="text/css" href="/cn/assets/fancybox/jquery.fancybox.css" media="screen" />
+
 	<!-- mathjax config similar to math.stackexchange -->
 
 <script type="text/x-mathjax-config">
@@ -95,7 +99,7 @@
   <li><a href="/cn/blog/archives">文章列表</a></li>
   <li><a href="/cn/blog/categories">分类目录</a></li>
   <li><a href="/cn/blog/categories/金融工程">金融工程</a></li>
-  <li><a href="/cn/blog/categories/r语言">R语言</a></li>
+  <li><a href="/cn/blog/r-lang">R语言</a></li>
   <li><a href="/cn/blog/categories/数据科学">数据科学</a></li>
   <li><a href="/cn/blog/categories/网站设计">网站设计</a></li>
   <li><a href="/cn/blog/about">关于本站</a></li>
@@ -195,11 +199,19 @@
 <span class="line-number">5</span>
 <span class="line-number">6</span>
 <span class="line-number">7</span>
+<span class="line-number">8</span>
+<span class="line-number">9</span>
+<span class="line-number">10</span>
+<span class="line-number">11</span>
 </pre></td><td class="code"><pre><code class="html"><span class="line"><span class="c">&lt;!--Fonts from Google&quot;s Web font directory at http://google.com/webfonts --&gt;</span>
 </span><span class="line"><span class="nt">&lt;link</span> <span class="na">href=</span><span class="s">&quot;http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic&quot;</span> <span class="na">rel=</span><span class="s">&quot;stylesheet&quot;</span> <span class="na">type=</span><span class="s">&quot;text/css&quot;</span><span class="nt">&gt;</span>
 </span><span class="line"><span class="nt">&lt;link</span> <span class="na">href=</span><span class="s">&quot;http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic&quot;</span> <span class="na">rel=</span><span class="s">&quot;stylesheet&quot;</span> <span class="na">type=</span><span class="s">&quot;text/css&quot;</span><span class="nt">&gt;</span>
 </span><span class="line">
 </span><span class="line"><span class="nt">&lt;script </span><span class="na">src=</span><span class="s">&quot;/cn/javascripts/jquery-1.7.1.min.js&quot;</span> <span class="na">type=</span><span class="s">&quot;text/javascript&quot;</span><span class="nt">&gt;&lt;/script&gt;</span>
+</span><span class="line">
+</span><span class="line">  <span class="c">&lt;!-- Add fancyBox main JS and CSS files --&gt;</span>
+</span><span class="line">  <span class="nt">&lt;script </span><span class="na">type=</span><span class="s">&quot;text/javascript&quot;</span> <span class="na">src=</span><span class="s">&quot;/cn/assets/fancybox/jquery.fancybox.pack.js&quot;</span><span class="nt">&gt;&lt;/script&gt;</span>
+</span><span class="line">  <span class="nt">&lt;link</span> <span class="na">rel=</span><span class="s">&quot;stylesheet&quot;</span> <span class="na">type=</span><span class="s">&quot;text/css&quot;</span> <span class="na">href=</span><span class="s">&quot;/cn/assets/fancybox/jquery.fancybox.css&quot;</span> <span class="na">media=</span><span class="s">&quot;screen&quot;</span> <span class="nt">/&gt;</span>
 </span><span class="line">
 </span><span class="line">	{% include custom/mathjax_head.html %}
 </span></code></pre></td></tr></table></div></figure></notextile></div>
@@ -293,7 +305,7 @@
 </span><span class="line">  <span class="nt">&lt;li&gt;&lt;a</span> <span class="na">href=</span><span class="s">&quot;{{ root_url }}/blog/archives&quot;</span><span class="nt">&gt;</span>文章列表<span class="nt">&lt;/a&gt;&lt;/li&gt;</span>
 </span><span class="line">  <span class="nt">&lt;li&gt;&lt;a</span> <span class="na">href=</span><span class="s">&quot;{{ root_url }}/blog/categories&quot;</span><span class="nt">&gt;</span>分类目录<span class="nt">&lt;/a&gt;&lt;/li&gt;</span>
 </span><span class="line">  <span class="nt">&lt;li&gt;&lt;a</span> <span class="na">href=</span><span class="s">&quot;{{ root_url }}/blog/categories/金融工程&quot;</span><span class="nt">&gt;</span>金融工程<span class="nt">&lt;/a&gt;&lt;/li&gt;</span>
-</span><span class="line">  <span class="nt">&lt;li&gt;&lt;a</span> <span class="na">href=</span><span class="s">&quot;{{ root_url }}/blog/categories/r语言&quot;</span><span class="nt">&gt;</span>R语言<span class="nt">&lt;/a&gt;&lt;/li&gt;</span>
+</span><span class="line">  <span class="nt">&lt;li&gt;&lt;a</span> <span class="na">href=</span><span class="s">&quot;{{ root_url }}/blog/r-lang&quot;</span><span class="nt">&gt;</span>R语言<span class="nt">&lt;/a&gt;&lt;/li&gt;</span>
 </span><span class="line">  <span class="nt">&lt;li&gt;&lt;a</span> <span class="na">href=</span><span class="s">&quot;{{ root_url }}/blog/categories/数据科学&quot;</span><span class="nt">&gt;</span>数据科学<span class="nt">&lt;/a&gt;&lt;/li&gt;</span>
 </span><span class="line">  <span class="nt">&lt;li&gt;&lt;a</span> <span class="na">href=</span><span class="s">&quot;{{ root_url }}/blog/categories/网站设计&quot;</span><span class="nt">&gt;</span>网站设计<span class="nt">&lt;/a&gt;&lt;/li&gt;</span>
 </span><span class="line">  <span class="nt">&lt;li&gt;&lt;a</span> <span class="na">href=</span><span class="s">&quot;{{ root_url }}/blog/about&quot;</span><span class="nt">&gt;</span>关于本站<span class="nt">&lt;/a&gt;&lt;/li&gt;</span>
@@ -312,10 +324,28 @@
 <span class="line-number">2</span>
 <span class="line-number">3</span>
 <span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+<span class="line-number">7</span>
+<span class="line-number">8</span>
+<span class="line-number">9</span>
+<span class="line-number">10</span>
+<span class="line-number">11</span>
+<span class="line-number">12</span>
+<span class="line-number">13</span>
 </pre></td><td class="code"><pre><code class="html"><span class="line"><span class="nt">&lt;p&gt;</span>
 </span><span class="line">  Copyright <span class="ni">&amp;copy;</span> {{ site.time | date: &quot;%Y&quot; }} - {{ site.author }} -
 </span><span class="line">  <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;credit&quot;</span><span class="nt">&gt;</span>Powered by <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">&quot;http://octopress.org&quot;</span><span class="nt">&gt;</span>Octopress<span class="nt">&lt;/a&gt;&lt;/span&gt;</span>
 </span><span class="line"><span class="nt">&lt;/p&gt;</span>
+</span><span class="line">
+</span><span class="line"><span class="nt">&lt;script </span><span class="na">type=</span><span class="s">&quot;text/javascript&quot;</span><span class="nt">&gt;</span>
+</span><span class="line"><span class="nx">$</span><span class="p">(</span><span class="nb">document</span><span class="p">).</span><span class="nx">ready</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+</span><span class="line">  <span class="nx">$</span><span class="p">(</span><span class="s2">&quot;.fancybox&quot;</span><span class="p">).</span><span class="nx">fancybox</span><span class="p">({</span>
+</span><span class="line">    <span class="nx">openEffect</span>  <span class="o">:</span> <span class="s1">&#39;none&#39;</span><span class="p">,</span>
+</span><span class="line">    <span class="nx">closeEffect</span> <span class="o">:</span> <span class="s1">&#39;none&#39;</span>
+</span><span class="line">  <span class="p">});</span>
+</span><span class="line"><span class="p">});</span>
+</span><span class="line"><span class="nt">&lt;/script&gt;</span>
 </span></code></pre></td></tr></table></div></figure></notextile></div>
 
 <p>你可以做任意修改，只要够酷并保留Octopress的链接就可以。</p>
@@ -593,8 +623,14 @@ _layout.scss     # Override settings for base/_layout.scss to change the layout
   <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
 </p>
 
-
-
+<script type="text/javascript">
+$(document).ready(function() {
+  $(".fancybox").fancybox({
+    openEffect  : 'none',
+    closeEffect : 'none'
+  });
+});
+</script>
 </footer>
   
 
