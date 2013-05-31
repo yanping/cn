@@ -4,7 +4,7 @@
   <title><![CDATA[分类： octopress | 雁起平沙的网络日志]]></title>
   <link href="http://yanping.me/cn/blog/categories/octopress/atom.xml" rel="self"/>
   <link href="http://yanping.me/cn/"/>
-  <updated>2013-05-26T13:21:37+08:00</updated>
+  <updated>2013-06-01T01:35:10+08:00</updated>
   <id>http://yanping.me/cn/</id>
   <author>
     <name><![CDATA[ypchen]]></name>
@@ -761,7 +761,7 @@
 </span><span class='line'>
 </span><span class='line'><span class="cm">/* -----侧边栏样式----- */</span>
 </span><span class='line'>
-</span><span class='line'><span class="nn">#blogroll</span> <span class="nt">a</span><span class="p">{</span>
+</span><span class='line'><span class="nc">.blogroll</span> <span class="nt">a</span><span class="p">{</span>
 </span><span class='line'>    <span class="nt">text-decoration</span><span class="nd">:none</span><span class="o">;</span>
 </span><span class='line'>
 </span><span class='line'><span class="p">}</span>
