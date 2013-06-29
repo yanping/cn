@@ -1,5 +1,11 @@
 [
     {
+        "title":"【广告】上海R语言培训",
+        "url":"http://yanping.me/cn/blog/2013/06/30/xccds-r-training/",
+        "date":"30 Jun 2013"
+    },
+
+    {
         "title":"【译文】软件工程师如何修炼数据科学",
         "url":"http://yanping.me/cn/blog/2013/05/25/software-engineers-guide-to-getting/",
         "date":"25 May 2013"
@@ -20,12 +26,6 @@
     {
         "title":"用R获取flash中的数据",
         "url":"http://yanping.me/cn/blog/2013/02/10/get-data-from-flash/",
-        "date":"10 Feb 2013"
-    },
-
-    {
-        "title":"R语言版的cntrade程序",
-        "url":"http://yanping.me/cn/blog/2013/02/10/cntrade-r-version/",
         "date":"10 Feb 2013"
     }
 

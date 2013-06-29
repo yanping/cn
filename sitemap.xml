@@ -128,11 +128,15 @@
     </url>
     <url>
         <loc>http://yanping.me/cn/blog/2013/05/15/the-art-of-r-programming-published/</loc>
-        <lastmod>2013-05-26T12:51:16+08:00</lastmod>
+        <lastmod>2013-06-12T22:01:04+08:00</lastmod>
     </url>
     <url>
         <loc>http://yanping.me/cn/blog/2013/05/25/software-engineers-guide-to-getting/</loc>
         <lastmod>2013-05-26T11:58:19+08:00</lastmod>
+    </url>
+    <url>
+        <loc>http://yanping.me/cn/blog/2013/06/30/xccds-r-training/</loc>
+        <lastmod>2013-06-30T01:25:24+08:00</lastmod>
     </url>
     <url>
         <loc>http://yanping.me/cn/recent.json</loc>
@@ -140,7 +144,7 @@
     </url>
     <url>
         <loc>http://yanping.me/cn/blog/categories/</loc>
-        <lastmod>2013-05-26T12:51:16+08:00</lastmod>
+        <lastmod>2013-06-30T01:25:24+08:00</lastmod>
     </url>
     <url>
         <loc>http://yanping.me/cn/blog/about/</loc>
@@ -152,11 +156,15 @@
     </url>
     <url>
         <loc>http://yanping.me/cn/blog/archives/</loc>
-        <lastmod>2013-05-26T12:51:16+08:00</lastmod>
+        <lastmod>2013-06-30T01:25:24+08:00</lastmod>
+    </url>
+    <url>
+        <loc>http://yanping.me/cn/blog/contact/</loc>
+        <lastmod>2013-06-30T01:45:10+08:00</lastmod>
     </url>
     <url>
         <loc>http://yanping.me/cn/downloads/code/2011-12-15/</loc>
-        <lastmod>2013-05-26T12:51:16+08:00</lastmod>
+        <lastmod>2013-06-30T01:25:24+08:00</lastmod>
     </url>
     <url>
         <loc>http://yanping.me/cn/downloads/code/2011-12-15/portfolio_entry.html</loc>
@@ -164,7 +172,7 @@
     </url>
     <url>
         <loc>http://yanping.me/cn/</loc>
-        <lastmod>2013-05-26T12:51:16+08:00</lastmod>
+        <lastmod>2013-06-30T01:25:24+08:00</lastmod>
     </url>
     <url>
         <loc>http://yanping.me/cn/posts.js</loc>

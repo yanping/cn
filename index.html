@@ -9,7 +9,7 @@
   <meta name="author" content="ypchen">
 
   
-  <meta name="description" content="写这篇文章的是位软件工程师，本文是他的数据科学修炼历程，原文在这里 很多软件攻城狮朋友问我如何学习数据科学。其实已经有不少有名的数据科学家写过这方面的文章，比如Dataspora, Gigaom， Quora和Hilary Mason。 本文讲述的是我作为一名软件工程师学习统计和数据可视化的历程 &hellip;">
+  <meta name="description" content="我的朋友肖凯老师最近要在上海开R语言的培训班。他是资深R语言用户，“数据科学与R语言”博客博主，第五届R语言大会演讲嘉宾，上市公司（万达信息股份有限公司）数据分析部数据分析师。R语言领域的实战专家。 感兴趣的话请填报名表获取详细信息 ">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -87,12 +87,7 @@
   <li><a href="/cn/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
   
 </ul>
-<form action="http://google.com/search" method="get">
-  <fieldset role="search">
-    <input type="hidden" name="q" value="site:yanping.me/cn" />
-    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
-  </fieldset>
-</form>
+
 <ul class="main-navigation">
   <li><a href="/cn/">博客主页</a></li>
   <li><a href="/cn/blog/archives">文章列表</a></li>
@@ -102,6 +97,7 @@
   <li><a href="/cn/blog/categories/数据科学">数据科学</a></li>
   <li><a href="/cn/blog/categories/网站设计">网站设计</a></li>
   <li><a href="/cn/blog/about">关于本站</a></li>
+  <li><a href="/cn/blog/contact">商业合作</a></li>
 </ul>
 
 </nav>
@@ -109,6 +105,49 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/cn/blog/2013/06/30/xccds-r-training/">【广告】上海R语言培训</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-06-30T19:30:00+08:00" pubdate data-updated="true">Jun 30<span>th</span>, 2013</time>
+        
+         | <a href="/cn/blog/2013/06/30/xccds-r-training/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>我的朋友<a href="http://www.weibo.com/u/1400524015">肖凯老师</a>最近要在上海开R语言的培训班。他是资深R语言用户，“<a href="http://xccds.github.io">数据科学与R语言</a>”博客博主，第五届R语言大会演讲嘉宾，上市公司（万达信息股份有限公司）数据分析部数据分析师。R语言领域的实战专家。</p>
+
+<p>感兴趣的话请填报名表获取详细信息</p>
+
+<iframe width="800" height="1300" frameborder="no" scrolling="auto" hspace="0" vspace="0" marginwidth="0" marginheight="0" src="http://www.diaochapai.com/survey/8aa51ecd-769e-4c7b-b293-7c2d9ab70752?iframe" id="8aa51ecd-769e-4c7b-b293-7c2d9ab70752"></iframe>
+
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -231,7 +270,7 @@
 
   <div class="entry-content"><p style="height:0">
 <a class="fancybox" style="text-decoration: none;" rel="gallery1" href="http://cos.name/wp-content/uploads/2013/05/art-of-r-big.jpg" title="The Art of R Programming">
-    <img src="http://i.imgur.com/dzhMLFx.jpg" title="Hosted by imgur.com" style="float:right;margin:0 0 10px 20px" />
+    <img src="http://cos.name/wp-content/uploads/2013/05/art-of-r-235x300.jpg" title="Hosted by imgur.com" style="float:right;margin:0 0 10px 20px" />
 </a>
 </p>
 
@@ -778,57 +817,6 @@
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/cn/blog/2012/12/09/get-dce-data/">用R获取大连商品交易所历史数据</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2012-12-09T20:00:00+08:00" pubdate data-updated="true">Dec 9<span>th</span>, 2012</time>
-        
-         | <a href="/cn/blog/2012/12/09/get-dce-data/#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p class="info">本文主要讨论如何用R语言从大连商品交易所网站上获取期货合约交易数据</p>
-
-<p>大商所的网站上有提供查询历史的<a href="http://www.dce.com.cn/portal/cate?cid=1261730308135">页面</a>。但是它只能对某一个品种查询某一天的报价，或者某一天所有品种的报价，如果我想批量获取交易数据，应该怎么做呢？</p>
-
-<p>首先剖析一下这个页面，用firefox的firebug查看日行情表的代码</p>
-
-<p><img src="http://i.imgur.com/PFZ4f1k.png" alt="日行情表" /></p>
-
-<p>可以看到，这个表实际上是用iframe实现的，查看页面的源文件可以查出这个iframe引用页面地址为<a href="http://www.dce.com.cn/PublicWeb/MainServlet?action=Data_service">http://www.dce.com.cn/PublicWeb/MainServlet?action=Data_service</a>。用上面的方法继续剖析这个页面，发现它引用了<a href="http://www.dce.com.cn/PublicWeb/MainServlet?action=Pu00011_search">http://www.dce.com.cn/PublicWeb/MainServlet?action=Pu00011_search</a>。</p>
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/cn/blog/2012/12/09/get-dce-data/">阅读全文 &rarr;</a>
-    </footer>
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/cn/blog/page/2/">&larr; 前一页</a>
@@ -840,6 +828,13 @@
 <aside class="sidebar">
   
     <section>
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:yanping.me/cn" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+</section><section>
   	<h1>关于本人</h1>
  <p align="center"><img src="http://art.yanping.me/images/avatar.jpg" /></p>
 
@@ -854,12 +849,16 @@
 
 <section id="categories_tag">
 <h1>分类目录</h1>
-<span class='categories_tag'> <a href='/cn/blog/categories/github' style='font-size: 142.0%'>Github(7)</a>  <a href='/cn/blog/categories/javascript' style='font-size: 130.0%'>Javascript(5)</a>  <a href='/cn/blog/categories/jekyll' style='font-size: 160.0%'>Jekyll(10)</a>  <a href='/cn/blog/categories/latex' style='font-size: 106.0%'>Latex(1)</a>  <a href='/cn/blog/categories/markdown' style='font-size: 106.0%'>Markdown(1)</a>  <a href='/cn/blog/categories/octopress' style='font-size: 148.0%'>Octopress(8)</a>  <a href='/cn/blog/categories/r语言' style='font-size: 160.0%'>R语言(10)</a>  <a href='/cn/blog/categories/指数' style='font-size: 106.0%'>指数(1)</a>  <a href='/cn/blog/categories/数据科学' style='font-size: 106.0%'>数据科学(1)</a>  <a href='/cn/blog/categories/网站设计' style='font-size: 130.0%'>网站设计(5)</a>  <a href='/cn/blog/categories/金融工程' style='font-size: 130.0%'>金融工程(5)</a> </span>
+<span class='categories_tag'> <a href='/cn/blog/categories/github' style='font-size: 138.1818181818182%'>Github(7)</a>  <a href='/cn/blog/categories/javascript' style='font-size: 127.27272727272728%'>Javascript(5)</a>  <a href='/cn/blog/categories/jekyll' style='font-size: 154.54545454545456%'>Jekyll(10)</a>  <a href='/cn/blog/categories/latex' style='font-size: 105.45454545454545%'>Latex(1)</a>  <a href='/cn/blog/categories/markdown' style='font-size: 105.45454545454545%'>Markdown(1)</a>  <a href='/cn/blog/categories/octopress' style='font-size: 143.63636363636363%'>Octopress(8)</a>  <a href='/cn/blog/categories/r语言' style='font-size: 160.0%'>R语言(11)</a>  <a href='/cn/blog/categories/指数' style='font-size: 105.45454545454545%'>指数(1)</a>  <a href='/cn/blog/categories/数据科学' style='font-size: 105.45454545454545%'>数据科学(1)</a>  <a href='/cn/blog/categories/网站设计' style='font-size: 127.27272727272728%'>网站设计(5)</a>  <a href='/cn/blog/categories/金融工程' style='font-size: 127.27272727272728%'>金融工程(5)</a> </span>
 </section>
 
 <section>
   <h1>近期文章</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/cn/blog/2013/06/30/xccds-r-training/" title="【广告】上海R语言培训">【广告】上海R语言培训</a>
+      </li>
     
       <li class="post">
         <a href="/cn/blog/2013/05/25/software-engineers-guide-to-getting/" title="【译文】软件工程师如何修炼数据科学">【译文】软件工程师如何修炼数据科学</a>
@@ -883,10 +882,6 @@
     
       <li class="post">
         <a href="/cn/blog/2013/02/09/get-zce-data/" title="用R获取郑州商品交易所历史数据">用R获取郑州商品交易所历史数据</a>
-      </li>
-    
-      <li class="post">
-        <a href="/cn/blog/2012/12/09/get-dce-data/" title="用R获取大连商品交易所历史数据">用R获取大连商品交易所历史数据</a>
       </li>
     
   </ul>
