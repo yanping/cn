@@ -4,7 +4,7 @@
   <title><![CDATA[分类： R语言 | 雁起平沙的网络日志]]></title>
   <link href="http://yanping.me/cn/blog/categories/r语言/atom.xml" rel="self"/>
   <link href="http://yanping.me/cn/"/>
-  <updated>2013-06-30T01:46:04+08:00</updated>
+  <updated>2013-07-19T15:15:04+08:00</updated>
   <id>http://yanping.me/cn/</id>
   <author>
     <name><![CDATA[ypchen]]></name>
@@ -14,16 +14,17 @@
 
   
   <entry>
-    <title type="html"><![CDATA[【广告】上海R语言培训]]></title>
+    <title type="html"><![CDATA[【广告】上海北京两地的R语言培训]]></title>
     <link href="http://yanping.me/cn/blog/2013/06/30/xccds-r-training/"/>
     <updated>2013-06-30T19:30:00+08:00</updated>
     <id>http://yanping.me/cn/blog/2013/06/30/xccds-r-training</id>
-    <content type="html"><![CDATA[<p>我的朋友<a href="http://www.weibo.com/u/1400524015">肖凯老师</a>最近要在上海开R语言的培训班。他是资深R语言用户，“<a href="http://xccds.github.io">数据科学与R语言</a>”博客博主，第五届R语言大会演讲嘉宾，上市公司（万达信息股份有限公司）数据分析部数据分析师。R语言领域的实战专家。</p>
+    <content type="html"><![CDATA[<p>最近北京和上海有两个R语言培训。</p>
 
-<p>感兴趣的话请填报名表获取详细信息</p>
+<p>我的朋友<a href="http://www.weibo.com/u/1400524015">肖凯老师</a>最近要在上海开R语言的培训班。他是资深R语言用户，“<a href="http://xccds.github.io">数据科学与R语言</a>”博客博主，第五届R语言大会演讲嘉宾，上市公司（万达信息股份有限公司）数据分析部数据分析师。R语言领域的实战专家。</p>
 
-<iframe width="800" height="1300" frameborder="no" scrolling="auto" hspace="0" vspace="0" marginwidth="0" marginheight="0" src="http://www.diaochapai.com/survey/8aa51ecd-769e-4c7b-b293-7c2d9ab70752?iframe" id="8aa51ecd-769e-4c7b-b293-7c2d9ab70752"></iframe>
+<p>想要了解详情的请看<a href="http://ww3.sinaimg.cn/large/644c05aejw1e6iz4iuympj20c822qk13.jpg">这里</a>。</p>
 
+<p>另一个培训是SupStat推出的RHadoop的培训，想要玩大数据的童鞋可以了解一下，请看<a href="http://bbs.it-home.org/forum.php?mod=viewthread&amp;tid=1876&amp;page=1&amp;extra=#pid5270">介绍</a>，SupStat的其他培训信息请看<a href="http://ypchen.inwake.com/files/upload/supstat-courses.pdf">这里</a>。</p>
 ]]></content>
   </entry>
   

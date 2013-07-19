@@ -1,7 +1,7 @@
 $(document).ready(function() {
   var post = {
     "list": [ {
-      "title": "【广告】上海R语言培训",
+      "title": "【广告】上海北京两地的R语言培训",
       "url": "http://yanping.me/cn/blog/2013/06/30/xccds-r-training/",
       "date": "30 Jun 2013"
     } ,  {
