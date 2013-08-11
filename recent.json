@@ -1,5 +1,11 @@
 [
     {
+        "title":"Github Pages 视频教程（1）",
+        "url":"http://yanping.me/cn/blog/2013/08/11/github-pages-step-by-step-video/",
+        "date":"11 Aug 2013"
+    },
+
+    {
         "title":"【广告】上海北京两地的R语言培训",
         "url":"http://yanping.me/cn/blog/2013/06/30/xccds-r-training/",
         "date":"30 Jun 2013"
@@ -21,12 +27,6 @@
         "title":"用js在jekyll博客中实现标签云和标签页",
         "url":"http://yanping.me/cn/blog/2013/02/13/generate-tags-with-js-in-jekyll-blog/",
         "date":"13 Feb 2013"
-    },
-
-    {
-        "title":"用R获取flash中的数据",
-        "url":"http://yanping.me/cn/blog/2013/02/10/get-data-from-flash/",
-        "date":"10 Feb 2013"
     }
 
 ]

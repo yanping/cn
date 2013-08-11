@@ -5,12 +5,12 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>在Windows下使用jekyll如何避免出现中文字符集错误 - 雁起平沙的网络日志</title>
+  <title>Github Pages 视频教程（1） - 雁起平沙的网络日志</title>
   <meta name="author" content="ypchen">
 
   
-  <meta name="description" content="在windows下使用jekyll时经常会遇到字符集错误，本文重点讲解解决办法。">
-  <meta name="keywords" content="jekyll, notepad++, 字符集">
+  <meta name="description" content="本文是github pages 极简教程的视频">
+  <meta name="keywords" content="github pagesjekyll视频">
 
   <!-- http://t.co/dKP3o1e -->
   <meta name="HandheldFriendly" content="True">
@@ -18,7 +18,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://yanping.me/cn/blog/2012/10/09/chinese-charset-problems-with-jekyll">
+  <link rel="canonical" href="http://yanping.me/cn/blog/2013/08/11/github-pages-step-by-step-video">
   <link href="/cn/favicon.png" rel="icon">
   <link href="/cn/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <script src="/cn/javascripts/modernizr-2.0.js"></script>
@@ -108,7 +108,7 @@
   
   <header>
     
-      <h1 class="entry-title">在Windows下使用jekyll如何避免出现中文字符集错误</h1>
+      <h1 class="entry-title">Github Pages 视频教程（1）</h1>
     
     
       <p class="meta">
@@ -124,7 +124,7 @@
   
 
 
-<time datetime="2012-10-09T21:30:00+08:00" pubdate data-updated="true">Oct 9<span>th</span>, 2012</time>
+<time datetime="2013-08-11T10:30:00+08:00" pubdate data-updated="true">Aug 11<span>th</span>, 2013</time>
         
          | <a href="#disqus_thread">Comments</a>
         
@@ -133,56 +133,24 @@
   </header>
 
 
-<div class="entry-content"><p class="info">在windows下使用jekyll时经常会遇到字符集错误，比如遇到提示<span style="font-family: Menlo,Monaco,'Andale Mono','lucida console','Courier New',monospace;">Liquid error: incompatible character encodings: UTF-8 and GBK</span>。本文将介绍几种解决方案。</p>
+<div class="entry-content"><p class="info">去年我写了一篇<a href="http://yanping.me/cn/blog/2012/03/18/github-pages-step-by-step/">《Github Pages极简教程》</a>，一年过去了，很多童鞋反映说在实际操作中遇到了这样那样的问题，而且github页面也改版了，jekyll也升级了，情况和当初有所不同。所以我就录了这个系列的视频，希望能对大家有所帮助。</p>
 
-<p>1. <strong>修改bash的字符集：</strong>在<code>C:\Documents and Settings\用户名</code>下，找到文件<code>.bash_profile</code>，后面加两行</p>
+<div>
+<embed src="http://static.youku.com/v/swf/qplayer.swf?winType=adshow&amp;VideoIDS=XNTk0MjYxODQ0&amp;isAutoPlay=false&amp;isShowRelatedVideo=false" wmode="transparent" width="620" align="center" border="0" height="510" />
+</div>
 
-<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span /></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
-<span class="line-number">2</span>
-</pre></td><td class="code"><pre><code class="sh"><span class="line"><span class="nb">set </span><span class="nv">LC_ALL</span><span class="o">=</span>en_US.UTF-8
-</span><span class="line"><span class="nb">set </span><span class="nv">LANG</span><span class="o">=</span>en_US.UTF-8
-</span></code></pre></td></tr></table></div></figure></notextile></div>
+<div style="padding-top:20px;padding-bottom:20px;line-height:25px">
+      <strong><a href="http://yanping.me/cn/blog/2013/08/11/github-pages-step-by-step-video/">Github Pages 视频教程（1）</a></strong><br />
+            长度: 49 分 58 秒<br />
+            录制: 陈堰平<br />
+            <a href="http://v.youku.com/v_show/id_XNTk0MjYxODQ0.html" target="_blank">优酷播放</a> <br />
+下载: <a href="http://pan.baidu.com/share/link?shareid=3678776452&amp;uk=3288617424" target="_blank">高清视频文件</a>　
 
-<!--more-->
 
-<p>2. <strong>所有文档使用utf-8无BOM格式</strong></p>
 
-<p>在Windows下新建的文本文件默认是ANSI格式的，而jekyll只认utf-8。如果遇到ANSI格式编码的文件，可以在notepad++中转换，如下图：</p>
 
-<p><img src="http://f-1.tuzhan.com/31767262cd80/p-1/l/2012/10/09/16/bc35a142ea064af69246d43d794d11bd.png" alt="转换为utf-8编码" /></p>
 
-<p>3. <strong>使用Unix换行符</strong></p>
-
-<p>可以在notepad++中转换，如下图：</p>
-
-<p><img src="http://t-1.tuzhan.com/c6de0d29ca03/p-1/l/2012/10/09/16/73050c832188493ba1d6cbbb4757211c.png" alt="转换为Unix换行符" /></p>
-
-<p>这里有个技巧，在notepad++中，可以开启“显示所有字符”选项，这样就可以看出文档用的是Windows的换行符还是Unix的换行符。</p>
-
-<p><img src="http://f-1.tuzhan.com/63479110599f/p-1/l/2012/10/09/16/6a12be56f7374c608d732f090a1a49bd.png" alt="显示所有字符" /></p>
-
-<p>在这种模式下，Windows的换行符显示的是<code>CR</code>，Unix的换行符显示的是<code>LF</code></p>
-
-<p>4. <strong>新建文档的时候就注意到前两条</strong></p>
-
-<p>在<strong>设置–&gt;首选项</strong>里，如下设置
-<img src="http://f-1.tuzhan.com/fb1e112d285c/p-1/l/2012/10/09/21/6c80da6e228343998fa184a3983c403a.png" alt="新建文档设置" /></p>
-
-<p>5. <strong>注意YAML头部的格式</strong></p>
-
-<p>模板文件的元数据以YAML的格式展现，YAML头部经常会出现三个问题：（1）三短线前面不能有空格；（2）“名: 值”对里冒号后面要有空格；（3）回车后不要有Tab符；（4）表示数组成员开始的<code>-</code>号后面要有空格</p>
-
-<p>在notepad++中开启“显示所有字符”选项后，就可以看清空格和Tab符了，下图是很规范的例子
-<img src="http://f-1.tuzhan.com/5a62f0e1e6c7/p-1/l/2012/10/09/16/1395a21769e24594a7783da6a8310d17.png" alt="yaml头部" /></p>
-
-<p>尤其是Tab符，不借助工具很难跟空格区分，下图那个向右箭头的符号就是Tab符，这是个错误的例子，应该把Tab符删除，改为用空格缩进</p>
-
-<p><img src="http://f-1.tuzhan.com/104be2300ea4/p-1/l/2012/10/09/16/5a42fd3a016741388044954d4e9c0925.png" alt="带Tab符的YAML头部" /></p>
-
-<p>正确的应该是这样，<code>-</code>号后面都有空格</p>
-
-<p><img src="http://f-1.tuzhan.com/8df6d607c9f0/p-1/l/2012/10/09/16/4769b025fb8b4d129d3755cf84746ad1.png" alt="不带Tab符的YAML头部" /></p>
-
+</div>
 </div>
 
 
@@ -205,13 +173,13 @@
   
 
 
-<time datetime="2012-10-09T21:30:00+08:00" pubdate data-updated="true">Oct 9<span>th</span>, 2012</time>
+<time datetime="2013-08-11T10:30:00+08:00" pubdate data-updated="true">Aug 11<span>th</span>, 2013</time>
       
 
 <span class="categories">
 	分类：
   
-    <a class='category' href='/cn/blog/categories/jekyll/'>jekyll</a>
+    <a class='category' href='/cn/blog/categories/网站设计/'>网站设计</a>
   
 </span>
 
@@ -241,10 +209,8 @@
     
     <p class="meta">
       
-        <a class="basic-alignment left" href="/cn/blog/2012/06/10/palisade-training-course/" title="Previous Post: DecisionTools培训课程大纲">&laquo; DecisionTools培训课程大纲</a>
+        <a class="basic-alignment left" href="/cn/blog/2013/06/30/xccds-r-training/" title="Previous Post: 【广告】上海北京两地的R语言培训">&laquo; 【广告】上海北京两地的R语言培训</a>
       
-      
-        <a class="basic-alignment right" href="/cn/blog/2012/10/10/asynchronous-loading-post-list-with-jekyll-and-jQuery/" title="next Post: 用jekyll和jQuery实现异步加载文章列表">用jekyll和jQuery实现异步加载文章列表 &raquo;</a>
       
     </p>
   </footer>
@@ -380,8 +346,8 @@ $(document).ready(function() {
       
         
         // var disqus_developer = 1;
-        var disqus_identifier = 'http://yanping.me/cn/blog/2012/10/09/chinese-charset-problems-with-jekyll/';
-        var disqus_url = 'http://yanping.me/cn/blog/2012/10/09/chinese-charset-problems-with-jekyll/';
+        var disqus_identifier = 'http://yanping.me/cn/blog/2013/08/11/github-pages-step-by-step-video/';
+        var disqus_url = 'http://yanping.me/cn/blog/2013/08/11/github-pages-step-by-step-video/';
         var disqus_script = 'embed.js';
       
     (function () {

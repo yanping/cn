@@ -4,7 +4,7 @@
   <title><![CDATA[分类： 网站设计 | 雁起平沙的网络日志]]></title>
   <link href="http://yanping.me/cn/blog/categories/网站设计/atom.xml" rel="self"/>
   <link href="http://yanping.me/cn/"/>
-  <updated>2013-07-19T15:15:04+08:00</updated>
+  <updated>2013-08-11T11:22:44+08:00</updated>
   <id>http://yanping.me/cn/</id>
   <author>
     <name><![CDATA[ypchen]]></name>
@@ -12,6 +12,32 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Github Pages 视频教程（1）]]></title>
+    <link href="http://yanping.me/cn/blog/2013/08/11/github-pages-step-by-step-video/"/>
+    <updated>2013-08-11T10:30:00+08:00</updated>
+    <id>http://yanping.me/cn/blog/2013/08/11/github-pages-step-by-step-video</id>
+    <content type="html"><![CDATA[<p class="info">去年我写了一篇<a href="http://yanping.me/cn/blog/2012/03/18/github-pages-step-by-step/">《Github Pages极简教程》</a>，一年过去了，很多童鞋反映说在实际操作中遇到了这样那样的问题，而且github页面也改版了，jekyll也升级了，情况和当初有所不同。所以我就录了这个系列的视频，希望能对大家有所帮助。</p>
+
+<div>
+<embed src="http://static.youku.com/v/swf/qplayer.swf?winType=adshow&amp;VideoIDS=XNTk0MjYxODQ0&amp;isAutoPlay=false&amp;isShowRelatedVideo=false" wmode="transparent" width="620" align="center" border="0" height="510" />
+</div>
+
+<div style="padding-top:20px;padding-bottom:20px;line-height:25px">
+      <strong><a href="http://yanping.me/cn/blog/2013/08/11/github-pages-step-by-step-video/">Github Pages 视频教程（1）</a></strong><br />
+            长度: 49 分 58 秒<br />
+            录制: 陈堰平<br />
+            <a href="http://v.youku.com/v_show/id_XNTk0MjYxODQ0.html" target="_blank">优酷播放</a> <br />
+下载: <a href="http://pan.baidu.com/share/link?shareid=3678776452&amp;uk=3288617424" target="_blank">高清视频文件</a>　
+
+
+
+
+
+</div>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[用jekyll和jQuery实现异步加载文章列表]]></title>
@@ -215,7 +241,13 @@ $footer.waypoint(function(event, direction) {
 <span class='line-number'>32</span>
 </pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="p">[</span>
 </span><span class='line'>    <span class="p">{</span>
-</span><span class='line'>        <span class="s2">&quot;title&quot;</span><span class="o">:</span><span class="s2">&quot;【广告】上海R语言培训&quot;</span><span class="p">,</span>
+</span><span class='line'>        <span class="s2">&quot;title&quot;</span><span class="o">:</span><span class="s2">&quot;Github Pages 视频教程（1）&quot;</span><span class="p">,</span>
+</span><span class='line'>        <span class="s2">&quot;url&quot;</span><span class="o">:</span><span class="s2">&quot;http://yanping.me/cn/blog/2013/08/11/github-pages-step-by-step-video/&quot;</span><span class="p">,</span>
+</span><span class='line'>        <span class="s2">&quot;date&quot;</span><span class="o">:</span><span class="s2">&quot;11 Aug 2013&quot;</span>
+</span><span class='line'>    <span class="p">},</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>        <span class="s2">&quot;title&quot;</span><span class="o">:</span><span class="s2">&quot;【广告】上海北京两地的R语言培训&quot;</span><span class="p">,</span>
 </span><span class='line'>        <span class="s2">&quot;url&quot;</span><span class="o">:</span><span class="s2">&quot;http://yanping.me/cn/blog/2013/06/30/xccds-r-training/&quot;</span><span class="p">,</span>
 </span><span class='line'>        <span class="s2">&quot;date&quot;</span><span class="o">:</span><span class="s2">&quot;30 Jun 2013&quot;</span>
 </span><span class='line'>    <span class="p">},</span>
@@ -236,12 +268,6 @@ $footer.waypoint(function(event, direction) {
 </span><span class='line'>        <span class="s2">&quot;title&quot;</span><span class="o">:</span><span class="s2">&quot;用js在jekyll博客中实现标签云和标签页&quot;</span><span class="p">,</span>
 </span><span class='line'>        <span class="s2">&quot;url&quot;</span><span class="o">:</span><span class="s2">&quot;http://yanping.me/cn/blog/2013/02/13/generate-tags-with-js-in-jekyll-blog/&quot;</span><span class="p">,</span>
 </span><span class='line'>        <span class="s2">&quot;date&quot;</span><span class="o">:</span><span class="s2">&quot;13 Feb 2013&quot;</span>
-</span><span class='line'>    <span class="p">},</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="p">{</span>
-</span><span class='line'>        <span class="s2">&quot;title&quot;</span><span class="o">:</span><span class="s2">&quot;用R获取flash中的数据&quot;</span><span class="p">,</span>
-</span><span class='line'>        <span class="s2">&quot;url&quot;</span><span class="o">:</span><span class="s2">&quot;http://yanping.me/cn/blog/2013/02/10/get-data-from-flash/&quot;</span><span class="p">,</span>
-</span><span class='line'>        <span class="s2">&quot;date&quot;</span><span class="o">:</span><span class="s2">&quot;10 Feb 2013&quot;</span>
 </span><span class='line'>    <span class="p">}</span>
 </span><span class='line'>
 </span><span class='line'><span class="p">]</span>
@@ -625,69 +651,6 @@ git push
 
 <h3 id="section">参考资料</h3>
 <p>BeiYuu写的建github博客的教程 <a href="http://beiyuu.com/github-pages/">http://beiyuu.com/github-pages/</a></p>
-
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[给博客侧边栏添加近期评论]]></title>
-    <link href="http://yanping.me/cn/blog/2012/02/07/comment-sidebar/"/>
-    <updated>2012-02-07T14:56:00+08:00</updated>
-    <id>http://yanping.me/cn/blog/2012/02/07/comment-sidebar</id>
-    <content type="html"><![CDATA[<p class="info">
-在我翻译的<a href="http://chen.yanping.me/cn/blog/2012/01/07/theming-and-customization/" target="_blank">为Octopress修改主题和自定义样式</a>一文后面，Eric Lau问我如何在博客侧边栏显示近期评论。本文就是针对这一问题的简短教程。
-</p>
-
-<h2 id="disquscom">第一步：在disqus.com获取代码</h2>
-<p>登录到disqus.com，选择评论所在的网站，进入Admin，选择Tools，在code中，是<strong>Extra Widgets</strong>的代码，提供了几种Widgets插件，分别是Combination（组合式）、Recent Comments（近期评论）、 Popular Threads（热门话题）、Top Commenters（最近评论人）。该工具可以根据用户设置的参数生成代码。</p>
-
-<p><img src="/images/blog/12-02-07/tools-setting.png"> </p>
-
-<!-- more -->
-
-<h2 id="octopress">第二步：把代码添加到octopress</h2>
-<p>按照<a href="http://chen.yanping.me/cn/blog/2012/01/07/theming-and-customization/" target="_blank">为Octopress修改主题和自定义样式</a>一文的描述，在sidebar里添加一个section，比如叫做recent_comments.html，代码如下：</p>
-
-<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>recent_comments.html (../source/_includes/custom/asides/recent_comments.html) </span></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-</pre></td><td class='code'><pre><code class='html'><span class='line'><span class="nt">&lt;section</span> <span class="na">id=</span><span class="s">&quot;comment_sidebar&quot;</span><span class="nt">&gt;</span>
-</span><span class='line'><span class="nt">&lt;h1&gt;</span>近期评论<span class="nt">&lt;/h1&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="nt">&lt;script </span><span class="na">type=</span><span class="s">&quot;text/javascript&quot;</span> <span class="na">src=</span><span class="s">&quot;http://ypchencn.disqus.com/recent_comments_widget.js?num_items=5&amp;hide_avatars=0&amp;avatar_size=32&amp;excerpt_length=20&quot;</span><span class="nt">&gt;&lt;/script&gt;&lt;a</span> <span class="na">href=</span><span class="s">&quot;http://disqus.com/&quot;</span><span class="nt">&gt;</span>Powered by Disqus<span class="nt">&lt;/a&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="nt">&lt;/section&gt;</span>
-</span></code></pre></td></tr></table></div></figure></notextile></div></p>
-
-<h2 id="configyml">第三步：修改_config.yml</h2>
-<p>按照<a href="http://chen.yanping.me/cn/blog/2012/01/07/theming-and-customization/" target="_blank">为Octopress修改主题和自定义样式</a>一文的描述，修改_config.yml，以决定评论插件出现的位置。</p>
-
-<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>Sidebar configuration (_config.yml) </span></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-</pre></td><td class='code'><pre><code class='yaml'><span class='line'><span class="c1"># list each of the sidebar modules you want to include, in the order you want them to appear.</span>
-</span><span class='line'><span class="c1"># To add custom asides, create files in /source/_includes/custom/asides/ and add them to the list like ‘custom/asides/custom_aside_name.html’</span>
-</span><span class='line'><span class="l-Scalar-Plain">default_asides</span><span class="p-Indicator">:</span>     <span class="p-Indicator">[</span><span class="nv">asides/recent_posts.html</span><span class="p-Indicator">,</span> <span class="nv">custom/asides/recent_comments.html</span><span class="p-Indicator">,</span> <span class="nv">custom/asides/blogroll.html</span><span class="p-Indicator">,</span><span class="nv">custom/asides/weibo.html</span><span class="p-Indicator">,</span> <span class="nv">custom/asides/copyleft.html</span><span class="p-Indicator">,</span><span class="nv">custom/asides/feed.html</span><span class="p-Indicator">]</span><span class="l-Scalar-Plain">&lt;/p&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="l-Scalar-Plain">&lt;h1 id=&quot;each-layout-uses-the-default-asides-but-they-can-have-their-own-asides-instead-simply-uncomment-the-lines-below&quot;&gt;Each layout uses the default asides, but they can have their own asides instead. Simply uncomment the lines below&lt;/h1&gt;</span>
-</span><span class='line'><span class="l-Scalar-Plain">&lt;p&gt;# and add an array with the asides you want to use.&lt;/p&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="l-Scalar-Plain">&lt;p&gt;blog_index_asides</span><span class="p-Indicator">:</span>  <span class="p-Indicator">[</span><span class="nv">custom/asides/about.html</span><span class="p-Indicator">,</span> <span class="nv">asides/recent_posts.html</span><span class="p-Indicator">,</span> <span class="nv">custom/asides/recent_comments.html</span><span class="p-Indicator">,</span> <span class="nv">custom/asides/blogroll.html</span><span class="p-Indicator">,</span> <span class="nv">custom/asides/weibo.html</span><span class="p-Indicator">,</span> <span class="nv">custom/asides/copyleft.html</span><span class="p-Indicator">,</span> <span class="nv">custom/asides/feed.html</span><span class="p-Indicator">]</span>
-</span><span class='line'><span class="l-Scalar-Plain">post_asides</span><span class="p-Indicator">:</span>        <span class="p-Indicator">[</span><span class="nv">asides/recent_posts.html</span><span class="p-Indicator">,</span> <span class="nv">custom/asides/recent_comments.html</span><span class="p-Indicator">,</span> <span class="nv">custom/asides/blogroll.html</span><span class="p-Indicator">,</span> <span class="nv">custom/asides/weibo.html</span><span class="p-Indicator">,</span> <span class="nv">custom/asides/copyleft.html</span><span class="p-Indicator">,</span> <span class="nv">custom/asides/feed.html</span><span class="p-Indicator">]</span>
-</span><span class='line'><span class="c1"># page_asides:</span>
-</span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
 ]]></content>
   </entry>

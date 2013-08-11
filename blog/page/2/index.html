@@ -9,7 +9,7 @@
   <meta name="author" content="ypchen">
 
   
-  <meta name="description" content="本文主要讨论如何用R语言从大连商品交易所网站上获取期货合约交易数据 大商所的网站上有提供查询历史的页面。但是它只能对某一个品种查询某一天的报价，或者某一天所有品种的报价，如果我想批量获取交易数据，应该怎么做呢？ 首先剖析一下这个页面，用firefox的firebug查看日行情表的代码 可以看到， &hellip;">
+  <meta name="description" content="本文主要讨论如何用R语言从郑州商品交易所网站上获取期货合约交易数据 郑商所网站提供了查询每日行情的页面，它提供的数据比大商所的要复杂一些，2010年至2013年的网页格式一样，地址也是同样的形式，请看 http://www.czce.com.cn/portal/exchange/2010/ &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -105,6 +105,149 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/cn/blog/2013/02/09/get-zce-data/">用R获取郑州商品交易所历史数据</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-02-09T20:00:00+08:00" pubdate data-updated="true">Feb 9<span>th</span>, 2013</time>
+        
+         | <a href="/cn/blog/2013/02/09/get-zce-data/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p class="info">本文主要讨论如何用R语言从郑州商品交易所网站上获取期货合约交易数据</p>
+
+<p>郑商所网站提供了查询每日行情的<a href="http://www.czce.com.cn/portal/jysj/mrhq/A091101index_1.htm">页面</a>，它提供的数据比大商所的要复杂一些，2010年至2013年的网页格式一样，地址也是同样的形式，请看</p>
+
+<ul>
+  <li><a href="http://www.czce.com.cn/portal/exchange/2010/datadaily/20100105.htm">http://www.czce.com.cn/portal/exchange/2010/datadaily/20100105.htm</a></li>
+  <li><a href="http://www.czce.com.cn/portal/exchange/2011/datadaily/20110105.htm">http://www.czce.com.cn/portal/exchange/2011/datadaily/20110105.htm</a></li>
+  <li><a href="http://www.czce.com.cn/portal/exchange/2012/datadaily/20120104.htm">http://www.czce.com.cn/portal/exchange/2012/datadaily/20120104.htm</a></li>
+  <li><a href="http://www.czce.com.cn/portal/exchange/2013/datadaily/20130104.htm">http://www.czce.com.cn/portal/exchange/2013/datadaily/20130104.htm</a></li>
+</ul>
+
+<p>打开网页可以看到，网页提供了“打印”，“Excel”和“txt”三个选项，只要把地址后面的<code>.html</code>改为<code>.txt</code>就可以得到文本格式的数据，那么就可以逐一下载数据文件，读入数据。</p>
+
+<p>这四年的数据可以这样获取：</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span /></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+<span class="line-number">7</span>
+<span class="line-number">8</span>
+<span class="line-number">9</span>
+<span class="line-number">10</span>
+<span class="line-number">11</span>
+<span class="line-number">12</span>
+<span class="line-number">13</span>
+<span class="line-number">14</span>
+<span class="line-number">15</span>
+<span class="line-number">16</span>
+<span class="line-number">17</span>
+<span class="line-number">18</span>
+<span class="line-number">19</span>
+<span class="line-number">20</span>
+<span class="line-number">21</span>
+<span class="line-number">22</span>
+<span class="line-number">23</span>
+<span class="line-number">24</span>
+<span class="line-number">25</span>
+<span class="line-number">26</span>
+<span class="line-number">27</span>
+<span class="line-number">28</span>
+</pre></td><td class="code"><pre><code class="r"><span class="line">getZceData <span class="o">&lt;-</span> <span class="kr">function</span><span class="p">(</span>dates<span class="p">){</span>
+</span><span class="line">  require<span class="p">(</span>RCurl<span class="p">)</span>
+</span><span class="line">  zceDatabase <span class="o">&lt;-</span> data.frame<span class="p">()</span>
+</span><span class="line">  <span class="kr">for</span> <span class="p">(</span>date in dates<span class="p">)</span> <span class="p">{</span>
+</span><span class="line">    str1 <span class="o">&lt;-</span> <span class="s">&quot;http://www.czce.com.cn/portal/exchange/&quot;</span>
+</span><span class="line">    str2 <span class="o">&lt;-</span> <span class="s">&quot;/datadaily/&quot;</span>
+</span><span class="line">    date <span class="o">&lt;-</span> as.character<span class="p">(</span>date<span class="p">)</span>
+</span><span class="line">    year <span class="o">&lt;-</span> substr<span class="p">(</span>date<span class="p">,</span> <span class="m">1</span><span class="p">,</span> <span class="m">4</span><span class="p">)</span>
+</span><span class="line">    url <span class="o">&lt;-</span> paste<span class="p">(</span>str1<span class="p">,</span> year<span class="p">,</span> str2<span class="p">,</span> date<span class="p">,</span> <span class="s">&quot;.txt&quot;</span><span class="p">,</span> sep <span class="o">=</span> <span class="s">&quot;&quot;</span><span class="p">)</span>
+</span><span class="line">    <span class="kr">if</span> <span class="p">(</span>!url.exists<span class="p">(</span>url<span class="p">))</span> <span class="p">{</span>
+</span><span class="line">      next
+</span><span class="line">    <span class="p">}</span> <span class="kr">else</span> <span class="p">{</span>
+</span><span class="line">      colnames <span class="o">&lt;-</span> c<span class="p">(</span><span class="s">&quot;品种月份&quot;</span><span class="p">,</span> <span class="s">&quot;昨结箿&quot;</span><span class="p">,</span> <span class="s">&quot;今开盘&quot;</span><span class="p">,</span> <span class="s">&quot;最高价&quot;</span><span class="p">,</span> <span class="s">&quot;最低价&quot;</span><span class="p">,</span>
+</span><span class="line">        <span class="s">&quot;今收盘&quot;</span><span class="p">,</span> <span class="s">&quot;今结算&quot;</span><span class="p">,</span> <span class="s">&quot;涨跌1&quot;</span><span class="p">,</span> <span class="s">&quot;涨跌2&quot;</span><span class="p">,</span> <span class="s">&quot;成交量&quot;</span><span class="p">,</span> <span class="s">&quot;空盘量&quot;</span><span class="p">,</span>
+</span><span class="line">        <span class="s">&quot;增减量&quot;</span><span class="p">,</span> <span class="s">&quot;成交额&quot;</span><span class="p">,</span> <span class="s">&quot;交割结算价&quot;</span><span class="p">)</span>
+</span><span class="line">      fileName <span class="o">&lt;-</span> paste<span class="p">(</span><span class="s">&quot;zce&quot;</span><span class="p">,</span> date<span class="p">,</span> <span class="s">&quot;.txt&quot;</span><span class="p">,</span> sep <span class="o">=</span> <span class="s">&quot;&quot;</span><span class="p">)</span>
+</span><span class="line">
+</span><span class="line">      <span class="kr">if</span> <span class="p">(</span>!file.exists<span class="p">(</span>fileName<span class="p">))</span> <span class="p">{</span>
+</span><span class="line">        download.file<span class="p">(</span>url<span class="p">,</span> fileName<span class="p">,</span> quiet <span class="o">=</span> <span class="k-Variable">T</span><span class="p">)</span>
+</span><span class="line">      <span class="p">}</span>
+</span><span class="line">      zceData <span class="o">&lt;-</span> read.table<span class="p">(</span>fileName<span class="p">,</span> header <span class="o">=</span> <span class="k-Variable">F</span><span class="p">,</span> skip <span class="o">=</span> <span class="m">1</span><span class="p">,</span> sep <span class="o">=</span> <span class="s">&quot;,&quot;</span><span class="p">,</span> col.names <span class="o">=</span> colnames<span class="p">)</span>
+</span><span class="line">      zceData <span class="o">&lt;-</span> zceData<span class="p">[(</span>zceData<span class="p">[,</span> <span class="m">1</span><span class="p">]</span> <span class="o">!=</span> <span class="s">&quot;小计&quot;</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span>zceData<span class="p">[,</span> <span class="m">1</span><span class="p">]</span> <span class="o">!=</span> <span class="s">&quot;总计&quot;</span><span class="p">),</span> <span class="p">]</span>
+</span><span class="line">      zceData<span class="p">$</span>date <span class="o">&lt;-</span> date
+</span><span class="line">      zceDatabase <span class="o">&lt;-</span> rbind<span class="p">(</span>zceDatabase<span class="p">,</span> zceData<span class="p">)</span>
+</span><span class="line">    <span class="p">}</span>
+</span><span class="line">  <span class="p">}</span>
+</span><span class="line">  <span class="kr">return</span><span class="p">(</span>zceDatabase<span class="p">)</span>
+</span><span class="line"><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<p>但是查询2009年及之前的数据返回的是网页形式，那就需要从网页上读取。</p>
+
+<p>看下面几个链接</p>
+
+<ul>
+  <li><a href="http://www.czce.com.cn/portal/exchange/jyxx/hq/hq20060106.html">http://www.czce.com.cn/portal/exchange/jyxx/hq/hq20060106.html</a></li>
+  <li><a href="http://www.czce.com.cn/portal/exchange/jyxx/hq/hq20070104.html">http://www.czce.com.cn/portal/exchange/jyxx/hq/hq20070104.html</a></li>
+  <li><a href="http://www.czce.com.cn/portal/exchange/jyxx/hq/hq20080104.html">http://www.czce.com.cn/portal/exchange/jyxx/hq/hq20080104.html</a></li>
+  <li><a href="http://www.czce.com.cn/portal/exchange/jyxx/hq/hq20090105.html">http://www.czce.com.cn/portal/exchange/jyxx/hq/hq20090105.html</a></li>
+</ul>
+
+<p>网页格式很统一，数据在被table标签包裹，并且是在第二个table标签中，XML包的<code>readHTMLTable</code>函数可以读取table标签中的内容，但是当网页中有汉字的时候，汉字会变成乱码，慎用！</p>
+
+<p>不过，本文的情况有点特殊，汉字只出现在table的第一行表头，以及“小计”、“总计”的行，这些行本来就是要去掉的，所以对我们没影响。</p>
+
+<p>下面只给出关键代码：</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span /></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+</pre></td><td class="code"><pre><code class="r"><span class="line">require<span class="p">(</span>XML<span class="p">)</span>
+</span><span class="line">require<span class="p">(</span>stringr<span class="p">)</span>
+</span><span class="line">url <span class="o">&lt;-</span> <span class="s">&quot;http://www.czce.com.cn/portal/exchange/jyxx/hq/hq20060106.html&quot;</span>
+</span><span class="line">tb <span class="o">&lt;-</span>readHTMLTable<span class="p">(</span>url<span class="p">)[[</span><span class="m">2</span><span class="p">]]</span>
+</span><span class="line">tb <span class="o">&lt;-</span> sapply<span class="p">(</span>tb<span class="p">,</span>str_trim<span class="p">)</span>
+</span><span class="line">df <span class="o">&lt;-</span>as.data.frame<span class="p">(</span>apply<span class="p">(</span>tb<span class="p">,</span><span class="m">2</span><span class="p">,</span><span class="kr">function</span><span class="p">(</span>x<span class="p">)</span> iconv<span class="p">(</span>x<span class="p">,</span> from <span class="o">=</span> <span class="s">&quot;gb2312&quot;</span><span class="p">,</span> to <span class="o">=</span> <span class="s">&quot;UTF-8&quot;</span><span class="p">)))</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<p>再把第一列为NA的行去除就行了。</p>
+
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -475,53 +618,6 @@
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/cn/blog/2012/04/19/jekyll-with-json/">用jekyll生成json</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2012-04-19T22:30:00+08:00" pubdate data-updated="true">Apr 19<span>th</span>, 2012</time>
-        
-         | <a href="/cn/blog/2012/04/19/jekyll-with-json/#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p class="info">本文主要讨论如何用jekyll模板生成json，并以此整合在github上托管的不同网站的数据。</p>
-
-<p>从去年年底接触github和jekyll到现在已经折腾五个月了，从最初用github托管纯静态网站，到现在依照别人的网站构架修改成自己喜欢的样子，这个过程也是个不断学习的过程。</p>
-
-<p>我在github上有三个网站，一个是<a href="http://yanping.me">主页</a>，一个<a href="http://yanping.me/cn">技术博客</a>，最后一个是<a href="http://art.yanping.me">文艺博客</a>。现在有个问题是，这三个网站对应的是github上三个不同的代码库，如果我要在<a href="http://yanping.me">主页</a>上列出另两个网站的文章列表，不能用jekyll提供的函数来做到，jekyll只能操作一个代码库的文本，不能跨代码库。我之前用的一个方法是用feedsky提供的发布脚本，效果请看<a href="http://inwake.com/ypchen/json-demo">http://inwake.com/ypchen/json-demo</a>。这样的缺点是很显然的，一是加载速度慢，二是我们没办法控制列表的格式和样式。有没有更直接的解决方法呢？</p>
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/cn/blog/2012/04/19/jekyll-with-json/">阅读全文 &rarr;</a>
-    </footer>
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/cn/blog/page/3/">&larr; 前一页</a>
@@ -556,12 +652,16 @@
 
 <section id="categories_tag">
 <h1>分类目录</h1>
-<span class='categories_tag'> <a href='/cn/blog/categories/github' style='font-size: 138.1818181818182%'>Github(7)</a>  <a href='/cn/blog/categories/javascript' style='font-size: 127.27272727272728%'>Javascript(5)</a>  <a href='/cn/blog/categories/jekyll' style='font-size: 154.54545454545456%'>Jekyll(10)</a>  <a href='/cn/blog/categories/latex' style='font-size: 105.45454545454545%'>Latex(1)</a>  <a href='/cn/blog/categories/markdown' style='font-size: 105.45454545454545%'>Markdown(1)</a>  <a href='/cn/blog/categories/octopress' style='font-size: 143.63636363636363%'>Octopress(8)</a>  <a href='/cn/blog/categories/r语言' style='font-size: 160.0%'>R语言(11)</a>  <a href='/cn/blog/categories/指数' style='font-size: 105.45454545454545%'>指数(1)</a>  <a href='/cn/blog/categories/数据科学' style='font-size: 105.45454545454545%'>数据科学(1)</a>  <a href='/cn/blog/categories/网站设计' style='font-size: 127.27272727272728%'>网站设计(5)</a>  <a href='/cn/blog/categories/金融工程' style='font-size: 127.27272727272728%'>金融工程(5)</a> </span>
+<span class='categories_tag'> <a href='/cn/blog/categories/github' style='font-size: 138.1818181818182%'>Github(7)</a>  <a href='/cn/blog/categories/javascript' style='font-size: 127.27272727272728%'>Javascript(5)</a>  <a href='/cn/blog/categories/jekyll' style='font-size: 154.54545454545456%'>Jekyll(10)</a>  <a href='/cn/blog/categories/latex' style='font-size: 105.45454545454545%'>Latex(1)</a>  <a href='/cn/blog/categories/markdown' style='font-size: 105.45454545454545%'>Markdown(1)</a>  <a href='/cn/blog/categories/octopress' style='font-size: 143.63636363636363%'>Octopress(8)</a>  <a href='/cn/blog/categories/r语言' style='font-size: 160.0%'>R语言(11)</a>  <a href='/cn/blog/categories/指数' style='font-size: 105.45454545454545%'>指数(1)</a>  <a href='/cn/blog/categories/数据科学' style='font-size: 105.45454545454545%'>数据科学(1)</a>  <a href='/cn/blog/categories/网站设计' style='font-size: 132.72727272727272%'>网站设计(6)</a>  <a href='/cn/blog/categories/金融工程' style='font-size: 127.27272727272728%'>金融工程(5)</a> </span>
 </section>
 
 <section>
   <h1>近期文章</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/cn/blog/2013/08/11/github-pages-step-by-step-video/" title="Github Pages 视频教程（1）">Github Pages 视频教程（1）</a>
+      </li>
     
       <li class="post">
         <a href="/cn/blog/2013/06/30/xccds-r-training/" title="【广告】上海北京两地的R语言培训">【广告】上海北京两地的R语言培训</a>
@@ -585,10 +685,6 @@
     
       <li class="post">
         <a href="/cn/blog/2013/02/10/cntrade-r-version/" title="R语言版的cntrade程序">R语言版的cntrade程序</a>
-      </li>
-    
-      <li class="post">
-        <a href="/cn/blog/2013/02/09/get-zce-data/" title="用R获取郑州商品交易所历史数据">用R获取郑州商品交易所历史数据</a>
       </li>
     
   </ul>
