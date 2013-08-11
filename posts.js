@@ -1,6 +1,10 @@
 $(document).ready(function() {
   var post = {
     "list": [ {
+      "title": "关于Github Pages 视频教程",
+      "url": "http://yanping.me/cn/blog/2013/08/12/about-github-pages-step-by-step-video/",
+      "date": "12 Aug 2013"
+    } ,  {
       "title": "Github Pages 视频教程（1）",
       "url": "http://yanping.me/cn/blog/2013/08/11/github-pages-step-by-step-video/",
       "date": "11 Aug 2013"
@@ -16,10 +20,6 @@ $(document).ready(function() {
       "title": "《R语言编程艺术》即将上市",
       "url": "http://yanping.me/cn/blog/2013/05/15/the-art-of-r-programming-published/",
       "date": "15 May 2013"
-    } ,  {
-      "title": "用js在jekyll博客中实现标签云和标签页",
-      "url": "http://yanping.me/cn/blog/2013/02/13/generate-tags-with-js-in-jekyll-blog/",
-      "date": "13 Feb 2013"
     }  ]
   };
 

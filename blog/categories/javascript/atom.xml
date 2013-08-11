@@ -4,7 +4,7 @@
   <title><![CDATA[分类： javascript | 雁起平沙的网络日志]]></title>
   <link href="http://yanping.me/cn/blog/categories/javascript/atom.xml" rel="self"/>
   <link href="http://yanping.me/cn/"/>
-  <updated>2013-08-11T11:22:44+08:00</updated>
+  <updated>2013-08-12T01:56:01+08:00</updated>
   <id>http://yanping.me/cn/</id>
   <author>
     <name><![CDATA[ypchen]]></name>
@@ -462,6 +462,10 @@ $footer.waypoint(function(event, direction) {
 </pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="nx">$</span><span class="p">(</span><span class="nb">document</span><span class="p">).</span><span class="nx">ready</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
 </span><span class='line'>  <span class="kd">var</span> <span class="nx">post</span> <span class="o">=</span> <span class="p">{</span>
 </span><span class='line'>    <span class="s2">&quot;list&quot;</span><span class="o">:</span> <span class="p">[</span> <span class="p">{</span>
+</span><span class='line'>      <span class="s2">&quot;title&quot;</span><span class="o">:</span> <span class="s2">&quot;关于Github Pages 视频教程&quot;</span><span class="p">,</span>
+</span><span class='line'>      <span class="s2">&quot;url&quot;</span><span class="o">:</span> <span class="s2">&quot;http://yanping.me/cn/blog/2013/08/12/about-github-pages-step-by-step-video/&quot;</span><span class="p">,</span>
+</span><span class='line'>      <span class="s2">&quot;date&quot;</span><span class="o">:</span> <span class="s2">&quot;12 Aug 2013&quot;</span>
+</span><span class='line'>    <span class="p">}</span> <span class="p">,</span>  <span class="p">{</span>
 </span><span class='line'>      <span class="s2">&quot;title&quot;</span><span class="o">:</span> <span class="s2">&quot;Github Pages 视频教程（1）&quot;</span><span class="p">,</span>
 </span><span class='line'>      <span class="s2">&quot;url&quot;</span><span class="o">:</span> <span class="s2">&quot;http://yanping.me/cn/blog/2013/08/11/github-pages-step-by-step-video/&quot;</span><span class="p">,</span>
 </span><span class='line'>      <span class="s2">&quot;date&quot;</span><span class="o">:</span> <span class="s2">&quot;11 Aug 2013&quot;</span>
@@ -477,10 +481,6 @@ $footer.waypoint(function(event, direction) {
 </span><span class='line'>      <span class="s2">&quot;title&quot;</span><span class="o">:</span> <span class="s2">&quot;《R语言编程艺术》即将上市&quot;</span><span class="p">,</span>
 </span><span class='line'>      <span class="s2">&quot;url&quot;</span><span class="o">:</span> <span class="s2">&quot;http://yanping.me/cn/blog/2013/05/15/the-art-of-r-programming-published/&quot;</span><span class="p">,</span>
 </span><span class='line'>      <span class="s2">&quot;date&quot;</span><span class="o">:</span> <span class="s2">&quot;15 May 2013&quot;</span>
-</span><span class='line'>    <span class="p">}</span> <span class="p">,</span>  <span class="p">{</span>
-</span><span class='line'>      <span class="s2">&quot;title&quot;</span><span class="o">:</span> <span class="s2">&quot;用js在jekyll博客中实现标签云和标签页&quot;</span><span class="p">,</span>
-</span><span class='line'>      <span class="s2">&quot;url&quot;</span><span class="o">:</span> <span class="s2">&quot;http://yanping.me/cn/blog/2013/02/13/generate-tags-with-js-in-jekyll-blog/&quot;</span><span class="p">,</span>
-</span><span class='line'>      <span class="s2">&quot;date&quot;</span><span class="o">:</span> <span class="s2">&quot;13 Feb 2013&quot;</span>
 </span><span class='line'>    <span class="p">}</span>  <span class="p">]</span>
 </span><span class='line'>  <span class="p">};</span>
 </span><span class='line'>
@@ -680,6 +680,12 @@ $footer.waypoint(function(event, direction) {
 <span class='line-number'>32</span>
 </pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="p">[</span>
 </span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>        <span class="s2">&quot;title&quot;</span><span class="o">:</span><span class="s2">&quot;关于Github Pages 视频教程&quot;</span><span class="p">,</span>
+</span><span class='line'>        <span class="s2">&quot;url&quot;</span><span class="o">:</span><span class="s2">&quot;http://yanping.me/cn/blog/2013/08/12/about-github-pages-step-by-step-video/&quot;</span><span class="p">,</span>
+</span><span class='line'>        <span class="s2">&quot;date&quot;</span><span class="o">:</span><span class="s2">&quot;12 Aug 2013&quot;</span>
+</span><span class='line'>    <span class="p">},</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="p">{</span>
 </span><span class='line'>        <span class="s2">&quot;title&quot;</span><span class="o">:</span><span class="s2">&quot;Github Pages 视频教程（1）&quot;</span><span class="p">,</span>
 </span><span class='line'>        <span class="s2">&quot;url&quot;</span><span class="o">:</span><span class="s2">&quot;http://yanping.me/cn/blog/2013/08/11/github-pages-step-by-step-video/&quot;</span><span class="p">,</span>
 </span><span class='line'>        <span class="s2">&quot;date&quot;</span><span class="o">:</span><span class="s2">&quot;11 Aug 2013&quot;</span>
@@ -701,12 +707,6 @@ $footer.waypoint(function(event, direction) {
 </span><span class='line'>        <span class="s2">&quot;title&quot;</span><span class="o">:</span><span class="s2">&quot;《R语言编程艺术》即将上市&quot;</span><span class="p">,</span>
 </span><span class='line'>        <span class="s2">&quot;url&quot;</span><span class="o">:</span><span class="s2">&quot;http://yanping.me/cn/blog/2013/05/15/the-art-of-r-programming-published/&quot;</span><span class="p">,</span>
 </span><span class='line'>        <span class="s2">&quot;date&quot;</span><span class="o">:</span><span class="s2">&quot;15 May 2013&quot;</span>
-</span><span class='line'>    <span class="p">},</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="p">{</span>
-</span><span class='line'>        <span class="s2">&quot;title&quot;</span><span class="o">:</span><span class="s2">&quot;用js在jekyll博客中实现标签云和标签页&quot;</span><span class="p">,</span>
-</span><span class='line'>        <span class="s2">&quot;url&quot;</span><span class="o">:</span><span class="s2">&quot;http://yanping.me/cn/blog/2013/02/13/generate-tags-with-js-in-jekyll-blog/&quot;</span><span class="p">,</span>
-</span><span class='line'>        <span class="s2">&quot;date&quot;</span><span class="o">:</span><span class="s2">&quot;13 Feb 2013&quot;</span>
 </span><span class='line'>    <span class="p">}</span>
 </span><span class='line'>
 </span><span class='line'><span class="p">]</span>

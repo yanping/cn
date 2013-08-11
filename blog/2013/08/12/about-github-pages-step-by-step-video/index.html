@@ -5,12 +5,12 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>再谈github页面域名绑定 - 雁起平沙的网络日志</title>
+  <title>关于Github Pages 视频教程 - 雁起平沙的网络日志</title>
   <meta name="author" content="ypchen">
 
   
-  <meta name="description" content="本文主要介绍如何设定github博客的域名">
-  <meta name="keywords" content="jekyll, github, 博客, 域名">
+  <meta name="description" content="关于github pages 极简教程的视频">
+  <meta name="keywords" content="github pagesjekyll视频">
 
   <!-- http://t.co/dKP3o1e -->
   <meta name="HandheldFriendly" content="True">
@@ -18,7 +18,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://yanping.me/cn/blog/2011/12/26/github-pages-domain-2">
+  <link rel="canonical" href="http://yanping.me/cn/blog/2013/08/12/about-github-pages-step-by-step-video">
   <link href="/cn/favicon.png" rel="icon">
   <link href="/cn/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <script src="/cn/javascripts/modernizr-2.0.js"></script>
@@ -108,7 +108,7 @@
   
   <header>
     
-      <h1 class="entry-title">再谈github页面域名绑定</h1>
+      <h1 class="entry-title">关于Github Pages 视频教程</h1>
     
     
       <p class="meta">
@@ -124,7 +124,7 @@
   
 
 
-<time datetime="2011-12-26T14:56:00+08:00" pubdate data-updated="true">Dec 26<span>th</span>, 2011</time>
+<time datetime="2013-08-12T23:30:00+08:00" pubdate data-updated="true">Aug 12<span>th</span>, 2013</time>
         
          | <a href="#disqus_thread">Comments</a>
         
@@ -133,23 +133,55 @@
   </header>
 
 
-<div class="entry-content"><p>之前我写过一篇<a href="http://chen.yanping.me/cn/blog/2011/12/04/github-pages-domain/" target="_blank">浅谈github页面域名绑定</a>，现在一直困扰我的问题终于解决了。</p>
+<div class="entry-content"><p>昨天我发布了《github pages视频教程（1）》，今晚就有童鞋留言反馈，提得很好，对我今后再录视频有很大的促进。同时，我也觉得有必要解释些几点，免得大家产生误解。</p>
 
-<p>假设你的用户名是<code>username</code>，要绑定一个二级域名的话，那么不管是user page还是project page，除了在github的版本库里添加CNAME文件，还要在DNS record里增加相应的CNAME记录指向<code>username.github.com</code>。注意这里的表述，指向的地址在两种情况下都是一样的。</p>
+<h3 id="section">一、我为什么要录这个视频</h3>
 
-<p>如果要绑定顶级域名，就建立A记录，指向<code>207.97.227.245</code>。</p>
+<p>没什么特别原因，就是有几位朋友用github做博客出了点问题，我就说，那我录个视频吧。然后一想，光是你们几个能看到视频还不行，估计还有很多朋友会遇到这些问题，那我就公开吧。</p>
 
-<p>经过这样的操作，你想绑定几个域名都可以了。</p>
+<h3 id="github">二、什么是github？它能做什么？</h3>
 
-<h2 id="section">域名跳转的问题</h2>
-<p><del>当你访问<code>username.github.com</code>这个地址时，Github会自动转到绑定的域名，但是当你访问<code>http://username.github.com/repo-name</code>这样的网址，虽然可以显示网页，但是地址不会自动转。</del></p>
+<p>推荐大家阅读阳志平老师的<a href="www.yangzhiping.com/tech/github.html">如何高效利用GitHub</a></p>
 
-<p><del>可以用.htaccess文件来实现跳转，在repo代码库根目录下创建.htaccess文件</del></p>
+<h3 id="github-1">三、为什么要用github做博客</h3>
 
-<p><span class="warning">
-本文域名跳转部分有误，请看<a href="http://chen.yanping.me/cn/blog/2012/02/06/github-pages-domain-3/" target="_blank">三谈github页面域名绑定</a>
-</span>
-</p>
+<p>首先，准确地说，应该是用github托管博客。你注册github以后，它提供了这样一种机制，你可以在github上存放静态网站（纯html+css+js）的代码，然后，你可以通过访问一定的url地址来访问网站。而jekyll是一种基于ruby语言的轻量级静态网站生成引擎，请看我以前翻译的一篇<a href="http://yanping.me/cn/blog/2011/12/15/building-static-sites-with-jekyll/">介绍</a>。github的后台还提供jekyll的程序的服务，这样，你把未编译的jekyll博客代码push到github上，它会在后台帮你编译，你也可以本地编译之后再push。听不懂没关系，以后会讲的。</p>
+
+<p>那为什么要用github呢？这纯粹是个人喜好问题，2011年底，我想开个博客，那时候统计之都的几位博主都是wordpress的博客，我也用了几天，然后谢益辉在邮件里提到用github能搭博客，我就研究了好几个星期，完全上瘾了。你可以看看益辉当时写的一篇<a href="http://yihui.name/cn/2011/10/back-into-the-dust/">博文</a>，阐述他为什么要换到jekyll。阳志平老师也有一篇<a href="http://www.yangzhiping.com/tech/wordpress-to-jekyll.html">告别wordpress，拥抱jekyll</a>，去网上搜一下，你会发现，叫这个名字的文章还真不少。</p>
+
+<h3 id="github-pages">四、什么人适合用github pages</h3>
+
+<p>我并没有向大家推销github和jekyll的意思，这套东西真的不适合所有人。如果你跟我一样是代码控、经常用github存放代码、觉得wordpress不灵活、想通过实践学习html/css/js，那么你可以试试用github托管博客。</p>
+
+<p>两年以前，我跟大家一样，不会做网页，不懂html/css/js，之后偶尔学一点，在用中学，现在也能做出像点样子的网站了。</p>
+
+<h3 id="jekyll">五、为什么用jekyll做的网站好看的不多？</h3>
+
+<p>这是个天大的误解，网站好不好看，跟你用什么系统没关系，而是跟你的html/css/js有关，你可以把jekyll当作cms，网站样子好不好看，就要看你的设计了。很多用jekyll做博客的孩子都是程序猿，崇尚简洁，而且不会把大量时间花在设计上，也有网站设得很好的，比如 <a href="http://pizn.github.io">http://pizn.github.io</a> 。如果你能找到一个设计得很好的页面，完全可以用jekyll来做博客，当然，你也可以用wordpress做，跟系统没关系。</p>
+
+<p>在第一期视频里，我举的那个例子用的是jekyll自带的最简单的模板，虽然很难看，但是它很简单，而且该有的都有了。在讲解的时候，我可以迅速定位到关键的代码，排除那些枝枝蔓蔓的影响。</p>
+
+<h3 id="section-1">六、之后的视频教程会有什么？</h3>
+
+<p>视频课程的第一次只是讲了基本概念，教你如何把别人的网站clone到自己的github里，还没有讲如何做一个属于自己的博客主题。这将是后面课程的重点。我先从修改别人的网站代码讲起吧。</p>
+
+<h3 id="section-2">七、这个课不会教什么？</h3>
+
+<p>我们这个课是关于github pages和jekyll的，不会教html/css/js，你需要自己去学，下面有些资源</p>
+
+<ul>
+  <li><a href="http://www.w3school.com.cn/">W3schol</a></li>
+  <li><a href="http://zixue.it">自学it网</a></li>
+  <li><a href="http://wenku.baidu.com/course/list/5">百度文库课程</a></li>
+</ul>
+
+<p>当然，网站的资源有很多，不限于上面的，不过我觉得，更重要的是在实践中学习。</p>
+
+<h3 id="section-3">八、不足之处</h3>
+
+<p>第一次录视频，不太熟练，有点紧张，错了就要重来，可是，我发现越是出错，就越会出错，那天从下午三点一直录到晚上八点，最终还是三段视频拼到一起的，重来一遍的代价太高了。我觉得应该分段录的，十几分钟一段。</p>
+
+<p>另外，我的确应该重新注册个空白帐号的，我帐号里的东西太多，会分散大家注意力。下次我会用新帐号把这次视频的后半部分重讲一遍。</p>
 
 </div>
 
@@ -173,13 +205,13 @@
   
 
 
-<time datetime="2011-12-26T14:56:00+08:00" pubdate data-updated="true">Dec 26<span>th</span>, 2011</time>
+<time datetime="2013-08-12T23:30:00+08:00" pubdate data-updated="true">Aug 12<span>th</span>, 2013</time>
       
 
 <span class="categories">
 	分类：
   
-    <a class='category' href='/cn/blog/categories/github/'>github</a>, <a class='category' href='/cn/blog/categories/jekyll/'>jekyll</a>
+    <a class='category' href='/cn/blog/categories/网站设计/'>网站设计</a>
   
 </span>
 
@@ -209,10 +241,8 @@
     
     <p class="meta">
       
-        <a class="basic-alignment left" href="/cn/blog/2011/12/15/building-static-sites-with-jekyll/" title="Previous Post: 【译文】用Jekyll构建静态网站">&laquo; 【译文】用Jekyll构建静态网站</a>
+        <a class="basic-alignment left" href="/cn/blog/2013/08/11/github-pages-step-by-step-video/" title="Previous Post: Github Pages 视频教程（1）">&laquo; Github Pages 视频教程（1）</a>
       
-      
-        <a class="basic-alignment right" href="/cn/blog/2011/12/26/octopress-on-windows/" title="next Post: Windows下安装Octopress">Windows下安装Octopress &raquo;</a>
       
     </p>
   </footer>
@@ -348,8 +378,8 @@ $(document).ready(function() {
       
         
         // var disqus_developer = 1;
-        var disqus_identifier = 'http://yanping.me/cn/blog/2011/12/26/github-pages-domain-2/';
-        var disqus_url = 'http://yanping.me/cn/blog/2011/12/26/github-pages-domain-2/';
+        var disqus_identifier = 'http://yanping.me/cn/blog/2013/08/12/about-github-pages-step-by-step-video/';
+        var disqus_url = 'http://yanping.me/cn/blog/2013/08/12/about-github-pages-step-by-step-video/';
         var disqus_script = 'embed.js';
       
     (function () {

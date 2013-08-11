@@ -9,7 +9,7 @@
   <meta name="author" content="ypchen">
 
   
-  <meta name="description" content="本文主要讨论如何用jekyll模板生成json，并以此整合在github上托管的不同网站的数据。 从去年年底接触github和jekyll到现在已经折腾五个月了，从最初用github托管纯静态网站，到现在依照别人的网站构架修改成自己喜欢的样子，这个过程也是个不断学习的过程。 &hellip;">
+  <meta name="description" content="本文主要讨论如何用jekyll模板生成含有json数据的javascript脚本，并以此解决跨域读取json数据的问题。 前一篇文章提到用getJSON读取json文件，并以此动态更新页面，但只能读取同域的json文件，据说是出于安全性的考虑。 现在问题出来了，我除了前文提到的三个网站以外， &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -105,6 +105,53 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/cn/blog/2012/04/20/jekyll-with-js-and-json/">用jekyll生成包含json变量的js脚本</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-04-20T23:58:00+08:00" pubdate data-updated="true">Apr 20<span>th</span>, 2012</time>
+        
+         | <a href="/cn/blog/2012/04/20/jekyll-with-js-and-json/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p class="info">本文主要讨论如何用jekyll模板生成含有json数据的javascript脚本，并以此解决跨域读取json数据的问题。</p>
+
+<p><a href="http://yanping.me/cn/blog/2012/04/19/jekyll-with-json/">前一篇文章</a>提到用getJSON读取json文件，并以此动态更新页面，但只能读取同域的json文件，据说是出于安全性的考虑。</p>
+
+<p>现在问题出来了，我除了前文提到的三个网站以外，还有个<a href="http://inwake.com/ypchen">主页的镜像网站</a>，它存放在美国的一位师兄的服务器上，和那三个网站肯定不同域，如果我要让它和github上的<a href="http://yanping.me">主页</a>始终保持一致，又不想每次手动修改博客文章列表，也不能再使用feedsky了。因为feedsky除了慢之外，生成的列表样式也和网站风格不一致。</p>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/cn/blog/2012/04/20/jekyll-with-js-and-json/">阅读全文 &rarr;</a>
+    </footer>
+  
+
+
+    </article>
   
   
     <article>
@@ -494,126 +541,6 @@
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/cn/blog/2012/03/08/a-piece-of-javascript/">一段有用的javascript代码</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2012-03-08T14:30:00+08:00" pubdate data-updated="true">Mar 8<span>th</span>, 2012</time>
-        
-         | <a href="/cn/blog/2012/03/08/a-piece-of-javascript/#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>有没有发现网速不给力的时候disqus评论框加载很慢？菜鸟安装不上pygments，要实现语法高亮肿么办？用markdown写的文章链接都是原页面打开的有木有啊？我在<a href="http://beiyuu.com" target="_blank">BeiYuu</a>的博客里发现了一段js代码，正好可以解决上面的三个问题。代码如下：</p>
-
-<div class="bogus-wrapper"><notextile><figure class="code"> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
-<span class="line-number">2</span>
-<span class="line-number">3</span>
-<span class="line-number">4</span>
-</pre></td><td class="code"><pre><code class="html"><span class="line"><span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">&quot;disqus_container&quot;</span><span class="nt">&gt;</span>
-</span><span class="line">    <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">&quot;#&quot;</span> <span class="na">class=</span><span class="s">&quot;comment&quot;</span> <span class="na">onclick=</span><span class="s">&quot;return false;&quot;</span><span class="nt">&gt;</span>点击查看评论<span class="nt">&lt;/a&gt;</span>
-</span><span class="line">    <span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">&quot;disqus_thread&quot;</span><span class="nt">&gt;&lt;/div&gt;</span>
-</span><span class="line"><span class="nt">&lt;/div&gt;</span>
-</span></code></pre></td></tr></table></div></figure></notextile></div>
-
-<p>上面这段html用来代替你原来的disqus评论框的代码，页面加载的时候只看到一个“点击查看评论”的链接。</p>
-
-<div class="bogus-wrapper"><notextile><figure class="code"> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
-<span class="line-number">2</span>
-<span class="line-number">3</span>
-<span class="line-number">4</span>
-<span class="line-number">5</span>
-<span class="line-number">6</span>
-<span class="line-number">7</span>
-<span class="line-number">8</span>
-<span class="line-number">9</span>
-<span class="line-number">10</span>
-<span class="line-number">11</span>
-<span class="line-number">12</span>
-<span class="line-number">13</span>
-<span class="line-number">14</span>
-<span class="line-number">15</span>
-<span class="line-number">16</span>
-<span class="line-number">17</span>
-<span class="line-number">18</span>
-<span class="line-number">19</span>
-<span class="line-number">20</span>
-<span class="line-number">21</span>
-<span class="line-number">22</span>
-<span class="line-number">23</span>
-<span class="line-number">24</span>
-<span class="line-number">25</span>
-<span class="line-number">26</span>
-<span class="line-number">27</span>
-<span class="line-number">28</span>
-<span class="line-number">29</span>
-<span class="line-number">30</span>
-</pre></td><td class="code"><pre><code class="javascript"><span class="line"><span class="o">&lt;</span><span class="nx">script</span> <span class="nx">type</span><span class="o">=</span><span class="s2">&quot;text/javascript&quot;</span><span class="o">&gt;</span>
-</span><span class="line">    <span class="nx">BYB</span><span class="p">.</span><span class="nx">readyFunction</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(){</span>
-</span><span class="line">        <span class="nx">$</span><span class="p">(</span><span class="nb">document</span><span class="p">).</span><span class="nx">ready</span><span class="p">(</span><span class="kd">function</span><span class="p">(){</span>
-</span><span class="line">            <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;pre&#39;</span><span class="p">).</span><span class="nx">addClass</span><span class="p">(</span><span class="s1">&#39;prettyprint linenums&#39;</span><span class="p">)</span> <span class="c1">//添加Google code Hight需要的class</span>
-</span><span class="line">			
-</span><span class="line">			<span class="c1">// 加载评论框</span>
-</span><span class="line">            <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#disqus_container .comment&#39;</span><span class="p">).</span><span class="nx">on</span><span class="p">(</span><span class="s1">&#39;click&#39;</span><span class="p">,</span><span class="kd">function</span><span class="p">(){</span>
-</span><span class="line">                <span class="nx">$</span><span class="p">(</span><span class="k">this</span><span class="p">).</span><span class="nx">html</span><span class="p">(</span><span class="s1">&#39;加载中...&#39;</span><span class="p">);</span>
-</span><span class="line">                <span class="kd">var</span> <span class="nx">disqus_shortname</span> <span class="o">=</span> <span class="s1">&#39;disqus_name&#39;</span><span class="p">;</span>   <span class="c1">// 注意把disqus_name修改成自己网站的disqus名</span>
-</span><span class="line">                <span class="kd">var</span> <span class="nx">that</span> <span class="o">=</span> <span class="k">this</span><span class="p">;</span>
-</span><span class="line">                <span class="nx">BYB</span><span class="p">.</span><span class="nx">includeScript</span><span class="p">(</span><span class="s1">&#39;http://&#39;</span> <span class="o">+</span> <span class="nx">disqus_shortname</span> <span class="o">+</span> <span class="s1">&#39;.disqus.com/embed.js&#39;</span><span class="p">,</span><span class="kd">function</span><span class="p">(){</span><span class="nx">$</span><span class="p">(</span><span class="nx">that</span><span class="p">).</span><span class="nx">remove</span><span class="p">()});</span>
-</span><span class="line">            <span class="p">});</span>
-</span><span class="line">
-</span><span class="line">			<span class="c1">// 这段代码是用来提取文章中链接到其他网站的链接</span>
-</span><span class="line">			<span class="c1">// 然后给这写链接加上外链的样式，并且修改为在新窗口打开(target=_blank)</span>
-</span><span class="line">            <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;.entry a&#39;</span><span class="p">).</span><span class="nx">each</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">index</span><span class="p">,</span><span class="nx">element</span><span class="p">){</span>
-</span><span class="line">                <span class="kd">var</span> <span class="nx">href</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="k">this</span><span class="p">).</span><span class="nx">attr</span><span class="p">(</span><span class="s1">&#39;href&#39;</span><span class="p">);</span>
-</span><span class="line">                <span class="k">if</span><span class="p">(</span><span class="nx">href</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span><span class="s1">&#39;#&#39;</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">){</span>
-</span><span class="line">                <span class="p">}</span><span class="k">else</span> <span class="k">if</span> <span class="p">(</span> <span class="nx">href</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span> <span class="o">||</span> <span class="nx">href</span><span class="p">.</span><span class="nx">toLowerCase</span><span class="p">().</span><span class="nx">indexOf</span><span class="p">(</span><span class="s1">&#39;beiyuu.com&#39;</span><span class="p">)</span><span class="o">&gt;-</span><span class="mi">1</span> <span class="p">){</span>
-</span><span class="line">                <span class="p">}</span><span class="k">else</span><span class="p">{</span>
-</span><span class="line">                    <span class="nx">$</span><span class="p">(</span><span class="k">this</span><span class="p">).</span><span class="nx">attr</span><span class="p">(</span><span class="s1">&#39;target&#39;</span><span class="p">,</span><span class="s1">&#39;_blank&#39;</span><span class="p">);</span>
-</span><span class="line">                    <span class="nx">$</span><span class="p">(</span><span class="k">this</span><span class="p">).</span><span class="nx">addClass</span><span class="p">(</span><span class="s1">&#39;external&#39;</span><span class="p">);</span>
-</span><span class="line">                <span class="p">}</span>
-</span><span class="line">            <span class="p">});</span>
-</span><span class="line">			
-</span><span class="line">			<span class="c1">// 导入Prettify的javascript</span>
-</span><span class="line">            <span class="nx">BYB</span><span class="p">.</span><span class="nx">includeScript</span><span class="p">(</span><span class="s1">&#39;/js/prettify/prettify.js&#39;</span><span class="p">,</span><span class="kd">function</span><span class="p">(){</span><span class="nx">prettyPrint</span><span class="p">()});</span>
-</span><span class="line">        <span class="p">});</span>
-</span><span class="line">    <span class="p">};</span>
-</span><span class="line"><span class="o">&lt;</span><span class="err">/script&gt;</span>
-</span></code></pre></td></tr></table></div></figure></notextile></div>
-
-<p>他是用Google Code Prettify来实现语法高亮，使用也比较方便，只需要在<code>&lt;pre&gt;</code>的标签上加入prettyprint即可。当初我在windows下安装pygments也是折腾了很久也没成功，如果你跟我一样是菜鸟，还是尽量别往这坑里跳了，用Prettify或者gist吧，没必要再去学怎么使用python。</p>
-
-<p>以上代码都是BeiYuu针对自己网站的样式写的，看官如果要用的话，请修改相应的样式名称。</p>
-
-<h3 id="section">参考资料</h3>
-<p>BeiYuu写的建github博客的教程 <a href="http://beiyuu.com/github-pages/">http://beiyuu.com/github-pages/</a></p>
-
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/cn/blog/page/4/">&larr; 前一页</a>
@@ -648,12 +575,16 @@
 
 <section id="categories_tag">
 <h1>分类目录</h1>
-<span class='categories_tag'> <a href='/cn/blog/categories/github' style='font-size: 138.1818181818182%'>Github(7)</a>  <a href='/cn/blog/categories/javascript' style='font-size: 127.27272727272728%'>Javascript(5)</a>  <a href='/cn/blog/categories/jekyll' style='font-size: 154.54545454545456%'>Jekyll(10)</a>  <a href='/cn/blog/categories/latex' style='font-size: 105.45454545454545%'>Latex(1)</a>  <a href='/cn/blog/categories/markdown' style='font-size: 105.45454545454545%'>Markdown(1)</a>  <a href='/cn/blog/categories/octopress' style='font-size: 143.63636363636363%'>Octopress(8)</a>  <a href='/cn/blog/categories/r语言' style='font-size: 160.0%'>R语言(11)</a>  <a href='/cn/blog/categories/指数' style='font-size: 105.45454545454545%'>指数(1)</a>  <a href='/cn/blog/categories/数据科学' style='font-size: 105.45454545454545%'>数据科学(1)</a>  <a href='/cn/blog/categories/网站设计' style='font-size: 132.72727272727272%'>网站设计(6)</a>  <a href='/cn/blog/categories/金融工程' style='font-size: 127.27272727272728%'>金融工程(5)</a> </span>
+<span class='categories_tag'> <a href='/cn/blog/categories/github' style='font-size: 138.1818181818182%'>Github(7)</a>  <a href='/cn/blog/categories/javascript' style='font-size: 127.27272727272728%'>Javascript(5)</a>  <a href='/cn/blog/categories/jekyll' style='font-size: 154.54545454545456%'>Jekyll(10)</a>  <a href='/cn/blog/categories/latex' style='font-size: 105.45454545454545%'>Latex(1)</a>  <a href='/cn/blog/categories/markdown' style='font-size: 105.45454545454545%'>Markdown(1)</a>  <a href='/cn/blog/categories/octopress' style='font-size: 143.63636363636363%'>Octopress(8)</a>  <a href='/cn/blog/categories/r语言' style='font-size: 160.0%'>R语言(11)</a>  <a href='/cn/blog/categories/指数' style='font-size: 105.45454545454545%'>指数(1)</a>  <a href='/cn/blog/categories/数据科学' style='font-size: 105.45454545454545%'>数据科学(1)</a>  <a href='/cn/blog/categories/网站设计' style='font-size: 138.1818181818182%'>网站设计(7)</a>  <a href='/cn/blog/categories/金融工程' style='font-size: 127.27272727272728%'>金融工程(5)</a> </span>
 </section>
 
 <section>
   <h1>近期文章</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/cn/blog/2013/08/12/about-github-pages-step-by-step-video/" title="关于Github Pages 视频教程">关于Github Pages 视频教程</a>
+      </li>
     
       <li class="post">
         <a href="/cn/blog/2013/08/11/github-pages-step-by-step-video/" title="Github Pages 视频教程（1）">Github Pages 视频教程（1）</a>
@@ -679,10 +610,6 @@
         <a href="/cn/blog/2013/02/10/get-data-from-flash/" title="用R获取flash中的数据">用R获取flash中的数据</a>
       </li>
     
-      <li class="post">
-        <a href="/cn/blog/2013/02/10/cntrade-r-version/" title="R语言版的cntrade程序">R语言版的cntrade程序</a>
-      </li>
-    
   </ul>
 </section>
 <section id="comment_sidebar">
@@ -693,7 +620,7 @@
 </section>
 <section class="blogroll">
 <h1>友情链接</h1>
-<a target="_blank" href="http://yihui.name/">谢益辉</a>&nbsp;|&nbsp; <a target="_blank" href="http://loyhome.com">丽云</a>&nbsp;|&nbsp; <a target="_blank" href="http://bjt.name">刘思喆</a>&nbsp;|&nbsp; <a target="_blank" href="http://jliblog.com">李舰</a>&nbsp;|&nbsp; <a target="_blank" href="http://tracy.cos.name/cn">熊熹师姐</a>&nbsp;|&nbsp; <a target="_blank" href="http://blog.cos.name/fan/">范建宁</a>&nbsp;|&nbsp; <a target="_blank" href="http://yishuo.org">邓一硕</a>&nbsp;|&nbsp; <a target="_blank" href="http://yixuan.cos.name/cn">邱怡轩</a>&nbsp;|&nbsp; <a target="_blank" href="http://blog.cos.name/taiyun/">魏太云</a>&nbsp;|&nbsp; <a target="_blank" href="http://xccds1977.blogspot.com/">肖凯</a>&nbsp;|&nbsp; <a target="_blank" href="http://demi-panda.com/">熊猫家族</a>
+<a target="_blank" href="http://yihui.name/">谢益辉</a>&nbsp;|&nbsp; <a target="_blank" href="http://loyhome.com">丽云</a>&nbsp;|&nbsp; <a target="_blank" href="http://bjt.name">刘思喆</a>&nbsp;|&nbsp; <a target="_blank" href="http://jliblog.com">李舰</a>&nbsp;|&nbsp; <a target="_blank" href="http://tracy.cos.name/cn">熊熹师姐</a>&nbsp;|&nbsp; <a target="_blank" href="http://blog.cos.name/fan/">范建宁</a>&nbsp;|&nbsp; <a target="_blank" href="http://yishuo.org">邓一硕</a>&nbsp;|&nbsp; <a target="_blank" href="http://yixuan.cos.name/cn">邱怡轩</a>&nbsp;|&nbsp; <a target="_blank" href="http://blog.cos.name/taiyun/">魏太云</a>&nbsp;|&nbsp; <a target="_blank" href="http://xccds.github.io/">肖凯</a>&nbsp;|&nbsp; <a target="_blank" href="http://demi-panda.com/">熊猫家族</a>&nbsp;|&nbsp; <a target="_blank" href="http://joegaotao.github.io/cn">高涛</a>
 </section>
 
 <section class="blogroll">
